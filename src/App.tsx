@@ -1,15 +1,16 @@
-import {SafeAreaView, StatusBar} from 'react-native'
+import {StatusBar} from 'react-native'
+import {SafeAreaProvider} from 'react-native-safe-area-context'
 
+import Navigators from './Navigators/Navigators'
 import ThemeProvider from './themes/ThemeProvider'
-import Login from './screens/auth/Login/Login'
 
 const App = () => (
-  <ThemeProvider>
-    <SafeAreaView>
+  <SafeAreaProvider>
+    <ThemeProvider>
       <StatusBar />
-      <Login />
-    </SafeAreaView>
-  </ThemeProvider>
+      <Navigators />
+    </ThemeProvider>
+  </SafeAreaProvider>
 )
 
 export default App
