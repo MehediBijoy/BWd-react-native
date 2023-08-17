@@ -1,4 +1,4 @@
-import {ReactElement, useMemo} from 'react'
+import {ReactNode, useMemo} from 'react'
 import {
   createTheme,
   darkColors,
@@ -6,7 +6,7 @@ import {
   ThemeProvider as BaseThemeProvider,
 } from '@rneui/themed'
 
-const ThemeProvider = ({children}: {children: ReactElement}) => {
+const ThemeProvider = ({children}: {children: ReactNode}) => {
   const theme = useMemo(
     () =>
       createTheme({
