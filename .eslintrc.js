@@ -23,18 +23,20 @@ module.exports = {
     'no-dupe-keys': 'warn',
     'react/react-in-jsx-scope': ['off'],
     'no-duplicate-imports': ['warn'],
+    '@typescript-eslint/no-unused-vars': ['warn'],
     'valid-typeof': ['error', {requireStringLiterals: true}],
 
     'prettier/prettier': ['warn'],
 
     'import/no-unresolved': ['warn', {caseSensitive: false}],
     'import/order': [
-      'error',
+      'warn',
       {
         groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
         'newlines-between': 'always',
       },
     ],
+    'import/no-named-as-default-member': ['off'],
     'import/no-anonymous-default-export': [
       'error',
       {

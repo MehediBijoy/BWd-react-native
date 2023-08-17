@@ -1,23 +1,29 @@
-const routes = {
-  documents: {
-    path: '/documents',
+type Route = {
+  path: string
+  exact?: boolean
+  [nextPath: string]: Route | string | boolean | undefined
+}
+
+interface IRoutes {
+  [key: string]: Route
+}
+
+const routes: IRoutes = {
+  home: {
+    path: '/',
     exact: true,
-    singleDoc: {
-      path: '/documents/:id',
+  },
+  login: {
+    path: '/login',
+    exact: true,
+    resetPassword: {
+      path: '/login/reset-password',
       exact: true,
+      withToken: {
+        path: '/login/reset-password/:token',
+        exact: true,
+      },
     },
-  },
-  support: {
-    path: '/contact',
-    exact: true,
-  },
-  changeEmailWithToken: {
-    path: '/change-email/:token',
-    exact: true,
-  },
-  notFound: {
-    path: '/not-found',
-    exact: true,
   },
 }
 
