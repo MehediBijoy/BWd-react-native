@@ -1,17 +1,14 @@
 import {ReactNode, useMemo} from 'react'
-import {
-  createTheme,
-  darkColors,
-  lightColors,
-  ThemeProvider as BaseThemeProvider,
-} from '@rneui/themed'
+import {createTheme, darkColors, ThemeProvider as BaseThemeProvider} from '@rneui/themed'
+
+import {lightColors} from './colors'
 
 const ThemeProvider = ({children}: {children: ReactNode}) => {
   const theme = useMemo(
     () =>
       createTheme({
-        lightColors: lightColors,
-        darkColors: darkColors,
+        lightColors,
+        darkColors,
         mode: 'light',
       }),
     []
