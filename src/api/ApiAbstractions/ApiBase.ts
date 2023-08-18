@@ -1,21 +1,23 @@
+import autoBind from 'auto-bind'
 import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios'
 
-import {BASE_URL} from '../../config/environments'
-
-interface IApiBase {
-  commonHeaders: object
-  onAction: () => void
+export type ApiBaseProps = {
+  baseURL: string
+  commonHeaders: {
+    Authorization?: string
+  }
+  onAction?: () => void
   timeout?: number
 }
 
-export default class ApiBase {
-  private onAction: () => void
+export default class ApiBas {
+  private onAction
   private axiosClient: AxiosInstance
 
-  constructor({commonHeaders, onAction, timeout = 4000}: IApiBase) {
+  constructor({baseURL, commonHeaders, onAction, timeout = 4000}: ApiBaseProps) {
     this.onAction = onAction
     this.axiosClient = axios.create({
-      baseURL: BASE_URL,
+      baseURL: baseURL,
       timeout,
       headers: {
         Accept: 'application/json',
@@ -24,9 +26,10 @@ export default class ApiBase {
       },
       responseType: 'json',
     })
+    autoBind(this)
   }
 
-  async request<T extends AxiosRequestConfig>(
+  private async request<T extends AxiosRequestConfig>(
     options: T,
     fullResponse: boolean
   ): Promise<AxiosResponse> {
