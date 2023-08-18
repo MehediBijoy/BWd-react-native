@@ -59,6 +59,7 @@ module.exports = {
         // directory even it doesn't contain any source code, like `@types/unist`
         alwaysTryTypes: true,
         project: './tsconfig.json',
+        extensions: ['.ts', '.tsx'],
       },
     },
   },

@@ -3,6 +3,7 @@
   "display": "React Native",
   "_version": "3.0.2",
   "compilerOptions": {
+    "baseUrl": "./src",
     "target": "esnext",
     "module": "commonjs",
     "types": ["react-native", "jest"],
