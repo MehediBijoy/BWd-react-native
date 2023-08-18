@@ -1,7 +1,7 @@
 import {useMemo} from 'react'
 
-import ApiMethods from '../../api'
-import {BASE_URL} from '../../config/environments'
+import ApiMethods from 'api'
+import {BASE_URL} from 'config/environments'
 
 import useAuthToken from './useAuthToken'
 
