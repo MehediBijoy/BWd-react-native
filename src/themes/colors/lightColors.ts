@@ -14,6 +14,9 @@ export const lightColors: Colors = {
   tertiary: '#125B50',
   tertiaryDark: '#003128',
 
+  bgBody: '#FFFFFF',
+  bgPaper: '#F5F5F5',
+
   warning: '#FFC107',
   error: '#E55050',
 }
@@ -27,5 +30,8 @@ declare module '@rneui/themed' {
     readonly tertiary: string
     readonly tertiaryLight: string
     readonly tertiaryDark: string
+
+    readonly bgBody: string
+    readonly bgPaper: string
   }
 }

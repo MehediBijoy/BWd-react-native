@@ -11,12 +11,12 @@ export const useStyles = makeStyles(({colors}) => ({
     paddingHorizontal: 8,
     borderWidth: 1,
     borderStyle: 'solid',
-    borderColor: colors.white,
+    borderColor: colors.bgPaper,
     borderRadius: 8,
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.white,
+    backgroundColor: colors.bgPaper,
   },
   input: {
     flex: 1,
@@ -32,6 +32,11 @@ export const useStyles = makeStyles(({colors}) => ({
     fontSize: 13,
     marginStart: 5,
     textTransform: 'capitalize',
+  },
+
+  focused: {
+    color: colors.primary,
+    borderColor: colors.primary,
   },
 
   error: {
