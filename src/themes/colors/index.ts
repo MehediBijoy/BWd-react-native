@@ -1,0 +1,1 @@
+export {lightColors} from './lightColors'
