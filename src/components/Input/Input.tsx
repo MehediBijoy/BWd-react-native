@@ -1,148 +1,69 @@
 import React from 'react'
-import {
-  StyleProp,
-  TextInput,
-  TextInputProps,
-  ViewStyle,
-  Animated,
-  Image,
-  TouchableOpacity,
-  View,
-  TextStyle,
-  ImageStyle,
-  ImageSourcePropType,
-  ColorValue,
-} from 'react-native'
+import {useFormContext, Controller} from 'react-hook-form'
+import {View, Text, TextProps, StyleSheet, TextInput, TextInputProps, ViewStyle} from 'react-native'
 
-import styles, {_textInputStyle} from './InputBase'
+import {useStyles} from './input.styles'
 
-const AnimatedTextInput = Animated.createAnimatedComponent(TextInput)
+export type InputProps = {
+  name: string
+  label: string
+  type?: 'password' | 'text'
+  labelProps?: TextProps
+  container?: ViewStyle
+  leftElement?: JSX.Element
+  rightElement?: JSX.Element
+} & TextInputProps
 
-const MAIN_COLOR = '#2a41cb'
-const ORIGINAL_COLOR = 'transparent'
-const PLACEHOLDER_COLOR = '#757575'
-const ORIGINAL_VALUE = 0
-const ANIMATED_VALUE = 1
+const Input = ({
+  name,
+  label,
+  type = 'text',
+  placeholder,
+  leftElement: LeftElement,
+  rightElement: RightElement,
+  ...props
+}: InputProps) => {
+  const styles = useStyles()
+  const {control} = useFormContext()
 
-type CustomStyleProp = StyleProp<ViewStyle> | Array<StyleProp<ViewStyle>>
-type CustomTextStyleProp = StyleProp<TextStyle> | Array<StyleProp<TextStyle>>
-type CustomImageStyleProp = StyleProp<ImageStyle> | Array<StyleProp<ImageStyle>>
-
-export interface IInteractiveTextInputProps extends TextInputProps {
-  style?: CustomStyleProp
-  textInputStyle?: CustomTextStyleProp
-  iconContainerStyle?: CustomStyleProp
-  iconImageStyle?: CustomImageStyleProp
-  iconImageSource?: ImageSourcePropType
-  ImageComponent?: any
-  IconComponent?: any
-  enableIcon?: boolean
-  mainColor?: string
-  originalColor?: string
-  animatedPlaceholderTextColor?: string
-  onFocus?: () => void
-  onBlur?: () => void
-  onIconPress?: () => void
+  return (
+    <Controller
+      name={name}
+      control={control}
+      render={({field: {onChange, ...restFields}, fieldState}) => {
+        const errorStyles = fieldState.error ? styles.error : null
+        return (
+          <View style={styles.container}>
+            <Text
+              {...props.labelProps}
+              style={StyleSheet.flatten([
+                styles.label,
+                fieldState.error ? errorStyles : props.labelProps?.style,
+              ])}
+            >
+              {label}
+            </Text>
+            <View style={StyleSheet.flatten([styles.inputWrapper, errorStyles])}>
+              {LeftElement ?? null}
+              <TextInput
+                placeholder={placeholder}
+                secureTextEntry={type === 'password'}
+                style={styles.input}
+                onChangeText={onChange}
+                {...restFields}
+              />
+              {RightElement ?? null}
+            </View>
+            {fieldState.error && (
+              <Text style={StyleSheet.flatten([styles.errorText, errorStyles])}>
+                {fieldState.error.message}
+              </Text>
+            )}
+          </View>
+        )
+      }}
+    />
+  )
 }
 
-interface IState {}
-
-export default class Input extends React.Component<IInteractiveTextInputProps, IState> {
-  interpolatedColor: Animated.Value
-
-  constructor(props: IInteractiveTextInputProps) {
-    super(props)
-    this.interpolatedColor = new Animated.Value(ORIGINAL_VALUE)
-    this.state = {}
-  }
-
-  showOriginColor = () => {
-    Animated.timing(this.interpolatedColor, {
-      duration: 350,
-      toValue: ORIGINAL_VALUE,
-      useNativeDriver: false,
-    }).start()
-  }
-
-  showFocusColor = () => {
-    Animated.timing(this.interpolatedColor, {
-      duration: 450,
-      toValue: ANIMATED_VALUE,
-      useNativeDriver: false,
-    }).start()
-  }
-
-  /* -------------------------------------------------------------------------- */
-  /*                               Render Methods                               */
-  /* -------------------------------------------------------------------------- */
-
-  renderIcon = () => {
-    const {
-      enableIcon,
-      iconImageStyle,
-      iconContainerStyle,
-      iconImageSource,
-      onIconPress,
-      ImageComponent = Image,
-      IconComponent = TouchableOpacity,
-    } = this.props
-
-    return (
-      enableIcon && (
-        <IconComponent
-          style={[styles.iconContainerStyle, iconContainerStyle]}
-          onPress={onIconPress}
-        >
-          <ImageComponent
-            resizeMode='contain'
-            source={iconImageSource}
-            style={[styles.iconImageStyle, iconImageStyle]}
-          />
-        </IconComponent>
-      )
-    )
-  }
-
-  renderAnimatedTextInput = () => {
-    const mainColor = this.props.mainColor || MAIN_COLOR
-    const originalColor = this.props.originalColor || ORIGINAL_COLOR
-    const animatedPlaceholderTextColor =
-      this.props.animatedPlaceholderTextColor || PLACEHOLDER_COLOR
-
-    const borderColor: ColorValue = this.interpolatedColor.interpolate({
-      inputRange: [ORIGINAL_VALUE, ANIMATED_VALUE],
-      outputRange: [originalColor, mainColor],
-    }) as unknown as ColorValue
-
-    const placeholderTextColor = this.interpolatedColor.interpolate({
-      inputRange: [ORIGINAL_VALUE, ANIMATED_VALUE],
-      outputRange: [animatedPlaceholderTextColor, mainColor],
-    })
-
-    return (
-      <AnimatedTextInput
-        placeholderTextColor={placeholderTextColor}
-        placeholder='Email'
-        {...this.props}
-        style={[_textInputStyle(borderColor), this.props.textInputStyle]}
-        onFocus={() => {
-          this.showFocusColor()
-          this.props.onFocus && this.props.onFocus()
-        }}
-        onBlur={() => {
-          this.showOriginColor()
-          this.props.onBlur && this.props.onBlur()
-        }}
-      />
-    )
-  }
-
-  render() {
-    return (
-      <View style={styles.container}>
-        {this.renderAnimatedTextInput()}
-        {this.renderIcon()}
-      </View>
-    )
-  }
-}
+export default Input
