@@ -1,5 +1,7 @@
 import autoBind from 'auto-bind'
 
+import * as Req from './Request'
+import * as Res from './Response'
 import ApiBase, {ApiBaseProps} from './ApiAbstractions/ApiBase'
 
 export default class ApiMethods extends ApiBase {
@@ -8,7 +10,7 @@ export default class ApiMethods extends ApiBase {
     autoBind(this)
   }
 
-  async login({mfa_code, ...userProps}: {mfa_code?: string; email: string; password: string}) {
+  async login({mfa_code, ...userProps}: Req.LoginProps): Res.LoginResponse {
     const {data, headers} = await this.post(
       '/auth/login',
       {
@@ -23,7 +25,7 @@ export default class ApiMethods extends ApiBase {
     }
   }
 
-  async getProfile() {
+  async getProfile(): Promise<Res.User> {
     return this.get('/profile')
   }
 
