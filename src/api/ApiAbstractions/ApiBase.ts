@@ -1,5 +1,5 @@
 import autoBind from 'auto-bind'
-import axios, {AxiosInstance, AxiosRequestConfig} from 'axios'
+import axios, {AxiosInstance, AxiosRequestConfig, AxiosError} from 'axios'
 
 export type ApiBaseProps = {
   baseURL: string
@@ -26,6 +26,11 @@ export default class ApiBas {
       },
       responseType: 'json',
     })
+
+    this.axiosClient.interceptors.response.use(
+      req => req,
+      (error: AxiosError) => console.log('\n\n', error.response)
+    )
     autoBind(this)
   }
 

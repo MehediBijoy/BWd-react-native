@@ -10,6 +10,20 @@ export default class ApiMethods extends ApiBase {
     autoBind(this)
   }
 
+  async signUpInitial(params: Req.RegistrationProp): Res.LoginResponse {
+    const {data, headers} = await this.post(
+      '/auth/signup',
+      {
+        user: params,
+      },
+      true
+    )
+    return {
+      user: data.user,
+      token: headers.authorization,
+    }
+  }
+
   async login({mfa_code, ...userProps}: Req.LoginProps): Res.LoginResponse {
     const {data, headers} = await this.post(
       '/auth/login',
@@ -26,7 +40,8 @@ export default class ApiMethods extends ApiBase {
   }
 
   async getProfile(): Promise<Res.User> {
-    return this.get('/profile')
+    const {user} = await this.get('/auth/profile')
+    return user
   }
 
   async getHealth() {

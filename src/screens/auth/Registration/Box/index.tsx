@@ -20,8 +20,7 @@ const styles = StyleSheet.create({
   gradient: {
     maxWidth: 400,
     borderRadius: 10,
-    paddingHorizontal: 20,
-    paddingVertical: 40,
+    padding: 20,
   },
 })
 
