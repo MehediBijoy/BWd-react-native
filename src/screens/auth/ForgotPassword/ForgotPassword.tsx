@@ -1,37 +1,33 @@
 import React from 'react'
 import * as yup from 'yup'
-import {TouchableOpacity, View} from 'react-native'
+import {View} from 'react-native'
 import {useMutation} from '@tanstack/react-query'
 import LinearGradient from 'react-native-linear-gradient'
 import {Button, Text, useTheme} from '@rneui/themed'
 
-import {useAuthToken} from 'hooks/api'
 import Form from 'components/Form'
 import Input from 'components/Input'
 import SafeAreaView from 'components/SafeAreaView'
-import ContainContainer from 'components/ContentContainer'
-import useYupHooks from 'hooks/helper/useYupHooks'
 import useApi from 'hooks/api/useApi'
+import useYupHooks from 'hooks/helper/useYupHooks'
+import ContainContainer from 'components/ContentContainer'
 import routes from 'Navigators/routes'
 
-import {useStyles} from './Login.styles'
+import {useStyles} from './ForgotPassword.styles'
 
-const loginSchema = yup.object().shape({
+const forgotPasswordSchema = yup.object().shape({
   email: yup.string().email().required(),
-  password: yup.string().required('password required'),
 })
 
-const Login = ({navigation}: any) => {
+const ForgotPassword = ({navigation}: any) => {
   const api = useApi()
   const {theme} = useTheme()
   const styles = useStyles()
-  const methods = useYupHooks({schema: loginSchema})
-  const {setToken} = useAuthToken()
-
+  const methods = useYupHooks({schema: forgotPasswordSchema})
   const {mutate, isLoading} = useMutation({
-    mutationFn: api.login,
-    onSuccess: ({token}) => {
-      setToken(token)
+    mutationFn: api.passwordResetRequest,
+    onSuccess: () => {
+      navigation.navigate(routes.auth.emailConfirmation.path)
     },
     onError: console.error,
   })
@@ -47,7 +43,11 @@ const Login = ({navigation}: any) => {
         >
           <View style={styles.innerContainer}>
             <Text h3 h3Style={styles.headerTextStyles}>
-              Login
+              Forgot Password
+            </Text>
+            <Text style={styles.infoStyles}>
+              Please write down the email you used for registration with BWG and we will send a
+              recovery link to it.
             </Text>
             <Form methods={methods} style={styles.innerContainer}>
               <Input
@@ -56,18 +56,7 @@ const Login = ({navigation}: any) => {
                 label='Enter your Email'
                 labelProps={{style: styles.inputLabelProps}}
               />
-              <Input
-                name='password'
-                type='password'
-                placeholder='Password'
-                label='Enter your Password'
-                labelProps={{style: styles.inputLabelProps}}
-              />
-
-              <TouchableOpacity onPress={() => navigation.navigate(routes.auth.resetPassword.path)}>
-                <Text style={styles.forgotPasswordStyles}>Forgot Password?</Text>
-              </TouchableOpacity>
-              <Button title='Login' loading={isLoading} onPress={methods.handleSubmit(onSubmit)} />
+              <Button title='Submit' loading={isLoading} onPress={methods.handleSubmit(onSubmit)} />
             </Form>
           </View>
         </LinearGradient>
@@ -76,4 +65,4 @@ const Login = ({navigation}: any) => {
   )
 }
 
-export default Login
+export default ForgotPassword

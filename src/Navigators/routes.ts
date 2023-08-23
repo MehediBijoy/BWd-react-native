@@ -10,6 +10,15 @@ const routes = {
     register: {
       path: '/auth/register',
     },
+    resetPassword: {
+      path: '/auth/reset-password',
+    },
+    emailConfirmation: {
+      path: '/auth/email-confirmation',
+    },
+    changePassword: {
+      path: '/auth/change-password',
+    },
   },
 }
 

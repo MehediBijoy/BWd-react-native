@@ -7,7 +7,7 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "frash-start": "rm -rf node_modules/ && yarn install && npx react-native start --reset-cache",
+    "fresh-start": "rm -rf node_modules/ && yarn install && npx react-native start --reset-cache",
     "test": "jest"
   },
   "dependencies": {
