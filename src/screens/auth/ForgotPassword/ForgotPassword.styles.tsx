@@ -1,6 +1,6 @@
 import {makeStyles} from '@rneui/themed'
 
-export const useStyles = makeStyles(theme => ({
+export const useStyles = makeStyles(({colors}) => ({
   container: {
     marginTop: 50,
     width: '100%',
@@ -14,13 +14,13 @@ export const useStyles = makeStyles(theme => ({
     rowGap: 10,
   },
   headerTextStyles: {
-    color: theme.colors.white,
+    color: colors.white,
     textAlign: 'center',
   },
   infoStyles: {
-    color: theme.colors.white,
+    color: colors.white,
   },
   inputLabelProps: {
-    color: theme.colors.white,
+    color: colors.white,
   },
 }))

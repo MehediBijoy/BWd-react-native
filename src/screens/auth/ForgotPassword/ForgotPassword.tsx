@@ -1,6 +1,7 @@
 import React from 'react'
 import * as yup from 'yup'
 import {ScrollView, View} from 'react-native'
+import {NativeStackScreenProps} from '@react-navigation/native-stack'
 import {useMutation} from '@tanstack/react-query'
 import LinearGradient from 'react-native-linear-gradient'
 import {Button, Text, useTheme} from '@rneui/themed'
@@ -20,11 +21,13 @@ const forgotPasswordSchema = yup.object().shape({
   email: yup.string().email().required(),
 })
 
-const ForgotPassword = ({navigation}: any) => {
+type FormFields = yup.InferType<typeof forgotPasswordSchema>
+
+const ForgotPassword = ({navigation}: NativeStackScreenProps<any>) => {
   const api = useApi()
   const {theme} = useTheme()
   const styles = useStyles()
-  const methods = useYupHooks({schema: forgotPasswordSchema})
+  const methods = useYupHooks<FormFields>({schema: forgotPasswordSchema})
   const {mutate, isLoading} = useMutation({
     mutationFn: api.passwordResetRequest,
     onSuccess: () => {
@@ -35,9 +38,6 @@ const ForgotPassword = ({navigation}: any) => {
       navigation.navigate(routes.auth.emailConfirmation.path)
     },
   })
-
-  const onSubmit = (data: any) => mutate(data)
-
   return (
     <SafeAreaView>
       <ScrollView>
@@ -64,7 +64,7 @@ const ForgotPassword = ({navigation}: any) => {
                 <Button
                   title='Submit'
                   loading={isLoading}
-                  onPress={methods.handleSubmit(onSubmit)}
+                  onPress={methods.handleSubmit((data: FormFields) => mutate(data))}
                 />
               </Form>
             </View>

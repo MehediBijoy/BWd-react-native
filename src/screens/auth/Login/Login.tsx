@@ -1,5 +1,6 @@
 import React from 'react'
 import * as yup from 'yup'
+import {NativeStackScreenProps} from '@react-navigation/native-stack'
 import {ScrollView, TouchableOpacity, View} from 'react-native'
 import {useMutation} from '@tanstack/react-query'
 import LinearGradient from 'react-native-linear-gradient'
@@ -24,7 +25,7 @@ const loginSchema = yup.object().shape({
 
 type LoginFields = yup.InferType<typeof loginSchema>
 
-const Login = ({navigation}: any) => {
+const Login = ({navigation}: NativeStackScreenProps<any>) => {
   const api = useApi()
   const {theme} = useTheme()
   const styles = useStyles()

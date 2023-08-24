@@ -14,6 +14,13 @@ export type RegistrationProp = {
 export type EmailProps = {
   email: string
 }
+
+export type ChangePasswordProps = {
+  code: string
+  password: string
+  password_confirmation: string
+}
+
 export type ReferralProps = {
   [token: string]: string
 }

@@ -46,10 +46,10 @@ export default class ApiMethods extends ApiBase {
     })
   }
 
-  async passwordResetConfirm({token: reset_password_token, password, password_confirmation}: any) {
+  async passwordResetConfirm({code, password, password_confirmation}: Req.ChangePasswordProps) {
     return this.put('/auth/password', {
       user: {
-        reset_password_token,
+        reset_password_token: code,
         password,
         password_confirmation,
       },

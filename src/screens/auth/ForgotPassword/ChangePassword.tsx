@@ -3,6 +3,7 @@ import {View, ScrollView} from 'react-native'
 import {useMutation} from '@tanstack/react-query'
 import {Button, Text, useTheme} from '@rneui/themed'
 import LinearGradient from 'react-native-linear-gradient'
+import {NativeStackScreenProps} from '@react-navigation/native-stack'
 
 import Form from 'components/Form'
 import Input from 'components/Input'
@@ -15,29 +16,36 @@ import FAQ from 'screens/auth/FAQ/FAQ'
 import {useStyles} from './ForgotPassword.styles'
 
 const emailConfirmationSchema = yup.object().shape({
-  password: yup
+  password: yup.string().required().min(8),
+  password_confirmation: yup
     .string()
-    .required('Password is required')
-    .min(8, 'Password is too short - should be 8 chars minimum.'),
-  confirmPassword: yup.string().oneOf([yup.ref('password'), ''], 'Passwords must match'),
+    .required()
+    .oneOf([yup.ref('password')], 'Passwords did not match'),
 })
 
-const ChangePassword = ({route}: any) => {
-  const code = route.params.code
-  console.log(code)
+type RouteParams = {
+  [key: string]: {
+    code: string
+  }
+}
+
+type FormFields = yup.InferType<typeof emailConfirmationSchema>
+
+const ChangePassword = ({route}: NativeStackScreenProps<RouteParams>) => {
+  const {code} = route.params
+
   const api = useApi()
   const {theme} = useTheme()
   const styles = useStyles()
-  const methods = useYupHooks({schema: emailConfirmationSchema})
+  const methods = useYupHooks<FormFields>({schema: emailConfirmationSchema})
+
   const {mutate, isLoading} = useMutation({
-    mutationFn: data => {
-      return api.passwordResetConfirm(data)
+    mutationFn: (data: FormFields) => {
+      return api.passwordResetConfirm({code, ...data})
     },
     onSuccess: console.log,
     onError: console.error,
   })
-
-  const onSubmit = (data: any) => mutate(data)
 
   return (
     <SafeAreaView>
@@ -64,7 +72,7 @@ const ChangePassword = ({route}: any) => {
                 />
 
                 <Input
-                  name='confirmPassword'
+                  name='password_confirmation'
                   type='password'
                   placeholder='Confirm New Password'
                   label='Confirm New Password'
@@ -73,7 +81,7 @@ const ChangePassword = ({route}: any) => {
                 <Button
                   title='Submit'
                   loading={isLoading}
-                  onPress={methods.handleSubmit(onSubmit)}
+                  onPress={methods.handleSubmit(data => mutate(data))}
                 />
               </Form>
             </View>

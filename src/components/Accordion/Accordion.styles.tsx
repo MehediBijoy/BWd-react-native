@@ -8,7 +8,7 @@ export const useStyles = makeStyles(({colors}) => ({
   title: {
     fontSize: 18,
   },
-  subTitle: {
+  description: {
     fontSize: 16,
   },
 }))

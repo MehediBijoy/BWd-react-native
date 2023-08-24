@@ -1,5 +1,7 @@
 import * as yup from 'yup'
 import {ScrollView, View} from 'react-native'
+
+import {NativeStackScreenProps} from '@react-navigation/native-stack'
 import {Button, Text, useTheme} from '@rneui/themed'
 import LinearGradient from 'react-native-linear-gradient'
 
@@ -17,12 +19,14 @@ const emailConfirmationSchema = yup.object().shape({
   code: yup.string().required(),
 })
 
-const EmailConfirmation = ({navigation}: any) => {
+type FormFields = yup.InferType<typeof emailConfirmationSchema>
+
+const EmailConfirmation = ({navigation}: NativeStackScreenProps<any>) => {
   const {theme} = useTheme()
   const styles = useStyles()
-  const methods = useYupHooks({schema: emailConfirmationSchema})
+  const methods = useYupHooks<FormFields>({schema: emailConfirmationSchema})
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: FormFields) => {
     navigation.navigate(routes.auth.changePassword.path, data)
   }
 
