@@ -19,7 +19,6 @@ export const useStyles = makeStyles(theme => ({
   },
   infoStyles: {
     color: theme.colors.white,
-    marginTop: 10,
   },
   inputLabelProps: {
     color: theme.colors.white,
