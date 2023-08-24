@@ -21,6 +21,7 @@ module.exports = {
   plugins: ['@typescript-eslint', 'react', 'react-native', 'prettier'],
   rules: {
     quotes: ['warn', 'single'],
+    'prefer-const': 'off',
     'no-dupe-keys': 'warn',
     'react/react-in-jsx-scope': ['off'],
     'no-duplicate-imports': ['warn'],

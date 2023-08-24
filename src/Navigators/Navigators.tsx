@@ -20,7 +20,7 @@ const Navigators = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={isAuth ? routes.home.path : routes.auth.register.path}>
+      <Stack.Navigator initialRouteName={isAuth ? routes.home.path : routes.auth.login.path}>
         {!isAuth ? (
           <>
             <Stack.Screen

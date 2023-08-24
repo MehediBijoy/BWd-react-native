@@ -7,14 +7,14 @@ import {Dropdown} from 'react-native-element-dropdown'
 type DataTypes = {
   label: string
   value: string
-}[]
+}
 
 type FormSelectProps = {
   name: string
   label: string
   labelColor?: keyof Omit<Colors, 'platform'>
   placeholder?: string
-  data: DataTypes
+  data: DataTypes[]
 }
 
 const FormSelect = ({

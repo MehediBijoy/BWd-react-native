@@ -1,6 +1,8 @@
 import autoBind from 'auto-bind'
 import axios, {AxiosInstance, AxiosRequestConfig, AxiosError} from 'axios'
 
+import {ApiErrorResponse} from '../Errors'
+
 export type ApiBaseProps = {
   baseURL: string
   commonHeaders: {
@@ -28,8 +30,25 @@ export default class ApiBas {
     })
 
     this.axiosClient.interceptors.response.use(
-      req => req,
-      (error: AxiosError) => console.log('\n\n', error.response)
+      response => response,
+      (error: AxiosError<ApiErrorResponse>) => {
+        if (!error.response) {
+          throw new Error('Unhandled error happend...')
+        }
+
+        const {status, message} = error
+        const errorData = error.response?.data?.error
+
+        if (!errorData) {
+          throw new Error(`${message} (${status})`)
+        }
+
+        const codes = ['002', '003', '004']
+        if (codes.includes(errorData.code)) {
+          this.onAction && this.onAction()
+        }
+        throw errorData
+      }
     )
     autoBind(this)
   }
