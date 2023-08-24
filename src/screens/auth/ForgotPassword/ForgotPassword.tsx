@@ -12,7 +12,7 @@ import useApi from 'hooks/api/useApi'
 import useYupHooks from 'hooks/helper/useYupHooks'
 import ContainContainer from 'components/ContentContainer'
 import FAQ from 'screens/auth/FAQ/FAQ'
-import routes from 'Navigators/routes'
+import routes from 'navigators/routes'
 
 import {useStyles} from './ForgotPassword.styles'
 
@@ -27,8 +27,7 @@ const ForgotPassword = ({navigation}: any) => {
   const methods = useYupHooks({schema: forgotPasswordSchema})
   const {mutate, isLoading} = useMutation({
     mutationFn: api.passwordResetRequest,
-    onSuccess: data => {
-      console.log('res:', data)
+    onSuccess: () => {
       navigation.navigate(routes.auth.emailConfirmation.path)
     },
     onError: () => {

@@ -12,7 +12,7 @@ import SafeAreaView from 'components/SafeAreaView'
 import ContainContainer from 'components/ContentContainer'
 import useYupHooks from 'hooks/helper/useYupHooks'
 import useApi from 'hooks/api/useApi'
-import routes from 'Navigators/routes'
+import routes from 'navigators/routes'
 import FAQ from 'screens/auth/FAQ/FAQ'
 
 import {useStyles} from './Login.styles'
@@ -22,11 +22,13 @@ const loginSchema = yup.object().shape({
   password: yup.string().required('password required'),
 })
 
+type LoginFields = yup.InferType<typeof loginSchema>
+
 const Login = ({navigation}: any) => {
   const api = useApi()
   const {theme} = useTheme()
   const styles = useStyles()
-  const methods = useYupHooks({schema: loginSchema})
+  const methods = useYupHooks<LoginFields>({schema: loginSchema})
   const {setToken} = useAuthToken()
 
   const {mutate, isLoading} = useMutation({
@@ -36,8 +38,6 @@ const Login = ({navigation}: any) => {
     },
     onError: console.error,
   })
-
-  const onSubmit = (data: any) => mutate(data)
 
   return (
     <SafeAreaView>
@@ -74,7 +74,13 @@ const Login = ({navigation}: any) => {
                 <Button
                   title='Login'
                   loading={isLoading}
-                  onPress={methods.handleSubmit(onSubmit)}
+                  onPress={methods.handleSubmit(data => mutate(data))}
+                />
+
+                <Button
+                  color={'secondary'}
+                  title='Registration'
+                  onPress={() => navigation.navigate(routes.auth.register.path)}
                 />
               </Form>
             </View>

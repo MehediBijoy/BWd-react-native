@@ -21,6 +21,7 @@ module.exports = {
   plugins: ['@typescript-eslint', 'react', 'react-native', 'prettier'],
   rules: {
     quotes: ['warn', 'single'],
+    'prefer-const': 'off',
     'no-dupe-keys': 'warn',
     'react/react-in-jsx-scope': ['off'],
     'no-duplicate-imports': ['warn'],
@@ -60,7 +61,7 @@ module.exports = {
         // directory even it doesn't contain any source code, like `@types/unist`
         alwaysTryTypes: true,
         project: './tsconfig.json',
-        extensions: ['.ts', '.tsx'],
+        extensions: ['.ts', '.d.ts', '.tsx'],
       },
     },
   },

@@ -9,7 +9,7 @@ import SafeAreaView from 'components/SafeAreaView'
 import useYupHooks from 'hooks/helper/useYupHooks'
 import ContainContainer from 'components/ContentContainer'
 import FAQ from 'screens/auth/FAQ/FAQ'
-import routes from 'Navigators/routes'
+import routes from 'navigators/routes'
 
 import {useStyles} from './ForgotPassword.styles'
 
@@ -23,7 +23,6 @@ const EmailConfirmation = ({navigation}: any) => {
   const methods = useYupHooks({schema: emailConfirmationSchema})
 
   const onSubmit = (data: any) => {
-    console.log(data)
     navigation.navigate(routes.auth.changePassword.path, data)
   }
 

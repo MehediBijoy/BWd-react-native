@@ -1,6 +1,7 @@
 import autoBind from 'auto-bind'
 
-import * as Types from './ApiMethodRequest.types'
+import * as Req from './Request'
+import * as Res from './Response'
 import ApiBase, {ApiBaseProps} from './ApiAbstractions/ApiBase'
 
 export default class ApiMethods extends ApiBase {
@@ -9,7 +10,21 @@ export default class ApiMethods extends ApiBase {
     autoBind(this)
   }
 
-  async login({mfa_code, ...userProps}: Types.LoginRequestProps) {
+  async signUpInitial(params: Req.RegistrationProp): Res.LoginResponse {
+    const {data, headers} = await this.post(
+      '/auth/signup',
+      {
+        user: params,
+      },
+      true
+    )
+    return {
+      user: data.user,
+      token: headers.authorization,
+    }
+  }
+
+  async login({mfa_code, ...userProps}: Req.LoginProps): Res.LoginResponse {
     const {data, headers} = await this.post(
       '/auth/login',
       {
@@ -23,7 +38,7 @@ export default class ApiMethods extends ApiBase {
       token: headers.authorization,
     }
   }
-  async passwordResetRequest({email}: Types.EmailProps) {
+  async passwordResetRequest({email}: Req.EmailProps) {
     return this.post('/auth/password', {
       user: {
         email,
@@ -41,15 +56,16 @@ export default class ApiMethods extends ApiBase {
     })
   }
 
-  async getProfile() {
-    return this.get('/profile')
+  async getProfile(): Promise<Res.User> {
+    const {user} = await this.get('/auth/profile')
+    return user
   }
 
-  async checkReferral(params: Types.ReferralProps) {
+  async checkReferral(params: Req.ReferralProps) {
     return await this.get('/users/check_referral', params)
   }
 
-  async resendEmailConfirmation({email}: Types.EmailProps) {
+  async resendEmailConfirmation({email}: Req.EmailProps) {
     return this.post('/auth/confirmation', {
       user: {
         email,
