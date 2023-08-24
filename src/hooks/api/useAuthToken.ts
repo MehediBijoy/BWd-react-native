@@ -3,8 +3,8 @@ import {persist, createJSONStorage} from 'zustand/middleware'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 interface IState {
-  token: string | undefined
-  setToken: (value: string) => void
+  token?: string
+  setToken: (value?: string) => void
 }
 
 const useAuthToken = create<IState>()(

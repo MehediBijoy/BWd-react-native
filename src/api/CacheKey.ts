@@ -1,1 +1,3 @@
-export const cacheKey = {}
+export const cacheKey = {
+  profile: 'profile',
+}
