@@ -33,7 +33,7 @@ export default class ApiBas {
       response => response,
       (error: AxiosError<ApiErrorResponse>) => {
         if (!error.response) {
-          throw new Error('Unhandled error happend...')
+          throw new Error('Unhandled error happened...')
         }
 
         const {status, message} = error

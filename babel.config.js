@@ -11,6 +11,7 @@ module.exports = {
           hooks: './src/hooks',
           config: './src/config',
           screens: './src/screens',
+          navigators: './src/navigators',
         },
       },
     ],

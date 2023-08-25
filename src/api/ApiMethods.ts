@@ -38,13 +38,38 @@ export default class ApiMethods extends ApiBase {
       token: headers.authorization,
     }
   }
+  async passwordResetRequest({email}: Req.EmailProps) {
+    return this.post('/auth/password', {
+      user: {
+        email,
+      },
+    })
+  }
+
+  async passwordResetConfirm({code, password, password_confirmation}: Req.ChangePasswordProps) {
+    return this.put('/auth/password', {
+      user: {
+        reset_password_token: code,
+        password,
+        password_confirmation,
+      },
+    })
+  }
 
   async getProfile(): Promise<Res.User> {
     const {user} = await this.get('/auth/profile')
     return user
   }
 
-  async getHealth() {
-    return await this.get('/health_check')
+  async checkReferral(params: Req.ReferralProps) {
+    return await this.get('/users/check_referral', params)
+  }
+
+  async resendEmailConfirmation({email}: Req.EmailProps) {
+    return this.post('/auth/confirmation', {
+      user: {
+        email,
+      },
+    })
   }
 }

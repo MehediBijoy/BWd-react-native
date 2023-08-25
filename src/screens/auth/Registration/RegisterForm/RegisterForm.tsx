@@ -12,7 +12,7 @@ import FormCheckBox from 'components/FormCheckBox'
 import SafeAreaView from 'components/SafeAreaView'
 import {useProfile, useYupHooks} from 'hooks/helper'
 
-import Box from '../Box'
+import GradientBox from '../../GradientBox'
 
 import {earnConfig, experienceConfig, professionConfig, sourceOfIncomeConfig} from './select.config'
 
@@ -81,7 +81,7 @@ const RegisterForm = () => {
   return (
     <SafeAreaView>
       <ScrollView>
-        <Box gradient>
+        <GradientBox>
           <Text h4 h4Style={{color: 'white'}}>
             Registration
           </Text>
@@ -170,7 +170,7 @@ const RegisterForm = () => {
               onPress={methods.handleSubmit(data => mutate(data))}
             />
           </Form>
-        </Box>
+        </GradientBox>
       </ScrollView>
     </SafeAreaView>
   )

@@ -2,6 +2,9 @@ import React from 'react'
 import {NavigationContainer} from '@react-navigation/native'
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
 
+import EmailConfirmation from 'screens/auth/ForgotPassword/EmailConfirmation'
+import ForgotPassword from 'screens/auth/ForgotPassword/ForgotPassword'
+import ChangePassword from 'screens/auth/ForgotPassword/ChangePassword'
 import {useAuthToken} from 'hooks/api'
 import {useProfile} from 'hooks/helper'
 import Login from 'screens/auth/Login'
@@ -32,6 +35,21 @@ const Navigators = () => {
               name={routes.auth.register.path}
               component={RegisterForm}
               options={{title: 'Registration'}}
+            />
+            <Stack.Screen
+              name={routes.auth.resetPassword.path}
+              component={ForgotPassword}
+              options={{title: 'Forgot Password'}}
+            />
+            <Stack.Screen
+              name={routes.auth.emailConfirmation.path}
+              component={EmailConfirmation}
+              options={{title: 'Email Confirmation'}}
+            />
+            <Stack.Screen
+              name={routes.auth.changePassword.path}
+              component={ChangePassword}
+              options={{title: 'Change Password'}}
             />
           </>
         ) : (
