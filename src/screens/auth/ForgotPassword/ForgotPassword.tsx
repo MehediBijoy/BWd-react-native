@@ -3,8 +3,7 @@ import * as yup from 'yup'
 import {ScrollView, View} from 'react-native'
 import {NativeStackScreenProps} from '@react-navigation/native-stack'
 import {useMutation} from '@tanstack/react-query'
-import LinearGradient from 'react-native-linear-gradient'
-import {Button, Text, useTheme} from '@rneui/themed'
+import {Button, Text} from '@rneui/themed'
 
 import Form from 'components/Form'
 import Input from 'components/Input'
@@ -12,8 +11,11 @@ import SafeAreaView from 'components/SafeAreaView'
 import useApi from 'hooks/api/useApi'
 import useYupHooks from 'hooks/helper/useYupHooks'
 import ContainContainer from 'components/ContentContainer'
+import MessageBox from 'screens/auth/MessageBox'
 import FAQ from 'screens/auth/FAQ/FAQ'
 import routes from 'navigators/routes'
+
+import GradientBox from '../GradientBox'
 
 import {useStyles} from './ForgotPassword.styles'
 
@@ -25,7 +27,6 @@ type FormFields = yup.InferType<typeof forgotPasswordSchema>
 
 const ForgotPassword = ({navigation}: NativeStackScreenProps<any>) => {
   const api = useApi()
-  const {theme} = useTheme()
   const styles = useStyles()
   const methods = useYupHooks<FormFields>({schema: forgotPasswordSchema})
   const {mutate, isLoading} = useMutation({
@@ -42,18 +43,17 @@ const ForgotPassword = ({navigation}: NativeStackScreenProps<any>) => {
     <SafeAreaView>
       <ScrollView>
         <ContainContainer>
-          <LinearGradient
-            colors={[theme.colors.tertiary, theme.colors.tertiaryDark]}
-            style={styles.container}
-          >
-            <View style={styles.innerContainer}>
+          <GradientBox>
+            <View style={{rowGap: 20}}>
               <Text h3 h3Style={styles.headerTextStyles}>
                 Forgot Password
               </Text>
-              <Text style={styles.infoStyles}>
-                Please write down the email you used for registration with BWG and we will send a
-                recovery link to it.
-              </Text>
+              <MessageBox
+                icon='email'
+                iconType='entypo'
+                iconBgColor='#fff'
+                message='Please write down the email you used for registration with BWG and we will send a recovery link to it'
+              />
               <Form methods={methods} style={styles.innerContainer}>
                 <Input
                   name='email'
@@ -68,7 +68,7 @@ const ForgotPassword = ({navigation}: NativeStackScreenProps<any>) => {
                 />
               </Form>
             </View>
-          </LinearGradient>
+          </GradientBox>
           <FAQ />
         </ContainContainer>
       </ScrollView>

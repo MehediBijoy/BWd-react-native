@@ -1,8 +1,7 @@
 import * as yup from 'yup'
 import {View, ScrollView} from 'react-native'
 import {useMutation} from '@tanstack/react-query'
-import {Button, Text, useTheme} from '@rneui/themed'
-import LinearGradient from 'react-native-linear-gradient'
+import {Button, Text} from '@rneui/themed'
 import {NativeStackScreenProps} from '@react-navigation/native-stack'
 
 import Form from 'components/Form'
@@ -12,6 +11,9 @@ import SafeAreaView from 'components/SafeAreaView'
 import useYupHooks from 'hooks/helper/useYupHooks'
 import ContainContainer from 'components/ContentContainer'
 import FAQ from 'screens/auth/FAQ/FAQ'
+
+import GradientBox from '../GradientBox'
+import MessageBox from '../MessageBox'
 
 import {useStyles} from './ForgotPassword.styles'
 
@@ -35,7 +37,7 @@ const ChangePassword = ({route}: NativeStackScreenProps<RouteParams>) => {
   const {code} = route.params
 
   const api = useApi()
-  const {theme} = useTheme()
+
   const styles = useStyles()
   const methods = useYupHooks<FormFields>({schema: emailConfirmationSchema})
 
@@ -51,17 +53,18 @@ const ChangePassword = ({route}: NativeStackScreenProps<RouteParams>) => {
     <SafeAreaView>
       <ScrollView>
         <ContainContainer>
-          <LinearGradient
-            colors={[theme.colors.tertiary, theme.colors.tertiaryDark]}
-            style={styles.container}
-          >
-            <View style={styles.innerContainer}>
+          <GradientBox>
+            <View style={{rowGap: 20}}>
               <Text h3 h3Style={styles.headerTextStyles}>
                 Create New Password
               </Text>
-              <Text style={styles.infoStyles}>
-                Please fill in your new password. For better security we recommended following:
-              </Text>
+
+              <MessageBox
+                icon='lock-reset'
+                iconType='material-community'
+                iconBgColor='#fff'
+                message='Please fill in your new password. For better security we recommended following:'
+              />
               <Form methods={methods} style={styles.innerContainer}>
                 <Input
                   name='password'
@@ -85,7 +88,7 @@ const ChangePassword = ({route}: NativeStackScreenProps<RouteParams>) => {
                 />
               </Form>
             </View>
-          </LinearGradient>
+          </GradientBox>
           <FAQ />
         </ContainContainer>
       </ScrollView>

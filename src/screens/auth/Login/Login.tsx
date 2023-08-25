@@ -3,8 +3,7 @@ import * as yup from 'yup'
 import {NativeStackScreenProps} from '@react-navigation/native-stack'
 import {ScrollView, TouchableOpacity, View} from 'react-native'
 import {useMutation} from '@tanstack/react-query'
-import LinearGradient from 'react-native-linear-gradient'
-import {Button, Text, useTheme} from '@rneui/themed'
+import {Button, Text} from '@rneui/themed'
 
 import {useAuthToken} from 'hooks/api'
 import Form from 'components/Form'
@@ -15,6 +14,8 @@ import useYupHooks from 'hooks/helper/useYupHooks'
 import useApi from 'hooks/api/useApi'
 import routes from 'navigators/routes'
 import FAQ from 'screens/auth/FAQ/FAQ'
+
+import GradientBox from '../GradientBox'
 
 import {useStyles} from './Login.styles'
 
@@ -27,7 +28,6 @@ type LoginFields = yup.InferType<typeof loginSchema>
 
 const Login = ({navigation}: NativeStackScreenProps<any>) => {
   const api = useApi()
-  const {theme} = useTheme()
   const styles = useStyles()
   const methods = useYupHooks<LoginFields>({schema: loginSchema})
   const {setToken} = useAuthToken()
@@ -44,10 +44,7 @@ const Login = ({navigation}: NativeStackScreenProps<any>) => {
     <SafeAreaView>
       <ScrollView>
         <ContainContainer>
-          <LinearGradient
-            colors={[theme.colors.tertiary, theme.colors.tertiaryDark]}
-            style={styles.container}
-          >
+          <GradientBox>
             <View style={styles.innerContainer}>
               <Text h3 h3Style={styles.headerTextStyles}>
                 Login
@@ -85,7 +82,7 @@ const Login = ({navigation}: NativeStackScreenProps<any>) => {
                 />
               </Form>
             </View>
-          </LinearGradient>
+          </GradientBox>
           <FAQ />
         </ContainContainer>
       </ScrollView>

@@ -1,9 +1,7 @@
 import * as yup from 'yup'
 import {ScrollView, View} from 'react-native'
-
 import {NativeStackScreenProps} from '@react-navigation/native-stack'
-import {Button, Text, useTheme} from '@rneui/themed'
-import LinearGradient from 'react-native-linear-gradient'
+import {Button, Text} from '@rneui/themed'
 
 import Form from 'components/Form'
 import Input from 'components/Input'
@@ -12,6 +10,9 @@ import useYupHooks from 'hooks/helper/useYupHooks'
 import ContainContainer from 'components/ContentContainer'
 import FAQ from 'screens/auth/FAQ/FAQ'
 import routes from 'navigators/routes'
+
+import GradientBox from '../GradientBox'
+import MessageBox from '../MessageBox'
 
 import {useStyles} from './ForgotPassword.styles'
 
@@ -22,7 +23,6 @@ const emailConfirmationSchema = yup.object().shape({
 type FormFields = yup.InferType<typeof emailConfirmationSchema>
 
 const EmailConfirmation = ({navigation}: NativeStackScreenProps<any>) => {
-  const {theme} = useTheme()
   const styles = useStyles()
   const methods = useYupHooks<FormFields>({schema: emailConfirmationSchema})
 
@@ -34,18 +34,18 @@ const EmailConfirmation = ({navigation}: NativeStackScreenProps<any>) => {
     <SafeAreaView>
       <ScrollView>
         <ContainContainer>
-          <LinearGradient
-            colors={[theme.colors.tertiary, theme.colors.tertiaryDark]}
-            style={styles.container}
-          >
-            <View style={styles.innerContainer}>
+          <GradientBox>
+            <View style={{rowGap: 20}}>
               <Text h3 h3Style={styles.headerTextStyles}>
                 Email Confirmation
               </Text>
-              <Text style={styles.infoStyles}>
-                We have dispatched an email containing a verification code. Kindly input this code
-                to continue and establish a new password.
-              </Text>
+              <MessageBox
+                icon='mail'
+                iconType='entypo'
+                iconBgColor='#fff'
+                message=' We have dispatched an email containing a verification code. Kindly input this code
+                to continue and establish a new password.'
+              />
               <Form methods={methods} style={styles.innerContainer}>
                 <Input
                   name='code'
@@ -56,7 +56,7 @@ const EmailConfirmation = ({navigation}: NativeStackScreenProps<any>) => {
                 <Button title='Submit' onPress={methods.handleSubmit(onSubmit)} />
               </Form>
             </View>
-          </LinearGradient>
+          </GradientBox>
           <FAQ />
         </ContainContainer>
       </ScrollView>
