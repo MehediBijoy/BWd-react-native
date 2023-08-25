@@ -11,9 +11,9 @@ import Login from 'screens/auth/Login'
 import Dashboard from 'screens/dashboard'
 import RegisterForm from 'screens/auth/Registration/RegisterForm'
 
-import routes from './routes'
+import type {RootStackParamList} from './routes'
 
-const Stack = createNativeStackNavigator()
+const Stack = createNativeStackNavigator<RootStackParamList>()
 
 const Navigators = () => {
   const {token} = useAuthToken()
@@ -23,38 +23,35 @@ const Navigators = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={isAuth ? routes.home.path : routes.auth.login.path}>
+      <Stack.Navigator initialRouteName={isAuth ? 'Home' : 'Login'}>
         {!isAuth ? (
           <>
+            <Stack.Screen name={'Login'} component={Login} options={{title: 'BWG'}} />
+
             <Stack.Screen
-              name={routes.auth.login.path}
-              component={Login}
-              options={{title: 'BWG'}}
-            />
-            <Stack.Screen
-              name={routes.auth.register.path}
-              component={RegisterForm}
-              options={{title: 'Registration'}}
-            />
-            <Stack.Screen
-              name={routes.auth.resetPassword.path}
+              name={'ForgetPassword'}
               component={ForgotPassword}
               options={{title: 'Forgot Password'}}
             />
             <Stack.Screen
-              name={routes.auth.emailConfirmation.path}
+              name={'EmailConfirmation'}
               component={EmailConfirmation}
               options={{title: 'Email Confirmation'}}
             />
             <Stack.Screen
-              name={routes.auth.changePassword.path}
+              name='ChangePassword'
               component={ChangePassword}
               options={{title: 'Change Password'}}
+            />
+            <Stack.Screen
+              name={'Registration'}
+              component={RegisterForm}
+              options={{title: 'Registration'}}
             />
           </>
         ) : (
           <>
-            <Stack.Screen name={routes.home.path} component={Dashboard} />
+            <Stack.Screen name={'Home'} component={Dashboard} />
           </>
         )}
       </Stack.Navigator>

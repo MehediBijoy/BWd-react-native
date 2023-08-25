@@ -9,7 +9,7 @@ import SafeAreaView from 'components/SafeAreaView'
 import useYupHooks from 'hooks/helper/useYupHooks'
 import ContainContainer from 'components/ContentContainer'
 import FAQ from 'screens/auth/FAQ/FAQ'
-import routes from 'navigators/routes'
+import {RootStackParamList} from 'navigators/routes'
 
 import GradientBox from '../GradientBox'
 import MessageBox from '../MessageBox'
@@ -22,12 +22,14 @@ const emailConfirmationSchema = yup.object().shape({
 
 type FormFields = yup.InferType<typeof emailConfirmationSchema>
 
-const EmailConfirmation = ({navigation}: NativeStackScreenProps<any>) => {
+const EmailConfirmation = ({
+  navigation,
+}: NativeStackScreenProps<RootStackParamList, 'EmailConfirmation'>) => {
   const styles = useStyles()
   const methods = useYupHooks<FormFields>({schema: emailConfirmationSchema})
 
   const onSubmit = (data: FormFields) => {
-    navigation.navigate(routes.auth.changePassword.path, data)
+    navigation.navigate('ChangePassword', data)
   }
 
   return (

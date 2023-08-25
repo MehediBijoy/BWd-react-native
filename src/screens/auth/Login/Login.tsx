@@ -12,7 +12,7 @@ import SafeAreaView from 'components/SafeAreaView'
 import ContainContainer from 'components/ContentContainer'
 import useYupHooks from 'hooks/helper/useYupHooks'
 import useApi from 'hooks/api/useApi'
-import routes from 'navigators/routes'
+import {RootStackParamList} from 'navigators/routes'
 import FAQ from 'screens/auth/FAQ/FAQ'
 
 import GradientBox from '../GradientBox'
@@ -26,7 +26,7 @@ const loginSchema = yup.object().shape({
 
 type LoginFields = yup.InferType<typeof loginSchema>
 
-const Login = ({navigation}: NativeStackScreenProps<any>) => {
+const Login = ({navigation}: NativeStackScreenProps<RootStackParamList, 'Login'>) => {
   const api = useApi()
   const styles = useStyles()
   const methods = useYupHooks<LoginFields>({schema: loginSchema})
@@ -64,9 +64,7 @@ const Login = ({navigation}: NativeStackScreenProps<any>) => {
                   labelProps={{style: styles.inputLabelProps}}
                 />
 
-                <TouchableOpacity
-                  onPress={() => navigation.navigate(routes.auth.resetPassword.path)}
-                >
+                <TouchableOpacity onPress={() => navigation.navigate('ForgetPassword')}>
                   <Text style={styles.forgotPasswordStyles}>Forgot Password?</Text>
                 </TouchableOpacity>
                 <Button
@@ -78,7 +76,7 @@ const Login = ({navigation}: NativeStackScreenProps<any>) => {
                 <Button
                   color={'secondary'}
                   title='Registration'
-                  onPress={() => navigation.navigate(routes.auth.register.path)}
+                  onPress={() => navigation.navigate('Registration')}
                 />
               </Form>
             </View>
