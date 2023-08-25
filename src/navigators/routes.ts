@@ -5,5 +5,8 @@ export type RootStackParamList = {
   EmailConfirmation: undefined
   ChangePassword: {code: string}
 
-  Registration: undefined
+  RegistrationProgress: undefined
+  RegistrationForm: undefined
+  RegistrationEmailConfirm: undefined
+  RegistrationKycForm: undefined
 }
