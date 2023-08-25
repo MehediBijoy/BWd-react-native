@@ -25,15 +25,15 @@ const emailConfirmationSchema = yup.object().shape({
     .oneOf([yup.ref('password')], 'Passwords did not match'),
 })
 
-type RouteParams = {
-  [key: string]: {
-    code: string
-  }
+type RootProps = {
+  Home: undefined
+  Login: undefined
+  ChangePassword: {code: string}
 }
 
 type FormFields = yup.InferType<typeof emailConfirmationSchema>
 
-const ChangePassword = ({route}: NativeStackScreenProps<RouteParams>) => {
+const ChangePassword = ({route}: NativeStackScreenProps<RootProps, 'ChangePassword'>) => {
   const {code} = route.params
 
   const api = useApi()

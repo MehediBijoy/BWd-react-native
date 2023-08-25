@@ -13,7 +13,7 @@ import useYupHooks from 'hooks/helper/useYupHooks'
 import ContainContainer from 'components/ContentContainer'
 import MessageBox from 'screens/auth/MessageBox'
 import FAQ from 'screens/auth/FAQ/FAQ'
-import routes from 'navigators/routes'
+import {RootStackParamList} from 'navigators/routes'
 
 import GradientBox from '../GradientBox'
 
@@ -25,18 +25,20 @@ const forgotPasswordSchema = yup.object().shape({
 
 type FormFields = yup.InferType<typeof forgotPasswordSchema>
 
-const ForgotPassword = ({navigation}: NativeStackScreenProps<any>) => {
+const ForgotPassword = ({
+  navigation,
+}: NativeStackScreenProps<RootStackParamList, 'ForgetPassword'>) => {
   const api = useApi()
   const styles = useStyles()
   const methods = useYupHooks<FormFields>({schema: forgotPasswordSchema})
   const {mutate, isLoading} = useMutation({
     mutationFn: api.passwordResetRequest,
     onSuccess: () => {
-      navigation.navigate(routes.auth.emailConfirmation.path)
+      navigation.navigate('EmailConfirmation')
     },
     onError: () => {
       //TODO! will remove navigation after test
-      navigation.navigate(routes.auth.emailConfirmation.path)
+      navigation.navigate('EmailConfirmation')
     },
   })
   return (

@@ -11,6 +11,7 @@ import FormSelect from 'components/FormSelect'
 import FormCheckBox from 'components/FormCheckBox'
 import SafeAreaView from 'components/SafeAreaView'
 import {useProfile, useYupHooks} from 'hooks/helper'
+import ContainContainer from 'components/ContentContainer'
 
 import GradientBox from '../../GradientBox'
 
@@ -81,96 +82,98 @@ const RegisterForm = () => {
   return (
     <SafeAreaView>
       <ScrollView>
-        <GradientBox>
-          <Text h4 h4Style={{color: 'white'}}>
-            Registration
-          </Text>
-          <Form methods={methods} style={styles.form}>
-            <Input
-              name='email'
-              label='Email'
-              placeholder='Enter your email'
-              labelProps={{style: styles.inputLabel}}
-            />
-
-            <Input
-              name='password'
-              label='Password'
-              placeholder='Enter your password'
-              labelProps={{style: styles.inputLabel}}
-            />
-
-            <Input
-              name='password_confirmation'
-              label='Confirm Password'
-              placeholder='Confirm your password'
-              labelProps={{style: styles.inputLabel}}
-            />
-
-            <FormSelect
-              name='profession'
-              label='What is your profession?'
-              data={professionConfig}
-              labelColor='bgPaper'
-            />
-
-            <FormSelect
-              name='source_of_income'
-              label='Source of income'
-              data={sourceOfIncomeConfig}
-              labelColor='bgPaper'
-            />
-
-            <FormSelect
-              name='earnings'
-              label='How much do you earn?'
-              data={earnConfig}
-              labelColor='bgPaper'
-            />
-
-            <FormSelect
-              name='trading_experience'
-              label='How much experience do you have with treading?'
-              data={experienceConfig}
-              labelColor='bgPaper'
-            />
-
-            {!isChecked && (
+        <ContainContainer>
+          <GradientBox>
+            <Text h4 h4Style={{color: 'white'}}>
+              Registration
+            </Text>
+            <Form methods={methods} style={styles.form}>
               <Input
-                name='token'
-                label='Referral Code'
-                placeholder='Enter your referral code'
+                name='email'
+                label='Email'
+                placeholder='Enter your email'
                 labelProps={{style: styles.inputLabel}}
               />
-            )}
 
-            <FormCheckBox
-              name='referral_checkbox'
-              title='Sign up without a referral code'
-              color='bgPaper'
-            />
+              <Input
+                name='password'
+                label='Password'
+                placeholder='Enter your password'
+                labelProps={{style: styles.inputLabel}}
+              />
 
-            <FormCheckBox
-              name='agree_terms'
-              title={
-                <Text style={styles.checkboxTitle}>
-                  By signing up you agree to our
-                  <Text style={styles.link}> Terms & Conditions</Text>
-                  <Text style={styles.link}> Privacy Statement</Text> and
-                  <Text style={styles.link}> User Agreement</Text>
-                </Text>
-              }
-              color='bgPaper'
-            />
+              <Input
+                name='password_confirmation'
+                label='Confirm Password'
+                placeholder='Confirm your password'
+                labelProps={{style: styles.inputLabel}}
+              />
 
-            <Button
-              type='solid'
-              color='secondary'
-              title='Register Now'
-              onPress={methods.handleSubmit(data => mutate(data))}
-            />
-          </Form>
-        </GradientBox>
+              <FormSelect
+                name='profession'
+                label='What is your profession?'
+                data={professionConfig}
+                labelColor='bgPaper'
+              />
+
+              <FormSelect
+                name='source_of_income'
+                label='Source of income'
+                data={sourceOfIncomeConfig}
+                labelColor='bgPaper'
+              />
+
+              <FormSelect
+                name='earnings'
+                label='How much do you earn?'
+                data={earnConfig}
+                labelColor='bgPaper'
+              />
+
+              <FormSelect
+                name='trading_experience'
+                label='How much experience do you have with treading?'
+                data={experienceConfig}
+                labelColor='bgPaper'
+              />
+
+              {!isChecked && (
+                <Input
+                  name='token'
+                  label='Referral Code'
+                  placeholder='Enter your referral code'
+                  labelProps={{style: styles.inputLabel}}
+                />
+              )}
+
+              <FormCheckBox
+                name='referral_checkbox'
+                title='Sign up without a referral code'
+                color='bgPaper'
+              />
+
+              <FormCheckBox
+                name='agree_terms'
+                title={
+                  <Text style={styles.checkboxTitle}>
+                    By signing up you agree to our
+                    <Text style={styles.link}> Terms & Conditions</Text>
+                    <Text style={styles.link}> Privacy Statement</Text> and
+                    <Text style={styles.link}> User Agreement</Text>
+                  </Text>
+                }
+                color='bgPaper'
+              />
+
+              <Button
+                type='solid'
+                color='secondary'
+                title='Register Now'
+                onPress={methods.handleSubmit(data => mutate(data))}
+              />
+            </Form>
+          </GradientBox>
+        </ContainContainer>
       </ScrollView>
     </SafeAreaView>
   )
