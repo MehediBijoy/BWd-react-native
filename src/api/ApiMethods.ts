@@ -72,4 +72,8 @@ export default class ApiMethods extends ApiBase {
       },
     })
   }
+
+  async getKycAccessToken(): Res.KycAccessKey {
+    return this.post('/sumsub/access_token?levelName=basic-kyc')
+  }
 }

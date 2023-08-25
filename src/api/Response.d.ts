@@ -27,3 +27,10 @@ export type LoginResponse = Promise<{
   user: User
   token: string
 }>
+
+export type KycAccessKey = Promise<{
+  sucess: boolean
+  result: {
+    token: string
+  }
+}>

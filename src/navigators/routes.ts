@@ -8,5 +8,5 @@ export type RootStackParamList = {
   RegistrationProgress: undefined
   RegistrationForm: undefined
   RegistrationEmailConfirm: undefined
-  RegistrationKycForm: undefined
+  RegistrationKycProcess: undefined
 }

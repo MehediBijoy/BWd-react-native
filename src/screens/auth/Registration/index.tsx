@@ -4,6 +4,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack'
 import {useProfile} from 'hooks/helper'
 import {RootStackParamList} from 'navigators/routes'
 
+import KycProcess from './KycProcess'
 import EmailConfirm from './EmailConfirm'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
@@ -21,7 +22,7 @@ const RegistrationProgress = () => {
         {!isEmailConfirmed ? (
           <Stack.Screen name='RegistrationEmailConfirm' component={EmailConfirm} />
         ) : (
-          <Stack.Screen name='RegistrationKycForm' component={EmailConfirm} />
+          <Stack.Screen name='RegistrationKycProcess' component={KycProcess} />
         )}
       </>
     </Stack.Navigator>
