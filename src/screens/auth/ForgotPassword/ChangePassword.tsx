@@ -39,7 +39,7 @@ const ChangePassword = ({route}: NativeStackScreenProps<RootProps, 'ChangePasswo
   const api = useApi()
 
   const styles = useStyles()
-  const methods = useYupHooks<FormFields>({schema: emailConfirmationSchema})
+  const {methods} = useYupHooks<FormFields>({schema: emailConfirmationSchema})
 
   const {mutate, isLoading} = useMutation({
     mutationFn: (data: FormFields) => {

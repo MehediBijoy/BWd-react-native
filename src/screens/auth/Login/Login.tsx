@@ -32,7 +32,7 @@ const Login = ({navigation}: NativeStackScreenProps<RouteStack, 'Login'>) => {
   const styles = useStyles()
   const {setProfile} = useProfile()
   const {setToken} = useAuthToken()
-  const methods = useYupHooks<LoginFields>({schema: loginSchema})
+  const {methods} = useYupHooks<LoginFields>({schema: loginSchema})
 
   const {mutate, isLoading} = useMutation({
     mutationFn: api.login,

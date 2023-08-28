@@ -47,7 +47,7 @@ const RegisterForm = () => {
   const styles = useStyles()
   const {setProfile} = useProfile()
   const {setToken} = useAuthToken()
-  const methods = useYupHooks<RegisterFields>({schema: registerSchema})
+  const {methods, setApiError} = useYupHooks<RegisterFields>({schema: registerSchema})
 
   const {mutate} = useMutation({
     mutationFn: ({
@@ -76,7 +76,7 @@ const RegisterForm = () => {
       setToken(token)
       setProfile(user)
     },
-    onError: console.log,
+    onError: setApiError,
   })
 
   const isChecked = methods.watch('referral_checkbox')

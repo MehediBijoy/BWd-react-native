@@ -26,7 +26,7 @@ const EmailConfirmation = ({
   navigation,
 }: NativeStackScreenProps<RouteStack, 'EmailConfirmation'>) => {
   const styles = useStyles()
-  const methods = useYupHooks<FormFields>({schema: emailConfirmationSchema})
+  const {methods} = useYupHooks<FormFields>({schema: emailConfirmationSchema})
 
   const onSubmit = (data: FormFields) => {
     navigation.navigate('ChangePassword', data)

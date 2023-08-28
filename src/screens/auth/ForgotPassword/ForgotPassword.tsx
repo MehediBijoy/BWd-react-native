@@ -28,7 +28,7 @@ type FormFields = yup.InferType<typeof forgotPasswordSchema>
 const ForgotPassword = ({navigation}: NativeStackScreenProps<RouteStack, 'ForgetPassword'>) => {
   const api = useApi()
   const styles = useStyles()
-  const methods = useYupHooks<FormFields>({schema: forgotPasswordSchema})
+  const {methods} = useYupHooks<FormFields>({schema: forgotPasswordSchema})
   const {mutate, isLoading} = useMutation({
     mutationFn: api.passwordResetRequest,
     onSuccess: () => {
