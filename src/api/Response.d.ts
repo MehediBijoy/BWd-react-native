@@ -3,7 +3,7 @@ export type User = {
   email: string
   email_confirmed: boolean
   google_mfa_activated: boolean
-  kyc_status: string
+  kyc_status: 'init' | 'panding' | 'approved'
   kyc_status_reason: string
   last_sign_in_at: Date
   locked_at: Date
@@ -26,4 +26,11 @@ export type User = {
 export type LoginResponse = Promise<{
   user: User
   token: string
+}>
+
+export type KycAccessKey = Promise<{
+  sucess: boolean
+  result: {
+    token: string
+  }
 }>

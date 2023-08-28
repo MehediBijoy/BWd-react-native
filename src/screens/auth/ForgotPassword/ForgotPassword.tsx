@@ -13,7 +13,7 @@ import useYupHooks from 'hooks/helper/useYupHooks'
 import ContainContainer from 'components/ContentContainer'
 import MessageBox from 'screens/auth/MessageBox'
 import FAQ from 'screens/auth/FAQ/FAQ'
-import {RootStackParamList} from 'navigators/routes'
+import {RouteStack} from 'navigators/routes'
 
 import GradientBox from '../GradientBox'
 
@@ -25,9 +25,7 @@ const forgotPasswordSchema = yup.object().shape({
 
 type FormFields = yup.InferType<typeof forgotPasswordSchema>
 
-const ForgotPassword = ({
-  navigation,
-}: NativeStackScreenProps<RootStackParamList, 'ForgetPassword'>) => {
+const ForgotPassword = ({navigation}: NativeStackScreenProps<RouteStack, 'ForgetPassword'>) => {
   const api = useApi()
   const styles = useStyles()
   const methods = useYupHooks<FormFields>({schema: forgotPasswordSchema})

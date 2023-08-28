@@ -1,19 +1,20 @@
 import React from 'react'
 import * as yup from 'yup'
+import {Button, Text} from '@rneui/themed'
+import {useMutation} from '@tanstack/react-query'
 import {NativeStackScreenProps} from '@react-navigation/native-stack'
 import {ScrollView, TouchableOpacity, View} from 'react-native'
-import {useMutation} from '@tanstack/react-query'
-import {Button, Text} from '@rneui/themed'
 
-import {useAuthToken} from 'hooks/api'
 import Form from 'components/Form'
 import Input from 'components/Input'
-import SafeAreaView from 'components/SafeAreaView'
-import ContainContainer from 'components/ContentContainer'
-import useYupHooks from 'hooks/helper/useYupHooks'
 import useApi from 'hooks/api/useApi'
-import {RootStackParamList} from 'navigators/routes'
 import FAQ from 'screens/auth/FAQ/FAQ'
+import {useAuthToken} from 'hooks/api'
+import {useProfile} from 'hooks/helper'
+import SafeAreaView from 'components/SafeAreaView'
+import useYupHooks from 'hooks/helper/useYupHooks'
+import {RouteStack} from 'navigators/routes'
+import ContainContainer from 'components/ContentContainer'
 
 import GradientBox from '../GradientBox'
 
@@ -26,16 +27,18 @@ const loginSchema = yup.object().shape({
 
 type LoginFields = yup.InferType<typeof loginSchema>
 
-const Login = ({navigation}: NativeStackScreenProps<RootStackParamList, 'Login'>) => {
+const Login = ({navigation}: NativeStackScreenProps<RouteStack, 'Login'>) => {
   const api = useApi()
   const styles = useStyles()
-  const methods = useYupHooks<LoginFields>({schema: loginSchema})
+  const {setProfile} = useProfile()
   const {setToken} = useAuthToken()
+  const methods = useYupHooks<LoginFields>({schema: loginSchema})
 
   const {mutate, isLoading} = useMutation({
     mutationFn: api.login,
-    onSuccess: ({token}) => {
+    onSuccess: ({token, user}) => {
       setToken(token)
+      setProfile(user)
     },
     onError: console.error,
   })
@@ -76,7 +79,7 @@ const Login = ({navigation}: NativeStackScreenProps<RootStackParamList, 'Login'>
                 <Button
                   color={'secondary'}
                   title='Registration'
-                  onPress={() => navigation.navigate('Registration')}
+                  onPress={() => navigation.navigate('RegistrationForm')}
                 />
               </Form>
             </View>

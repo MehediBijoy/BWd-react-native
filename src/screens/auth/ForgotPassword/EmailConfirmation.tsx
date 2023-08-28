@@ -9,7 +9,7 @@ import SafeAreaView from 'components/SafeAreaView'
 import useYupHooks from 'hooks/helper/useYupHooks'
 import ContainContainer from 'components/ContentContainer'
 import FAQ from 'screens/auth/FAQ/FAQ'
-import {RootStackParamList} from 'navigators/routes'
+import {RouteStack} from 'navigators/routes'
 
 import GradientBox from '../GradientBox'
 import MessageBox from '../MessageBox'
@@ -24,7 +24,7 @@ type FormFields = yup.InferType<typeof emailConfirmationSchema>
 
 const EmailConfirmation = ({
   navigation,
-}: NativeStackScreenProps<RootStackParamList, 'EmailConfirmation'>) => {
+}: NativeStackScreenProps<RouteStack, 'EmailConfirmation'>) => {
   const styles = useStyles()
   const methods = useYupHooks<FormFields>({schema: emailConfirmationSchema})
 
