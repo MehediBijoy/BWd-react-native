@@ -43,15 +43,15 @@ const ForgotPassword = ({navigation}: NativeStackScreenProps<RouteStack, 'Forget
     <SafeAreaView>
       <ScrollView>
         <ContainContainer>
-          <GradientBox>
+          <GradientBox styles={{marginTop: 30}}>
             <View style={{rowGap: 20}}>
               <Text h3 h3Style={styles.headerTextStyles}>
                 Forgot Password
               </Text>
               <MessageBox
-                icon='email'
-                iconType='entypo'
-                iconBgColor='#fff'
+                name='email'
+                type='entypo'
+                color='#fff'
                 message='Please write down the email you used for registration with BWG and we will send a recovery link to it'
               />
               <Form methods={methods} style={styles.innerContainer}>

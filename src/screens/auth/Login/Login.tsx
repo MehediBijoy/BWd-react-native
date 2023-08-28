@@ -47,7 +47,7 @@ const Login = ({navigation}: NativeStackScreenProps<RouteStack, 'Login'>) => {
     <SafeAreaView>
       <ScrollView>
         <ContainContainer>
-          <GradientBox>
+          <GradientBox styles={{marginTop: 30}}>
             <View style={styles.innerContainer}>
               <Text h3 h3Style={styles.headerTextStyles}>
                 Login
