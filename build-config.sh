@@ -2,8 +2,8 @@
 
 echo "-------- generating build config--------"
 
-touch ~/.gradle/gradle.properties
 cat <<EOT >> ~/.gradle/gradle.properties
+
 KEY_ALIAS=$KEY_ALIAS
 KEY_PASSWORD=$KEY_PASSWORD
 STORE_FILE=$STORE_FILE
