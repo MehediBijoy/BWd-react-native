@@ -12,9 +12,9 @@ import ForgotPassword from 'screens/auth/ForgotPassword/ForgotPassword'
 import ChangePassword from 'screens/auth/ForgotPassword/ChangePassword'
 import EmailConfirmation from 'screens/auth/ForgotPassword/EmailConfirmation'
 
-import type {RootStackParamList} from './routes'
+import type {RouteStack} from './routes'
 
-const Stack = createNativeStackNavigator<RootStackParamList>()
+const Stack = createNativeStackNavigator<RouteStack>()
 
 const Navigators = () => {
   const {profile} = useProfile()

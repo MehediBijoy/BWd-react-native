@@ -1,4 +1,4 @@
-export type RootStackParamList = {
+export type RouteStack = {
   Home: undefined
   Login: undefined
   ForgetPassword: undefined
@@ -9,4 +9,5 @@ export type RootStackParamList = {
   RegistrationForm: undefined
   RegistrationEmailConfirm: undefined
   RegistrationKycProcess: undefined
+  RegistrationSuccess: undefined
 }

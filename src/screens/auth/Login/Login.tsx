@@ -13,7 +13,7 @@ import {useAuthToken} from 'hooks/api'
 import {useProfile} from 'hooks/helper'
 import SafeAreaView from 'components/SafeAreaView'
 import useYupHooks from 'hooks/helper/useYupHooks'
-import {RootStackParamList} from 'navigators/routes'
+import {RouteStack} from 'navigators/routes'
 import ContainContainer from 'components/ContentContainer'
 
 import GradientBox from '../GradientBox'
@@ -27,7 +27,7 @@ const loginSchema = yup.object().shape({
 
 type LoginFields = yup.InferType<typeof loginSchema>
 
-const Login = ({navigation}: NativeStackScreenProps<RootStackParamList, 'Login'>) => {
+const Login = ({navigation}: NativeStackScreenProps<RouteStack, 'Login'>) => {
   const api = useApi()
   const styles = useStyles()
   const {setProfile} = useProfile()

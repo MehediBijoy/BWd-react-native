@@ -2,12 +2,13 @@ import React from 'react'
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
 
 import {useProfile} from 'hooks/helper'
-import {RootStackParamList} from 'navigators/routes'
+import {RouteStack} from 'navigators/routes'
 
 import KycProcess from './KycProcess'
 import EmailConfirm from './EmailConfirm'
+import RegistrationSuccess from './Success'
 
-const Stack = createNativeStackNavigator<RootStackParamList>()
+const Stack = createNativeStackNavigator<RouteStack>()
 
 const RegistrationProgress = () => {
   const {profile} = useProfile()
@@ -22,7 +23,10 @@ const RegistrationProgress = () => {
         {!isEmailConfirmed ? (
           <Stack.Screen name='RegistrationEmailConfirm' component={EmailConfirm} />
         ) : (
-          <Stack.Screen name='RegistrationKycProcess' component={KycProcess} />
+          <>
+            <Stack.Screen name='RegistrationKycProcess' component={KycProcess} />
+            <Stack.Screen name='RegistrationSuccess' component={RegistrationSuccess} />
+          </>
         )}
       </>
     </Stack.Navigator>
