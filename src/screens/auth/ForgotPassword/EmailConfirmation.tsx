@@ -36,15 +36,15 @@ const EmailConfirmation = ({
     <SafeAreaView>
       <ScrollView>
         <ContainContainer>
-          <GradientBox>
+          <GradientBox styles={{marginTop: 30}}>
             <View style={{rowGap: 20}}>
               <Text h3 h3Style={styles.headerTextStyles}>
                 Email Confirmation
               </Text>
               <MessageBox
-                icon='mail'
-                iconType='entypo'
-                iconBgColor='#fff'
+                name='mail'
+                type='entypo'
+                color='#fff'
                 message=' We have dispatched an email containing a verification code. Kindly input this code
                 to continue and establish a new password.'
               />
