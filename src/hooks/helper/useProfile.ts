@@ -16,6 +16,7 @@ const useProfile = () => {
   const {data, isLoading, isRefetching, refetch} = useQuery({
     queryKey: [cacheKey.profile],
     queryFn: api.getProfile,
+    refetchOnMount: false,
     enabled: !!token,
   })
 

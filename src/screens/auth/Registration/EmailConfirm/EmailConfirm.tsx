@@ -11,6 +11,8 @@ import SafeAreaView from 'components/SafeAreaView'
 import GradientBox from 'screens/auth/GradientBox'
 import ContainContainer from 'components/ContentContainer'
 
+import StepNumber from '../StepNumber'
+
 const EmailConfirm = () => {
   const api = useApi()
   const styles = useStyles()
@@ -26,6 +28,7 @@ const EmailConfirm = () => {
     <SafeAreaView>
       <ScrollView>
         <ContainContainer>
+          <StepNumber current={2} />
           <GradientBox>
             <Text h2 h2Style={styles.textColor}>
               Welcome to BWG

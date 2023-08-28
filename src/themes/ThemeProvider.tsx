@@ -1,4 +1,5 @@
 import {ReactNode, useMemo} from 'react'
+import {NavigationContainer, DefaultTheme} from '@react-navigation/native'
 import {createTheme, darkColors, ThemeProvider as BaseThemeProvider} from '@rneui/themed'
 
 import {lightColors} from './colors'
@@ -13,7 +14,26 @@ const ThemeProvider = ({children}: {children: ReactNode}) => {
       }),
     []
   )
-  return <BaseThemeProvider theme={theme}>{children}</BaseThemeProvider>
+
+  const navigationTheme = useMemo(
+    () => ({
+      ...DefaultTheme,
+      colors: {
+        ...DefaultTheme.colors,
+        primary: lightColors.primary,
+        background: lightColors.bgBody,
+        text: lightColors.textPrimary,
+        border: lightColors.bgPaper,
+      },
+    }),
+    []
+  )
+
+  return (
+    <BaseThemeProvider theme={theme}>
+      <NavigationContainer theme={navigationTheme}>{children}</NavigationContainer>
+    </BaseThemeProvider>
+  )
 }
 
 export default ThemeProvider

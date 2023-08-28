@@ -1,4 +1,5 @@
 import React from 'react'
+import {ScrollView} from 'react-native'
 import {useQuery} from '@tanstack/react-query'
 import {Button, Text, makeStyles} from '@rneui/themed'
 // eslint-disable-next-line import/default
@@ -6,11 +7,15 @@ import SNSMobileSDK from '@sumsub/react-native-mobilesdk-module'
 import {NativeStackScreenProps} from '@react-navigation/native-stack'
 
 import {useApi} from 'hooks/api'
+import FAQ from 'screens/auth/FAQ'
 import {useProfile} from 'hooks/helper'
 import {ENV} from 'config/environments'
 import {RouteStack} from 'navigators/routes'
 import GradientBox from 'screens/auth/GradientBox'
+import SafeAreaView from 'components/SafeAreaView/SafeAreaView'
 import ContainContainer from 'components/ContentContainer'
+
+import StepNumber from '../StepNumber'
 
 type StatusTypes =
   | 'Ready'
@@ -57,22 +62,28 @@ const KycProcess = ({navigation}: NativeStackScreenProps<RouteStack>) => {
   }
 
   return (
-    <ContainContainer>
-      <GradientBox>
-        <Text h3 h3Style={styles.textColor}>
-          Lets get you verified
-        </Text>
-        <Text style={[styles.textColor, styles.paragraph]}>
-          Before using the platform you need to confirm your identity. Click on the start
-          verification button to activate your account.
-        </Text>
-        <Button
-          title='Start Verification'
-          containerStyle={{maxWidth: 150}}
-          onPress={launchSNSMobileSDK}
-        />
-      </GradientBox>
-    </ContainContainer>
+    <SafeAreaView>
+      <ScrollView>
+        <ContainContainer>
+          <StepNumber current={3} />
+          <GradientBox>
+            <Text h3 h3Style={styles.textColor}>
+              Lets get you verified
+            </Text>
+            <Text style={[styles.textColor, styles.paragraph]}>
+              Before using the platform you need to confirm your identity. Click on the start
+              verification button to activate your account.
+            </Text>
+            <Button
+              title='Start Verification'
+              containerStyle={{maxWidth: 150}}
+              onPress={launchSNSMobileSDK}
+            />
+          </GradientBox>
+          <FAQ />
+        </ContainContainer>
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 

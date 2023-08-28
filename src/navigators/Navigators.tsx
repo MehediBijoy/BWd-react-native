@@ -1,5 +1,4 @@
 import React from 'react'
-import {NavigationContainer} from '@react-navigation/native'
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
 
 import {isUserConfirmed} from 'utils'
@@ -20,41 +19,39 @@ const Navigators = () => {
   const {profile} = useProfile()
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        {!profile ? (
-          <>
-            <Stack.Screen name='Login' component={Login} options={{title: 'BWG'}} />
-            <Stack.Screen
-              name='ForgetPassword'
-              component={ForgotPassword}
-              options={{title: 'Forgot Password'}}
-            />
-            <Stack.Screen
-              name='EmailConfirmation'
-              component={EmailConfirmation}
-              options={{title: 'Email Confirmation'}}
-            />
-            <Stack.Screen
-              name='ChangePassword'
-              component={ChangePassword}
-              options={{title: 'Change Password'}}
-            />
-            <Stack.Screen name='RegistrationForm' component={RegistrationForm} />
-          </>
-        ) : !isUserConfirmed(profile) ? (
+    <Stack.Navigator>
+      {!profile ? (
+        <>
+          <Stack.Screen name='Login' component={Login} options={{title: 'BWG'}} />
           <Stack.Screen
-            name='RegistrationProgress'
-            component={RegistrationProgress}
-            options={{title: 'Registration'}}
+            name='ForgetPassword'
+            component={ForgotPassword}
+            options={{title: 'Forgot Password'}}
           />
-        ) : (
-          <>
-            <Stack.Screen name='Home' component={Dashboard} />
-          </>
-        )}
-      </Stack.Navigator>
-    </NavigationContainer>
+          <Stack.Screen
+            name='EmailConfirmation'
+            component={EmailConfirmation}
+            options={{title: 'Email Confirmation'}}
+          />
+          <Stack.Screen
+            name='ChangePassword'
+            component={ChangePassword}
+            options={{title: 'Change Password'}}
+          />
+          <Stack.Screen name='RegistrationForm' component={RegistrationForm} />
+        </>
+      ) : !isUserConfirmed(profile) ? (
+        <Stack.Screen
+          name='RegistrationProgress'
+          component={RegistrationProgress}
+          options={{title: 'Registration'}}
+        />
+      ) : (
+        <>
+          <Stack.Screen name='Home' component={Dashboard} />
+        </>
+      )}
+    </Stack.Navigator>
   )
 }
 

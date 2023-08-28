@@ -5,6 +5,7 @@ import {useMutation} from '@tanstack/react-query'
 import {Text, Button, makeStyles} from '@rneui/themed'
 
 import Form from 'components/Form'
+import FAQ from 'screens/auth/FAQ'
 import Input from 'components/Input'
 import {useApi, useAuthToken} from 'hooks/api'
 import FormSelect from 'components/FormSelect'
@@ -13,6 +14,7 @@ import SafeAreaView from 'components/SafeAreaView'
 import {useProfile, useYupHooks} from 'hooks/helper'
 import ContainContainer from 'components/ContentContainer'
 
+import StepNumber from '../StepNumber'
 import GradientBox from '../../GradientBox'
 
 import {earnConfig, experienceConfig, professionConfig, sourceOfIncomeConfig} from './select.config'
@@ -83,6 +85,7 @@ const RegisterForm = () => {
     <SafeAreaView>
       <ScrollView>
         <ContainContainer>
+          <StepNumber current={1} />
           <GradientBox>
             <Text h4 h4Style={{color: 'white'}}>
               Registration
@@ -173,6 +176,7 @@ const RegisterForm = () => {
               />
             </Form>
           </GradientBox>
+          <FAQ />
         </ContainContainer>
       </ScrollView>
     </SafeAreaView>
