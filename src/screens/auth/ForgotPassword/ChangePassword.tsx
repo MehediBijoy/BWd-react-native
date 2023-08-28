@@ -14,6 +14,7 @@ import FAQ from 'screens/auth/FAQ/FAQ'
 
 import GradientBox from '../GradientBox'
 import MessageBox from '../MessageBox'
+import ListBox from '../ListBox/ListBox'
 
 import {useStyles} from './ForgotPassword.styles'
 
@@ -48,23 +49,30 @@ const ChangePassword = ({route}: NativeStackScreenProps<RootProps, 'ChangePasswo
     onSuccess: console.log,
     onError: console.error,
   })
+  const data = [
+    'At least 12 characters - the more characters, the better',
+    'A mixture of both uppercase and lowercase letters',
+    'A mixture of letters and numbers',
+    'Inclusion of at least one special character: , ! @ # ? ]',
+  ]
 
   return (
     <SafeAreaView>
       <ScrollView>
         <ContainContainer>
-          <GradientBox>
+          <GradientBox styles={{marginTop: 30}}>
             <View style={{rowGap: 20}}>
               <Text h3 h3Style={styles.headerTextStyles}>
                 Create New Password
               </Text>
 
               <MessageBox
-                icon='lock-reset'
-                iconType='material-community'
-                iconBgColor='#fff'
+                name='lock-reset'
+                type='material-community'
+                color='#fff'
                 message='Please fill in your new password. For better security we recommended following:'
               />
+              <ListBox data={data} />
               <Form methods={methods} style={styles.innerContainer}>
                 <Input
                   name='password'
