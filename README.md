@@ -32,7 +32,7 @@ npm run android
 yarn android
 
 #create personal config
-create file gradle.properties in your home directory under .gradle folder (~/.gradle/gradle.properties) add following content
+create file gradle.properties in your home directory under .gradle folder (~/.gradle/gradle.properties) and add following content
 
 STORE_FILE=brettonwoods-gold.keystore
 KEY_ALIAS=brettonwoods-key-alias
@@ -40,7 +40,7 @@ STORE_PASSWORD=******
 KEY_PASSWORD=******
 
 #build release apk
-./gradlew assembleRelease
+cd android && ./gradlew assembleRelease
 
 #Generating the release AAB
 npx react-native build-android --mode=release
