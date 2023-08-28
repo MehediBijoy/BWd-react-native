@@ -6,7 +6,7 @@ import {useMutation} from '@tanstack/react-query'
 import {Button, Text} from '@rneui/themed'
 
 import Form from 'components/Form'
-import Input from 'components/Input'
+import FormInput from 'components/FormInput'
 import SafeAreaView from 'components/SafeAreaView'
 import useApi from 'hooks/api/useApi'
 import useYupHooks from 'hooks/helper/useYupHooks'
@@ -28,7 +28,7 @@ type FormFields = yup.InferType<typeof forgotPasswordSchema>
 const ForgotPassword = ({navigation}: NativeStackScreenProps<RouteStack, 'ForgetPassword'>) => {
   const api = useApi()
   const styles = useStyles()
-  const methods = useYupHooks<FormFields>({schema: forgotPasswordSchema})
+  const {methods} = useYupHooks<FormFields>({schema: forgotPasswordSchema})
   const {mutate, isLoading} = useMutation({
     mutationFn: api.passwordResetRequest,
     onSuccess: () => {
@@ -55,11 +55,11 @@ const ForgotPassword = ({navigation}: NativeStackScreenProps<RouteStack, 'Forget
                 message='Please write down the email you used for registration with BWG and we will send a recovery link to it'
               />
               <Form methods={methods} style={styles.innerContainer}>
-                <Input
+                <FormInput
                   name='email'
                   placeholder='Email'
                   label='Enter your Email'
-                  labelProps={{style: styles.inputLabelProps}}
+                  color='bgPaper'
                 />
                 <Button
                   title='Submit'

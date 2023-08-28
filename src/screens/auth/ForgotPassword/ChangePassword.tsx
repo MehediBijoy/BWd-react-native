@@ -5,7 +5,7 @@ import {Button, Text} from '@rneui/themed'
 import {NativeStackScreenProps} from '@react-navigation/native-stack'
 
 import Form from 'components/Form'
-import Input from 'components/Input'
+import FormInput from 'components/FormInput'
 import useApi from 'hooks/api/useApi'
 import SafeAreaView from 'components/SafeAreaView'
 import useYupHooks from 'hooks/helper/useYupHooks'
@@ -40,7 +40,7 @@ const ChangePassword = ({route}: NativeStackScreenProps<RootProps, 'ChangePasswo
   const api = useApi()
 
   const styles = useStyles()
-  const methods = useYupHooks<FormFields>({schema: emailConfirmationSchema})
+  const {methods} = useYupHooks<FormFields>({schema: emailConfirmationSchema})
 
   const {mutate, isLoading} = useMutation({
     mutationFn: (data: FormFields) => {
@@ -74,20 +74,20 @@ const ChangePassword = ({route}: NativeStackScreenProps<RootProps, 'ChangePasswo
               />
               <ListBox data={data} />
               <Form methods={methods} style={styles.innerContainer}>
-                <Input
+                <FormInput
                   name='password'
                   type='password'
                   placeholder='New Password'
                   label='Enter New Password'
-                  labelProps={{style: styles.inputLabelProps}}
+                  color='bgPaper'
                 />
 
-                <Input
+                <FormInput
                   name='password_confirmation'
                   type='password'
                   placeholder='Confirm New Password'
                   label='Confirm New Password'
-                  labelProps={{style: styles.inputLabelProps}}
+                  color='bgPaper'
                 />
                 <Button
                   title='Submit'
