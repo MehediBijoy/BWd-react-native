@@ -28,6 +28,7 @@ const Accordion = ({data, titleStyles, descriptionStyles, containerStyle}: Accor
       setExpanded({[id]: true})
     }
   }
+
   return (
     <View style={StyleSheet.flatten([styles.container, containerStyle])}>
       {data.map(({id, title, description}) => (
@@ -44,10 +45,11 @@ const Accordion = ({data, titleStyles, descriptionStyles, containerStyle}: Accor
               </ListItem.Content>
             </>
           }
+          containerStyle={styles.listContainer}
           isExpanded={expanded[id]}
           onPress={() => toggleList(id)}
         >
-          <ListItem key={id} topDivider bottomDivider>
+          <ListItem key={id} topDivider bottomDivider containerStyle={styles.listContainer}>
             <ListItem.Content>
               <ListItem.Subtitle
                 style={StyleSheet.flatten([styles.description, descriptionStyles])}

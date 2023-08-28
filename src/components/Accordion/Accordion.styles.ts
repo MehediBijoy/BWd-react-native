@@ -5,6 +5,10 @@ export const useStyles = makeStyles(({colors}) => ({
     display: 'flex',
     borderColor: colors.greyOutline,
   },
+  listContainer: {
+    padding: 0,
+    paddingVertical: 16,
+  },
   title: {
     fontSize: 18,
   },
