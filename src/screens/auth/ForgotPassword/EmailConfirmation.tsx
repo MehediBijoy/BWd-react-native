@@ -4,7 +4,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack'
 import {Button, Text} from '@rneui/themed'
 
 import Form from 'components/Form'
-import Input from 'components/Input'
+import FormInput from 'components/FormInput'
 import SafeAreaView from 'components/SafeAreaView'
 import useYupHooks from 'hooks/helper/useYupHooks'
 import ContainContainer from 'components/ContentContainer'
@@ -49,11 +49,11 @@ const EmailConfirmation = ({
                 to continue and establish a new password.'
               />
               <Form methods={methods} style={styles.innerContainer}>
-                <Input
+                <FormInput
                   name='code'
                   placeholder='Code'
                   label='Enter Verification Code'
-                  labelProps={{style: styles.inputLabelProps}}
+                  color='bgPaper'
                 />
                 <Button title='Submit' onPress={methods.handleSubmit(onSubmit)} />
               </Form>

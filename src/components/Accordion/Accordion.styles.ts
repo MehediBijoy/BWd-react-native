@@ -10,9 +10,9 @@ export const useStyles = makeStyles(({colors}) => ({
     paddingVertical: 16,
   },
   title: {
-    fontSize: 18,
+    fontSize: 16,
   },
   description: {
-    fontSize: 16,
+    fontSize: 14,
   },
 }))

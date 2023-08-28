@@ -6,7 +6,7 @@ import {Text, Button, makeStyles} from '@rneui/themed'
 
 import Form from 'components/Form'
 import FAQ from 'screens/auth/FAQ'
-import Input from 'components/Input'
+import FormInput from 'components/FormInput'
 import {useApi, useAuthToken} from 'hooks/api'
 import FormSelect from 'components/FormSelect'
 import FormCheckBox from 'components/FormCheckBox'
@@ -91,25 +91,27 @@ const RegisterForm = () => {
               Registration
             </Text>
             <Form methods={methods} style={styles.form}>
-              <Input
+              <FormInput
                 name='email'
                 label='Email'
                 placeholder='Enter your email'
-                labelProps={{style: styles.inputLabel}}
+                color='bgPaper'
               />
 
-              <Input
+              <FormInput
                 name='password'
+                type='password'
                 label='Password'
                 placeholder='Enter your password'
-                labelProps={{style: styles.inputLabel}}
+                color='bgPaper'
               />
 
-              <Input
+              <FormInput
+                type='password'
                 name='password_confirmation'
                 label='Confirm Password'
                 placeholder='Confirm your password'
-                labelProps={{style: styles.inputLabel}}
+                color='bgPaper'
               />
 
               <FormSelect
@@ -141,11 +143,11 @@ const RegisterForm = () => {
               />
 
               {!isChecked && (
-                <Input
+                <FormInput
                   name='token'
                   label='Referral Code'
                   placeholder='Enter your referral code'
-                  labelProps={{style: styles.inputLabel}}
+                  color='bgPaper'
                 />
               )}
 
@@ -188,9 +190,6 @@ const useStyles = makeStyles(({colors}) => ({
     marginTop: 20,
     display: 'flex',
     rowGap: 15,
-  },
-  inputLabel: {
-    color: colors.textReverse,
   },
   checkboxTitle: {
     color: colors.textReverse,
