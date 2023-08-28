@@ -2,7 +2,7 @@
 
 echo "-------- generating build config--------"
 
-cat <<EOT >> ~/.gradle/gradle.properties
+cat <<EOT >> ./android/gradle.properties
 
 KEY_ALIAS=$KEY_ALIAS
 KEY_PASSWORD=$KEY_PASSWORD
