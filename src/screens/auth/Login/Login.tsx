@@ -6,7 +6,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack'
 import {ScrollView, TouchableOpacity, View} from 'react-native'
 
 import Form from 'components/Form'
-import Input from 'components/Input'
+import FormInput from 'components/FormInput'
 import useApi from 'hooks/api/useApi'
 import FAQ from 'screens/auth/FAQ/FAQ'
 import {useAuthToken} from 'hooks/api'
@@ -21,8 +21,8 @@ import GradientBox from '../GradientBox'
 import {useStyles} from './Login.styles'
 
 const loginSchema = yup.object().shape({
-  email: yup.string().email().required(),
-  password: yup.string().required('password required'),
+  email: yup.string().email().required('Email is required'),
+  password: yup.string().required('Password is required'),
 })
 
 type LoginFields = yup.InferType<typeof loginSchema>
@@ -32,7 +32,7 @@ const Login = ({navigation}: NativeStackScreenProps<RouteStack, 'Login'>) => {
   const styles = useStyles()
   const {setProfile} = useProfile()
   const {setToken} = useAuthToken()
-  const methods = useYupHooks<LoginFields>({schema: loginSchema})
+  const {methods} = useYupHooks<LoginFields>({schema: loginSchema})
 
   const {mutate, isLoading} = useMutation({
     mutationFn: api.login,
@@ -53,18 +53,18 @@ const Login = ({navigation}: NativeStackScreenProps<RouteStack, 'Login'>) => {
                 Login
               </Text>
               <Form methods={methods} style={styles.innerContainer}>
-                <Input
+                <FormInput
                   name='email'
                   placeholder='Email'
                   label='Enter your Email'
-                  labelProps={{style: styles.inputLabelProps}}
+                  color='bgPaper'
                 />
-                <Input
+                <FormInput
                   name='password'
                   type='password'
                   placeholder='Password'
                   label='Enter your Password'
-                  labelProps={{style: styles.inputLabelProps}}
+                  color='bgPaper'
                 />
 
                 <TouchableOpacity onPress={() => navigation.navigate('ForgetPassword')}>

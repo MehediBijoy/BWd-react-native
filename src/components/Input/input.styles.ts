@@ -1,6 +1,10 @@
-import {makeStyles} from '@rneui/themed'
+import {makeStyles, Colors} from '@rneui/themed'
 
-export const useStyles = makeStyles(({colors}) => ({
+type StyledTypes = {
+  color?: keyof Omit<Colors, 'platform'>
+}
+
+export const useStyles = makeStyles(({colors}, {color: defaultColor}: StyledTypes) => ({
   container: {
     display: 'flex',
     rowGap: 5,
@@ -24,14 +28,13 @@ export const useStyles = makeStyles(({colors}) => ({
   label: {
     fontSize: 15,
     marginStart: 5,
-    color: colors.black,
-    textTransform: 'capitalize',
+    color: defaultColor ? colors[defaultColor] : colors.textReverse,
   },
 
-  errorText: {
+  helperText: {
     fontSize: 13,
     marginStart: 5,
-    textTransform: 'capitalize',
+    color: defaultColor ? colors[defaultColor] : colors.textReverse,
   },
 
   focused: {
