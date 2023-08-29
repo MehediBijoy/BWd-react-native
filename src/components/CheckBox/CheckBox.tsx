@@ -18,6 +18,7 @@ type StyledTypes = {
 
 const CheckBox = ({checked, title, color, error, ...rest}: CheckBoxProps) => {
   const styles = useStyles({color})
+
   return (
     <BaseCheckBox
       title={title}
@@ -34,7 +35,7 @@ const CheckBox = ({checked, title, color, error, ...rest}: CheckBoxProps) => {
   )
 }
 
-const useStyles = makeStyles(({colors}, {color}: StyledTypes) => ({
+const useStyles = makeStyles(({colors}, {color: defaultColor}: StyledTypes) => ({
   container: {
     width: '100%',
     backgroundColor: 'transparent',
@@ -44,7 +45,7 @@ const useStyles = makeStyles(({colors}, {color}: StyledTypes) => ({
     marginRight: 0,
   },
   title: {
-    color: color ? colors[color] : colors.textPrimary,
+    color: defaultColor ? colors[defaultColor] : colors.textPrimary,
   },
   checked: {
     color: colors.primary,

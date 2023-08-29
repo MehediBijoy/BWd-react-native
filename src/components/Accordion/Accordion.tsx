@@ -1,6 +1,6 @@
 import React from 'react'
-import {ListItem, ListItemProps} from '@rneui/themed'
-import {View, StyleSheet, ViewStyle} from 'react-native'
+import {View, ViewStyle} from 'react-native'
+import {Icon, ListItem, ListItemProps} from '@rneui/themed'
 
 import {useStyles} from './Accordion.styles'
 
@@ -30,20 +30,21 @@ const Accordion = ({data, titleStyles, descriptionStyles, containerStyle}: Accor
   }
 
   return (
-    <View style={StyleSheet.flatten([styles.container, containerStyle])}>
+    <View style={[styles.container, containerStyle]}>
       {data.map(({id, title, description}) => (
         <ListItem.Accordion
           key={id}
           topDivider
           disabledStyle={{opacity: 0.5}}
+          expandIcon={
+            <Icon name='chevron-down' type='material-community' color={styles.expanded.color} />
+          }
           content={
-            <>
-              <ListItem.Content>
-                <ListItem.Title style={StyleSheet.flatten([styles.title, titleStyles])}>
-                  {title}
-                </ListItem.Title>
-              </ListItem.Content>
-            </>
+            <ListItem.Content>
+              <ListItem.Title style={[styles.title, expanded[id] && styles.expanded, titleStyles]}>
+                {title}
+              </ListItem.Title>
+            </ListItem.Content>
           }
           containerStyle={styles.listContainer}
           isExpanded={expanded[id]}
@@ -51,9 +52,7 @@ const Accordion = ({data, titleStyles, descriptionStyles, containerStyle}: Accor
         >
           <ListItem key={id} topDivider bottomDivider containerStyle={styles.listContainer}>
             <ListItem.Content>
-              <ListItem.Subtitle
-                style={StyleSheet.flatten([styles.description, descriptionStyles])}
-              >
+              <ListItem.Subtitle style={[styles.description, descriptionStyles]}>
                 {description}
               </ListItem.Subtitle>
             </ListItem.Content>

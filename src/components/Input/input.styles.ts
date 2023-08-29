@@ -9,32 +9,35 @@ export const useStyles = makeStyles(({colors}, {color: defaultColor}: StyledType
     display: 'flex',
     rowGap: 5,
   },
+
   inputWrapper: {
     width: '100%',
     height: 50,
     paddingHorizontal: 8,
     borderWidth: 1,
     borderStyle: 'solid',
-    borderColor: colors.bgPaper,
+    borderColor: defaultColor ? colors[defaultColor] : colors.bgPaper,
     borderRadius: 8,
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: colors.bgPaper,
   },
+
   input: {
     flex: 1,
   },
+
   label: {
     fontSize: 15,
     marginStart: 5,
-    color: defaultColor ? colors[defaultColor] : colors.textReverse,
+    color: defaultColor ? colors[defaultColor] : colors.textPrimary,
   },
 
   helperText: {
     fontSize: 13,
     marginStart: 5,
-    color: defaultColor ? colors[defaultColor] : colors.textReverse,
+    color: defaultColor ? colors[defaultColor] : colors.textPrimary,
   },
 
   focused: {

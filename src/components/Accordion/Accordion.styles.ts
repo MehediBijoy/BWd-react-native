@@ -12,6 +12,9 @@ export const useStyles = makeStyles(({colors}) => ({
   title: {
     fontSize: 16,
   },
+  expanded: {
+    color: colors.tertiary,
+  },
   description: {
     fontSize: 14,
   },

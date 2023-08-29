@@ -40,10 +40,11 @@ const Input = (
   const [isVisible, setIsVisible] = React.useState<boolean>(true)
   const styleState = error ? styles.error : isFocused ? styles.focused : null
 
-  if (type === 'password') {
+  if (type === 'password' && !RightElement) {
     RightElement = (
       <Icon
         type='entypo'
+        style={{padding: 5}}
         name={isVisible ? 'eye' : 'eye-with-line'}
         onPress={() => setIsVisible(preState => !preState)}
       />
