@@ -118,28 +118,28 @@ const RegisterForm = () => {
                 name='profession'
                 label='What is your profession?'
                 data={professionConfig}
-                labelColor='bgPaper'
+                color='bgPaper'
               />
 
               <FormSelect
                 name='source_of_income'
                 label='Source of income'
                 data={sourceOfIncomeConfig}
-                labelColor='bgPaper'
+                color='bgPaper'
               />
 
               <FormSelect
                 name='earnings'
                 label='How much do you earn?'
                 data={earnConfig}
-                labelColor='bgPaper'
+                color='bgPaper'
               />
 
               <FormSelect
                 name='trading_experience'
                 label='How much experience do you have with treading?'
                 data={experienceConfig}
-                labelColor='bgPaper'
+                color='bgPaper'
               />
 
               {!isChecked && (
