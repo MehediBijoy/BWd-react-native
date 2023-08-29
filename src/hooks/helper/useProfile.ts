@@ -5,19 +5,19 @@ import {cacheKey} from 'api'
 import {User} from 'api/Response'
 import {useAuthToken, useApi} from 'hooks/api'
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-type ProfileOptions = Omit<UseQueryOptions, 'queryFn'>
+type ProfileOptions = Omit<UseQueryOptions<User>, 'queryFn' | 'queryKey'>
 
-const useProfile = () => {
+const useProfile = (props?: ProfileOptions) => {
   const api = useApi()
   const {token} = useAuthToken()
   const queryClient = useQueryClient()
 
-  const {data, isLoading, isRefetching, refetch} = useQuery({
+  const {data, isLoading, isRefetching, refetch} = useQuery<User>({
     queryKey: [cacheKey.profile],
     queryFn: api.getProfile,
     refetchOnMount: false,
     enabled: !!token,
+    ...props,
   })
 
   const setProfile = React.useCallback(
