@@ -1,8 +1,9 @@
 export type RouteStack = {
   Home: undefined
   Login: undefined
-  ForgetPassword: undefined
-  EmailConfirmation: undefined
+  ResetPassword: undefined
+  ResetEmailVerification: undefined
+  ResetEmailConfirmation: undefined
   ChangePassword: {code: string}
 
   RegistrationProgress: undefined

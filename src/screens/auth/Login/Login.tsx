@@ -67,7 +67,7 @@ const Login = ({navigation}: NativeStackScreenProps<RouteStack, 'Login'>) => {
                   color='bgPaper'
                 />
 
-                <TouchableOpacity onPress={() => navigation.navigate('ForgetPassword')}>
+                <TouchableOpacity onPress={() => navigation.navigate('ResetPassword')}>
                   <Text style={styles.forgotPasswordStyles}>Forgot Password?</Text>
                 </TouchableOpacity>
                 <Button

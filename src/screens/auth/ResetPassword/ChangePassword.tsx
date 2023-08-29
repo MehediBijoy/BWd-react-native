@@ -1,7 +1,7 @@
 import * as yup from 'yup'
 import {View, ScrollView} from 'react-native'
 import {useMutation} from '@tanstack/react-query'
-import {Button, Text} from '@rneui/themed'
+import {Button, Text, useTheme} from '@rneui/themed'
 import {NativeStackScreenProps} from '@react-navigation/native-stack'
 
 import Form from 'components/Form'
@@ -14,9 +14,8 @@ import FAQ from 'screens/auth/FAQ/FAQ'
 
 import GradientBox from '../GradientBox'
 import MessageBox from '../MessageBox'
-import ListBox from '../ListBox/ListBox'
 
-import {useStyles} from './ForgotPassword.styles'
+import {useStyles} from './ResetPassword.styles'
 
 const emailConfirmationSchema = yup.object().shape({
   password: yup.string().required().min(8),
@@ -38,6 +37,7 @@ const ChangePassword = ({route}: NativeStackScreenProps<RootProps, 'ChangePasswo
   const {code} = route.params
 
   const api = useApi()
+  const {theme} = useTheme()
 
   const styles = useStyles()
   const {methods} = useYupHooks<FormFields>({schema: emailConfirmationSchema})
@@ -69,10 +69,17 @@ const ChangePassword = ({route}: NativeStackScreenProps<RootProps, 'ChangePasswo
               <MessageBox
                 name='lock-reset'
                 type='material-community'
-                color='#fff'
-                message='Please fill in your new password. For better security we recommended following:'
+                color={theme.colors.white}
+                message='Please fill in your new password. For better security we recommended following'
               />
-              <ListBox data={data} />
+              <View style={{rowGap: 5}}>
+                {data.map((value, index) => (
+                  <Text key={index} style={{color: theme.colors.white}}>
+                    {'\u2022 '}
+                    {value}
+                  </Text>
+                ))}
+              </View>
               <Form methods={methods} style={styles.innerContainer}>
                 <FormInput
                   name='password'
