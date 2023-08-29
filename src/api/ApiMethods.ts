@@ -1,7 +1,13 @@
 import autoBind from 'auto-bind'
 
-import * as Req from './Request'
-import * as Res from './Response'
+import {
+  LoginProps,
+  RegistrationProp,
+  EmailProps,
+  ChangePasswordProps,
+  ReferralProps,
+} from './Request'
+import {LoginResponse, KycAccessKey, User} from './Response'
 import ApiBase, {ApiBaseProps} from './ApiAbstractions/ApiBase'
 
 export default class ApiMethods extends ApiBase {
@@ -10,7 +16,7 @@ export default class ApiMethods extends ApiBase {
     autoBind(this)
   }
 
-  async signUpInitial(params: Req.RegistrationProp): Res.LoginResponse {
+  async signUpInitial(params: RegistrationProp): Promise<LoginResponse> {
     const {data, headers} = await this.post(
       '/auth/signup',
       {
@@ -24,7 +30,7 @@ export default class ApiMethods extends ApiBase {
     }
   }
 
-  async login({mfa_code, ...userProps}: Req.LoginProps): Res.LoginResponse {
+  async login({mfa_code, ...userProps}: LoginProps): Promise<LoginResponse> {
     const {data, headers} = await this.post(
       '/auth/login',
       {
@@ -38,7 +44,8 @@ export default class ApiMethods extends ApiBase {
       token: headers.authorization,
     }
   }
-  async passwordResetRequest({email}: Req.EmailProps) {
+
+  async passwordResetRequest({email}: EmailProps) {
     return this.post('/auth/password', {
       user: {
         email,
@@ -46,7 +53,7 @@ export default class ApiMethods extends ApiBase {
     })
   }
 
-  async passwordResetConfirm({code, password, password_confirmation}: Req.ChangePasswordProps) {
+  async passwordResetConfirm({code, password, password_confirmation}: ChangePasswordProps) {
     return this.put('/auth/password', {
       user: {
         reset_password_token: code,
@@ -56,16 +63,16 @@ export default class ApiMethods extends ApiBase {
     })
   }
 
-  async getProfile(): Promise<Res.User> {
+  async getProfile(): Promise<User> {
     const {user} = await this.get('/auth/profile')
     return user
   }
 
-  async checkReferral(params: Req.ReferralProps) {
+  async checkReferral(params: ReferralProps) {
     return await this.get('/users/check_referral', params)
   }
 
-  async resendEmailConfirmation({email}: Req.EmailProps) {
+  async resendEmailConfirmation({email}: EmailProps) {
     return this.post('/auth/confirmation', {
       user: {
         email,
@@ -73,7 +80,7 @@ export default class ApiMethods extends ApiBase {
     })
   }
 
-  async getKycAccessToken(): Res.KycAccessKey {
+  async getKycAccessToken(): Promise<KycAccessKey> {
     return this.post('/sumsub/access_token?levelName=basic-kyc')
   }
 }
