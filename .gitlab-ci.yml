@@ -1,5 +1,6 @@
 before_script:
   - yarn install --frozen-lockfile
+  - chmod +x ./build-config.sh
   - bash ./build-config.sh
 
 stages:
