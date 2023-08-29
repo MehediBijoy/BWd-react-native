@@ -23,14 +23,14 @@ export type User = {
   updated_at: Date
 }
 
-export type LoginResponse = Promise<{
+export type LoginResponse = {
   user: User
   token: string
-}>
+}
 
-export type KycAccessKey = Promise<{
+export type KycAccessKey = {
   sucess: boolean
   result: {
     token: string
   }
-}>
+}

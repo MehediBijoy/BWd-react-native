@@ -5,6 +5,9 @@ import {useMutation} from '@tanstack/react-query'
 import {NativeStackScreenProps} from '@react-navigation/native-stack'
 import {ScrollView, TouchableOpacity, View} from 'react-native'
 
+import {ErrorObject} from 'api/Errors'
+import {LoginProps} from 'api/Request'
+import {LoginResponse} from 'api/Response'
 import Form from 'components/Form'
 import FormInput from 'components/FormInput'
 import useApi from 'hooks/api/useApi'
@@ -34,13 +37,12 @@ const Login = ({navigation}: NativeStackScreenProps<RouteStack, 'Login'>) => {
   const {setToken} = useAuthToken()
   const {methods} = useYupHooks<LoginFields>({schema: loginSchema})
 
-  const {mutate, isLoading} = useMutation({
+  const {mutate, isLoading} = useMutation<LoginResponse, ErrorObject, LoginProps>({
     mutationFn: api.login,
-    onSuccess: ({token, user}) => {
+    onSuccess: ({token, user}: LoginResponse) => {
       setToken(token)
       setProfile(user)
     },
-    onError: console.error,
   })
 
   return (
