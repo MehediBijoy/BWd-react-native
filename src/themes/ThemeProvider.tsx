@@ -11,6 +11,14 @@ const ThemeProvider = ({children}: {children: ReactNode}) => {
         lightColors,
         darkColors,
         mode: 'light',
+        components: {
+          Text: () => ({
+            style: {flexShrink: 1},
+          }),
+          Button: () => ({
+            containerStyle: {borderRadius: 8},
+          }),
+        },
       }),
     []
   )

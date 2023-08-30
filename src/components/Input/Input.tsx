@@ -57,6 +57,7 @@ const Input = (
       <View style={[styles.inputWrapper, styleState]}>
         {LeftElement ?? null}
         <TextInput
+          cursorColor={styles.input.color}
           placeholderTextColor={styles.input.color}
           placeholder={placeholder}
           secureTextEntry={type === 'password' ? isVisible : false}

@@ -20,6 +20,6 @@ build project:
     - sed -i.bak 's|classifier|archiveClassifier|g' node_modules/@sumsub/react-native-mobilesdk-module/android/build.gradle
     # - cd android && ./gradlew assembleRelease
 
-  artifacts:
-    paths:
-      - android/app/build/outputs/apk/release/app-release.apk
+  # artifacts:
+  #   paths:
+  #     - android/app/build/outputs/apk/release/app-release.apk
