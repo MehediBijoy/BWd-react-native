@@ -31,6 +31,11 @@ npm run android
 # OR using Yarn
 yarn android
 
+# generate keystore
+cd android/app
+sudo keytool -genkey -v -keystore brettonwoods-gold.keystore -alias brettonwoods-key-alias -keyalg RSA -keysize 2048 -validity 10000
+
+
 #create personal config
 create file gradle.properties in your home directory under .gradle folder (~/.gradle/gradle.properties) and add following content
 
@@ -40,7 +45,7 @@ STORE_PASSWORD=******
 KEY_PASSWORD=******
 
 #build release apk
-cd android && ./gradlew assembleRelease
+yarn build
 
 #Generating the release AAB
 npx react-native build-android --mode=release

@@ -5,15 +5,18 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack'
 import {useMutation} from '@tanstack/react-query'
 import {Button, Text, useTheme} from '@rneui/themed'
 
+import FAQ from 'screens/auth/FAQ'
 import Form from 'components/Form'
-import FormInput from 'components/FormInput'
-import SafeAreaView from 'components/SafeAreaView'
 import useApi from 'hooks/api/useApi'
+import {Success} from 'api/Response'
+import {EmailProps} from 'api/Request'
+import {ErrorObject} from 'api/Errors'
+import FormInput from 'components/FormInput'
+import {RouteStack} from 'navigators/routes'
+import MessageBox from 'screens/auth/MessageBox'
+import SafeAreaView from 'components/SafeAreaView'
 import useYupHooks from 'hooks/helper/useYupHooks'
 import ContainContainer from 'components/ContentContainer'
-import MessageBox from 'screens/auth/MessageBox'
-import FAQ from 'screens/auth/FAQ/FAQ'
-import {RouteStack} from 'navigators/routes'
 
 import GradientBox from '../GradientBox'
 
@@ -32,13 +35,9 @@ const EmailVerification = ({
   const {theme} = useTheme()
   const styles = useStyles()
   const {methods} = useYupHooks<FormFields>({schema: emailVerificationSchema})
-  const {mutate, isLoading} = useMutation({
+  const {mutate, isLoading, isError, error} = useMutation<Success, ErrorObject, EmailProps>({
     mutationFn: api.passwordResetRequest,
     onSuccess: () => {
-      navigation.navigate('ResetEmailConfirmation')
-    },
-    onError: () => {
-      //TODO! will remove navigation after test
       navigation.navigate('ResetEmailConfirmation')
     },
   })
@@ -51,12 +50,14 @@ const EmailVerification = ({
               <Text h3 h3Style={styles.headerTextStyles}>
                 Forgot Password
               </Text>
+
               <MessageBox
                 name='email'
                 type='entypo'
                 color={theme.colors.white}
                 message='Please write down the email you used for registration with BWG and we will send a recovery link to it'
               />
+
               <Form methods={methods} style={styles.innerContainer}>
                 <FormInput
                   name='email'
@@ -64,6 +65,9 @@ const EmailVerification = ({
                   label='Enter your Email'
                   color='bgPaper'
                 />
+
+                {isError && <Text style={styles.error}> {error.message}</Text>}
+
                 <Button
                   title='Submit'
                   loading={isLoading}

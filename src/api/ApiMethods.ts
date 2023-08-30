@@ -7,7 +7,7 @@ import {
   ChangePasswordProps,
   ReferralProps,
 } from './Request'
-import {LoginResponse, KycAccessKey, User} from './Response'
+import {LoginResponse, KycAccessKey, User, Success} from './Response'
 import ApiBase, {ApiBaseProps} from './ApiAbstractions/ApiBase'
 
 export default class ApiMethods extends ApiBase {
@@ -45,7 +45,7 @@ export default class ApiMethods extends ApiBase {
     }
   }
 
-  async passwordResetRequest({email}: EmailProps) {
+  async passwordResetRequest({email}: EmailProps): Promise<Success> {
     return this.post('/auth/password', {
       user: {
         email,

@@ -21,6 +21,11 @@ export type ChangePasswordProps = {
   password_confirmation: string
 }
 
+export type ChangePasswordFormProps = {
+  password: string
+  password_confirmation: string
+}
+
 export type ReferralProps = {
   [token: string]: string
 }

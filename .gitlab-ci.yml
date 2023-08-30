@@ -18,7 +18,7 @@ build project:
     policy: pull #`pull` the jobs pull the cache at the beginning but do not push the changes again.
   script:
     - sed -i.bak 's|classifier|archiveClassifier|g' node_modules/@sumsub/react-native-mobilesdk-module/android/build.gradle
-    - cd android && ./gradlew assembleRelease
+    # - cd android && ./gradlew assembleRelease
 
   artifacts:
     paths:

@@ -36,11 +36,11 @@ export default class ApiBas {
           throw new Error('Unhandled error happened...')
         }
 
-        const {status, message} = error
+        const {message} = error
         const errorData = error.response?.data?.error
 
         if (!errorData) {
-          throw new Error(`${message} (${status})`)
+          throw new Error(message)
         }
 
         const codes = ['002', '003', '004']

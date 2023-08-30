@@ -18,7 +18,7 @@ const FormInput = ({name, ...props}: FormInputProps) => {
         <Input
           onChangeText={onChange}
           error={fieldState.invalid}
-          halperText={fieldState.error?.message}
+          helperText={fieldState.error?.message}
           {...restField}
           {...props}
         />

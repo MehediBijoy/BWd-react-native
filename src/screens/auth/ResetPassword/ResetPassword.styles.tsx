@@ -23,4 +23,7 @@ export const useStyles = makeStyles(({colors}) => ({
   inputLabelProps: {
     color: colors.white,
   },
+  error: {
+    color: colors.error,
+  },
 }))

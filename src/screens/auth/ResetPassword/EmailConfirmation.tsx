@@ -4,12 +4,12 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack'
 import {Button, Text, useTheme} from '@rneui/themed'
 
 import Form from 'components/Form'
+import FAQ from 'screens/auth/FAQ/FAQ'
+import {RouteStack} from 'navigators/routes'
 import FormInput from 'components/FormInput'
 import SafeAreaView from 'components/SafeAreaView'
 import useYupHooks from 'hooks/helper/useYupHooks'
 import ContainContainer from 'components/ContentContainer'
-import FAQ from 'screens/auth/FAQ/FAQ'
-import {RouteStack} from 'navigators/routes'
 
 import GradientBox from '../GradientBox'
 import MessageBox from '../MessageBox'
@@ -42,6 +42,7 @@ const EmailConfirmation = ({
               <Text h3 h3Style={styles.headerTextStyles}>
                 Email Confirmation
               </Text>
+
               <MessageBox
                 name='mail'
                 type='entypo'
@@ -49,6 +50,7 @@ const EmailConfirmation = ({
                 message=' We have dispatched an email containing a verification code. Kindly input this code
                 to continue and establish a new password.'
               />
+
               <Form methods={methods} style={styles.innerContainer}>
                 <FormInput
                   name='code'
@@ -56,6 +58,7 @@ const EmailConfirmation = ({
                   label='Enter Verification Code'
                   color='bgPaper'
                 />
+
                 <Button title='Submit' onPress={methods.handleSubmit(onSubmit)} />
               </Form>
             </View>

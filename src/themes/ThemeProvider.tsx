@@ -21,7 +21,7 @@ const ThemeProvider = ({children}: {children: ReactNode}) => {
       colors: {
         ...DefaultTheme.colors,
         primary: lightColors.primary,
-        background: lightColors.bgBody,
+        background: lightColors.background,
         text: lightColors.textPrimary,
         border: lightColors.bgPaper,
       },

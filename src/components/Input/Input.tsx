@@ -8,7 +8,7 @@ export type InputProps = {
   color?: keyof Omit<Colors, 'platform'>
   label: string
   error?: boolean
-  halperText?: string
+  helperText?: string
   type?: 'password' | 'text'
   onBlur?: () => void
   onFocus?: () => void
@@ -23,7 +23,7 @@ const Input = (
     label,
     error,
     type = 'text',
-    halperText,
+    helperText,
     onBlur,
     onFocus,
     placeholder,
@@ -57,6 +57,7 @@ const Input = (
       <View style={[styles.inputWrapper, styleState]}>
         {LeftElement ?? null}
         <TextInput
+          placeholderTextColor={styles.input.color}
           placeholder={placeholder}
           secureTextEntry={type === 'password' ? isVisible : false}
           style={[styles.input, inputStyles]}
@@ -73,7 +74,7 @@ const Input = (
         />
         {RightElement ?? null}
       </View>
-      {halperText && <Text style={[styles.helperText, styleState]}>{halperText}</Text>}
+      {helperText && <Text style={[styles.helperText, styleState]}>{helperText}</Text>}
     </View>
   )
 }
