@@ -83,7 +83,7 @@ const KycProcess = ({navigation}: NativeStackScreenProps<RouteStack>) => {
             </Text>
             <Button
               title='Start Verification'
-              containerStyle={{borderRadius: 10, marginTop: 20}}
+              containerStyle={{marginTop: 20}}
               onPress={launchSNSMobileSDK}
             />
           </GradientBox>
