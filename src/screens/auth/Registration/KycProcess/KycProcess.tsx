@@ -1,7 +1,7 @@
 import React from 'react'
-import {ScrollView} from 'react-native'
+import {ScrollView, View} from 'react-native'
 import {useQuery} from '@tanstack/react-query'
-import {Button, Text, makeStyles} from '@rneui/themed'
+import {Button, Text, makeStyles, Icon} from '@rneui/themed'
 // eslint-disable-next-line import/default
 import SNSMobileSDK from '@sumsub/react-native-mobilesdk-module'
 import {NativeStackScreenProps} from '@react-navigation/native-stack'
@@ -67,16 +67,23 @@ const KycProcess = ({navigation}: NativeStackScreenProps<RouteStack>) => {
         <ContainContainer>
           <StepNumber current={3} />
           <GradientBox>
-            <Text h3 h3Style={styles.textColor}>
-              Lets get you verified
-            </Text>
+            <View style={[styles.titleWrapper]}>
+              <Icon type='simple-line-icon' name='user' color={styles.textColor.color} />
+              <Text h3 h3Style={styles.textColor}>
+                Lets get you verified
+              </Text>
+            </View>
+
             <Text style={[styles.textColor, styles.paragraph]}>
-              Before using the platform you need to confirm your identity. Click on the start
-              verification button to activate your account.
+              Before using the platform, you need to confirm your identity.
+            </Text>
+
+            <Text style={[styles.textColor]}>
+              Click the button below to start your verification.
             </Text>
             <Button
               title='Start Verification'
-              containerStyle={{maxWidth: 150}}
+              containerStyle={{marginTop: 20}}
               onPress={launchSNSMobileSDK}
             />
           </GradientBox>
@@ -90,6 +97,11 @@ const KycProcess = ({navigation}: NativeStackScreenProps<RouteStack>) => {
 const useStyles = makeStyles(({colors}) => ({
   textColor: {
     color: colors.textReverse,
+  },
+  titleWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 15,
   },
   paragraph: {
     fontSize: 16,
