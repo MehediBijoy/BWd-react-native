@@ -6,14 +6,15 @@ import {Button, Text, makeStyles, Icon} from '@rneui/themed'
 import SNSMobileSDK from '@sumsub/react-native-mobilesdk-module'
 import {NativeStackScreenProps} from '@react-navigation/native-stack'
 
+import SafeAreaView from '@core/SafeAreaView/SafeAreaView'
+import ContainContainer from '@core/ContentContainer'
+
 import {useApi} from 'hooks/api'
 import FAQ from 'screens/auth/FAQ'
 import {useProfile} from 'hooks/helper'
 import {ENV} from 'config/environments'
 import {RouteStack} from 'navigators/routes'
 import GradientBox from 'screens/auth/GradientBox'
-import SafeAreaView from 'components/SafeAreaView/SafeAreaView'
-import ContainContainer from 'components/ContentContainer'
 
 import StepNumber from '../StepNumber'
 

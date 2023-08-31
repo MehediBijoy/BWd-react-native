@@ -1,7 +1,7 @@
 import {Text} from '@rneui/themed'
 import {View} from 'react-native'
 
-import Accordion from 'components/Accordion'
+import Accordion from '@core/Accordion'
 
 import config from './faq.config'
 

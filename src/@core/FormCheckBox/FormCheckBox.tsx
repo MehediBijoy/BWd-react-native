@@ -1,6 +1,6 @@
 import {Controller, useFormContext} from 'react-hook-form'
 
-import CheckBox, {CheckBoxProps} from 'components/CheckBox'
+import CheckBox, {CheckBoxProps} from '../CheckBox'
 
 type FormCheckBoxProps = {
   name: string

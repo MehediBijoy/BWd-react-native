@@ -3,17 +3,17 @@ import {ScrollView, View} from 'react-native'
 import {NativeStackScreenProps} from '@react-navigation/native-stack'
 import {Button, Text, useTheme} from '@rneui/themed'
 
-import Form from 'components/Form'
+import Form from '@core/Form'
+import FormInput from '@core/FormInput'
+import SafeAreaView from '@core/SafeAreaView'
+import ContainContainer from '@core/ContentContainer'
+
 import FAQ from 'screens/auth/FAQ/FAQ'
 import {RouteStack} from 'navigators/routes'
-import FormInput from 'components/FormInput'
-import SafeAreaView from 'components/SafeAreaView'
 import useYupHooks from 'hooks/helper/useYupHooks'
-import ContainContainer from 'components/ContentContainer'
 
-import GradientBox from '../GradientBox'
 import MessageBox from '../MessageBox'
-
+import GradientBox from '../GradientBox'
 import {useStyles} from './ResetPassword.styles'
 
 const emailConfirmationSchema = yup.object().shape({

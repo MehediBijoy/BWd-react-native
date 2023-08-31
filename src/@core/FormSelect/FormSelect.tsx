@@ -1,7 +1,7 @@
 import React from 'react'
 import {Controller, useFormContext} from 'react-hook-form'
 
-import Select, {SelectProps} from 'components/Select'
+import Select, {SelectProps} from '@core/Select'
 
 type FormSelectProps = {
   name: string

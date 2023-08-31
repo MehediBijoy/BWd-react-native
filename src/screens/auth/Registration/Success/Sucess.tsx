@@ -1,12 +1,13 @@
 import {ScrollView} from 'react-native'
 import {Text, Button, makeStyles} from '@rneui/themed'
 
+import SafeAreaView from '@core/SafeAreaView'
+import ContainContainer from '@core/ContentContainer'
+
 import FAQ from 'screens/auth/FAQ/FAQ'
 import {useProfile} from 'hooks/helper'
 import MessageBox from 'screens/auth/MessageBox'
 import GradientBox from 'screens/auth/GradientBox'
-import SafeAreaView from 'components/SafeAreaView'
-import ContainContainer from 'components/ContentContainer'
 
 import StepNumber from '../StepNumber'
 

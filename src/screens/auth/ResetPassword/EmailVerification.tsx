@@ -1,25 +1,25 @@
 import React from 'react'
 import * as yup from 'yup'
 import {ScrollView, View} from 'react-native'
-import {NativeStackScreenProps} from '@react-navigation/native-stack'
 import {useMutation} from '@tanstack/react-query'
 import {Button, Text, useTheme} from '@rneui/themed'
+import {NativeStackScreenProps} from '@react-navigation/native-stack'
+
+import Form from '@core/Form'
+import FormInput from '@core/FormInput'
+import SafeAreaView from '@core/SafeAreaView'
+import ContainContainer from '@core/ContentContainer'
 
 import FAQ from 'screens/auth/FAQ'
-import Form from 'components/Form'
 import useApi from 'hooks/api/useApi'
 import {Success} from 'api/Response'
 import {EmailProps} from 'api/Request'
 import {ErrorObject} from 'api/Errors'
-import FormInput from 'components/FormInput'
 import {RouteStack} from 'navigators/routes'
 import MessageBox from 'screens/auth/MessageBox'
-import SafeAreaView from 'components/SafeAreaView'
 import useYupHooks from 'hooks/helper/useYupHooks'
-import ContainContainer from 'components/ContentContainer'
 
 import GradientBox from '../GradientBox'
-
 import {useStyles} from './ResetPassword.styles'
 
 const emailVerificationSchema = yup.object().shape({

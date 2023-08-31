@@ -20,7 +20,7 @@ module.exports = {
   },
   plugins: ['@typescript-eslint', 'react', 'react-native', 'prettier'],
   rules: {
-    quotes: ['warn', 'single'],
+    quotes: ['warn', 'single', {avoidEscape: true}],
     'prefer-const': 'off',
     'no-dupe-keys': 'warn',
     'react/react-in-jsx-scope': ['off'],
@@ -35,8 +35,15 @@ module.exports = {
     'import/order': [
       'warn',
       {
-        groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
+        groups: ['builtin', 'external', 'internal', ['parent', 'sibling', 'index']],
         'newlines-between': 'always',
+        pathGroups: [
+          {
+            pattern: '@core/**',
+            group: 'internal',
+            position: 'before',
+          },
+        ],
       },
     ],
     'import/no-named-as-default-member': ['off'],
@@ -55,6 +62,9 @@ module.exports = {
     ],
   },
   settings: {
+    react: {
+      version: 'detect',
+    },
     'import/resolver': {
       typescript: {
         // @alwaysTryTypes always try to resolve types under `<root>@types`

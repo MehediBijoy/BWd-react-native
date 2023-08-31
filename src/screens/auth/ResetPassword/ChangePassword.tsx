@@ -5,20 +5,20 @@ import {useMutation} from '@tanstack/react-query'
 import {Button, Text, useTheme} from '@rneui/themed'
 import {NativeStackScreenProps} from '@react-navigation/native-stack'
 
+import Form from '@core/Form'
+import Modal from '@core/Modal'
+import FormInput from '@core/FormInput'
+import SafeAreaView from '@core/SafeAreaView'
+import ContainContainer from '@core/ContentContainer'
+
 import FAQ from 'screens/auth/FAQ'
-import Form from 'components/Form'
-import Modal from 'components/Modal'
 import useApi from 'hooks/api/useApi'
 import {ErrorObject} from 'api/Errors'
-import FormInput from 'components/FormInput'
-import SafeAreaView from 'components/SafeAreaView'
 import useYupHooks from 'hooks/helper/useYupHooks'
 import {ChangePasswordFormProps} from 'api/Request'
-import ContainContainer from 'components/ContentContainer'
 
-import GradientBox from '../GradientBox'
 import MessageBox from '../MessageBox'
-
+import GradientBox from '../GradientBox'
 import {useStyles} from './ResetPassword.styles'
 
 const emailConfirmationSchema = yup.object().shape({
