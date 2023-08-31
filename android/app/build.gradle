@@ -52,9 +52,11 @@ react {
 }
 
 /**
- * Set this to true to Run Proguard on Release builds to minify the Java bytecode.
+ * Set this to true to Run Proguard on Release builds to minify the Java bytecode. 
  */
-def enableProguardInReleaseBuilds = false
+ // Changed it to true to minimized apk size
+
+def enableProguardInReleaseBuilds = true
 
 /**
  * The preferred build flavor of JavaScriptCore (JSC)
@@ -69,6 +71,9 @@ def enableProguardInReleaseBuilds = false
  */
 def jscFlavor = 'org.webkit:android-jsc:+'
 
+// added APP_VERSION_CODE from ~/.gradle/gradle.properties, it always integer
+def appVersionCode = Integer.valueOf(APP_VERSION_CODE ?: 1)
+
 android {
     ndkVersion rootProject.ext.ndkVersion
 
@@ -79,8 +84,8 @@ android {
         applicationId "com.platformapp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode appVersionCode 
+        versionName APP_VERSION_NAME
     }
     signingConfigs {
         debug {
