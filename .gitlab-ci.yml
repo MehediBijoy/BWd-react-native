@@ -1,0 +1,25 @@
+before_script:
+  - yarn install --frozen-lockfile
+  - chmod +x ./build-config.sh
+  - bash ./build-config.sh
+
+stages:
+  - build
+
+build project:
+  stage: build
+  image: reactnativecommunity/react-native-android
+  cache:
+    key:
+      files:
+        - yarn.lock
+    paths:
+      - node_modules
+    policy: pull #`pull` the jobs pull the cache at the beginning but do not push the changes again.
+  script:
+    - sed -i.bak 's|classifier|archiveClassifier|g' node_modules/@sumsub/react-native-mobilesdk-module/android/build.gradle
+    # - cd android && ./gradlew assembleRelease
+
+  # artifacts:
+  #   paths:
+  #     - android/app/build/outputs/apk/release/app-release.apk

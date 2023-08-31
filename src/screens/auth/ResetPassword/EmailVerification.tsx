@@ -3,40 +3,42 @@ import * as yup from 'yup'
 import {ScrollView, View} from 'react-native'
 import {NativeStackScreenProps} from '@react-navigation/native-stack'
 import {useMutation} from '@tanstack/react-query'
-import {Button, Text} from '@rneui/themed'
+import {Button, Text, useTheme} from '@rneui/themed'
 
+import FAQ from 'screens/auth/FAQ'
 import Form from 'components/Form'
-import FormInput from 'components/FormInput'
-import SafeAreaView from 'components/SafeAreaView'
 import useApi from 'hooks/api/useApi'
+import {Success} from 'api/Response'
+import {EmailProps} from 'api/Request'
+import {ErrorObject} from 'api/Errors'
+import FormInput from 'components/FormInput'
+import {RouteStack} from 'navigators/routes'
+import MessageBox from 'screens/auth/MessageBox'
+import SafeAreaView from 'components/SafeAreaView'
 import useYupHooks from 'hooks/helper/useYupHooks'
 import ContainContainer from 'components/ContentContainer'
-import MessageBox from 'screens/auth/MessageBox'
-import FAQ from 'screens/auth/FAQ/FAQ'
-import {RouteStack} from 'navigators/routes'
 
 import GradientBox from '../GradientBox'
 
-import {useStyles} from './ForgotPassword.styles'
+import {useStyles} from './ResetPassword.styles'
 
-const forgotPasswordSchema = yup.object().shape({
+const emailVerificationSchema = yup.object().shape({
   email: yup.string().email().required(),
 })
 
-type FormFields = yup.InferType<typeof forgotPasswordSchema>
+type FormFields = yup.InferType<typeof emailVerificationSchema>
 
-const ForgotPassword = ({navigation}: NativeStackScreenProps<RouteStack, 'ForgetPassword'>) => {
+const EmailVerification = ({
+  navigation,
+}: NativeStackScreenProps<RouteStack, 'ResetEmailVerification'>) => {
   const api = useApi()
+  const {theme} = useTheme()
   const styles = useStyles()
-  const {methods} = useYupHooks<FormFields>({schema: forgotPasswordSchema})
-  const {mutate, isLoading} = useMutation({
+  const {methods} = useYupHooks<FormFields>({schema: emailVerificationSchema})
+  const {mutate, isLoading, isError, error} = useMutation<Success, ErrorObject, EmailProps>({
     mutationFn: api.passwordResetRequest,
     onSuccess: () => {
-      navigation.navigate('EmailConfirmation')
-    },
-    onError: () => {
-      //TODO! will remove navigation after test
-      navigation.navigate('EmailConfirmation')
+      navigation.navigate('ResetEmailConfirmation')
     },
   })
   return (
@@ -48,12 +50,14 @@ const ForgotPassword = ({navigation}: NativeStackScreenProps<RouteStack, 'Forget
               <Text h3 h3Style={styles.headerTextStyles}>
                 Forgot Password
               </Text>
+
               <MessageBox
                 name='email'
                 type='entypo'
-                color='#fff'
+                color={theme.colors.white}
                 message='Please write down the email you used for registration with BWG and we will send a recovery link to it'
               />
+
               <Form methods={methods} style={styles.innerContainer}>
                 <FormInput
                   name='email'
@@ -61,6 +65,9 @@ const ForgotPassword = ({navigation}: NativeStackScreenProps<RouteStack, 'Forget
                   label='Enter your Email'
                   color='bgPaper'
                 />
+
+                {isError && <Text style={styles.error}> {error.message}</Text>}
+
                 <Button
                   title='Submit'
                   loading={isLoading}
@@ -76,4 +83,4 @@ const ForgotPassword = ({navigation}: NativeStackScreenProps<RouteStack, 'Forget
   )
 }
 
-export default ForgotPassword
+export default EmailVerification

@@ -1,3 +1,7 @@
+export type Success = {
+  success: true | boolean
+}
+
 export type User = {
   id: number
   email: string

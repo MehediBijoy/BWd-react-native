@@ -25,4 +25,7 @@ export const useStyles = makeStyles(({colors}) => ({
     fontSize: 16,
     color: colors.white,
   },
+  error: {
+    color: colors.error,
+  },
 }))

@@ -7,9 +7,7 @@ import {useProfile} from 'hooks/helper'
 import Dashboard from 'screens/dashboard'
 import RegistrationProgress from 'screens/auth/Registration'
 import RegistrationForm from 'screens/auth/Registration/RegisterForm'
-import ForgotPassword from 'screens/auth/ForgotPassword/ForgotPassword'
-import ChangePassword from 'screens/auth/ForgotPassword/ChangePassword'
-import EmailConfirmation from 'screens/auth/ForgotPassword/EmailConfirmation'
+import ResetPassword from 'screens/auth/ResetPassword'
 
 import type {RouteStack} from './routes'
 
@@ -24,19 +22,9 @@ const Navigators = () => {
         <>
           <Stack.Screen name='Login' component={Login} options={{title: 'BWG'}} />
           <Stack.Screen
-            name='ForgetPassword'
-            component={ForgotPassword}
+            name='ResetPassword'
+            component={ResetPassword}
             options={{title: 'Forgot Password'}}
-          />
-          <Stack.Screen
-            name='EmailConfirmation'
-            component={EmailConfirmation}
-            options={{title: 'Email Confirmation'}}
-          />
-          <Stack.Screen
-            name='ChangePassword'
-            component={ChangePassword}
-            options={{title: 'Change Password'}}
           />
           <Stack.Screen name='RegistrationForm' component={RegistrationForm} />
         </>

@@ -26,6 +26,7 @@ export const useStyles = makeStyles(({colors}, {color: defaultColor}: StyledType
 
   input: {
     flex: 1,
+    color: colors.textPrimary,
   },
 
   label: {

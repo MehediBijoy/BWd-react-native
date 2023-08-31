@@ -11,6 +11,14 @@ const ThemeProvider = ({children}: {children: ReactNode}) => {
         lightColors,
         darkColors,
         mode: 'light',
+        components: {
+          Text: () => ({
+            style: {flexShrink: 1},
+          }),
+          Button: () => ({
+            containerStyle: {borderRadius: 8},
+          }),
+        },
       }),
     []
   )
@@ -21,7 +29,7 @@ const ThemeProvider = ({children}: {children: ReactNode}) => {
       colors: {
         ...DefaultTheme.colors,
         primary: lightColors.primary,
-        background: lightColors.bgBody,
+        background: lightColors.background,
         text: lightColors.textPrimary,
         border: lightColors.bgPaper,
       },

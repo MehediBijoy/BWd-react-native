@@ -1,5 +1,5 @@
-import {Text, View, TextProps, ViewStyle} from 'react-native'
-import {Icon, makeStyles, IconProps} from '@rneui/themed'
+import {View, TextProps, ViewStyle} from 'react-native'
+import {Icon, Text, makeStyles, IconProps} from '@rneui/themed'
 
 export type MessageBoxProps = {
   message: string

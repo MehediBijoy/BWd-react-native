@@ -48,7 +48,7 @@ const useStyles = makeStyles(({colors}) => ({
     minHeight: 150,
     width: '100%',
     borderRadius: 5,
-    backgroundColor: colors.bgPaper,
+    backgroundColor: colors.background,
   },
 }))
 

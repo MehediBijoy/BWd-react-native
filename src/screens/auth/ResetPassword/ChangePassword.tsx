@@ -1,22 +1,25 @@
 import * as yup from 'yup'
+import {useState} from 'react'
 import {View, ScrollView} from 'react-native'
 import {useMutation} from '@tanstack/react-query'
-import {Button, Text} from '@rneui/themed'
+import {Button, Text, useTheme} from '@rneui/themed'
 import {NativeStackScreenProps} from '@react-navigation/native-stack'
 
+import FAQ from 'screens/auth/FAQ'
 import Form from 'components/Form'
-import FormInput from 'components/FormInput'
+import Modal from 'components/Modal'
 import useApi from 'hooks/api/useApi'
+import {ErrorObject} from 'api/Errors'
+import FormInput from 'components/FormInput'
 import SafeAreaView from 'components/SafeAreaView'
 import useYupHooks from 'hooks/helper/useYupHooks'
+import {ChangePasswordFormProps} from 'api/Request'
 import ContainContainer from 'components/ContentContainer'
-import FAQ from 'screens/auth/FAQ/FAQ'
 
 import GradientBox from '../GradientBox'
 import MessageBox from '../MessageBox'
-import ListBox from '../ListBox/ListBox'
 
-import {useStyles} from './ForgotPassword.styles'
+import {useStyles} from './ResetPassword.styles'
 
 const emailConfirmationSchema = yup.object().shape({
   password: yup.string().required().min(8),
@@ -34,21 +37,35 @@ type RootProps = {
 
 type FormFields = yup.InferType<typeof emailConfirmationSchema>
 
-const ChangePassword = ({route}: NativeStackScreenProps<RootProps, 'ChangePassword'>) => {
+const ChangePassword = ({
+  navigation,
+  route,
+}: NativeStackScreenProps<RootProps, 'ChangePassword'>) => {
   const {code} = route.params
 
   const api = useApi()
+  const {theme} = useTheme()
+  const [isOpened, setOpened] = useState<boolean>(false)
 
   const styles = useStyles()
   const {methods} = useYupHooks<FormFields>({schema: emailConfirmationSchema})
 
-  const {mutate, isLoading} = useMutation({
+  const {mutate, isLoading, isError, error} = useMutation<
+    any,
+    ErrorObject,
+    ChangePasswordFormProps
+  >({
     mutationFn: (data: FormFields) => {
       return api.passwordResetConfirm({code, ...data})
     },
-    onSuccess: console.log,
-    onError: console.error,
+    onSuccess: () => setOpened(true),
   })
+
+  const afterSuccess = () => {
+    setOpened(!isOpened)
+    navigation.replace('Login')
+  }
+
   const data = [
     'At least 12 characters - the more characters, the better',
     'A mixture of both uppercase and lowercase letters',
@@ -69,10 +86,19 @@ const ChangePassword = ({route}: NativeStackScreenProps<RootProps, 'ChangePasswo
               <MessageBox
                 name='lock-reset'
                 type='material-community'
-                color='#fff'
-                message='Please fill in your new password. For better security we recommended following:'
+                color={theme.colors.white}
+                message='Please fill in your new password. For better security we recommended following'
               />
-              <ListBox data={data} />
+
+              <View style={{rowGap: 5}}>
+                {data.map((value, index) => (
+                  <Text key={index} style={{color: theme.colors.white}}>
+                    {'\u2022 '}
+                    {value}
+                  </Text>
+                ))}
+              </View>
+
               <Form methods={methods} style={styles.innerContainer}>
                 <FormInput
                   name='password'
@@ -89,6 +115,9 @@ const ChangePassword = ({route}: NativeStackScreenProps<RootProps, 'ChangePasswo
                   label='Confirm New Password'
                   color='bgPaper'
                 />
+
+                {isError && <Text style={styles.error}> {error.message}</Text>}
+
                 <Button
                   title='Submit'
                   loading={isLoading}
@@ -96,6 +125,13 @@ const ChangePassword = ({route}: NativeStackScreenProps<RootProps, 'ChangePasswo
                 />
               </Form>
             </View>
+
+            <Modal title='Password Changed' isOpened={isOpened} onClose={afterSuccess}>
+              <View style={{alignItems: 'flex-start', rowGap: 15}}>
+                <Text style={{fontSize: 16}}>Your password has been successfully updated.</Text>
+                <Button title='Ok' size='sm' containerStyle={{width: 100}} onPress={afterSuccess} />
+              </View>
+            </Modal>
           </GradientBox>
           <FAQ />
         </ContainContainer>
