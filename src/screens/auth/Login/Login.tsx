@@ -1,11 +1,15 @@
-import React, {useState} from 'react'
 import * as yup from 'yup'
+import React, {useState} from 'react'
 import {Button, Text} from '@rneui/themed'
 import {useMutation} from '@tanstack/react-query'
 import {NativeStackScreenProps} from '@react-navigation/native-stack'
 import {ScrollView, TouchableOpacity, View} from 'react-native'
 
-import Form from 'components/Form'
+import Form from '@core/Form'
+import FormInput from '@core/FormInput'
+import SafeAreaView from '@core/SafeAreaView'
+import ContainContainer from '@core/ContentContainer'
+
 import {isMfaRequired} from 'utils'
 import useApi from 'hooks/api/useApi'
 import {ErrorObject} from 'api/Errors'
@@ -14,16 +18,12 @@ import {useAuthToken} from 'hooks/api'
 import {LoginProps} from 'api/Request'
 import {useProfile} from 'hooks/helper'
 import {LoginResponse} from 'api/Response'
-import FormInput from 'components/FormInput'
 import {RouteStack} from 'navigators/routes'
-import SafeAreaView from 'components/SafeAreaView'
 import useYupHooks from 'hooks/helper/useYupHooks'
-import ContainContainer from 'components/ContentContainer'
 
 import GradientBox from '../GradientBox'
-import TwoFactorModal from '../TwoFactorModal'
-
 import {useStyles} from './Login.styles'
+import TwoFactorModal from '../TwoFactorModal'
 
 const loginSchema = yup.object().shape({
   email: yup.string().email().required('Email is required'),

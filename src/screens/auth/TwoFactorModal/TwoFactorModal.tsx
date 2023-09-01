@@ -2,11 +2,12 @@ import * as yup from 'yup'
 import React from 'react'
 import {Button, Text, useTheme} from '@rneui/themed'
 
-import Form from 'components/Form'
-import Modal from 'components/Modal'
-import FormInput from 'components/FormInput'
-import useYupHooks from 'hooks/helper/useYupHooks'
+import Form from '@core/Form'
+import Modal from '@core/Modal'
+import FormInput from '@core/FormInput'
+
 import {ErrorObject} from 'api/Errors'
+import useYupHooks from 'hooks/helper/useYupHooks'
 
 const twoFactorSchema = yup.object().shape({
   mfa_code: yup.string().required().min(6).max(6),
