@@ -9,7 +9,7 @@ import type {RouteStack} from './routes'
 const Tab = createBottomTabNavigator<RouteStack>()
 
 const TabNavigator = () => (
-  <Tab.Navigator initialRouteName='Home'>
+  <Tab.Navigator initialRouteName='Home' screenOptions={{headerShown: false}}>
     <Tab.Screen name='Home' component={Dashboard} />
     <Tab.Screen name='Transactions' component={Transactions} />
     <Tab.Screen name='Notifications' component={Notifications} />
