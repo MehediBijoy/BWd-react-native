@@ -9,6 +9,7 @@
     "lint-fix": "eslint ./src --fix",
     "build": "cd android  && ./gradlew assembleRelease",
     "start": "yarn fixed-sumsub && react-native start",
+    "prod-build": "npx react-native build-android --mode=release",
     "fresh-start": "rm -rf node_modules/ && yarn install && yarn fixed-sumsub && npx react-native start --reset-cache",
     "fixed-sumsub": "sed -i.bak 's|classifier|archiveClassifier|g' node_modules/@sumsub/react-native-mobilesdk-module/android/build.gradle",
     "test": "jest"
