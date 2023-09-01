@@ -5,7 +5,7 @@ import {BASE_URL} from 'config/environments'
 
 import {useAuthToken} from '../api'
 
-type ChannelProps = 'PaymentChannel' | 'TransferChannel' | string
+type ChannelProps = 'PaymentsChannel' | 'TransfersChannel'
 
 type CallbackProps = {
   connected?(): void
@@ -14,12 +14,18 @@ type CallbackProps = {
   received?(data: any): void
 }
 
+// this event listener required for @rails/actioncable
+global.addEventListener = () => {}
+global.removeEventListener = () => {}
+
 const useSocket = () => {
   const {token} = useAuthToken()
   const channelRef = React.useRef<Subscription>()
 
   const actionCable = React.useMemo(() => {
-    const url = token && `${BASE_URL}/cable?token=${token.split(' ').pop()}&scope=user`
+    const url =
+      token &&
+      `${BASE_URL.replace('https', 'wss')}/cable?token=${token.split(' ').pop()}&scope=user`
     return createConsumer(url)
   }, [])
 

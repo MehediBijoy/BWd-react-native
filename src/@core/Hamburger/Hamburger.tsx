@@ -1,81 +1,39 @@
 import React from 'react'
-import {Animated, TouchableOpacity, useAnimatedValue} from 'react-native'
+import {makeStyles} from '@rneui/themed'
+import {Animated, TouchableOpacity} from 'react-native'
 
-const Hamburger = () => {
-  const animation = useAnimatedValue(0)
-  const [isClicked, setIsClicked] = React.useState<boolean>(false)
+type HamburgerProps = {
+  active: boolean
+  onPress(): void
+}
 
-  const startAnimation = () => {
-    console.log(isClicked)
-    Animated.spring(animation, {
-      toValue: isClicked ? 1 : 0,
-      useNativeDriver: true,
-    }).start()
-  }
+const Hamburger = ({onPress}: HamburgerProps) => {
+  const styles = useStyles()
 
   return (
-    <TouchableOpacity
-      onPress={() => {
-        setIsClicked(!isClicked)
-        startAnimation()
-      }}
-    >
-      <Animated.View
-        style={{
-          height: 20,
-          width: 25,
-          rowGap: 5,
-          //   transform: [
-          //     {
-          //       rotate: animation.interpolate({
-          //         inputRange: [0, 1],
-          //         outputRange: ['0deg', '360deg'],
-          //       }),
-          //     },
-          //   ],
-        }}
-      >
-        <Animated.View
-          style={{
-            height: 2,
-            width: 25,
-            backgroundColor: 'black',
-            transform: [
-              {
-                rotate: animation.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: ['0deg', '135deg'],
-                }),
-              },
-            ],
-          }}
-        />
-        <Animated.View
-          style={{
-            height: 2,
-            width: 25,
-            backgroundColor: 'black',
-            opacity: isClicked ? 1 : 0,
-          }}
-        />
-        <Animated.View
-          style={{
-            height: 2,
-            width: 25,
-            backgroundColor: 'black',
-            transform: [
-              {
-                rotate: animation.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: ['0deg', '-135deg'],
-                }),
-              },
-            ],
-          }}
-        />
-      </Animated.View>
+    <TouchableOpacity style={styles.container} onPress={onPress}>
+      <Animated.View style={styles.line} />
+      <Animated.View style={styles.line} />
+      <Animated.View style={styles.line} />
     </TouchableOpacity>
   )
 }
+
+const useStyles = makeStyles(({colors}) => ({
+  container: {
+    height: 25,
+    width: 35,
+    padding: 5,
+    borderRadius: 2,
+    justifyContent: 'space-between',
+    backgroundColor: colors.bgPaper,
+  },
+  line: {
+    height: 2,
+    width: 25,
+    borderRadius: 2,
+    backgroundColor: colors.textPrimary,
+  },
+}))
 
 export default Hamburger

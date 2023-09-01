@@ -1,20 +1,17 @@
 import React from 'react'
-import {View} from 'react-native'
 import {Button} from '@rneui/themed'
 import {createNativeStackNavigator, NativeStackScreenProps} from '@react-navigation/native-stack'
-
-import Hamburger from '@core/Hamburger'
 
 import Logo from 'components/Logo'
 import {isUserConfirmed} from 'utils'
 import Login from 'screens/auth/Login'
 import {useProfile} from 'hooks/helper'
-import Dashboard from 'screens/dashboard'
+import ResetPassword from 'screens/auth/ResetPassword'
 import RegistrationProgress from 'screens/auth/Registration'
 import RegistrationForm from 'screens/auth/Registration/RegisterForm'
-import ResetPassword from 'screens/auth/ResetPassword'
 
 import type {RouteStack} from './routes'
+import DrawerNavigator from './DrawerNavigator'
 
 const Stack = createNativeStackNavigator<RouteStack>()
 
@@ -45,18 +42,8 @@ const Navigators = () => {
           options={{headerShown: false}}
         />
       ) : (
-        <Stack.Group
-          screenOptions={{
-            headerTitle: Logo,
-            headerRight: () => (
-              <View style={{flexDirection: 'row', columnGap: 20, alignItems: 'center'}}>
-                <Button size='md' title='Wallet Connect' titleStyle={{fontSize: 14}} />
-                <Hamburger />
-              </View>
-            ),
-          }}
-        >
-          <Stack.Screen name='Home' component={Dashboard} />
+        <Stack.Group screenOptions={{headerShown: false}}>
+          <Stack.Screen name='DrawerComponents' component={DrawerNavigator} />
         </Stack.Group>
       )}
     </Stack.Navigator>

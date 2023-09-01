@@ -1,5 +1,4 @@
 export type RouteStack = {
-  Home: undefined
   Login: undefined
   ResetPassword: undefined
   ResetEmailVerification: undefined
@@ -11,4 +10,11 @@ export type RouteStack = {
   RegistrationEmailConfirm: undefined
   RegistrationKycProcess: undefined
   RegistrationSuccess: undefined
+
+  DrawerComponents: undefined
+  TabComponents: undefined
+  Home: undefined
+  Transactions: undefined
+  Notifications: undefined
+  Profile: undefined
 }
