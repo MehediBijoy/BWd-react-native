@@ -24,8 +24,7 @@ const useSocket = () => {
 
   const actionCable = React.useMemo(() => {
     const url =
-      token &&
-      `${BASE_URL.replace('https', 'wss')}/cable?token=${token.split(' ').pop()}&scope=user`
+      token && `${BASE_URL.replace('http', 'ws')}/cable?token=${token.split(' ').pop()}&scope=user`
     return createConsumer(url)
   }, [])
 
