@@ -4,19 +4,19 @@ import {ScrollView} from 'react-native'
 import {useMutation} from '@tanstack/react-query'
 import {Text, Button, makeStyles} from '@rneui/themed'
 
-import Form from 'components/Form'
+import Form from '@core/Form'
+import FormInput from '@core/FormInput'
+import FormSelect from '@core/FormSelect'
+import FormCheckBox from '@core/FormCheckBox'
+import SafeAreaView from '@core/SafeAreaView'
+import ContainContainer from '@core/ContentContainer'
+
 import FAQ from 'screens/auth/FAQ'
-import FormInput from 'components/FormInput'
 import {useApi, useAuthToken} from 'hooks/api'
-import FormSelect from 'components/FormSelect'
-import FormCheckBox from 'components/FormCheckBox'
-import SafeAreaView from 'components/SafeAreaView'
 import {useProfile, useYupHooks} from 'hooks/helper'
-import ContainContainer from 'components/ContentContainer'
 
 import StepNumber from '../StepNumber'
 import GradientBox from '../../GradientBox'
-
 import {earnConfig, experienceConfig, professionConfig, sourceOfIncomeConfig} from './select.config'
 
 const registerSchema = yup.object().shape({

@@ -3,14 +3,16 @@ import {ScrollView, View} from 'react-native'
 import {useMutation} from '@tanstack/react-query'
 import {Button, Text, makeStyles} from '@rneui/themed'
 
+import Modal from '@core/Modal'
+import SafeAreaView from '@core/SafeAreaView'
+import ContainContainer from '@core/ContentContainer'
+
 import {useApi} from 'hooks/api'
-import Modal from 'components/Modal'
 import {useProfile} from 'hooks/helper'
 import MessageBox from 'screens/auth/MessageBox'
-import SafeAreaView from 'components/SafeAreaView'
 import GradientBox from 'screens/auth/GradientBox'
-import ContainContainer from 'components/ContentContainer'
 
+import FAQ from '../../FAQ'
 import StepNumber from '../StepNumber'
 
 const EmailConfirm = () => {
@@ -68,6 +70,7 @@ const EmailConfirm = () => {
               />
             </View>
           </Modal>
+          <FAQ />
         </ContainContainer>
       </ScrollView>
     </SafeAreaView>
