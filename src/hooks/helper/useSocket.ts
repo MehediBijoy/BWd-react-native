@@ -14,7 +14,7 @@ type CallbackProps = {
   received?(data: any): void
 }
 
-// this event listener required for @rails/actioncable
+// Event listeners required for @rails/actioncable
 global.addEventListener = () => {}
 global.removeEventListener = () => {}
 

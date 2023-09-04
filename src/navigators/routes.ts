@@ -14,7 +14,9 @@ export type RouteStack = {
   DrawerComponents: undefined
   TabComponents: undefined
   Home: undefined
+  Purchase: undefined
   Transactions: undefined
   Notifications: undefined
-  Profile: undefined
+  Settings: undefined
+  Affiliates: undefined
 }
