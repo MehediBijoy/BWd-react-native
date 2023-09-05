@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from 'react'
 import {View, Animated, Easing} from 'react-native'
 import {makeStyles} from '@rneui/themed'
 
-const LoadingComponent: React.FC = () => {
+const Loader: React.FC = () => {
   const animation = useRef(new Animated.Value(0)).current
   const styles = useStyles()
 
@@ -83,4 +83,4 @@ const useStyles = makeStyles(({colors}) => ({
   },
 }))
 
-export default LoadingComponent
+export default Loader

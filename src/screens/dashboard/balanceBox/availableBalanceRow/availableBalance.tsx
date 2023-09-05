@@ -1,7 +1,7 @@
 import {View} from 'react-native'
 import {Text, makeStyles} from '@rneui/themed'
 
-import LoadingComponent from '@core/LoadingComponent'
+import Loader from '@core/Loader'
 
 export type AvailableBalanceRowProps = {
   asset?: string
@@ -18,7 +18,7 @@ export type LoaderBoxProps = {
 
 const LoaderBox = ({isLoading, data}: LoaderBoxProps) => {
   if (isLoading) {
-    return <LoadingComponent />
+    return <Loader />
   }
   return <Text>{data}</Text>
 }
