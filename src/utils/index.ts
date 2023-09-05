@@ -1,5 +1,5 @@
-import {ErrorObject} from 'api/Errors'
 import {User} from 'api/Response'
+import {ErrorObject} from 'api/Errors'
 
 export function isUserConfirmed(user: User) {
   return user && user.email_confirmed && user.kyc_status === 'approved'
@@ -14,4 +14,8 @@ export const isMfaRequired = (error: ErrorObject) => {
     )
   }
   return false
+}
+
+export const shortAddress = (address: string) => {
+  return address.slice(0, 5) + '.'.repeat(3) + address.slice(-3)
 }
