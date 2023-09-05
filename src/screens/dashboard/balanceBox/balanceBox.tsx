@@ -1,6 +1,9 @@
 import {View} from 'react-native'
 import {Text, makeStyles} from '@rneui/themed'
 
+import Logo from 'components/Logo'
+import BnbLogo from 'images/BNB.svg'
+
 import AvailableBalanceRow from './availableBalanceRow'
 
 const BalanceBox = () => {
@@ -15,8 +18,15 @@ const BalanceBox = () => {
         <Text style={styles.gridItem}>Amount</Text>
         <Text style={styles.gridItem}>Total</Text>
       </View>
-      <AvailableBalanceRow asset='BWG' isLoading={true} />
-      <AvailableBalanceRow asset='BNB' />
+      <AvailableBalanceRow asset='BWG' logo={<Logo height={35} width={35} />} isLoading={true} />
+      <AvailableBalanceRow
+        asset='BNB'
+        logo={
+          <View style={{borderRadius: 50, overflow: 'hidden', width: 35, height: 35}}>
+            <BnbLogo height={35} width={35} />
+          </View>
+        }
+      />
     </View>
   )
 }
@@ -29,6 +39,7 @@ const useStyles = makeStyles(({colors}) => ({
     marginBottom: 20,
   },
   assetGrid: {
+    marginTop: 20,
     display: 'flex',
     flexWrap: 'wrap',
     flexDirection: 'row',

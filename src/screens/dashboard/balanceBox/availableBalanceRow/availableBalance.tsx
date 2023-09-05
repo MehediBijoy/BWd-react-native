@@ -1,36 +1,54 @@
-import {View, ActivityIndicator} from 'react-native'
+import {View} from 'react-native'
 import {Text, makeStyles} from '@rneui/themed'
 
-import Logo from 'components/Logo'
-import BnbLogo from 'images/BNB.svg'
+import LoadingComponent from '@core/LoadingComponent'
 
 export type AvailableBalanceRowProps = {
   asset?: string
+  logo?: JSX.Element
   data?: object
   isLoading?: boolean
   assetsPrice?: object
 }
 
-const AvailableBalanceRow = ({asset, data, isLoading, assetsPrice}: AvailableBalanceRowProps) => {
+export type LoaderBoxProps = {
+  isLoading?: boolean
+  data?: number
+}
+
+const LoaderBox = ({isLoading, data}: LoaderBoxProps) => {
+  if (isLoading) {
+    return <LoadingComponent />
+  }
+  return <Text>{data}</Text>
+}
+
+const AvailableBalanceRow = ({
+  asset,
+  logo,
+  data,
+  isLoading,
+  assetsPrice,
+}: AvailableBalanceRowProps) => {
   const styles = useStyles()
 
   return (
     <View style={styles.assetGrid}>
       <View style={styles.iconBox}>
-        {asset === 'BWG' ? <Logo height={35} width={35} /> : <BnbLogo height={35} width={35} />}
-
+        {logo}
         <Text h4 h4Style={{fontSize: 15, fontWeight: '700'}}>
           {asset}
         </Text>
       </View>
-      {isLoading ? (
-        <ActivityIndicator style={styles.gridItem} size='small' color='#0000ff' />
-      ) : (
-        <Text style={styles.gridItem}>62.38</Text>
-      )}
-
-      <Text style={styles.gridItem}>73.655</Text>
-      <Text style={styles.gridItem}>4,237.37</Text>
+      <View style={styles.gridItem}>
+        <LoaderBox isLoading={isLoading} data={62.38} />
+      </View>
+      <View style={styles.gridItem}>
+        <LoaderBox isLoading={isLoading} data={64.38} />
+      </View>
+      <View style={styles.gridItem}>
+        <LoaderBox isLoading={isLoading} data={73.38} />
+      </View>
     </View>
   )
 }
@@ -51,7 +69,8 @@ const useStyles = makeStyles(({colors}) => ({
   },
   gridItem: {
     flex: 1,
-    // justifyContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
     textAlign: 'center',
   },
   iconBox: {
