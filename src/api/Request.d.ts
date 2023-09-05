@@ -29,3 +29,15 @@ export type ChangePasswordFormProps = {
 export type ReferralProps = {
   [token: string]: string
 }
+
+export type AssetProps = {
+  symbol: string
+  params?: object
+}
+
+export type PaymentPayloadProps = {
+  asset: string
+  target_asset: string
+  amount: number
+  in_base: boolean
+}

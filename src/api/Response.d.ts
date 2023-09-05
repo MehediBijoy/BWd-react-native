@@ -38,3 +38,40 @@ export type KycAccessKey = {
     token: string
   }
 }
+export type Asset = {
+  id: number
+  max_payment_amount: string
+  min_payment_amount: string
+  name: string
+  symbol: string
+  token_amount: string | null
+  paypal_max_payment_amount: string
+  price: string
+  market_cap: string
+  static_fee_amount: string
+  created_at: Date
+}
+
+type DynamicFee = {
+  asset_id: number
+  fee_percentage: string
+  id: number
+  minimum_value: string
+  created_at: string
+  updated_at: string
+}
+
+type EstimateFee = {
+  dynamic_fee_amount: string
+  dynamic_fee_percentage: string
+  payment_rate: string
+  received_amount: string
+  static_fee_amount: string
+  total_amount: string
+  total_fee_amount: string
+  usd_total_amount: string
+  usd_total_fee: string
+  storage_fee_amount: string
+  storage_fee_percentage: string
+  storage_fee_remaining_days: number
+}

@@ -6,8 +6,18 @@ import {
   EmailProps,
   ChangePasswordProps,
   ReferralProps,
+  AssetProps,
+  PaymentPayloadProps,
 } from './Request'
-import {LoginResponse, KycAccessKey, User, Success} from './Response'
+import {
+  LoginResponse,
+  KycAccessKey,
+  User,
+  Asset,
+  Success,
+  DynamicFee,
+  EstimateFee,
+} from './Response'
 import ApiBase, {ApiBaseProps} from './ApiAbstractions/ApiBase'
 
 export default class ApiMethods extends ApiBase {
@@ -82,5 +92,29 @@ export default class ApiMethods extends ApiBase {
 
   async getKycAccessToken(): Promise<KycAccessKey> {
     return this.post('/sumsub/access_token?levelName=basic-kyc')
+  }
+
+  async getAssets(): Promise<Asset[]> {
+    const {assets} = await this.get('/assets')
+    return assets
+  }
+
+  async getAssetBySymbol({symbol, params}: AssetProps): Promise<Asset> {
+    const {asset} = await this.get(`/assets/${symbol}`, params)
+    return asset
+  }
+
+  async getDynamicFees(): Promise<DynamicFee[]> {
+    const {dynamic_fees} = await this.get(`/dynamic_fees`)
+    return dynamic_fees
+  }
+
+  // payments API
+  async getEstimateFee({...params}: PaymentPayloadProps): Promise<EstimateFee> {
+    return await this.get('/payments/estimate_fee', params)
+  }
+
+  async makePayment(params: PaymentPayloadProps) {
+    return await this.post('/payments', params)
   }
 }
