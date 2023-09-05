@@ -14,6 +14,7 @@ module.exports = {
           '@core': './src/@core',
           components: './src/components',
           config: './src/config',
+          constants: './src/constants',
           screens: './src/screens',
           navigators: './src/navigators',
         },
