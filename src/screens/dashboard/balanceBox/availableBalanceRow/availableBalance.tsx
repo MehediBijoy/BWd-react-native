@@ -1,5 +1,8 @@
 import {View, ActivityIndicator} from 'react-native'
-import {Text, makeStyles, Icon} from '@rneui/themed'
+import {Text, makeStyles} from '@rneui/themed'
+
+import Logo from 'components/Logo'
+import BnbLogo from 'images/BNB.svg'
 
 export type AvailableBalanceRowProps = {
   asset?: string
@@ -14,7 +17,8 @@ const AvailableBalanceRow = ({asset, data, isLoading, assetsPrice}: AvailableBal
   return (
     <View style={styles.assetGrid}>
       <View style={styles.iconBox}>
-        <Icon type='simple-line-icon' name='user' color={styles.iconColor.color} />
+        {asset === 'BWG' ? <Logo height={35} width={35} /> : <BnbLogo height={35} width={35} />}
+
         <Text h4 h4Style={{fontSize: 15, fontWeight: '700'}}>
           {asset}
         </Text>

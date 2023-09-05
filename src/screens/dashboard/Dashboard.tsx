@@ -1,6 +1,7 @@
 import React from 'react'
 import {View} from 'react-native'
 import {Button, Text} from '@rneui/themed'
+import {ScrollView} from 'react-native'
 
 import {useOnUnauthorized} from 'hooks/api'
 import {useProfile, useSocket} from 'hooks/helper'
@@ -13,9 +14,11 @@ const Dashboard = () => {
   const unAuthorized = useOnUnauthorized()
 
   React.useEffect(() => {
-    subscribe('PaymentsChannel', {
+    subscribe('NotificationsChannel', {
       received(data) {
         console.log(data)
+
+        console.log(data.event)
       },
       connected() {
         console.log('connected')
@@ -27,11 +30,13 @@ const Dashboard = () => {
   }, [])
 
   return (
-    <View>
-      <BalanceBox />
-      <Text h1>{profile?.email}</Text>
-      <Button title='logout' onPress={() => unAuthorized()} />
-    </View>
+    <ScrollView>
+      <View>
+        <BalanceBox />
+        <Text h1>{profile?.email}</Text>
+        <Button title='logout' onPress={() => unAuthorized()} />
+      </View>
+    </ScrollView>
   )
 }
 
