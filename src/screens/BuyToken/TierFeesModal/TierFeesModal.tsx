@@ -14,10 +14,6 @@ type TierOverviewModalProps = {
 }
 
 const useStyles = makeStyles(() => ({
-  balanceBox: {
-    marginTop: 20,
-    marginBottom: 20,
-  },
   assetGrid: {
     marginTop: 20,
     display: 'flex',
@@ -25,7 +21,7 @@ const useStyles = makeStyles(() => ({
     flexDirection: 'row',
     gap: 10,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
   },
   gridItem: {
     flex: 1,

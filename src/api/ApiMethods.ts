@@ -1,5 +1,7 @@
 import autoBind from 'auto-bind'
 
+import {formatEstimatePay} from 'utils'
+
 import {
   LoginProps,
   RegistrationProp,
@@ -105,13 +107,14 @@ export default class ApiMethods extends ApiBase {
   }
 
   async getDynamicFees(): Promise<DynamicFee[]> {
-    const {dynamic_fees} = await this.get(`/dynamic_fees`)
+    const {dynamic_fees} = await this.get('/dynamic_fees')
     return dynamic_fees
   }
 
   // payments API
-  async getEstimateFee({...params}: PaymentPayloadProps): Promise<EstimateFee> {
-    return await this.get('/payments/estimate_fee', params)
+  async getEstimateFee(params: PaymentPayloadProps): Promise<EstimateFee> {
+    const result = await this.get('/payments/estimate_fee', params)
+    return formatEstimatePay(result)
   }
 
   async makePayment(params: PaymentPayloadProps) {

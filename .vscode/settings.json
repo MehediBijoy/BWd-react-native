@@ -1,3 +1,19 @@
 {
-  "cSpell.words": ["ionicon", "Pressable", "rneui"]
+  "cSpell.words": [
+    "actioncable",
+    "Bretton",
+    "gradlew",
+    "hookform",
+    "ionicon",
+    "mobilesdk",
+    "multicall",
+    "netinfo",
+    "rneui",
+    "sumsub",
+    "tanstack",
+    "Tdata",
+    "viem",
+    "walletconnect",
+    "zustand"
+  ]
 }

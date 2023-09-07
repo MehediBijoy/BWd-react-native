@@ -16,9 +16,13 @@ export const isMfaRequired = (error: ErrorObject) => {
   return false
 }
 
-export const formatEstimatePay = (object: EstimateFee) => ({
+export const formatEstimatePay = (object: EstimateFee): EstimateFee => ({
   ...object,
-  received_amount: parseFloat(object?.received_amount).toFixed(4),
-  total_amount: parseFloat(object?.total_amount).toFixed(2),
-  dynamic_fee_amount: parseFloat(object?.dynamic_fee_amount).toFixed(4),
+  received_amount: parseFloat(object?.received_amount as unknown as string).toFixed(4),
+  total_amount: parseFloat(object?.total_amount as unknown as string).toFixed(2),
+  dynamic_fee_amount: parseFloat(object?.dynamic_fee_amount as unknown as string).toFixed(4),
 })
+
+export const shortAddress = (address: string) => {
+  return address.slice(0, 5) + '.'.repeat(3) + address.slice(-3)
+}
