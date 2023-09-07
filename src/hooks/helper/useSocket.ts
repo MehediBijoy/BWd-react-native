@@ -5,7 +5,7 @@ import {BASE_URL} from 'config/environments'
 
 import {useAuthToken} from '../api'
 
-type ChannelProps = 'PaymentsChannel' | 'TransfersChannel'
+type ChannelProps = 'PaymentsChannel' | 'TransfersChannel' | 'NotificationsChannel'
 
 type CallbackProps = {
   connected?(): void
