@@ -1,26 +1,30 @@
+import {useMemo} from 'react'
 import {View} from 'react-native'
 import {Text, makeStyles} from '@rneui/themed'
+import {useWalletConnectModal} from '@walletconnect/modal-react-native'
 
 import Loader from '@core/Loader'
+
+import {Data} from 'hooks/crypto/useBalance'
 
 export type AvailableBalanceRowProps = {
   asset?: string
   logo?: JSX.Element
-  data?: object
+  data?: Data
   isLoading?: boolean
-  assetsPrice?: object
+  assetsPrice?: number
 }
 
 export type LoaderBoxProps = {
   isLoading?: boolean
-  data?: number
+  price: number | undefined | null
 }
 
-const LoaderBox = ({isLoading, data}: LoaderBoxProps) => {
+const LoaderBox = ({isLoading, price}: LoaderBoxProps) => {
   if (isLoading) {
     return <Loader />
   }
-  return <Text>{data}</Text>
+  return <Text>{price ?? '-'}</Text>
 }
 
 const AvailableBalanceRow = ({
@@ -31,6 +35,19 @@ const AvailableBalanceRow = ({
   assetsPrice,
 }: AvailableBalanceRowProps) => {
   const styles = useStyles()
+  const {isConnected} = useWalletConnectModal()
+
+  //BNB two digit
+  // BWG four digit
+  const balance = useMemo(() => {
+    if (data) return Number(data?.value.toFixed(3))
+    return null
+  }, [data])
+
+  const totalPrice = useMemo(() => {
+    if (balance && assetsPrice) return Number((balance * assetsPrice).toFixed(3))
+    return null
+  }, [balance, assetsPrice])
 
   return (
     <View style={styles.assetGrid}>
@@ -41,13 +58,13 @@ const AvailableBalanceRow = ({
         </Text>
       </View>
       <View style={styles.gridItem}>
-        <LoaderBox isLoading={isLoading} data={62.38} />
+        <LoaderBox isLoading={isLoading} price={isConnected ? assetsPrice : null} />
       </View>
       <View style={styles.gridItem}>
-        <LoaderBox isLoading={isLoading} data={64.38} />
+        <LoaderBox isLoading={isLoading} price={balance} />
       </View>
       <View style={styles.gridItem}>
-        <LoaderBox isLoading={isLoading} data={73.38} />
+        <LoaderBox isLoading={isLoading} price={totalPrice} />
       </View>
     </View>
   )

@@ -2,12 +2,15 @@ import {View} from 'react-native'
 import {Text, makeStyles} from '@rneui/themed'
 
 import Logo from 'components/Logo'
+import {useBalance} from 'hooks/crypto'
 import BnbLogo from 'images/BNB.svg'
 
 import AvailableBalanceRow from './availableBalanceRow'
 
 const BalanceBox = () => {
   const styles = useStyles()
+  const {balance: BnbBalance, isLoading} = useBalance()
+  const {balance: BwgBalance, isLoading: bwgLoading} = useBalance('BWG')
 
   return (
     <View style={styles.balanceBox}>
@@ -18,7 +21,13 @@ const BalanceBox = () => {
         <Text style={styles.gridItem}>Amount</Text>
         <Text style={styles.gridItem}>Total</Text>
       </View>
-      <AvailableBalanceRow asset='BWG' logo={<Logo height={35} width={35} />} isLoading={true} />
+      <AvailableBalanceRow
+        asset='BWG'
+        logo={<Logo height={35} width={35} />}
+        assetsPrice={75}
+        isLoading={bwgLoading}
+        data={BwgBalance}
+      />
       <AvailableBalanceRow
         asset='BNB'
         logo={
@@ -26,6 +35,9 @@ const BalanceBox = () => {
             <BnbLogo height={35} width={35} />
           </View>
         }
+        isLoading={isLoading}
+        assetsPrice={55}
+        data={BnbBalance}
       />
     </View>
   )
