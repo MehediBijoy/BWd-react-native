@@ -8,12 +8,17 @@ import SafeAreaView from '@core/SafeAreaView'
 import ContainContainer from '@core/ContentContainer'
 
 import {useApi} from 'hooks/api'
+import {User} from 'api/Response'
 import {useProfile, useSocket} from 'hooks/helper'
 import MessageBox from 'screens/auth/MessageBox'
 import GradientBox from 'screens/auth/GradientBox'
 
 import FAQ from '../../FAQ'
 import StepNumber from '../StepNumber'
+
+type EmailConfirmProps = {
+  event: {name: 'email_confirmed'; data: User}
+}
 
 const EmailConfirm = () => {
   const api = useApi()
@@ -29,12 +34,11 @@ const EmailConfirm = () => {
 
   useEffect(() => {
     subscribe('NotificationsChannel', {
-      received(data) {
+      received(data: EmailConfirmProps) {
         if (data.event.name === 'email_confirmed') {
           setProfile(data.event.data)
         }
       },
-      disconnected() {},
     })
   }, [])
 
