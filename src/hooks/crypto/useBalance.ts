@@ -65,14 +65,14 @@ const useBalance = (token?: ContractAddress, options?: UseBalanceOptions): UseBa
     return getContractBalance(token)
   }
 
-  const {data, refetch, isLoading} = useQuery<Data>({
+  const {data, refetch, isLoading, fetchStatus} = useQuery<Data>({
     queryKey: ['walletconnect', address, token],
     queryFn: fetchBalance,
     enabled: Boolean(isConnected && !!client),
     ...options,
   })
 
-  return {balance: data, refetch, isLoading}
+  return {balance: data, refetch, isLoading: isLoading && fetchStatus !== 'idle'}
 }
 
 export default useBalance
