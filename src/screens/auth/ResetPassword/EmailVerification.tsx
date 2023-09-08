@@ -7,7 +7,6 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack'
 
 import Form from '@core/Form'
 import FormInput from '@core/FormInput'
-import SafeAreaView from '@core/SafeAreaView'
 import ContainContainer from '@core/ContentContainer'
 
 import FAQ from 'screens/auth/FAQ'
@@ -42,44 +41,42 @@ const EmailVerification = ({
     },
   })
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <ContainContainer>
-          <GradientBox styles={{marginTop: 30}}>
-            <View style={{rowGap: 20}}>
-              <Text h3 h3Style={styles.headerTextStyles}>
-                Forgot Password
-              </Text>
+    <ScrollView>
+      <ContainContainer>
+        <GradientBox styles={{marginTop: 30}}>
+          <View style={{rowGap: 20}}>
+            <Text h3 h3Style={styles.headerTextStyles}>
+              Forgot Password
+            </Text>
 
-              <MessageBox
+            <MessageBox
+              name='email'
+              type='entypo'
+              color={theme.colors.white}
+              message='Please write down the email you used for registration with BWG and we will send a recovery link to it'
+            />
+
+            <Form methods={methods} style={styles.innerContainer}>
+              <FormInput
                 name='email'
-                type='entypo'
-                color={theme.colors.white}
-                message='Please write down the email you used for registration with BWG and we will send a recovery link to it'
+                placeholder='Email'
+                label='Enter your Email'
+                color='bgPaper'
               />
 
-              <Form methods={methods} style={styles.innerContainer}>
-                <FormInput
-                  name='email'
-                  placeholder='Email'
-                  label='Enter your Email'
-                  color='bgPaper'
-                />
+              {isError && <Text style={styles.error}> {error.message}</Text>}
 
-                {isError && <Text style={styles.error}> {error.message}</Text>}
-
-                <Button
-                  title='Submit'
-                  loading={isLoading}
-                  onPress={methods.handleSubmit((data: FormFields) => mutate(data))}
-                />
-              </Form>
-            </View>
-          </GradientBox>
-          <FAQ />
-        </ContainContainer>
-      </ScrollView>
-    </SafeAreaView>
+              <Button
+                title='Submit'
+                loading={isLoading}
+                onPress={methods.handleSubmit((data: FormFields) => mutate(data))}
+              />
+            </Form>
+          </View>
+        </GradientBox>
+        <FAQ />
+      </ContainContainer>
+    </ScrollView>
   )
 }
 

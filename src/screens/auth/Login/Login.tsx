@@ -7,7 +7,6 @@ import {ScrollView, TouchableOpacity, View} from 'react-native'
 
 import Form from '@core/Form'
 import FormInput from '@core/FormInput'
-import SafeAreaView from '@core/SafeAreaView'
 import ContainContainer from '@core/ContentContainer'
 
 import {isMfaRequired} from 'utils'
@@ -69,63 +68,57 @@ const Login = ({navigation}: NativeStackScreenProps<RouteStack, 'Login'>) => {
   }
 
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <ContainContainer>
-          <GradientBox styles={{marginTop: 30}}>
-            <View style={styles.innerContainer}>
-              <Text h3 h3Style={styles.headerTextStyles}>
-                Login
-              </Text>
+    <ScrollView>
+      <ContainContainer>
+        <GradientBox styles={{marginTop: 30}}>
+          <View style={styles.innerContainer}>
+            <Text h3 h3Style={styles.headerTextStyles}>
+              Login
+            </Text>
 
-              <Form methods={methods} style={styles.innerContainer}>
-                <TwoFactorModal
-                  isOpened={isOpened}
-                  onClose={onCloseModal}
-                  onSubmit={onSubmit}
-                  isLoading={isLoading}
-                  error={error}
-                />
+            <Form methods={methods} style={styles.innerContainer}>
+              <TwoFactorModal
+                isOpened={isOpened}
+                onClose={onCloseModal}
+                onSubmit={onSubmit}
+                isLoading={isLoading}
+                error={error}
+              />
 
-                <FormInput
-                  name='email'
-                  placeholder='Email'
-                  label='Enter your Email'
-                  color='bgPaper'
-                />
+              <FormInput
+                name='email'
+                placeholder='Email'
+                label='Enter your Email'
+                color='bgPaper'
+              />
 
-                <FormInput
-                  name='password'
-                  type='password'
-                  placeholder='Password'
-                  label='Enter your Password'
-                  color='bgPaper'
-                />
+              <FormInput
+                name='password'
+                type='password'
+                placeholder='Password'
+                label='Enter your Password'
+                color='bgPaper'
+              />
 
-                {isError && !isOpened && <Text style={styles.error}> {error.message}</Text>}
+              {isError && !isOpened && <Text style={styles.error}> {error.message}</Text>}
 
-                <TouchableOpacity onPress={() => navigation.navigate('ResetPassword')}>
-                  <Text style={styles.forgotPasswordStyles}>Forgot Password?</Text>
-                </TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate('ResetPassword')}>
+                <Text style={styles.forgotPasswordStyles}>Forgot Password?</Text>
+              </TouchableOpacity>
 
-                <Button
-                  title='Login'
-                  loading={isLoading}
-                  onPress={methods.handleSubmit(onSubmit)}
-                />
+              <Button title='Login' loading={isLoading} onPress={methods.handleSubmit(onSubmit)} />
 
-                <Button
-                  color={'secondary'}
-                  title='Registration'
-                  onPress={() => navigation.navigate('RegistrationForm')}
-                />
-              </Form>
-            </View>
-          </GradientBox>
-          <FAQ />
-        </ContainContainer>
-      </ScrollView>
-    </SafeAreaView>
+              <Button
+                color={'secondary'}
+                title='Registration'
+                onPress={() => navigation.navigate('RegistrationForm')}
+              />
+            </Form>
+          </View>
+        </GradientBox>
+        <FAQ />
+      </ContainContainer>
+    </ScrollView>
   )
 }
 

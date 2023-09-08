@@ -6,7 +6,6 @@ import {Button, Text, makeStyles, Icon} from '@rneui/themed'
 import SNSMobileSDK from '@sumsub/react-native-mobilesdk-module'
 import {NativeStackScreenProps} from '@react-navigation/native-stack'
 
-import SafeAreaView from '@core/SafeAreaView/SafeAreaView'
 import ContainContainer from '@core/ContentContainer'
 
 import {useApi} from 'hooks/api'
@@ -63,35 +62,31 @@ const KycProcess = ({navigation}: NativeStackScreenProps<RouteStack>) => {
   }
 
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <ContainContainer>
-          <StepNumber current={3} />
-          <GradientBox>
-            <View style={[styles.titleWrapper]}>
-              <Icon type='simple-line-icon' name='user' color={styles.textColor.color} />
-              <Text h3 h3Style={styles.textColor}>
-                Lets get you verified
-              </Text>
-            </View>
-
-            <Text style={[styles.textColor, styles.paragraph]}>
-              Before using the platform, you need to confirm your identity.
+    <ScrollView>
+      <ContainContainer>
+        <StepNumber current={3} />
+        <GradientBox>
+          <View style={[styles.titleWrapper]}>
+            <Icon type='simple-line-icon' name='user' color={styles.textColor.color} />
+            <Text h3 h3Style={styles.textColor}>
+              Lets get you verified
             </Text>
+          </View>
 
-            <Text style={[styles.textColor]}>
-              Click the button below to start your verification.
-            </Text>
-            <Button
-              title='Start Verification'
-              containerStyle={{marginTop: 20}}
-              onPress={launchSNSMobileSDK}
-            />
-          </GradientBox>
-          <FAQ />
-        </ContainContainer>
-      </ScrollView>
-    </SafeAreaView>
+          <Text style={[styles.textColor, styles.paragraph]}>
+            Before using the platform, you need to confirm your identity.
+          </Text>
+
+          <Text style={[styles.textColor]}>Click the button below to start your verification.</Text>
+          <Button
+            title='Start Verification'
+            containerStyle={{marginTop: 20}}
+            onPress={launchSNSMobileSDK}
+          />
+        </GradientBox>
+        <FAQ />
+      </ContainContainer>
+    </ScrollView>
   )
 }
 

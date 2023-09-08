@@ -21,7 +21,12 @@ const Navigators = () => {
   return (
     <Stack.Navigator>
       {!profile ? (
-        <Stack.Group screenOptions={{headerTitle: Logo}}>
+        <Stack.Group
+          screenOptions={{
+            title: '',
+            headerLeft: () => <Logo />,
+          }}
+        >
           <Stack.Screen name='Login' component={Login} />
           <Stack.Group
             screenOptions={({navigation}: NativeStackScreenProps<RouteStack>) => ({
