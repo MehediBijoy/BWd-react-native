@@ -4,7 +4,7 @@ import {cacheKey} from 'api'
 import {DynamicFee} from 'api/Response'
 import {useAuthToken, useApi} from 'hooks/api'
 
-const useDynamicFees = (): UseQueryResult => {
+const useDynamicFees = (): UseQueryResult<DynamicFee[]> => {
   const api = useApi()
   const {token} = useAuthToken()
 

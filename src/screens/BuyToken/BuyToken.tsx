@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useMemo, useState} from 'react'
 import {useForm} from 'react-hook-form'
 import {Text, Button} from '@rneui/themed'
 import {useMutation} from '@tanstack/react-query'
@@ -27,6 +27,7 @@ const BuyToken = () => {
   const api = useApi()
   const {data: bwgLimit} = useAssets('BWG')
   const methods = useForm<BuyBoxFields>()
+  const {total} = methods.getValues()
   const [inBase, setInBase] = useState(false)
   const [isOpened, setIsOpened] = useState<boolean>(false)
   const [isFiatModalOpened, setIsFiatModalOpened] = useState<boolean>(false)
@@ -34,8 +35,8 @@ const BuyToken = () => {
   const {
     mutate: feesRefetch,
     isLoading,
-    data,
-  } = useMutation<any>({
+    data: estimatePay,
+  } = useMutation({
     mutationFn: () =>
       api.getEstimateFee({
         asset: 'USD',
@@ -53,9 +54,13 @@ const BuyToken = () => {
     setIsOpened(false)
   }
 
-  const isValid =
-    Object.keys(methods.getValues()).length &&
-    Object.entries(methods.getValues()).every(value => Boolean(value[1]))
+  const isValid = useMemo(() => {
+    const value = Number(total)
+    const minPaymentAmount = Number(bwgLimit?.min_payment_amount)
+    const maxPaymentAmount = Number(bwgLimit?.max_payment_amount)
+
+    return value >= minPaymentAmount && value <= maxPaymentAmount
+  }, [total, bwgLimit])
 
   return (
     <SafeAreaView>
@@ -65,10 +70,10 @@ const BuyToken = () => {
           <FiatPaymentModal
             isOpened={isFiatModalOpened}
             onClose={() => setIsFiatModalOpened(false)}
-            estimateFees={data}
+            estimateFees={estimatePay as EstimateFee}
           />
 
-          <View style={{display: 'flex'}}>
+          <View style={{display: 'flex', rowGap: 20}}>
             <Text h3 h3Style={{}}>
               Purchase BWG
             </Text>
@@ -82,7 +87,6 @@ const BuyToken = () => {
                   feesRefetch()
                 }}
                 placeholder='Enter your amount'
-                color='bgPaper'
                 label='Amount'
                 rightElement={isLoading && !inBase ? <ActivityIndicator /> : undefined}
               />
@@ -97,7 +101,6 @@ const BuyToken = () => {
                   feesRefetch()
                 }}
                 rightElement={isLoading && inBase ? <ActivityIndicator /> : undefined}
-                color='bgPaper'
               />
 
               <Text

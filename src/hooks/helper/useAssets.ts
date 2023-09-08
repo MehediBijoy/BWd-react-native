@@ -6,7 +6,7 @@ import {useAuthToken, useApi} from 'hooks/api'
 
 type UseAssetsOptions = Omit<UseQueryOptions<Asset>, 'queryFn' | 'queryKey'>
 
-const useAssets = (symbol: string, options?: UseAssetsOptions): UseQueryResult => {
+const useAssets = (symbol: string, options?: UseAssetsOptions): UseQueryResult<Asset> => {
   const api = useApi()
   const {token} = useAuthToken()
 
