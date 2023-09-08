@@ -7,8 +7,8 @@ import {
   ChangePasswordProps,
   ReferralProps,
 } from './Request'
+import ApiBase, {ApiBaseProps} from './Abstractions/ApiBase'
 import {LoginResponse, KycAccessKey, User, Success} from './Response'
-import ApiBase, {ApiBaseProps} from './ApiAbstractions/ApiBase'
 
 export default class ApiMethods extends ApiBase {
   constructor(props: ApiBaseProps) {

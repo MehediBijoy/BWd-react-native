@@ -1,3 +1,4 @@
+import {Platform} from 'react-native'
 import {Icon, useTheme} from '@rneui/themed'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 
@@ -25,7 +26,7 @@ const TabNavigator = () => {
           fontSize: 14,
           paddingBottom: 10,
         },
-        tabBarStyle: {padding: 10, height: 65},
+        tabBarStyle: {padding: 10, height: Platform.OS === 'ios' ? 100 : 65},
       }}
     >
       <Tab.Screen
@@ -56,11 +57,12 @@ const TabNavigator = () => {
         component={Notifications}
         options={{
           tabBarBadge: 5,
-          tabBarBadgeStyle: {marginTop: -10, marginLeft: -2},
+          tabBarBadgeStyle: {marginTop: -6, marginLeft: -2},
           tabBarIcon: props => <Icon name='notifications' type='material-icons' {...props} />,
         }}
       />
     </Tab.Navigator>
   )
 }
+
 export default TabNavigator
