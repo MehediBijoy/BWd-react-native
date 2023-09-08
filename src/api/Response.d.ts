@@ -38,6 +38,7 @@ export type KycAccessKey = {
     token: string
   }
 }
+
 export type Asset = {
   id: number
   max_payment_amount: string
