@@ -1,7 +1,6 @@
 import React from 'react'
 import {ScrollView} from 'react-native'
 
-import SafeAreaView from '@core/SafeAreaView'
 import ContainContainer from '@core/ContentContainer'
 
 import {useSocket} from 'hooks/helper'
@@ -27,11 +26,9 @@ const Dashboard = () => {
 
   return (
     <ScrollView>
-      <SafeAreaView>
-        <ContainContainer>
-          <BalanceBox />
-        </ContainContainer>
-      </SafeAreaView>
+      <ContainContainer>
+        <BalanceBox />
+      </ContainContainer>
     </ScrollView>
   )
 }
