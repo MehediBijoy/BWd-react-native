@@ -10,6 +10,7 @@ import BalanceBox from './balanceBox'
 
 const Dashboard = () => {
   const {subscribe} = useSocket()
+  const [enabled, setEnabled] = React.useState(false)
 
   React.useEffect(() => {
     subscribe('NotificationsChannel', {
@@ -29,7 +30,7 @@ const Dashboard = () => {
     <ScrollView>
       <ContainContainer>
         <BalanceBox />
-        <Switch />
+        <Switch active={enabled} onChange={() => setEnabled(!enabled)} />
       </ContainContainer>
     </ScrollView>
   )
