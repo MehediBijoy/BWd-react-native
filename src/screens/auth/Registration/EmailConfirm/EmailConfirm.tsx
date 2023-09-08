@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {ScrollView, View} from 'react-native'
 import {useMutation} from '@tanstack/react-query'
 import {Button, Text, makeStyles} from '@rneui/themed'
@@ -8,23 +8,39 @@ import SafeAreaView from '@core/SafeAreaView'
 import ContainContainer from '@core/ContentContainer'
 
 import {useApi} from 'hooks/api'
-import {useProfile} from 'hooks/helper'
+import {User} from 'api/Response'
+import {useProfile, useSocket} from 'hooks/helper'
 import MessageBox from 'screens/auth/MessageBox'
 import GradientBox from 'screens/auth/GradientBox'
 
 import FAQ from '../../FAQ'
 import StepNumber from '../StepNumber'
 
+type EmailConfirmProps = {
+  event: {name: 'email_confirmed'; data: User}
+}
+
 const EmailConfirm = () => {
   const api = useApi()
   const styles = useStyles()
-  const {profile} = useProfile()
+  const {profile, setProfile} = useProfile()
   const [isOpened, setOpened] = useState<boolean>(false)
+  const {subscribe} = useSocket()
 
   const {mutate, isLoading} = useMutation({
     mutationFn: api.resendEmailConfirmation,
     onSuccess: () => setOpened(true),
   })
+
+  useEffect(() => {
+    subscribe('NotificationsChannel', {
+      received(data: EmailConfirmProps) {
+        if (data.event.name === 'email_confirmed') {
+          setProfile(data.event.data)
+        }
+      },
+    })
+  }, [])
 
   return (
     <SafeAreaView>
