@@ -1,7 +1,7 @@
 import React from 'react'
 import {ScrollView} from 'react-native'
 
-import SafeAreaView from '@core/SafeAreaView'
+import Switch from '@core/Switch'
 import ContainContainer from '@core/ContentContainer'
 
 import {useSocket} from 'hooks/helper'
@@ -10,6 +10,7 @@ import BalanceBox from './balanceBox'
 
 const Dashboard = () => {
   const {subscribe} = useSocket()
+  const [enabled, setEnabled] = React.useState(false)
 
   React.useEffect(() => {
     subscribe('NotificationsChannel', {
@@ -27,11 +28,10 @@ const Dashboard = () => {
 
   return (
     <ScrollView>
-      <SafeAreaView>
-        <ContainContainer>
-          <BalanceBox />
-        </ContainContainer>
-      </SafeAreaView>
+      <ContainContainer>
+        <BalanceBox />
+        <Switch active={enabled} onChange={() => setEnabled(!enabled)} />
+      </ContainContainer>
     </ScrollView>
   )
 }

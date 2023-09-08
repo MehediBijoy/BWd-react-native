@@ -11,16 +11,8 @@ import {
   AssetProps,
   PaymentPayloadProps,
 } from './Request'
-import {
-  LoginResponse,
-  KycAccessKey,
-  User,
-  Asset,
-  Success,
-  DynamicFee,
-  EstimateFee,
-} from './Response'
-import ApiBase, {ApiBaseProps} from './ApiAbstractions/ApiBase'
+import ApiBase, {ApiBaseProps} from './Abstractions/ApiBase'
+import {LoginResponse, KycAccessKey, User, Success} from './Response'
 
 export default class ApiMethods extends ApiBase {
   constructor(props: ApiBaseProps) {
