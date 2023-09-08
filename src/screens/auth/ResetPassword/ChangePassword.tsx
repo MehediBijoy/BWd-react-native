@@ -8,7 +8,6 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack'
 import Form from '@core/Form'
 import Modal from '@core/Modal'
 import FormInput from '@core/FormInput'
-import SafeAreaView from '@core/SafeAreaView'
 import ContainContainer from '@core/ContentContainer'
 
 import FAQ from 'screens/auth/FAQ'
@@ -74,69 +73,67 @@ const ChangePassword = ({
   ]
 
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <ContainContainer>
-          <GradientBox styles={{marginTop: 30}}>
-            <View style={{rowGap: 20}}>
-              <Text h3 h3Style={styles.headerTextStyles}>
-                Create New Password
-              </Text>
+    <ScrollView>
+      <ContainContainer>
+        <GradientBox styles={{marginTop: 30}}>
+          <View style={{rowGap: 20}}>
+            <Text h3 h3Style={styles.headerTextStyles}>
+              Create New Password
+            </Text>
 
-              <MessageBox
-                name='lock-reset'
-                type='material-community'
-                color={theme.colors.white}
-                message='Please fill in your new password. For better security we recommended following'
-              />
+            <MessageBox
+              name='lock-reset'
+              type='material-community'
+              color={theme.colors.white}
+              message='Please fill in your new password. For better security we recommended following'
+            />
 
-              <View style={{rowGap: 5}}>
-                {data.map((value, index) => (
-                  <Text key={index} style={{color: theme.colors.white}}>
-                    {'\u2022 '}
-                    {value}
-                  </Text>
-                ))}
-              </View>
-
-              <Form methods={methods} style={styles.innerContainer}>
-                <FormInput
-                  name='password'
-                  type='password'
-                  placeholder='New Password'
-                  label='Enter New Password'
-                  color='bgPaper'
-                />
-
-                <FormInput
-                  name='password_confirmation'
-                  type='password'
-                  placeholder='Confirm New Password'
-                  label='Confirm New Password'
-                  color='bgPaper'
-                />
-
-                {isError && <Text style={styles.error}> {error.message}</Text>}
-
-                <Button
-                  title='Submit'
-                  loading={isLoading}
-                  onPress={methods.handleSubmit(data => mutate(data))}
-                />
-              </Form>
+            <View style={{rowGap: 5}}>
+              {data.map((value, index) => (
+                <Text key={index} style={{color: theme.colors.white}}>
+                  {'\u2022 '}
+                  {value}
+                </Text>
+              ))}
             </View>
 
-            <Modal title='Password Changed' isOpened={isOpened} onClose={afterSuccess}>
-              <View style={{alignItems: 'flex-start', rowGap: 15}}>
-                <Text style={{fontSize: 16}}>Your password has been successfully updated.</Text>
-                <Button title='Ok' size='sm' containerStyle={{width: 100}} onPress={afterSuccess} />
-              </View>
-            </Modal>
-          </GradientBox>
-          <FAQ />
-        </ContainContainer>
-      </ScrollView>
-    </SafeAreaView>
+            <Form methods={methods} style={styles.innerContainer}>
+              <FormInput
+                name='password'
+                type='password'
+                placeholder='New Password'
+                label='Enter New Password'
+                color='bgPaper'
+              />
+
+              <FormInput
+                name='password_confirmation'
+                type='password'
+                placeholder='Confirm New Password'
+                label='Confirm New Password'
+                color='bgPaper'
+              />
+
+              {isError && <Text style={styles.error}> {error.message}</Text>}
+
+              <Button
+                title='Submit'
+                loading={isLoading}
+                onPress={methods.handleSubmit(data => mutate(data))}
+              />
+            </Form>
+          </View>
+
+          <Modal title='Password Changed' isOpened={isOpened} onClose={afterSuccess}>
+            <View style={{alignItems: 'flex-start', rowGap: 15}}>
+              <Text style={{fontSize: 16}}>Your password has been successfully updated.</Text>
+              <Button title='Ok' size='sm' containerStyle={{width: 100}} onPress={afterSuccess} />
+            </View>
+          </Modal>
+        </GradientBox>
+        <FAQ />
+      </ContainContainer>
+    </ScrollView>
   )
 }
 

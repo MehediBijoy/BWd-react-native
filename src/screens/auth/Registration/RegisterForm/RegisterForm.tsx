@@ -8,7 +8,6 @@ import Form from '@core/Form'
 import FormInput from '@core/FormInput'
 import FormSelect from '@core/FormSelect'
 import FormCheckBox from '@core/FormCheckBox'
-import SafeAreaView from '@core/SafeAreaView'
 import ContainContainer from '@core/ContentContainer'
 
 import FAQ from 'screens/auth/FAQ'
@@ -82,106 +81,99 @@ const RegisterForm = () => {
   const isChecked = methods.watch('referral_checkbox')
 
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <ContainContainer>
-          <StepNumber current={1} />
-          <GradientBox>
-            <Text h4 h4Style={{color: 'white'}}>
-              Registration
-            </Text>
-            <Form methods={methods} style={styles.form}>
+    <ScrollView>
+      <ContainContainer>
+        <StepNumber current={1} />
+        <GradientBox>
+          <Text h4 h4Style={{color: 'white'}}>
+            Registration
+          </Text>
+          <Form methods={methods} style={styles.form}>
+            <FormInput name='email' label='Email' placeholder='Enter your email' color='bgPaper' />
+
+            <FormInput
+              name='password'
+              type='password'
+              label='Password'
+              placeholder='Enter your password'
+              color='bgPaper'
+            />
+
+            <FormInput
+              type='password'
+              name='password_confirmation'
+              label='Confirm Password'
+              placeholder='Confirm your password'
+              color='bgPaper'
+            />
+
+            <FormSelect
+              name='profession'
+              label='What is your profession?'
+              data={professionConfig}
+              color='bgPaper'
+            />
+
+            <FormSelect
+              name='source_of_income'
+              label='Source of income'
+              data={sourceOfIncomeConfig}
+              color='bgPaper'
+            />
+
+            <FormSelect
+              name='earnings'
+              label='How much do you earn?'
+              data={earnConfig}
+              color='bgPaper'
+            />
+
+            <FormSelect
+              name='trading_experience'
+              label='How much experience do you have with treading?'
+              data={experienceConfig}
+              color='bgPaper'
+            />
+
+            {!isChecked && (
               <FormInput
-                name='email'
-                label='Email'
-                placeholder='Enter your email'
+                name='token'
+                label='Referral Code'
+                placeholder='Enter your referral code'
                 color='bgPaper'
               />
+            )}
 
-              <FormInput
-                name='password'
-                type='password'
-                label='Password'
-                placeholder='Enter your password'
-                color='bgPaper'
-              />
+            <FormCheckBox
+              name='referral_checkbox'
+              title='Sign up without a referral code'
+              color='bgPaper'
+            />
 
-              <FormInput
-                type='password'
-                name='password_confirmation'
-                label='Confirm Password'
-                placeholder='Confirm your password'
-                color='bgPaper'
-              />
+            <FormCheckBox
+              name='agree_terms'
+              title={
+                <Text style={styles.checkboxTitle}>
+                  By signing up you agree to our
+                  <Text style={styles.link}> Terms & Conditions</Text>
+                  <Text style={styles.link}> Privacy Statement</Text> and
+                  <Text style={styles.link}> User Agreement</Text>
+                </Text>
+              }
+              color='bgPaper'
+            />
 
-              <FormSelect
-                name='profession'
-                label='What is your profession?'
-                data={professionConfig}
-                color='bgPaper'
-              />
-
-              <FormSelect
-                name='source_of_income'
-                label='Source of income'
-                data={sourceOfIncomeConfig}
-                color='bgPaper'
-              />
-
-              <FormSelect
-                name='earnings'
-                label='How much do you earn?'
-                data={earnConfig}
-                color='bgPaper'
-              />
-
-              <FormSelect
-                name='trading_experience'
-                label='How much experience do you have with treading?'
-                data={experienceConfig}
-                color='bgPaper'
-              />
-
-              {!isChecked && (
-                <FormInput
-                  name='token'
-                  label='Referral Code'
-                  placeholder='Enter your referral code'
-                  color='bgPaper'
-                />
-              )}
-
-              <FormCheckBox
-                name='referral_checkbox'
-                title='Sign up without a referral code'
-                color='bgPaper'
-              />
-
-              <FormCheckBox
-                name='agree_terms'
-                title={
-                  <Text style={styles.checkboxTitle}>
-                    By signing up you agree to our
-                    <Text style={styles.link}> Terms & Conditions</Text>
-                    <Text style={styles.link}> Privacy Statement</Text> and
-                    <Text style={styles.link}> User Agreement</Text>
-                  </Text>
-                }
-                color='bgPaper'
-              />
-
-              <Button
-                type='solid'
-                color='secondary'
-                title='Register Now'
-                onPress={methods.handleSubmit(data => mutate(data))}
-              />
-            </Form>
-          </GradientBox>
-          <FAQ />
-        </ContainContainer>
-      </ScrollView>
-    </SafeAreaView>
+            <Button
+              type='solid'
+              color='secondary'
+              title='Register Now'
+              onPress={methods.handleSubmit(data => mutate(data))}
+            />
+          </Form>
+        </GradientBox>
+        <FAQ />
+      </ContainContainer>
+    </ScrollView>
   )
 }
 
