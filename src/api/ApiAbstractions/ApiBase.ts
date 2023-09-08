@@ -13,11 +13,9 @@ export type ApiBaseProps = {
 }
 
 export default class ApiBas {
-  private onAction
   private axiosClient: AxiosInstance
 
   constructor({baseURL, commonHeaders, onAction, timeout = 4000}: ApiBaseProps) {
-    this.onAction = onAction
     this.axiosClient = axios.create({
       baseURL: baseURL,
       timeout,
@@ -45,7 +43,7 @@ export default class ApiBas {
 
         const codes = ['002', '003', '004']
         if (codes.includes(errorData.code)) {
-          this.onAction && this.onAction()
+          onAction && onAction()
         }
         throw errorData
       }
