@@ -8,7 +8,7 @@ import {
   ReferralProps,
 } from './Request'
 import ApiBase, {ApiBaseProps} from './Abstractions/ApiBase'
-import {LoginResponse, KycAccessKey, User, Success} from './Response'
+import {LoginResponse, KycAccessKey, User, Success, UserInfo} from './Response'
 
 export default class ApiMethods extends ApiBase {
   constructor(props: ApiBaseProps) {
@@ -65,6 +65,11 @@ export default class ApiMethods extends ApiBase {
 
   async getProfile(): Promise<User> {
     const {user} = await this.get('/auth/profile')
+    return user
+  }
+
+  async getUserInfo(id: number | undefined): Promise<UserInfo> {
+    const {user} = await this.get(`/users/${id}`)
     return user
   }
 
