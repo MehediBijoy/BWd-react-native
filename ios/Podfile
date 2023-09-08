@@ -60,3 +60,7 @@ target 'PlatformApp' do
     __apply_Xcode_12_5_M1_post_install_workaround(installer)
   end
 end
+
+# added for sumsub enabled in ios
+source 'https://cdn.cocoapods.org/'
+source 'https://github.com/SumSubstance/Specs.git'

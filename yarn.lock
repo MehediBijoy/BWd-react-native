@@ -2087,7 +2087,7 @@
     "@stablelib/random" "^1.0.2"
     "@stablelib/wipe" "^1.0.1"
 
-"@sumsub/react-native-mobilesdk-module@^1.25.0":
+"@sumsub/react-native-mobilesdk-module@^1.27.0":
   version "1.27.0"
   resolved "https://registry.yarnpkg.com/@sumsub/react-native-mobilesdk-module/-/react-native-mobilesdk-module-1.27.0.tgz#f84d7b00ddab7c30051fde270b43c40f66ed361b"
   integrity sha512-778UwRCWR2zjQ32uXQ6fZ4vXCSnQoG4uT0GKT5dN0SXJIGbnb6PipVdAG/wjicgZ6SNGJTFdE5r+Alf3WazWeg==
