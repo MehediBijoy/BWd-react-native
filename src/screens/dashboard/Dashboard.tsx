@@ -1,6 +1,7 @@
 import React from 'react'
 import {ScrollView} from 'react-native'
 
+import Switch from '@core/Switch'
 import ContainContainer from '@core/ContentContainer'
 
 import {useSocket} from 'hooks/helper'
@@ -28,6 +29,7 @@ const Dashboard = () => {
     <ScrollView>
       <ContainContainer>
         <BalanceBox />
+        <Switch />
       </ContainContainer>
     </ScrollView>
   )
