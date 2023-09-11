@@ -9,7 +9,7 @@ import {
   ChangePasswordProps,
   ReferralProps,
   AssetProps,
-  PaymentPayloadProps,
+  PaymentProps,
 } from './Request'
 import ApiBase, {ApiBaseProps} from './Abstractions/ApiBase'
 import {
@@ -20,6 +20,7 @@ import {
   Asset,
   DynamicFee,
   EstimateFee,
+  Payment,
 } from './Response'
 
 export default class ApiMethods extends ApiBase {
@@ -112,12 +113,13 @@ export default class ApiMethods extends ApiBase {
   }
 
   // payments API
-  async getEstimateFee(params: PaymentPayloadProps): Promise<EstimateFee> {
+  async getEstimateFee(params: PaymentProps): Promise<EstimateFee> {
     const result = await this.get('/payments/estimate_fee', params)
     return formatEstimatePay(result)
   }
 
-  async makePayment(params: PaymentPayloadProps) {
-    return await this.post('/payments', params)
+  async createPayment(params: PaymentProps): Promise<Payment> {
+    const {payment} = await this.post('/payments', {payment: params})
+    return payment
   }
 }

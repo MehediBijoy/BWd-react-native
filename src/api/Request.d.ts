@@ -35,9 +35,10 @@ export type AssetProps = {
   params?: object
 }
 
-export type PaymentPayloadProps = {
+export type PaymentProps = {
   asset: string
   target_asset: string
-  amount: number
-  in_base: boolean
+  amount: number | string
+  in_base?: boolean
+  payment_type?: string
 }

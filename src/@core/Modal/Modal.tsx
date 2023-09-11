@@ -23,7 +23,7 @@ const Modal = ({isOpened, onClose, title, children}: ModalProps) => {
       <View style={[styles.container]}>
         <View style={[styles.titleContainer]}>
           {React.isValidElement(title) ? title : <Text style={styles.title}>{title}</Text>}
-          <Icon type='ionicon' name='close' onPress={onClose} />
+          <Icon type='ionicon' name='close' onPress={onClose} style={styles.icon} />
         </View>
         <View>{children}</View>
       </View>
@@ -49,6 +49,12 @@ const useStyles = makeStyles(({colors}) => ({
     width: '100%',
     borderRadius: 5,
     backgroundColor: colors.background,
+  },
+  icon: {
+    height: 30,
+    width: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 }))
 
