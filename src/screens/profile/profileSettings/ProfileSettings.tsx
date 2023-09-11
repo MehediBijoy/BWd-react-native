@@ -8,6 +8,14 @@ type ProfileSettingsProps = {
   userInfo?: UserInfo
 }
 
+const updateWalletConnectTitle = (title?: string) => {
+  const prefix = title?.slice(0, 5)
+  const suffix = title?.slice(-4)
+
+  const masked = prefix + '.'.repeat(4) + suffix
+  return masked
+}
+
 const ProfileSettings = ({userInfo}: ProfileSettingsProps) => {
   const styles = useStyles()
 
@@ -19,7 +27,7 @@ const ProfileSettings = ({userInfo}: ProfileSettingsProps) => {
           <Text style={[styles.boldText]}>{userInfo?.email}</Text>
         </View>
         <Link to={{screen: 'Purchase'}} style={[styles.linkWrapper]}>
-          Edit
+          <Text style={[styles.editText]}> Edit</Text>
         </Link>
       </View>
       <View style={[styles.wrapper]}>
@@ -28,7 +36,7 @@ const ProfileSettings = ({userInfo}: ProfileSettingsProps) => {
           <Text style={[styles.boldText]}>********</Text>
         </View>
         <Link to={{screen: 'Purchase'}} style={[styles.linkWrapper]}>
-          Edit
+          <Text style={[styles.editText]}> Edit</Text>
         </Link>
       </View>
       <View style={[styles.wrapper]}>
@@ -39,8 +47,25 @@ const ProfileSettings = ({userInfo}: ProfileSettingsProps) => {
           </Text>
         </View>
         <Link to={{screen: 'Purchase'}} style={[styles.linkWrapper]}>
-          Edit
+          <Text style={[styles.editText]}> Edit </Text>
         </Link>
+      </View>
+
+      {/*Note: This functionality will be add in future  */}
+      {/* <View style={[styles.wrapper]}>
+        <View style={[styles.textWrapper]}>
+          <Text>Save Payment Methods:</Text>
+        </View>
+        <Text style={[styles.linkWrapper]}>Edit</Text>
+      </View>
+       */}
+
+      <View style={[styles.wrapper]}>
+        {/* {userInfo?.wallet_address && <CopyButton toCopy={userInfo?.wallet_address} />} */}
+        <Text style={{marginLeft: 2}}>Saved Wallet Address:</Text>
+        <Text style={{marginLeft: 5, fontSize: 16}}>
+          {updateWalletConnectTitle(userInfo?.wallet_address)}
+        </Text>
       </View>
     </View>
   )
@@ -70,8 +95,14 @@ const useStyles = makeStyles(({colors}) => ({
     fontWeight: '700',
   },
   linkWrapper: {
-    alignItems: 'center',
     width: 40,
+    color: colors.tertiary,
+    backgroundColor: colors.bgPaper,
+    padding: 5,
+    borderRadius: 6,
+  },
+  editText: {
+    textAlign: 'center',
     color: colors.tertiary,
   },
 }))

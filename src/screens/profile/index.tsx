@@ -9,6 +9,8 @@ import {cacheKey} from 'api'
 
 import PersonalInfoBox from './personalInfoBox'
 import ProfileSettings from './profileSettings'
+import ReferralInfoBox from './ReferralInfoBox'
+import AppSettings from './AppSettings'
 
 const Profile = () => {
   const {profile} = useProfile()
@@ -24,6 +26,8 @@ const Profile = () => {
       <ContentContainer>
         <PersonalInfoBox userInfo={userDetails} />
         <ProfileSettings userInfo={userDetails} />
+        <ReferralInfoBox userInfo={userDetails} />
+        <AppSettings />
       </ContentContainer>
     </ScrollView>
   )
