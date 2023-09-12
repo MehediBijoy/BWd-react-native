@@ -48,7 +48,7 @@ const PaypalView = ({data, isLoading, onClose}: PaypalViewProps) => (
         source={{uri: 'https://www.sandbox.paypal.com/checkoutnow?token=' + data.external_id}}
         javaScriptEnabled
         domStorageEnabled
-        startInLoadingState={false}
+        startInLoadingState
         onNavigationStateChange={console.log}
       />
     )}

@@ -1,18 +1,18 @@
 import {useMemo, useState} from 'react'
 import {useForm} from 'react-hook-form'
-import {Text, Button} from '@rneui/themed'
 import {useMutation} from '@tanstack/react-query'
+import {Text, Button, Icon, makeStyles} from '@rneui/themed'
 import {ActivityIndicator, ScrollView, View} from 'react-native'
 
 import Form from '@core/Form'
 import FormInput from '@core/FormInput'
 import ContainContainer from '@core/ContentContainer'
 
-// import {appInfo} from 'constant'
+import Logo from 'components/Logo'
 import useApi from 'hooks/api/useApi'
-import {useDebounce, useAssets} from 'hooks/helper'
 import {EstimateFee} from 'api/Response'
 import {PaymentProps} from 'api/Request'
+import {useDebounce, useAssets} from 'hooks/helper'
 
 import TierOverviewModal from './TierFeesModal'
 import FiatPaymentModal from './FiatPayment/FiatPayment'
@@ -24,6 +24,7 @@ type BuyBoxFields = {
 
 const BuyToken = () => {
   const api = useApi()
+  const styles = useStyles()
   const {data: bwgLimit} = useAssets('BWG')
   const methods = useForm<BuyBoxFields>()
   const {total} = methods.getValues()
@@ -98,6 +99,15 @@ const BuyToken = () => {
               keyboardType='numeric'
               placeholder='Enter your amount'
               onChangeText={value => onChange(value, true)}
+              leftElement={
+                <Icon
+                  name='dollar'
+                  type='font-awesome'
+                  size={18}
+                  color='white'
+                  style={styles.currency}
+                />
+              }
               rightElement={isLoading && !inBase ? <ActivityIndicator /> : undefined}
             />
 
@@ -107,6 +117,7 @@ const BuyToken = () => {
               keyboardType='numeric'
               placeholder='Enter your amount'
               onChangeText={value => onChange(value, false)}
+              leftElement={<Logo height={30} width={30} style={{marginRight: 10}} />}
               rightElement={isLoading && inBase ? <ActivityIndicator /> : undefined}
             />
 
@@ -126,5 +137,17 @@ const BuyToken = () => {
     </ScrollView>
   )
 }
+
+const useStyles = makeStyles(() => ({
+  currency: {
+    height: 30,
+    width: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 15,
+    backgroundColor: '#399fff',
+    marginRight: 10,
+  },
+}))
 
 export default BuyToken
