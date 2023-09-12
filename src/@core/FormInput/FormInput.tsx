@@ -7,7 +7,7 @@ export type FormInputProps = {
   name: string
 } & InputProps
 
-const FormInput = ({name, ...props}: FormInputProps) => {
+const FormInput = ({name, onChangeText, ...props}: FormInputProps) => {
   const {control} = useFormContext()
 
   return (
@@ -16,7 +16,10 @@ const FormInput = ({name, ...props}: FormInputProps) => {
       control={control}
       render={({field: {onChange, ...restField}, fieldState}) => (
         <Input
-          onChangeText={onChange}
+          onChangeText={(props: any) => {
+            onChange(props)
+            onChangeText && onChangeText(props)
+          }}
           error={fieldState.invalid}
           helperText={fieldState.error?.message}
           {...restField}
