@@ -1,58 +1,43 @@
-import {Text} from '@rneui/themed'
 import {View} from 'react-native'
+import {Text, makeStyles} from '@rneui/themed'
 import {useEffect, useState} from 'react'
 
-import Switch from '@core/Switch'
-
 import {useLocalCurrency} from 'hooks/helper'
+import SwitchSelectors from 'components/SwitchSelectors'
+
+import {switchConfig} from './switch.config'
 
 const AppSettings = () => {
   const {currency, setCurrencyValue} = useLocalCurrency()
+  const [active, setActive] = useState<string>(currency)
 
-  const [usdEnabled, setUsdEnabled] = useState<boolean>(false)
-  const [eurEnabled, setEurEnabled] = useState<boolean>(false)
+  const styles = useStyles()
 
   useEffect(() => {
-    if (currency === 'USD') {
-      setUsdEnabled(true)
-      setEurEnabled(false)
-    } else if (currency === 'EUR') {
-      setEurEnabled(true)
-      setUsdEnabled(false)
-    }
+    setActive(currency)
   }, [currency])
 
-  const handleUsd = () => {
-    if (usdEnabled) {
-      setCurrencyValue('EUR')
-    } else {
-      setCurrencyValue('USD')
-    }
-    setUsdEnabled(!usdEnabled)
-  }
-
-  const handleEur = () => {
-    if (eurEnabled) {
-      setCurrencyValue('USD')
-    } else {
-      setCurrencyValue('EUR')
-    }
-    setEurEnabled(!eurEnabled)
+  const onChangeSwitch = (id: string) => {
+    setActive(id)
+    setCurrencyValue(id)
   }
 
   return (
-    <View>
-      <Text>Currency </Text>
-      <View>
-        <Text>USD</Text>
-        <Switch active={usdEnabled} onChange={handleUsd} />
-      </View>
-      <View>
-        <Text>EUR</Text>
-        <Switch active={eurEnabled} onChange={handleEur} />
-      </View>
+    <View style={styles.container}>
+      <Text style={styles.title}>Currency </Text>
+      <SwitchSelectors data={switchConfig} onChange={onChangeSwitch} active={active} />
     </View>
   )
 }
+
+const useStyles = makeStyles(() => ({
+  container: {
+    marginTop: 20,
+  },
+  title: {
+    fontSize: 16,
+    fontWeight: '700',
+  },
+}))
 
 export default AppSettings

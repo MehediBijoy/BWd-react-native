@@ -29,3 +29,9 @@ export type ChangePasswordFormProps = {
 export type ReferralProps = {
   [token: string]: string
 }
+
+export type ChangeEmailProps = {
+  id: number
+  email: string
+  mfa_code?: string
+}

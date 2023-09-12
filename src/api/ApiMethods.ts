@@ -6,6 +6,7 @@ import {
   EmailProps,
   ChangePasswordProps,
   ReferralProps,
+  ChangeEmailProps,
 } from './Request'
 import ApiBase, {ApiBaseProps} from './Abstractions/ApiBase'
 import {LoginResponse, KycAccessKey, User, Success, UserInfo} from './Response'
@@ -87,5 +88,15 @@ export default class ApiMethods extends ApiBase {
 
   async getKycAccessToken(): Promise<KycAccessKey> {
     return this.post('/sumsub/access_token?levelName=basic-kyc')
+  }
+
+  async changeEmail({id, email, mfa_code}: ChangeEmailProps): Promise<UserInfo> {
+    const {user} = await this.put(`/users/${id}`, {
+      mfa_code,
+      user: {
+        email,
+      },
+    })
+    return user
   }
 }

@@ -1,35 +1,24 @@
-import {ScrollView} from 'react-native'
-import {useQuery} from '@tanstack/react-query'
+import {createNativeStackNavigator} from '@react-navigation/native-stack'
 
-import ContentContainer from '@core/ContentContainer'
+import {RouteStack} from 'navigators/routes'
 
-import {useProfile} from 'hooks/helper'
-import {useApi} from 'hooks/api'
-import {cacheKey} from 'api'
+import ProfileInfo from './Profile'
+import ChangeEmail from './changeEmail'
+import ChangePassword from './changePassword'
 
-import PersonalInfoBox from './personalInfoBox'
-import ProfileSettings from './profileSettings'
-import ReferralInfoBox from './ReferralInfoBox'
-import AppSettings from './AppSettings'
+const Stack = createNativeStackNavigator<RouteStack>()
 
 const Profile = () => {
-  const {profile} = useProfile()
-  const api = useApi()
-
-  const {data: userDetails} = useQuery({
-    queryKey: [cacheKey.userDetails, profile?.id],
-    queryFn: () => api.getUserInfo(profile?.id),
-    enabled: !!profile?.id,
-  })
   return (
-    <ScrollView>
-      <ContentContainer>
-        <PersonalInfoBox userInfo={userDetails} />
-        <ProfileSettings userInfo={userDetails} />
-        <ReferralInfoBox userInfo={userDetails} />
-        <AppSettings />
-      </ContentContainer>
-    </ScrollView>
+    <Stack.Navigator>
+      <Stack.Screen name='Settings' component={ProfileInfo} options={{headerShown: false}} />
+      <Stack.Screen name='EmailChange' component={ChangeEmail} options={{title: 'Email Change'}} />
+      <Stack.Screen
+        name='PasswordChange'
+        component={ChangePassword}
+        options={{title: 'Password Change'}}
+      />
+    </Stack.Navigator>
   )
 }
 

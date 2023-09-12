@@ -26,7 +26,7 @@ const ProfileSettings = ({userInfo}: ProfileSettingsProps) => {
           <Text>Email:</Text>
           <Text style={[styles.boldText]}>{userInfo?.email}</Text>
         </View>
-        <Link to={{screen: 'Purchase'}} style={[styles.linkWrapper]}>
+        <Link to={{screen: 'EmailChange'}} style={[styles.linkWrapper]}>
           <Text style={[styles.editText]}> Edit</Text>
         </Link>
       </View>
@@ -35,7 +35,7 @@ const ProfileSettings = ({userInfo}: ProfileSettingsProps) => {
           <Text>Password:</Text>
           <Text style={[styles.boldText]}>********</Text>
         </View>
-        <Link to={{screen: 'Purchase'}} style={[styles.linkWrapper]}>
+        <Link to={{screen: 'PasswordChange'}} style={[styles.linkWrapper]}>
           <Text style={[styles.editText]}> Edit</Text>
         </Link>
       </View>
@@ -46,7 +46,7 @@ const ProfileSettings = ({userInfo}: ProfileSettingsProps) => {
             {userInfo?.google_mfa_activated === true ? 'Activated' : 'Deactivated'}
           </Text>
         </View>
-        <Link to={{screen: 'Purchase'}} style={[styles.linkWrapper]}>
+        <Link to={{screen: 'EmailChange'}} style={[styles.linkWrapper]}>
           <Text style={[styles.editText]}> Edit </Text>
         </Link>
       </View>

@@ -2,7 +2,7 @@ import {useCallback, useEffect, useState} from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const useLocalCurrency = () => {
-  const [currency, setCurrency] = useState<string | null>(null)
+  const [currency, setCurrency] = useState<string>('')
 
   useEffect(() => {
     getStoredCurrency()
