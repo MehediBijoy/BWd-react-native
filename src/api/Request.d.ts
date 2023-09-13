@@ -54,3 +54,23 @@ export type ChangeEmailProps = {
 export type EmailConfirmProps = {
   token: string
 }
+export type TransactionChartProps = {
+  period_type: string
+  period_numbers: number
+}
+
+export type DashboardChartProps = {
+  symbol: string
+  days: number
+  currency: string
+}
+
+export type PaymentQueryProps = {
+  limit: number
+  page: number
+  status?: string
+  sort_by?: string
+  sort_order?: string
+  q?: string
+  user_id?: string
+}

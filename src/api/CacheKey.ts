@@ -3,4 +3,7 @@ export const cacheKey = {
   asset: 'asset',
   dynamicFees: 'dynamicFees',
   userDetails: 'userDetails',
+  transactionChart: 'transactionChart',
+  dashboardChart: 'dashboardChart',
+  orderHistory: 'orderHistory',
 }

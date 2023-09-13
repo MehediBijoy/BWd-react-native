@@ -23,3 +23,15 @@ export const makeReferralLink = (token: string) => {
   const rootUrl = APP_BASE_URL + `/invite?token=${token}`
   return rootUrl
 }
+export function getMonth(month: number, lang = 'en') {
+  const date = new Date()
+  date.setMonth(month - 1)
+
+  return date.toLocaleString(lang, {month: 'long'})
+}
+
+export const formatDate = (date: Date) => {
+  const day = date.getDate()
+  const month = date.toLocaleString('default', {month: 'short'})
+  return `${day} ${month}`
+}

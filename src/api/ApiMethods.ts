@@ -9,10 +9,13 @@ import {
   ResetPasswordProps,
   ReferralProps,
   ChangeEmailProps,
-  AssetProps,
-  PaymentProps,
   EmailConfirmProps,
   ChangePasswordProps,
+  TransactionChartProps,
+  DashboardChartProps,
+  AssetProps,
+  PaymentProps,
+  PaymentQueryProps,
 } from './Request'
 import ApiBase, {ApiBaseProps} from './Abstractions/ApiBase'
 import {
@@ -25,6 +28,9 @@ import {
   EstimateFee,
   Payment,
   UserInfo,
+  AssetChartItem,
+  TransactionChart,
+  OrderHistory,
 } from './Response'
 
 export default class ApiMethods extends ApiBase {
@@ -159,5 +165,31 @@ export default class ApiMethods extends ApiBase {
   async createPayment(params: PaymentProps): Promise<Payment> {
     const {payment} = await this.post('/payments', {payment: params})
     return payment
+  }
+  async getTransferChart(params: TransactionChartProps): Promise<TransactionChart[]> {
+    return await this.get('transfers/marimekko_chart', params)
+  }
+
+  async getChartSymbol({
+    symbol,
+    days,
+    currency,
+    ...rest
+  }: DashboardChartProps): Promise<AssetChartItem[]> {
+    let points = days * 24 * 60
+    return await this.get(`/assets/${symbol}/chart`, {
+      period: days,
+      points,
+      vs_currency: currency,
+      ...rest,
+    })
+  }
+
+  async getOrders(params: PaymentQueryProps): Promise<OrderHistory> {
+    const {payments, meta} = await this.get('/payments', params)
+    return {
+      data: payments,
+      meta: meta,
+    }
   }
 }

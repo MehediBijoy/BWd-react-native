@@ -2,6 +2,13 @@ export type Success = {
   success: true | boolean
 }
 
+export type Meta = {
+  total: number
+  limit: number
+  offset: number
+  page: number
+}
+
 export type User = {
   id: number
   email: string
@@ -134,4 +141,40 @@ type Payment<Tdata = null> = {
   created_at: string
   updated_at: string
   transfer: Tdata
+}
+
+export type Transfer = {
+  amount: string
+  address: string
+  confirmations: number
+  created_at: string
+  id: number
+  recipient: string
+  sender: string
+  status: string
+  status_reason: string
+  tx_hash: string
+  updated_at: string
+  user_id: number
+  payment_id: number
+}
+
+type TransactionChart = {
+  month: number
+  data: [
+    {
+      id: number
+      amount: string
+    }
+  ]
+}
+
+type AssetChartItem = {
+  timestamp: number
+  price: string
+}
+
+type OrderHistory = {
+  data: Payment<Transfer>[]
+  meta: Meta
 }
