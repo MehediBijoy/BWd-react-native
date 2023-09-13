@@ -12,6 +12,7 @@ import {
   DashboardChartProps,
   AssetProps,
   PaymentProps,
+  PaymentQueryProps,
 } from './Request'
 import ApiBase, {ApiBaseProps} from './Abstractions/ApiBase'
 import {
@@ -25,6 +26,7 @@ import {
   Payment,
   AssetChartItem,
   TransactionChart,
+  OrderHistory,
 } from './Response'
 
 export default class ApiMethods extends ApiBase {
@@ -143,5 +145,13 @@ export default class ApiMethods extends ApiBase {
       vs_currency: currency,
       ...rest,
     })
+  }
+
+  async getOrders(params: PaymentQueryProps): Promise<OrderHistory> {
+    const {payments, meta} = await this.get('/payments', params)
+    return {
+      data: payments,
+      meta: meta,
+    }
   }
 }

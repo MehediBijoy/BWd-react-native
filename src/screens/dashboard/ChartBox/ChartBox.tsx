@@ -7,12 +7,13 @@ import {AssetChartItem} from 'api/Response'
 import {cacheKey} from 'api/CacheKey'
 import {useAuthToken, useApi} from 'hooks/api'
 import Logo from 'components/Logo'
+import {formatDate} from 'utils'
 
 const ChartBox = () => {
   const api = useApi()
   const {token} = useAuthToken()
   const {data} = useQuery<AssetChartItem[]>({
-    queryKey: [cacheKey.dashboard_chart],
+    queryKey: [cacheKey.dashboardChart],
     queryFn: () => api.getChartSymbol({symbol: 'BWG', days: 30, currency: 'USD'}),
     enabled: !!token,
     initialData: [
@@ -22,12 +23,6 @@ const ChartBox = () => {
       },
     ],
   })
-
-  const formatDate = (date: Date) => {
-    const day = date.getDate()
-    const month = date.toLocaleString('default', {month: 'short'})
-    return `${day} ${month}`
-  }
 
   const reduceChart = (data: AssetChartItem[], intervalDays: number) => {
     let prevItemTS: number | undefined
