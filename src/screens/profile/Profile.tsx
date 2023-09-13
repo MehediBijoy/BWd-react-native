@@ -1,7 +1,8 @@
-import {ScrollView} from 'react-native'
+import {ScrollView, View} from 'react-native'
 import {useQuery} from '@tanstack/react-query'
 
 import ContentContainer from '@core/ContentContainer'
+import Loader from '@core/Loader'
 
 import {useProfile} from 'hooks/helper'
 import {useApi} from 'hooks/api'
@@ -16,11 +17,27 @@ const ProfileInfo = () => {
   const {profile} = useProfile()
   const api = useApi()
 
-  const {data: userDetails} = useQuery({
+  const {data: userDetails, isLoading} = useQuery({
     queryKey: [cacheKey.userDetails, profile?.id],
     queryFn: () => api.getUserInfo(profile?.id),
     enabled: !!profile?.id,
   })
+
+  if (isLoading) {
+    return (
+      <View
+        style={{
+          minHeight: '100%',
+          minWidth: '100%',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Loader />
+      </View>
+    )
+  }
+
   return (
     <ScrollView>
       <ContentContainer>
