@@ -110,3 +110,16 @@ type Payment<Tdata = null> = {
   updated_at: string
   transfer: Tdata
 }
+
+type TransactionChart = {
+  month: number
+  data: {
+    id: number
+    amount: string
+  }[]
+}
+
+type AssetChartItem = {
+  timestamp: number
+  price: string
+}

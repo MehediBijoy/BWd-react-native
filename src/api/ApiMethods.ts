@@ -8,6 +8,8 @@ import {
   EmailProps,
   ChangePasswordProps,
   ReferralProps,
+  TransactionChartProps,
+  DashboardChartProps,
   AssetProps,
   PaymentProps,
 } from './Request'
@@ -17,6 +19,8 @@ import {
   KycAccessKey,
   User,
   Success,
+  MonthlyData,
+  ChartItem,
   Asset,
   DynamicFee,
   EstimateFee,
@@ -121,5 +125,23 @@ export default class ApiMethods extends ApiBase {
   async createPayment(params: PaymentProps): Promise<Payment> {
     const {payment} = await this.post('/payments', {payment: params})
     return payment
+  }
+  async getTransferChart(params: TransactionChartProps): Promise<MonthlyData[]> {
+    return await this.get('transfers/marimekko_chart', params)
+  }
+
+  async getChartSymbol({
+    symbol,
+    days,
+    currency,
+    ...rest
+  }: DashboardChartProps): Promise<ChartItem[]> {
+    let points = days * 24 * 60
+    return await this.get(`/assets/${symbol}/chart`, {
+      period: days,
+      points,
+      vs_currency: currency,
+      ...rest,
+    })
   }
 }

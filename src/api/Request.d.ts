@@ -42,3 +42,13 @@ export type PaymentProps = {
   in_base?: boolean
   payment_type?: string
 }
+export type TransactionChartProps = {
+  period_type: string
+  period_numbers: number
+}
+
+export type DashboardChartProps = {
+  symbol: string
+  days: number
+  currency: string
+}

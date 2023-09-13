@@ -26,3 +26,10 @@ export const formatEstimatePay = (object: EstimateFee): EstimateFee => ({
 export const shortAddress = (address: string) => {
   return address.slice(0, 5) + '.'.repeat(3) + address.slice(-3)
 }
+
+export function getMonth(month: number, lang = 'en') {
+  const date = new Date()
+  date.setMonth(month - 1)
+
+  return date.toLocaleString(lang, {month: 'long'})
+}
