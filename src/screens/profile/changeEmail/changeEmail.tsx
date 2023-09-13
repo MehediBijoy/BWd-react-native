@@ -27,10 +27,11 @@ const emailChangeSchema = yup.object().shape({
 type emailChangeFields = yup.InferType<typeof emailChangeSchema>
 
 const ChangeEmail = ({navigation}: NativeStackScreenProps<RouteStack>) => {
+  const api = useApi()
   const styles = useStyles()
   const {profile} = useProfile()
-  const api = useApi()
   const parent = navigation.getParent()
+
   const [isMfaActive, setIsMfaActive] = useState(false)
   const [isModalOpened, setIsModalOpened] = useState(false)
 
@@ -47,11 +48,7 @@ const ChangeEmail = ({navigation}: NativeStackScreenProps<RouteStack>) => {
     }
   }, [parent])
 
-  const {mutate, isLoading, error, isSuccess} = useMutation<
-    UserInfo,
-    ErrorObject,
-    ChangeEmailProps
-  >({
+  const {mutate, isLoading, error} = useMutation<UserInfo, ErrorObject, ChangeEmailProps>({
     mutationFn: api.changeEmail,
     onSuccess: () => setIsModalOpened(true),
     onError: error => {
@@ -71,35 +68,32 @@ const ChangeEmail = ({navigation}: NativeStackScreenProps<RouteStack>) => {
 
   return (
     <ContainContainer>
-      <View style={styles.container}>
-        {isSuccess && (
-          <Text h4 h4Style={{color: '#005500', textAlign: 'center', marginBottom: 20}}>
-            Email Successfully Send
-          </Text>
+      <Form methods={methods} style={styles.form}>
+        <FormInput name='email' placeholder='Enter new email' label='New Email' />
+        {isMfaActive && <FormInput name='mfa_code' placeholder='xxx xxx' label='2FA Code' />}
+        {isMfaRequired(error) && error?.message !== '2FA code is not present' && (
+          <Text style={styles.error}>{error?.message}</Text>
         )}
-        <Form methods={methods} style={{rowGap: 20}}>
-          <FormInput name='email' placeholder='Enter new email' label='New Email' />
-          {isMfaActive && <FormInput name='mfa_code' placeholder='xxx xxx' label='2FA Code' />}
-          {isMfaRequired(error) && error?.message !== '2FA code is not present' && (
-            <Text>{error?.message}</Text>
-          )}
-          <Button
-            title='Change Email'
-            loading={isLoading}
-            containerStyle={{maxWidth: '50%'}}
-            onPress={methods.handleSubmit(onSubmit)}
-          />
-        </Form>
-      </View>
+        <Button
+          title='Change Email'
+          loading={isLoading}
+          containerStyle={{maxWidth: '50%'}}
+          onPress={methods.handleSubmit(onSubmit)}
+        />
+      </Form>
 
       <EmailConfirmationModal isOpened={isModalOpened} onClose={onClose} />
     </ContainContainer>
   )
 }
 
-const useStyles = makeStyles(() => ({
-  container: {
+const useStyles = makeStyles(({colors}) => ({
+  form: {
+    rowGap: 20,
     marginTop: 20,
+  },
+  error: {
+    color: colors.error,
   },
 }))
 

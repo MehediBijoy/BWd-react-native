@@ -6,12 +6,13 @@ import {
   LoginProps,
   RegistrationProp,
   EmailProps,
-  ChangePasswordProps,
+  ResetPasswordProps,
   ReferralProps,
   ChangeEmailProps,
   AssetProps,
   PaymentProps,
   EmailConfirmProps,
+  ChangePasswordProps,
 } from './Request'
 import ApiBase, {ApiBaseProps} from './Abstractions/ApiBase'
 import {
@@ -69,7 +70,7 @@ export default class ApiMethods extends ApiBase {
     })
   }
 
-  async passwordResetConfirm({code, password, password_confirmation}: ChangePasswordProps) {
+  async passwordResetConfirm({code, password, password_confirmation}: ResetPasswordProps) {
     return this.put('/auth/password', {
       user: {
         reset_password_token: code,
@@ -77,6 +78,10 @@ export default class ApiMethods extends ApiBase {
         password_confirmation,
       },
     })
+  }
+
+  async changePassword(props: ChangePasswordProps): Promise<Success> {
+    return this.put('/auth/signup', props)
   }
 
   async changeEmail({id, email, mfa_code}: ChangeEmailProps): Promise<UserInfo> {

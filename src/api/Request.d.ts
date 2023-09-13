@@ -15,15 +15,18 @@ export type EmailProps = {
   email: string
 }
 
-export type ChangePasswordProps = {
-  code: string
+export type ChangePasswordFormProps = {
   password: string
   password_confirmation: string
 }
 
-export type ChangePasswordFormProps = {
-  password: string
-  password_confirmation: string
+export type ResetPasswordProps = {
+  code: string
+} & ChangePasswordFormProps
+
+export type ChangePasswordProps = {
+  mfa_code?: string
+  user: {current_password: string} & ChangePasswordFormProps
 }
 
 export type ReferralProps = {
