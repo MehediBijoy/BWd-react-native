@@ -33,3 +33,9 @@ export function getMonth(month: number, lang = 'en') {
 
   return date.toLocaleString(lang, {month: 'long'})
 }
+
+export const formatDate = (date: Date) => {
+  const day = date.getDate()
+  const month = date.toLocaleString('default', {month: 'short'})
+  return `${day} ${month}`
+}

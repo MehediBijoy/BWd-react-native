@@ -13,7 +13,7 @@ const TransactionBarChart = () => {
   const {token} = useAuthToken()
 
   const {data} = useQuery<TransactionChart[]>({
-    queryKey: [cacheKey.transaction_chart],
+    queryKey: [cacheKey.transactionChart],
     queryFn: () => api.getTransferChart({period_type: 'month', period_numbers: 3}),
     enabled: !!token,
     initialData: [],
