@@ -39,7 +39,9 @@ const ProfileSettings = ({userInfo}: ProfileSettingsProps) => {
           <Text style={[styles.editText]}> Edit</Text>
         </Link>
       </View>
-      <View style={[styles.wrapper]}>
+
+      {/*Note: This functionality will be add in future  */}
+      {/* <View style={[styles.wrapper]}>
         <View style={[styles.textWrapper]}>
           <Text>2FA Authentication:</Text>
           <Text style={[styles.boldText]}>
@@ -49,7 +51,7 @@ const ProfileSettings = ({userInfo}: ProfileSettingsProps) => {
         <Link to={{screen: 'EmailChange'}} style={[styles.linkWrapper]}>
           <Text style={[styles.editText]}> Edit </Text>
         </Link>
-      </View>
+      </View> */}
 
       {/*Note: This functionality will be add in future  */}
       {/* <View style={[styles.wrapper]}>

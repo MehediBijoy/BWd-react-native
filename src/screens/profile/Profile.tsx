@@ -44,7 +44,8 @@ const ProfileInfo = () => {
         <PersonalInfoBox userInfo={userDetails} />
         <ProfileSettings userInfo={userDetails} />
         <ReferralInfoBox userInfo={userDetails} />
-        <AppSettings />
+        {/*Note: This functionality will be add in future  */}
+        {/* <AppSettings /> */}
       </ContentContainer>
     </ScrollView>
   )
