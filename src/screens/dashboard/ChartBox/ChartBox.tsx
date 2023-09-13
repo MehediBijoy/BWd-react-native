@@ -3,7 +3,7 @@ import {useQuery} from '@tanstack/react-query'
 import {LineChart} from 'react-native-chart-kit'
 import {Text} from '@rneui/base'
 
-import {ChartItem} from 'api/Response'
+import {AssetChartItem} from 'api/Response'
 import {cacheKey} from 'api/CacheKey'
 import {useAuthToken, useApi} from 'hooks/api'
 import Logo from 'components/Logo'
@@ -11,8 +11,7 @@ import Logo from 'components/Logo'
 const ChartBox = () => {
   const api = useApi()
   const {token} = useAuthToken()
-
-  const {data} = useQuery<ChartItem[]>({
+  const {data} = useQuery<AssetChartItem[]>({
     queryKey: [cacheKey.dashboard_chart],
     queryFn: () => api.getChartSymbol({symbol: 'BWG', days: 30, currency: 'USD'}),
     enabled: !!token,
@@ -30,9 +29,9 @@ const ChartBox = () => {
     return `${day} ${month}`
   }
 
-  const reduceChart = (data: ChartItem[], intervalDays: number) => {
+  const reduceChart = (data: AssetChartItem[], intervalDays: number) => {
     let prevItemTS: number | undefined
-    return data.reduce((acc: ChartItem[], item: ChartItem): ChartItem[] => {
+    return data.reduce((acc: AssetChartItem[], item: AssetChartItem): AssetChartItem[] => {
       const itemTS = item.timestamp * 1000
       const daysDiff = prevItemTS ? (itemTS - prevItemTS) / (1000 * 60 * 60 * 24) : undefined
 
@@ -76,8 +75,8 @@ const ChartBox = () => {
         yAxisLabel={'$'}
         chartConfig={{
           backgroundColor: '#1cc910',
-          backgroundGradientFrom: '#eff3ff',
-          backgroundGradientTo: '#efefef',
+          backgroundGradientFrom: '#f2f2f2',
+          backgroundGradientTo: '#f5f5f5',
           decimalPlaces: 2, // optional, defaults to 2dp
           color: (opacity = 255) => `rgba(0, 0, 0, ${opacity})`,
           style: {

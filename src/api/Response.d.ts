@@ -111,17 +111,15 @@ type Payment<Tdata = null> = {
   transfer: Tdata
 }
 
-type Item = {
-  id: number
-  amount: string
-}
-
-type MonthlyData = {
+type TransactionChart = {
   month: number
-  data: Item[]
+  data: {
+    id: number
+    amount: string
+  }[]
 }
 
-type ChartItem = {
+type AssetChartItem = {
   timestamp: number
   price: string
 }

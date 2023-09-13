@@ -5,6 +5,7 @@ import {Text} from '@rneui/themed'
 import ContainContainer from '@core/ContentContainer'
 
 import TransactionBarChart from './StackedBarChart'
+import TransactionsHistory from './TransactionsHistory'
 
 const Transactions = () => {
   return (
@@ -13,6 +14,11 @@ const Transactions = () => {
         <View>
           <Text h3>Your recent purchases</Text>
           <TransactionBarChart />
+        </View>
+
+        <View>
+          <Text h3>Orders History</Text>
+          <TransactionsHistory />
         </View>
       </ContainContainer>
     </ScrollView>

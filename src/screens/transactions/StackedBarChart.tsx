@@ -5,14 +5,14 @@ import {useQuery} from '@tanstack/react-query'
 
 import {useAuthToken, useApi} from 'hooks/api'
 import {cacheKey} from 'api/CacheKey'
-import {MonthlyData} from 'api/Response'
+import {TransactionChart} from 'api/Response'
 import {getMonth} from 'utils'
 
 const TransactionBarChart = () => {
   const api = useApi()
   const {token} = useAuthToken()
 
-  const {data} = useQuery<MonthlyData[]>({
+  const {data} = useQuery<TransactionChart[]>({
     queryKey: [cacheKey.transaction_chart],
     queryFn: () => api.getTransferChart({period_type: 'month', period_numbers: 3}),
     enabled: !!token,
@@ -37,12 +37,12 @@ const TransactionBarChart = () => {
         barColors: generateColorCodes(maxAttribute),
       }}
       width={Dimensions.get('window').width - 16}
-      height={220}
+      height={250}
       hideLegend={true}
       chartConfig={{
         backgroundColor: '#1cc910',
-        backgroundGradientFrom: '#eff3ff',
-        backgroundGradientTo: '#efefef',
+        backgroundGradientFrom: '#f2f2f2',
+        backgroundGradientTo: '#f5f5f5',
         decimalPlaces: 2,
         color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
         style: {
@@ -50,7 +50,7 @@ const TransactionBarChart = () => {
         },
       }}
       style={{
-        marginVertical: 10,
+        marginVertical: 8,
         borderRadius: 5,
       }}
     />
