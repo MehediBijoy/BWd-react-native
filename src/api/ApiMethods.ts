@@ -11,6 +11,7 @@ import {
   ChangeEmailProps,
   AssetProps,
   PaymentProps,
+  EmailConfirmProps,
 } from './Request'
 import ApiBase, {ApiBaseProps} from './Abstractions/ApiBase'
 import {
@@ -78,6 +79,31 @@ export default class ApiMethods extends ApiBase {
     })
   }
 
+  async changeEmail({id, email, mfa_code}: ChangeEmailProps): Promise<UserInfo> {
+    const {user} = await this.put(`/users/${id}`, {
+      mfa_code,
+      user: {
+        email,
+      },
+    })
+    return user
+  }
+
+  async emailConfirm({token}: EmailConfirmProps): Promise<LoginResponse> {
+    const {data, headers} = await this.get(
+      '/auth/confirmation',
+      {
+        confirmation_token: token,
+      },
+      true
+    )
+
+    return {
+      user: data.user,
+      token: headers.authorization,
+    }
+  }
+
   async getProfile(): Promise<User> {
     const {user} = await this.get('/auth/profile')
     return user
@@ -104,15 +130,6 @@ export default class ApiMethods extends ApiBase {
     return this.post('/sumsub/access_token?levelName=basic-kyc')
   }
 
-  async changeEmail({id, email, mfa_code}: ChangeEmailProps): Promise<UserInfo> {
-    const {user} = await this.put(`/users/${id}`, {
-      mfa_code,
-      user: {
-        email,
-      },
-    })
-    return user
-  }
   async getAssets(): Promise<Asset[]> {
     const {assets} = await this.get('/assets')
     return assets

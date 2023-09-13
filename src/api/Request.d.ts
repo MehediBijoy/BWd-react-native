@@ -47,3 +47,7 @@ export type ChangeEmailProps = {
   email: string
   mfa_code?: string
 }
+
+export type EmailConfirmProps = {
+  token: string
+}
