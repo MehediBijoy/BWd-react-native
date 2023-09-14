@@ -28,7 +28,7 @@ const BuyToken = () => {
   const {data: bwgLimit} = useAssets('BWG')
   const methods = useForm<BuyBoxFields>()
   const {total} = methods.getValues()
-  const [inBase, setInBase] = useState(false)
+  const [inBase, setInBase] = useState<boolean>(false)
   const [isOpened, setIsOpened] = useState<boolean>(false)
   const [isFiatModalOpened, setIsFiatModalOpened] = useState<boolean>(false)
 

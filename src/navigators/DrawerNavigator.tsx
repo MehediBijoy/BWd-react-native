@@ -8,6 +8,7 @@ import Hamburger from '@core/Hamburger'
 
 import Logo from 'components/Logo'
 import Profile from 'screens/profile'
+import Affiliate from 'screens/affiliate'
 import {sessionParams, providerMetadata, projectId} from 'constants/wallet.config'
 
 import TabNavigator from './TabNavigator'
@@ -27,6 +28,7 @@ const DrawerNavigator = () => {
   return (
     <>
       <Drawer.Navigator
+        id='drawer'
         drawerContent={DrawerContainer}
         screenOptions={({navigation}: DrawerScreenProps<RouteStack>) => ({
           headerTitle: '',
@@ -53,21 +55,21 @@ const DrawerNavigator = () => {
         })}
       >
         <Drawer.Screen
-          name='TabComponents'
+          name='TabNavigation'
           component={TabNavigator}
           options={{title: 'Dashboard', drawerIcon: props => <Icon name='dashboard' {...props} />}}
         />
 
         <Drawer.Screen
           name='Affiliates'
-          component={Profile}
+          component={Affiliate}
           options={{drawerIcon: props => <Icon name='supervised-user-circle' {...props} />}}
         />
 
         <Drawer.Screen
-          name='Settings'
+          name='SettingsNavigation'
           component={Profile}
-          options={{drawerIcon: props => <Icon name='settings' {...props} />}}
+          options={{title: 'Settings', drawerIcon: props => <Icon name='settings' {...props} />}}
         />
       </Drawer.Navigator>
 

@@ -6,10 +6,15 @@ import {
   LoginProps,
   RegistrationProp,
   EmailProps,
-  ChangePasswordProps,
+  ResetPasswordProps,
   ReferralProps,
+  ChangeEmailProps,
+  ChangePasswordProps,
+  TransactionChartProps,
+  DashboardChartProps,
   AssetProps,
   PaymentProps,
+  PaymentQueryProps,
   UserWalletProps,
 } from './Request'
 import ApiBase, {ApiBaseProps} from './Abstractions/ApiBase'
@@ -22,6 +27,10 @@ import {
   DynamicFee,
   EstimateFee,
   Payment,
+  UserInfo,
+  AssetChartItem,
+  TransactionChart,
+  OrderHistory,
 } from './Response'
 
 export default class ApiMethods extends ApiBase {
@@ -67,7 +76,7 @@ export default class ApiMethods extends ApiBase {
     })
   }
 
-  async passwordResetConfirm({code, password, password_confirmation}: ChangePasswordProps) {
+  async passwordResetConfirm({code, password, password_confirmation}: ResetPasswordProps) {
     return this.put('/auth/password', {
       user: {
         reset_password_token: code,
@@ -77,8 +86,42 @@ export default class ApiMethods extends ApiBase {
     })
   }
 
+  async changePassword(props: ChangePasswordProps): Promise<Success> {
+    return this.put('/auth/signup', props)
+  }
+
+  async changeEmail({id, email, mfa_code}: ChangeEmailProps): Promise<UserInfo> {
+    const {user} = await this.put(`/users/${id}`, {
+      mfa_code,
+      user: {
+        email,
+      },
+    })
+    return user
+  }
+
+  async emailConfirm(token: string): Promise<LoginResponse> {
+    const {data, headers} = await this.get(
+      '/auth/confirmation',
+      {
+        confirmation_token: token,
+      },
+      true
+    )
+
+    return {
+      user: data.user,
+      token: headers.authorization,
+    }
+  }
+
   async getProfile(): Promise<User> {
     const {user} = await this.get('/auth/profile')
+    return user
+  }
+
+  async getUserInfo(id: number): Promise<UserInfo> {
+    const {user} = await this.get(`/users/${id}`)
     return user
   }
 
@@ -131,5 +174,31 @@ export default class ApiMethods extends ApiBase {
   async createPayment(params: PaymentProps): Promise<Payment> {
     const {payment} = await this.post('/payments', {payment: params})
     return payment
+  }
+  async getTransferChart(params: TransactionChartProps): Promise<TransactionChart[]> {
+    return await this.get('transfers/marimekko_chart', params)
+  }
+
+  async getChartSymbol({
+    symbol,
+    days,
+    currency,
+    ...rest
+  }: DashboardChartProps): Promise<AssetChartItem[]> {
+    let points = days * 24 * 60
+    return await this.get(`/assets/${symbol}/chart`, {
+      period: days,
+      points,
+      vs_currency: currency,
+      ...rest,
+    })
+  }
+
+  async getOrders(params: PaymentQueryProps): Promise<OrderHistory> {
+    const {payments, meta} = await this.get('/payments', params)
+    return {
+      data: payments,
+      meta: meta,
+    }
   }
 }

@@ -15,15 +15,20 @@ export type EmailProps = {
   email: string
 }
 
-export type ChangePasswordProps = {
-  code: string
+export type ChangePasswordFormProps = {
   password: string
   password_confirmation: string
 }
 
-export type ChangePasswordFormProps = {
-  password: string
-  password_confirmation: string
+export type ResetPasswordProps = {
+  code: string
+} & ChangePasswordFormProps
+
+export type ChangePasswordProps = {
+  mfa_code?: string
+  user: {
+    current_password: string
+  } & ChangePasswordFormProps
 }
 
 export type ReferralProps = {
@@ -41,6 +46,32 @@ export type PaymentProps = {
   amount: number | string
   in_base?: boolean
   payment_type?: string
+}
+export type ChangeEmailProps = {
+  id: number
+  email: string
+  mfa_code?: string
+}
+
+export type TransactionChartProps = {
+  period_type: string
+  period_numbers: number
+}
+
+export type DashboardChartProps = {
+  symbol: string
+  days: number
+  currency: string
+}
+
+export type PaymentQueryProps = {
+  limit: number
+  page: number
+  status?: string
+  sort_by?: string
+  sort_order?: string
+  q?: string
+  user_id?: string
 }
 
 export type UserWalletProps = {

@@ -12,11 +12,15 @@ export type RouteStack = {
   RegistrationSuccess: undefined
 
   DrawerComponents: undefined
-  TabComponents: undefined
+  TabNavigation: undefined
   Home: undefined
   Purchase: undefined
   Transactions: undefined
   Notifications: undefined
+  SettingsNavigation: undefined
   Settings: undefined
   Affiliates: undefined
+
+  EmailChange: undefined
+  PasswordChange: undefined
 }

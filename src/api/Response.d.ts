@@ -2,6 +2,13 @@ export type Success = {
   success: true | boolean
 }
 
+export type Meta = {
+  total: number
+  limit: number
+  offset: number
+  page: number
+}
+
 export type User = {
   id: number
   email: string
@@ -26,6 +33,31 @@ export type User = {
   created_at: Date
   updated_at: Date
 }
+
+export type UserDetail = {
+  first_name: string
+  last_name: string
+  phone_number: string
+  profession: string
+  earnings: string
+  source_of_income: string
+  trading_experience: string
+  sumsub_email: string
+  gender: string
+  date_of_birth: string
+  country: string
+  nationality: string
+  address_country: string
+  address_postcode: string
+  address_town: string
+  address_street: string
+  address_substreet: string
+  address_state: string
+}
+
+export type UserInfo = {
+  user_detail?: UserDetail
+} & User
 
 export type LoginResponse = {
   user: User
@@ -109,4 +141,40 @@ type Payment<Tdata = null> = {
   created_at: string
   updated_at: string
   transfer: Tdata
+}
+
+export type Transfer = {
+  amount: string
+  address: string
+  confirmations: number
+  created_at: string
+  id: number
+  recipient: string
+  sender: string
+  status: string
+  status_reason: string
+  tx_hash: string
+  updated_at: string
+  user_id: number
+  payment_id: number
+}
+
+type TransactionChart = {
+  month: number
+  data: [
+    {
+      id: number
+      amount: string
+    }
+  ]
+}
+
+type AssetChartItem = {
+  timestamp: number
+  price: string
+}
+
+type OrderHistory = {
+  data: Payment<Transfer>[]
+  meta: Meta
 }

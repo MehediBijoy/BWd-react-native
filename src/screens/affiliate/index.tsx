@@ -1,10 +1,10 @@
 import {Text} from '@rneui/themed'
 import {View} from 'react-native'
 
-const Transactions = () => (
+const Affiliate = () => (
   <View style={{justifyContent: 'center', alignItems: 'center'}}>
-    <Text>Transaction</Text>
+    <Text>Affiliate Page</Text>
   </View>
 )
 
-export default Transactions
+export default Affiliate
