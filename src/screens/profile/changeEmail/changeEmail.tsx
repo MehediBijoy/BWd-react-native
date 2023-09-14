@@ -1,6 +1,5 @@
 import * as yup from 'yup'
 import {useEffect, useState} from 'react'
-import {View} from 'react-native'
 import {useMutation} from '@tanstack/react-query'
 import {Button, makeStyles, Text} from '@rneui/themed'
 import {NativeStackScreenProps} from '@react-navigation/native-stack'

@@ -11,7 +11,7 @@ import {cacheKey} from 'api'
 import PersonalInfoBox from './personalInfoBox'
 import ProfileSettings from './profileSettings'
 import ReferralInfoBox from './ReferralInfoBox'
-import AppSettings from './AppSettings'
+// import AppSettings from './AppSettings'
 
 const ProfileInfo = () => {
   const {profile} = useProfile()
