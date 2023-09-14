@@ -42,3 +42,10 @@ export type PaymentProps = {
   in_base?: boolean
   payment_type?: string
 }
+
+export type UserWalletProps = {
+  id: number
+  wallet_address: string
+  wallet_type: 'walletConnect'
+  mfa_code?: string
+}
