@@ -15,8 +15,8 @@ export const formatEstimatePay = (object: EstimateFee): EstimateFee => ({
   dynamic_fee_amount: parseFloat(object?.dynamic_fee_amount as unknown as string).toFixed(4),
 })
 
-export const shortAddress = (address: string) => {
-  return address.slice(0, 5) + '.'.repeat(3) + address.slice(-3)
+export const shortAddress = (address: string, skip = 5) => {
+  return address.slice(0, skip) + '.'.repeat(3) + address.slice(-(skip - 2))
 }
 
 export const makeReferralLink = (token: string) => {

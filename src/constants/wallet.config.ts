@@ -1,7 +1,7 @@
 import {Address} from 'viem'
 import type {IProviderMetadata} from '@walletconnect/modal-react-native'
 
-import {ENV} from 'config/environments'
+import {CHAIN} from 'config/environments'
 
 export const projectId = '2e31eb755bf20ae6956c4f75bae3fc3b'
 
@@ -25,7 +25,7 @@ export const sessionParams = {
         'personal_sign',
         'eth_signTypedData',
       ],
-      chains: [`eip155:${ENV === 'prod' ? 56 : 97}`],
+      chains: [`eip155:${CHAIN}`],
       events: ['chainChanged', 'accountsChanged'],
       rpcMap: {},
     },
@@ -34,18 +34,30 @@ export const sessionParams = {
 
 // if we need another token just include here
 // and work everywhere is the project
-export const contractAddress = {
+export const contractInfo = {
   BWG: {
-    dev: '0x9480c22ffdefb6d42923da54b731744229f61cfe',
-    mainnet: '0xda47Ba3A9F1DCb61C057Efe1e5d6b6654241c3Dd',
+    symbol: 'BWG',
+    decimals: 18,
+    image: 'https://i.ibb.co/rMTrTYz/token.png',
+    devAddress: '0x9480c22ffdefb6d42923da54b731744229f61cfe' as Address,
+    mainnetAddress: '0xda47Ba3A9F1DCb61C057Efe1e5d6b6654241c3Dd' as Address,
   },
 }
 
-export type ContractAddress = keyof typeof contractAddress
+export type ContractInfo = keyof typeof contractInfo
+export type ContractInfoReturns = {
+  symbol: string
+  decimals: number
+  image: string
+  address: Address
+}
 
-export const getContractAddress = (type: ContractAddress): Address => {
-  if (ENV === 'prod') return contractAddress[type].mainnet as Address
-  return contractAddress[type].dev as Address
+export const getContractInfo = (type: ContractInfo): ContractInfoReturns => {
+  const info = contractInfo[type]
+  return {
+    ...info,
+    address: CHAIN === 56 ? info.mainnetAddress : info.devAddress,
+  }
 }
 
 export const abi = [

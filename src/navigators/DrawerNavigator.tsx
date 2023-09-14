@@ -1,3 +1,4 @@
+import React from 'react'
 import {View} from 'react-native'
 import {Icon, makeStyles, useTheme} from '@rneui/themed'
 import {WalletConnectModal} from '@walletconnect/modal-react-native'
@@ -14,6 +15,7 @@ import TabNavigator from './TabNavigator'
 import type {RouteStack} from './routes'
 import WalletButton from './WalletButton'
 import DrawerContainer from './DrawerContainer'
+import WalletController from './WalletController'
 
 const Drawer = createDrawerNavigator<RouteStack>()
 
@@ -76,6 +78,8 @@ const DrawerNavigator = () => {
         providerMetadata={providerMetadata}
         sessionParams={sessionParams}
       />
+
+      <WalletController />
     </>
   )
 }

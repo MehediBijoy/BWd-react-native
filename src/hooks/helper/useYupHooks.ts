@@ -2,6 +2,7 @@ import {AnyObjectSchema} from 'yup'
 import {yupResolver} from '@hookform/resolvers/yup'
 import {FieldValues, useForm, UseFormProps, UseFormReturn} from 'react-hook-form'
 
+import {SetErrorKey} from 'types'
 import {ErrorObject} from 'api/Errors'
 
 type YupHooksProps<T extends FieldValues> = {
@@ -29,9 +30,7 @@ const useYupHooks = <Tdata extends FieldValues>({
       Object.entries(fields).forEach(([key, errors]) => {
         const formattedKey = key.includes('.') ? key.split('.')[1] : key
 
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore: this is typed bug, but code working perfectly
-        methods.setError(formattedKey, {
+        methods.setError(formattedKey as SetErrorKey, {
           type: 'validate',
           message: errors.join(', '),
         })

@@ -1,13 +1,14 @@
 import React from 'react'
-import {View} from 'react-native'
 import ModalBase from 'react-native-modal'
 import {Icon, Text, makeStyles} from '@rneui/themed'
+import {View, ViewStyle, TouchableOpacity} from 'react-native'
 
-type ModalProps = {
+export type ModalProps = {
   title: string | JSX.Element
   isOpened: boolean
   onClose: () => void
   children: React.ReactNode
+  style?: ViewStyle
 }
 
 const Modal = ({isOpened, onClose, title, children}: ModalProps) => {
@@ -23,7 +24,9 @@ const Modal = ({isOpened, onClose, title, children}: ModalProps) => {
       <View style={[styles.container]}>
         <View style={[styles.titleContainer]}>
           {React.isValidElement(title) ? title : <Text style={styles.title}>{title}</Text>}
-          <Icon type='ionicon' name='close' onPress={onClose} style={styles.icon} />
+          <TouchableOpacity onPress={onClose} activeOpacity={0.8}>
+            <Icon type='ionicon' name='close' style={styles.icon} />
+          </TouchableOpacity>
         </View>
         <View>{children}</View>
       </View>
@@ -53,8 +56,10 @@ const useStyles = makeStyles(({colors}) => ({
   icon: {
     height: 30,
     width: 30,
-    justifyContent: 'center',
+    borderRadius: 15,
     alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.bgPaper,
   },
 }))
 

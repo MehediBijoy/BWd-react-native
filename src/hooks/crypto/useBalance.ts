@@ -3,7 +3,7 @@ import {formatEther, Address} from 'viem'
 import {UseQueryOptions, useQuery} from '@tanstack/react-query'
 import {useWalletConnectModal} from '@walletconnect/modal-react-native'
 
-import {abi, getContractAddress, ContractAddress} from 'constants/wallet.config'
+import {abi, getContractInfo, ContractInfo} from 'constants/wallet.config'
 
 import useClient from './useClient'
 
@@ -21,26 +21,26 @@ type UseBalanceReturn = {
 
 type UseBalanceOptions = Omit<UseQueryOptions<Data>, 'queryKey' | 'queryFn' | 'enabled'>
 
-const useBalance = (token?: ContractAddress, options?: UseBalanceOptions): UseBalanceReturn => {
-  const {client} = useClient()
+const useBalance = (token?: ContractInfo, options?: UseBalanceOptions): UseBalanceReturn => {
+  const {publicClient} = useClient()
   const {isConnected, address} = useWalletConnectModal()
 
   const getBalance = async (): Promise<Data> => {
-    const balance = await client.getBalance({address: address as Address})
+    const balance = await publicClient.getBalance({address: address as Address})
     return {
       value: Number(formatEther(balance as bigint)),
       ...bsc.nativeCurrency,
     }
   }
 
-  const getContractBalance = async (tt: ContractAddress): Promise<Data> => {
-    const contract = getContractAddress(tt)
+  const getContractBalance = async (tt: ContractInfo): Promise<Data> => {
+    const {address: contract} = getContractInfo(tt)
     const params = {
       address: contract,
       abi,
     } as const
 
-    const [balance, symbol, decimals] = await client.multicall({
+    const [balance, symbol, decimals] = await publicClient.multicall({
       allowFailure: false,
       contracts: [
         {
@@ -68,7 +68,7 @@ const useBalance = (token?: ContractAddress, options?: UseBalanceOptions): UseBa
   const {data, refetch, isLoading, fetchStatus} = useQuery<Data>({
     queryKey: ['walletconnect', address, token],
     queryFn: fetchBalance,
-    enabled: Boolean(isConnected && !!client),
+    enabled: Boolean(isConnected && !!publicClient),
     ...options,
   })
 
