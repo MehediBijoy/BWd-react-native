@@ -19,7 +19,7 @@ const ProfileInfo = () => {
 
   const {data: userDetails, isLoading} = useQuery({
     queryKey: [cacheKey.userDetails, profile?.id],
-    queryFn: () => api.getUserInfo(profile?.id),
+    queryFn: () => api.getUserInfo(profile?.id as number),
     enabled: !!profile?.id,
   })
 

@@ -9,7 +9,6 @@ import {
   ResetPasswordProps,
   ReferralProps,
   ChangeEmailProps,
-  EmailConfirmProps,
   ChangePasswordProps,
   TransactionChartProps,
   DashboardChartProps,
@@ -100,7 +99,7 @@ export default class ApiMethods extends ApiBase {
     return user
   }
 
-  async emailConfirm({token}: EmailConfirmProps): Promise<LoginResponse> {
+  async emailConfirm(token: string): Promise<LoginResponse> {
     const {data, headers} = await this.get(
       '/auth/confirmation',
       {
@@ -120,7 +119,7 @@ export default class ApiMethods extends ApiBase {
     return user
   }
 
-  async getUserInfo(id: number | undefined): Promise<UserInfo> {
+  async getUserInfo(id: number): Promise<UserInfo> {
     const {user} = await this.get(`/users/${id}`)
     return user
   }

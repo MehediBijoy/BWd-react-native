@@ -40,7 +40,7 @@ const EmailConfirmationModal = ({isOpened, onClose}: EmailConfirmationModalProps
   })
 
   const onSubmit = ({verification_code}: emailChangeFields) => {
-    mutate({token: verification_code})
+    mutate(verification_code)
   }
 
   return (

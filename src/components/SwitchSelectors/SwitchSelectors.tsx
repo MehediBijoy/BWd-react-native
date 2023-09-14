@@ -19,7 +19,7 @@ const SwitchSelectors = ({data, onChange, active}: SwitchSelectorsProps) => {
   const styles = useStyles()
 
   return (
-    <View style={styles.container}>
+    <View>
       {data.map(({id, label}) => (
         <View key={id} style={styles.switchWrapper}>
           {React.isValidElement(label) ? label : <Text style={styles.label}>{label}</Text>}
@@ -31,9 +31,6 @@ const SwitchSelectors = ({data, onChange, active}: SwitchSelectorsProps) => {
 }
 
 const useStyles = makeStyles(() => ({
-  container: {
-    marginTop: 20,
-  },
   switchWrapper: {
     flexDirection: 'row',
     justifyContent: 'space-between',

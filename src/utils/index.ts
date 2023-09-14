@@ -35,3 +35,11 @@ export const formatDate = (date: Date) => {
   const month = date.toLocaleString('default', {month: 'short'})
   return `${day} ${month}`
 }
+
+export const updateWalletConnectTitle = (title?: string) => {
+  const prefix = title?.slice(0, 5)
+  const suffix = title?.slice(-4)
+
+  const masked = prefix + '.'.repeat(4) + suffix
+  return masked
+}

@@ -35,24 +35,24 @@ export type User = {
 }
 
 export type UserDetail = {
-  first_name?: string
-  last_name?: string
-  phone_number?: string
+  first_name: string
+  last_name: string
+  phone_number: string
   profession: string
-  earnings?: string
-  source_of_income?: string
-  trading_experience?: string
-  sumsub_email?: string
-  gender?: string
-  date_of_birth?: string
-  country?: string
-  nationality?: string
-  address_country?: string
-  address_postcode?: string
-  address_town?: string
-  address_street?: string
-  address_substreet?: string
-  address_state?: string
+  earnings: string
+  source_of_income: string
+  trading_experience: string
+  sumsub_email: string
+  gender: string
+  date_of_birth: string
+  country: string
+  nationality: string
+  address_country: string
+  address_postcode: string
+  address_town: string
+  address_street: string
+  address_substreet: string
+  address_state: string
 }
 
 export type UserInfo = {

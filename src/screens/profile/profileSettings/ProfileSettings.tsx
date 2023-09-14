@@ -3,17 +3,10 @@ import {Link} from '@react-navigation/native'
 import {Text, makeStyles} from '@rneui/themed'
 
 import {UserInfo} from 'api/Response'
+import {updateWalletConnectTitle} from 'utils'
 
 type ProfileSettingsProps = {
   userInfo?: UserInfo
-}
-
-const updateWalletConnectTitle = (title?: string) => {
-  const prefix = title?.slice(0, 5)
-  const suffix = title?.slice(-4)
-
-  const masked = prefix + '.'.repeat(4) + suffix
-  return masked
 }
 
 const ProfileSettings = ({userInfo}: ProfileSettingsProps) => {

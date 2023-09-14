@@ -7,6 +7,7 @@ import Hamburger from '@core/Hamburger'
 
 import Logo from 'components/Logo'
 import Profile from 'screens/profile'
+import Affiliate from 'screens/affiliate'
 import {sessionParams, providerMetadata, projectId} from 'constants/wallet.config'
 
 import TabNavigator from './TabNavigator'
@@ -59,7 +60,7 @@ const DrawerNavigator = () => {
 
         <Drawer.Screen
           name='Affiliates'
-          component={Profile}
+          component={Affiliate}
           options={{drawerIcon: props => <Icon name='supervised-user-circle' {...props} />}}
         />
 
