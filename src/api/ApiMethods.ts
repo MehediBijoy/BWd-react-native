@@ -6,8 +6,10 @@ import {
   LoginProps,
   RegistrationProp,
   EmailProps,
-  ChangePasswordProps,
+  ResetPasswordProps,
   ReferralProps,
+  ChangeEmailProps,
+  ChangePasswordProps,
   TransactionChartProps,
   DashboardChartProps,
   AssetProps,
@@ -24,6 +26,7 @@ import {
   DynamicFee,
   EstimateFee,
   Payment,
+  UserInfo,
   AssetChartItem,
   TransactionChart,
   OrderHistory,
@@ -72,7 +75,7 @@ export default class ApiMethods extends ApiBase {
     })
   }
 
-  async passwordResetConfirm({code, password, password_confirmation}: ChangePasswordProps) {
+  async passwordResetConfirm({code, password, password_confirmation}: ResetPasswordProps) {
     return this.put('/auth/password', {
       user: {
         reset_password_token: code,
@@ -82,8 +85,42 @@ export default class ApiMethods extends ApiBase {
     })
   }
 
+  async changePassword(props: ChangePasswordProps): Promise<Success> {
+    return this.put('/auth/signup', props)
+  }
+
+  async changeEmail({id, email, mfa_code}: ChangeEmailProps): Promise<UserInfo> {
+    const {user} = await this.put(`/users/${id}`, {
+      mfa_code,
+      user: {
+        email,
+      },
+    })
+    return user
+  }
+
+  async emailConfirm(token: string): Promise<LoginResponse> {
+    const {data, headers} = await this.get(
+      '/auth/confirmation',
+      {
+        confirmation_token: token,
+      },
+      true
+    )
+
+    return {
+      user: data.user,
+      token: headers.authorization,
+    }
+  }
+
   async getProfile(): Promise<User> {
     const {user} = await this.get('/auth/profile')
+    return user
+  }
+
+  async getUserInfo(id: number): Promise<UserInfo> {
+    const {user} = await this.get(`/users/${id}`)
     return user
   }
 
