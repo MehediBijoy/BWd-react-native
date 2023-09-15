@@ -91,7 +91,7 @@ const WalletController = () => {
         </Pressable>
       </BottomSheet>
 
-      {address && (
+      {address && profile?.wallet_address && (
         <Modal
           title='Change Wallet Address'
           isOpened={!isAddressEqual(profile?.wallet_address as Address, address as Address)}
