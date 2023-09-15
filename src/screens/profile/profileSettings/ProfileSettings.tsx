@@ -34,17 +34,17 @@ const ProfileSettings = ({userInfo}: ProfileSettingsProps) => {
       </View>
 
       {/*Note: This functionality will be add in future  */}
-      {/* <View style={[styles.wrapper]}>
+      <View style={[styles.wrapper]}>
         <View style={[styles.textWrapper]}>
           <Text>2FA Authentication:</Text>
           <Text style={[styles.boldText]}>
             {userInfo?.google_mfa_activated === true ? 'Activated' : 'Deactivated'}
           </Text>
         </View>
-        <Link to={{screen: 'EmailChange'}} style={[styles.linkWrapper]}>
+        <Link to={{screen: 'MFA'}} style={[styles.linkWrapper]}>
           <Text style={[styles.editText]}> Edit </Text>
         </Link>
-      </View> */}
+      </View>
 
       {/*Note: This functionality will be add in future  */}
       {/* <View style={[styles.wrapper]}>

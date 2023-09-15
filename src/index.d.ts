@@ -8,3 +8,5 @@ declare const global: {
   addEventListener: (type: string, listener: () => void) => void
   removeEventListener: (type: string, listener: () => void) => void
 } & typeof globalThis
+
+declare module '*.png'

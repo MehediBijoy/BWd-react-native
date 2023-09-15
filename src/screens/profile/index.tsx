@@ -5,6 +5,7 @@ import {RouteStack} from 'navigators/routes'
 import ProfileInfo from './Profile'
 import ChangeEmail from './changeEmail'
 import ChangePassword from './changePassword'
+import MFA from './MFA'
 
 const Stack = createNativeStackNavigator<RouteStack>()
 
@@ -18,6 +19,7 @@ const Profile = () => {
         component={ChangePassword}
         options={{title: 'Password Change'}}
       />
+      <Stack.Screen name='MFA' component={MFA} options={{title: ' Two Factor Authentication'}} />
     </Stack.Navigator>
   )
 }

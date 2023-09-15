@@ -23,4 +23,5 @@ export type RouteStack = {
 
   EmailChange: undefined
   PasswordChange: undefined
+  MFA: undefined
 }
