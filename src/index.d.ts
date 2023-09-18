@@ -10,3 +10,7 @@ declare const global: {
 } & typeof globalThis
 
 declare module '*.png'
+// declare const global: {
+//   addEventListener: (type: string, listener: () => void) => void
+//   removeEventListener: (type: string, listener: () => void) => void
+// } & typeof globalThis

@@ -15,6 +15,7 @@ import {
   AssetProps,
   PaymentProps,
   PaymentQueryProps,
+  UserWalletProps,
 } from './Request'
 import ApiBase, {ApiBaseProps} from './Abstractions/ApiBase'
 import {
@@ -138,6 +139,15 @@ export default class ApiMethods extends ApiBase {
 
   async getKycAccessToken(): Promise<KycAccessKey> {
     return this.post('/sumsub/access_token?levelName=basic-kyc')
+  }
+
+  async userWallet({id, ...params}: UserWalletProps): Promise<User> {
+    const {user} = await this.post(`/users/${id}/wallet`, params)
+    return user
+  }
+
+  async walletChangeWithToken(token: string): Promise<Success> {
+    return await this.get('users/confirm_wallet_changing', {token})
   }
 
   async getAssets(): Promise<Asset[]> {

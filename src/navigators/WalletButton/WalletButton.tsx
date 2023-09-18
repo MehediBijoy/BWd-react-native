@@ -1,16 +1,31 @@
 import React from 'react'
 import {Button} from '@rneui/themed'
+import {useMutation} from '@tanstack/react-query'
 import {useWalletConnectModal} from '@walletconnect/modal-react-native'
 
+import {useApi} from 'hooks/api'
 import {shortAddress} from 'utils'
+import {useProfile} from 'hooks/helper'
+import {useWalletController} from 'hooks/states'
 
 const WalletButton = () => {
-  const {open, isOpen, address, isConnected, provider} = useWalletConnectModal()
+  const api = useApi()
+  const {profile, setProfile} = useProfile()
+  const {setIsOpened} = useWalletController()
+  const {open, isOpen, address, isConnected} = useWalletConnectModal()
 
   const connect = async () => {
-    if (isConnected) return await provider?.disconnect()
-    return await open()
+    if (!isConnected) return open()
+    return setIsOpened(true)
   }
+
+  const {mutate} = useMutation({mutationFn: api.userWallet, onSuccess: setProfile})
+
+  React.useEffect(() => {
+    if (isConnected && address && !profile?.wallet_address) {
+      mutate({id: profile?.id as number, wallet_address: address, wallet_type: 'walletConnect'})
+    }
+  }, [isConnected, address, profile])
 
   return (
     <Button

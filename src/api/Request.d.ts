@@ -73,3 +73,10 @@ export type PaymentQueryProps = {
   q?: string
   user_id?: string
 }
+
+export type UserWalletProps = {
+  id: number
+  wallet_address: string
+  wallet_type: 'walletConnect'
+  mfa_code?: string
+}
