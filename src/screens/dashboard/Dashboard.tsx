@@ -23,6 +23,29 @@ const Dashboard = () => {
         console.log('disconnected')
       },
     })
+    subscribe('PaymentsChannel', {
+      received(data) {
+        console.log('payment channel data: ', data)
+      },
+      connected() {
+        console.log('PaymentsChannel connected')
+      },
+      disconnected() {
+        console.log('PaymentsChannel disconnected')
+      },
+    })
+
+    subscribe('TransfersChannel', {
+      received(data) {
+        console.log('transfer channel data:', data)
+      },
+      connected() {
+        console.log('TransfersChannel connected')
+      },
+      disconnected() {
+        console.log('TransfersChannel disconnected')
+      },
+    })
   }, [])
 
   return (

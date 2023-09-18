@@ -4,20 +4,42 @@ import {Text} from '@rneui/themed'
 
 import ContainContainer from '@core/ContentContainer'
 
-import TransactionBarChart from './StackedBarChart'
+import {useSocket} from 'hooks/helper'
+
 import TransactionsHistory from './TransactionsHistory'
 
 const Transactions = () => {
+  const {subscribe} = useSocket()
+  React.useEffect(() => {
+    subscribe('PaymentsChannel', {
+      received(data) {
+        console.log('payment channel data: ', data)
+      },
+      connected() {
+        console.log('PaymentsChannel connected')
+      },
+      disconnected() {
+        console.log('PaymentsChannel disconnected')
+      },
+    })
+
+    subscribe('TransfersChannel', {
+      received(data) {
+        console.log('transfer channel data:', data)
+      },
+      connected() {
+        console.log('TransfersChannel connected')
+      },
+      disconnected() {
+        console.log('TransfersChannel disconnected')
+      },
+    })
+  }, [])
   return (
     <ScrollView>
       <ContainContainer>
-        <View>
-          <Text h3>Your recent purchases</Text>
-          <TransactionBarChart />
-        </View>
-
-        <View>
-          <Text h3>Orders History</Text>
+        <View style={{marginTop: 20}}>
+          <Text h4>Transactions</Text>
           <TransactionsHistory />
         </View>
       </ContainContainer>

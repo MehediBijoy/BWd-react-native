@@ -65,8 +65,8 @@ export type DashboardChartProps = {
 }
 
 export type PaymentQueryProps = {
-  limit: number
-  page: number
+  limit?: number
+  page?: number
   status?: string
   sort_by?: string
   sort_order?: string
