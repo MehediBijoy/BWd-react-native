@@ -5,14 +5,14 @@ import {useWalletConnectModal} from '@walletconnect/modal-react-native'
 
 import Loader from '@core/Loader'
 
-import {Data} from 'hooks/crypto/useBalance'
+import {useAssets} from 'hooks/helper'
+import {DataProps} from 'hooks/crypto/useBalance'
 
 export type AvailableBalanceRowProps = {
-  asset?: string
+  asset: 'BWG' | 'BUSD' | 'BNB'
   logo?: JSX.Element
-  data?: Data
+  data?: DataProps
   isLoading?: boolean
-  assetsPrice?: number
 }
 
 export type LoaderBoxProps = {
@@ -27,27 +27,23 @@ const LoaderBox = ({isLoading, price}: LoaderBoxProps) => {
   return <Text>{price ?? '-'}</Text>
 }
 
-const AvailableBalanceRow = ({
-  asset,
-  logo,
-  data,
-  isLoading,
-  assetsPrice,
-}: AvailableBalanceRowProps) => {
+const AvailableBalanceRow = ({asset, logo, data, isLoading}: AvailableBalanceRowProps) => {
   const styles = useStyles()
   const {isConnected} = useWalletConnectModal()
+
+  const {data: assetData} = useAssets(asset)
 
   //BNB two digit
   // BWG four digit
   const balance = useMemo(() => {
-    if (data) return Number(data?.value.toFixed(3))
+    if (data) return Number(data?.value.toFixed(4))
     return null
   }, [data])
 
   const totalPrice = useMemo(() => {
-    if (balance && assetsPrice) return Number((balance * assetsPrice).toFixed(3))
+    if (balance && assetData) return Number((balance * Number(assetData.price)).toFixed(4))
     return null
-  }, [balance, assetsPrice])
+  }, [balance, assetData])
 
   return (
     <View style={styles.assetGrid}>
@@ -58,7 +54,7 @@ const AvailableBalanceRow = ({
         </Text>
       </View>
       <View style={styles.gridItem}>
-        <LoaderBox isLoading={isLoading} price={isConnected ? assetsPrice : null} />
+        <LoaderBox isLoading={isLoading} price={isConnected ? Number(assetData?.price) : null} />
       </View>
       <View style={styles.gridItem}>
         <LoaderBox isLoading={isLoading} price={balance} />
