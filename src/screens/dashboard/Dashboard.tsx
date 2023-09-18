@@ -7,6 +7,7 @@ import {useSocket} from 'hooks/helper'
 
 import BalanceBox from './balanceBox'
 import ChartBox from './ChartBox'
+import FAQ from './FAQ'
 
 const Dashboard = () => {
   const {subscribe} = useSocket()
@@ -53,6 +54,7 @@ const Dashboard = () => {
       <ContainContainer>
         <BalanceBox />
         <ChartBox />
+        <FAQ />
       </ContainContainer>
     </ScrollView>
   )
