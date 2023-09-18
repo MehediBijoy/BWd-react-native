@@ -64,6 +64,3 @@ end
 # added for sumsub enabled in ios
 source 'https://cdn.cocoapods.org/'
 source 'https://github.com/SumSubstance/Specs.git'
-
-# added for react native vector icons
-pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
