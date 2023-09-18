@@ -24,7 +24,6 @@ const BalanceBox = () => {
       <AvailableBalanceRow
         asset='BWG'
         logo={<Logo height={35} width={35} />}
-        assetsPrice={75}
         isLoading={bwgLoading}
         data={BwgBalance}
       />
@@ -36,7 +35,6 @@ const BalanceBox = () => {
           </View>
         }
         isLoading={isLoading}
-        assetsPrice={55}
         data={BnbBalance}
       />
     </View>
@@ -45,7 +43,7 @@ const BalanceBox = () => {
 
 export default BalanceBox
 
-const useStyles = makeStyles(({colors}) => ({
+const useStyles = makeStyles(() => ({
   balanceBox: {
     marginTop: 20,
     marginBottom: 20,

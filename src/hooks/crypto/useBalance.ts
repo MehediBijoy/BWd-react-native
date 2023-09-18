@@ -7,25 +7,25 @@ import {abi, getContractInfo, ContractInfo} from 'constants/wallet.config'
 
 import useClient from './useClient'
 
-export type Data = {
+export type DataProps = {
   decimals: number
   symbol: string
   value: number
 }
 
 type UseBalanceReturn = {
-  balance?: Data
+  balance?: DataProps
   isLoading: boolean
   refetch(): void
 }
 
-type UseBalanceOptions = Omit<UseQueryOptions<Data>, 'queryKey' | 'queryFn' | 'enabled'>
+type UseBalanceOptions = Omit<UseQueryOptions<DataProps>, 'queryKey' | 'queryFn' | 'enabled'>
 
 const useBalance = (token?: ContractInfo, options?: UseBalanceOptions): UseBalanceReturn => {
   const {publicClient} = useClient()
   const {isConnected, address} = useWalletConnectModal()
 
-  const getBalance = async (): Promise<Data> => {
+  const getBalance = async (): Promise<DataProps> => {
     const balance = await publicClient.getBalance({address: address as Address})
     return {
       value: Number(formatEther(balance as bigint)),
@@ -33,7 +33,7 @@ const useBalance = (token?: ContractInfo, options?: UseBalanceOptions): UseBalan
     }
   }
 
-  const getContractBalance = async (tt: ContractInfo): Promise<Data> => {
+  const getContractBalance = async (tt: ContractInfo): Promise<DataProps> => {
     const {address: contract} = getContractInfo(tt)
     const params = {
       address: contract,
@@ -60,12 +60,12 @@ const useBalance = (token?: ContractInfo, options?: UseBalanceOptions): UseBalan
     }
   }
 
-  const fetchBalance = (): Promise<Data> => {
+  const fetchBalance = (): Promise<DataProps> => {
     if (!token) return getBalance()
     return getContractBalance(token)
   }
 
-  const {data, refetch, isLoading, fetchStatus} = useQuery<Data>({
+  const {data, refetch, isLoading, fetchStatus} = useQuery<DataProps>({
     queryKey: ['walletconnect', address, token],
     queryFn: fetchBalance,
     enabled: Boolean(isConnected && !!publicClient),
