@@ -66,7 +66,7 @@ const useStyles = makeStyles(({colors}) => ({
 
   headerRow: {
     padding: 10,
-    backgroundColor: colors.headerBackground,
+    backgroundColor: colors.bgPaper,
     height: 40,
     flexDirection: 'row',
     alignItems: 'center',

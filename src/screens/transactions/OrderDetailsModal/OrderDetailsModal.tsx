@@ -32,96 +32,98 @@ const OrderDetailsModal = ({selectedRow, isOpened, onClose}: OrderDetailsModalPr
           </View>
           <View style={styles.row}>
             <Text style={styles.label}>Order ID </Text>
-            <Text>{selectedRow.id}</Text>
+            <Text>{selectedRow?.id}</Text>
           </View>
 
           <View style={styles.row}>
             <Text style={styles.label}>Trade Pair</Text>
-            <Text style={[styles.labelRight]}>{selectedRow.trade_pair}</Text>
+            <Text style={[styles.labelRight]}>{selectedRow?.trade_pair}</Text>
           </View>
 
           <View style={styles.row}>
             <Text style={styles.label}>Paid </Text>
-            <Text style={styles.labelRight}>{selectedRow.paid_amount}</Text>
+            <Text style={styles.labelRight}>{selectedRow?.paid_amount}</Text>
           </View>
 
           <View style={styles.row}>
             <Text style={styles.label}>Received</Text>
-            <Text style={styles.labelRight}>{selectedRow.received_amount}</Text>
+            <Text style={styles.labelRight}>{selectedRow?.received_amount}</Text>
           </View>
 
           <View style={styles.row}>
             <Text style={styles.label}>Payment Type</Text>
-            <Text style={[styles.labelRight]}>{selectedRow.payment_type}</Text>
+            <Text style={[styles.labelRight]}>{selectedRow?.payment_type}</Text>
           </View>
-
-          <View style={styles.row}>
-            <Text style={styles.label}>Block Explorer</Text>
-
-            <TouchableOpacity activeOpacity={0.8}>
-              <Text
-                style={styles.explorer}
-                onPress={() => onExplorerClicked(selectedRow.transfer.tx_hash)}
-              >
-                View in Block Explorer
-              </Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.row}>
-            <Text style={styles.label}>Sender</Text>
-            <Text style={[styles.labelRight]}>{shortAddress(selectedRow.transfer.sender, 8)}</Text>
-            <View style={{alignItems: 'flex-end'}}>
-              <CopyButton toCopy={selectedRow.transfer.sender} />
-            </View>
-          </View>
-          <View style={styles.row}>
-            <Text style={styles.label}>Recipient</Text>
-            <Text style={[styles.labelRight]}>
-              {shortAddress(selectedRow.transfer.recipient, 8)}
-            </Text>
-            <View style={{alignItems: 'flex-end'}}>
-              <CopyButton toCopy={selectedRow.transfer.recipient} />
-            </View>
-          </View>
-          <View style={styles.row}>
-            <Text style={styles.label}>Tx Hash</Text>
-            <Text style={[styles.labelRight]}>{shortAddress(selectedRow.transfer.tx_hash, 8)}</Text>
-            <View style={{alignItems: 'flex-end'}}>
-              <CopyButton toCopy={selectedRow.transfer.tx_hash} />
-            </View>
-          </View>
-
-          <View style={styles.row}>
-            <Text style={styles.label}>Payment Status</Text>
-            <Text style={[styles.labelRight]}>
-              <Badge
-                status={
-                  selectedRow.status == 'pending' || selectedRow.status == 'accepted'
-                    ? 'warning'
-                    : 'success'
-                }
-                badgeStyle={{height: 22, borderRadius: 5}}
-                value={selectedRow.status.toUpperCase()}
-              />
-            </Text>
-          </View>
-          {selectedRow.transfer && (
-            <View style={styles.row}>
-              <Text style={styles.label}>Transfer Status</Text>
-              <Text style={[styles.labelRight]}>
-                <Badge
-                  status={
-                    selectedRow.transfer.status == 'pending' ||
-                    selectedRow.transfer.status == 'accepted'
-                      ? 'warning'
-                      : 'success'
-                  }
-                  badgeStyle={{height: 22, borderRadius: 5}}
-                  value={selectedRow.transfer.status.toUpperCase()}
-                />
-              </Text>
-            </View>
+          {selectedRow?.transfer?.tx_hash && (
+            <>
+              <View style={styles.row}>
+                <Text style={styles.label}>Block Explorer</Text>
+                <TouchableOpacity activeOpacity={0.8}>
+                  <Text
+                    style={styles.explorer}
+                    onPress={() => onExplorerClicked(selectedRow.transfer.tx_hash)}
+                  >
+                    View in Block Explorer
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.row}>
+                <Text style={styles.label}>Sender</Text>
+                <Text style={[styles.labelRight]}>
+                  {shortAddress(selectedRow.transfer.sender, 8)}
+                </Text>
+                <View style={{alignItems: 'flex-end'}}>
+                  <CopyButton toCopy={selectedRow.transfer.sender} />
+                </View>
+              </View>
+              <View style={styles.row}>
+                <Text style={styles.label}>Recipient</Text>
+                <Text style={[styles.labelRight]}>
+                  {shortAddress(selectedRow.transfer.recipient, 8)}
+                </Text>
+                <View style={{alignItems: 'flex-end'}}>
+                  <CopyButton toCopy={selectedRow.transfer.recipient} />
+                </View>
+              </View>
+              <View style={styles.row}>
+                <Text style={styles.label}>Tx Hash</Text>
+                <Text style={[styles.labelRight]}>
+                  {shortAddress(selectedRow.transfer.tx_hash, 8)}
+                </Text>
+                <View style={{alignItems: 'flex-end'}}>
+                  <CopyButton toCopy={selectedRow.transfer.tx_hash} />
+                </View>
+              </View>
+              <View style={styles.row}>
+                <Text style={styles.label}>Payment Status</Text>
+                <Text style={[styles.labelRight]}>
+                  <Badge
+                    status={
+                      selectedRow.status == 'pending' || selectedRow.status == 'accepted'
+                        ? 'warning'
+                        : 'success'
+                    }
+                    badgeStyle={{height: 22, borderRadius: 5}}
+                    value={selectedRow.status.toUpperCase()}
+                  />
+                </Text>
+              </View>
+              <View style={styles.row}>
+                <Text style={styles.label}>Transfer Status</Text>
+                <Text style={[styles.labelRight]}>
+                  <Badge
+                    status={
+                      selectedRow.transfer.status == 'pending' ||
+                      selectedRow.transfer.status == 'accepted'
+                        ? 'warning'
+                        : 'success'
+                    }
+                    badgeStyle={{height: 22, borderRadius: 5}}
+                    value={selectedRow.transfer.status.toUpperCase()}
+                  />
+                </Text>
+              </View>
+            </>
           )}
         </View>
       </ScrollView>

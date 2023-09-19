@@ -4,7 +4,7 @@ import {Badge, Text, makeStyles, useTheme} from '@rneui/themed'
 import {useQuery, useQueryClient} from '@tanstack/react-query'
 
 import {useApi} from 'hooks/api'
-import {OrderHistory, Payment, Transfer} from 'api/Response'
+import {OrderHistory} from 'api/Response'
 import {cacheKey} from 'api/CacheKey'
 import {formatDate} from 'utils'
 import {useSocket} from 'hooks/helper'
@@ -17,12 +17,16 @@ const TransactionsHistory = () => {
   const styles = useStyles()
   const {subscribe} = useSocket()
   const queryClient = useQueryClient()
-  const [selectedRow, setSelectedRow] = React.useState<Payment<Transfer> | undefined>()
+  const [selectedId, setSelectedId] = React.useState<number>()
 
   const {data: orderHistory, isLoading} = useQuery<OrderHistory>({
     queryKey: [cacheKey.orderHistory],
     queryFn: api.getOrders,
   })
+
+  const selectedRow = React.useMemo(() => {
+    return orderHistory?.data?.find(item => item.id === selectedId)
+  }, [selectedId, orderHistory])
 
   React.useEffect(() => {
     subscribe('PaymentsChannel', {
@@ -65,7 +69,7 @@ const TransactionsHistory = () => {
             activeOpacity={0.8}
             key={index}
             style={styles.row}
-            onPress={() => setSelectedRow(item)}
+            onPress={() => setSelectedId(item.id)}
           >
             <View style={styles.cellDetails}>
               <Text style={styles.titleText}>#Order: {item.id}</Text>
@@ -115,7 +119,7 @@ const TransactionsHistory = () => {
         <OrderDetailsModal
           isOpened
           selectedRow={selectedRow}
-          onClose={() => setSelectedRow(undefined)}
+          onClose={() => setSelectedId(undefined)}
         />
       )}
     </>
@@ -136,7 +140,7 @@ const useStyles = makeStyles(({colors}) => ({
   },
   headerRow: {
     padding: 5,
-    backgroundColor: colors.headerBackground,
+    backgroundColor: colors.bgPaper,
     height: 40,
     flexDirection: 'row',
     alignItems: 'center',
