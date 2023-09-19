@@ -41,9 +41,11 @@ const ProfileSettings = ({userInfo}: ProfileSettingsProps) => {
             {userInfo?.google_mfa_activated === true ? 'Activated' : 'Deactivated'}
           </Text>
         </View>
-        <Link to={{screen: 'MFA'}} style={[styles.linkWrapper]}>
+
+        {/*Note: This functionality will be add in future  */}
+        {/* <Link to={{screen: 'MFA'}} style={[styles.linkWrapper]}>
           <Text style={[styles.editText]}> Edit </Text>
-        </Link>
+        </Link> */}
       </View>
 
       {/*Note: This functionality will be add in future  */}
