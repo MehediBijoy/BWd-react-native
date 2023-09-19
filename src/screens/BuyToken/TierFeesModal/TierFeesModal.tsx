@@ -13,22 +13,6 @@ type TierOverviewModalProps = {
   bwgLimit: any
 }
 
-const useStyles = makeStyles(() => ({
-  assetGrid: {
-    marginTop: 20,
-    display: 'flex',
-    flexWrap: 'wrap',
-    flexDirection: 'row',
-    gap: 10,
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-  },
-  gridItem: {
-    flex: 1,
-    textAlign: 'center',
-  },
-}))
-
 const TierOverviewModal = ({bwgLimit, isOpened, onClose}: TierOverviewModalProps) => {
   const styles = useStyles()
   const {data}: any = useDynamicFees()
@@ -46,24 +30,72 @@ const TierOverviewModal = ({bwgLimit, isOpened, onClose}: TierOverviewModalProps
 
   return (
     <Modal title='FEE TIERS OVERVIEW' isOpened={isOpened} onClose={onClose}>
-      <View style={styles.assetGrid}>
-        <Text style={styles.gridItem}>Tier</Text>
-        <Text style={styles.gridItem}>Amount</Text>
-        <Text style={styles.gridItem}>Fee</Text>
-      </View>
-
-      {fees?.map(({id, min, max, fee_percentage}: any) => (
-        <View key={id} style={styles.assetGrid}>
-          <Text style={styles.gridItem}>Level {id + 1}</Text>
-          <Text style={styles.gridItem}>
-            {' '}
-            {id === 0 ? `from ${bwgLimit?.min_payment_amount} up to ${max}` : `from ${min}`}
-          </Text>
-          <Text style={styles.gridItem}>{fee_percentage}%</Text>
+      <View style={[styles.container, styles.tableBorder]}>
+        <View style={styles.headerRow}>
+          <Text style={styles.tierItem}>Tier</Text>
+          <Text style={styles.tierDescription}>Amount</Text>
+          <Text style={styles.tierFee}>Fee</Text>
         </View>
-      ))}
+
+        {fees?.map(({id, min, max, fee_percentage}: any) => (
+          <View key={id} style={styles.row}>
+            <Text style={styles.tierItem}>Level {id + 1}</Text>
+            <Text style={styles.tierDescription}>
+              {' '}
+              {id === 0 ? `from ${bwgLimit?.min_payment_amount} up to ${max}` : `from ${min}`}
+            </Text>
+            <Text style={styles.tierFee}>{fee_percentage}%</Text>
+          </View>
+        ))}
+      </View>
     </Modal>
   )
 }
 
 export default TierOverviewModal
+const useStyles = makeStyles(({colors}) => ({
+  container: {
+    backgroundColor: colors.white,
+    marginTop: 10,
+  },
+  tableBorder: {
+    borderWidth: 2,
+    borderColor: colors.border,
+    borderRadius: 10,
+  },
+
+  headerRow: {
+    padding: 10,
+    backgroundColor: colors.bgPaper,
+    height: 40,
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    borderColor: colors.border,
+  },
+
+  row: {
+    padding: 10,
+    height: 40,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: colors.background,
+    borderBottomWidth: 1,
+    borderColor: colors.border,
+  },
+  tierDescription: {
+    color: colors.textPrimary,
+    width: '50%',
+    textAlign: 'left',
+  },
+  tierItem: {
+    color: colors.textPrimary,
+    width: '25%',
+    textAlign: 'left',
+  },
+  tierFee: {
+    color: colors.textPrimary,
+    width: '25%',
+    textAlign: 'right',
+  },
+}))

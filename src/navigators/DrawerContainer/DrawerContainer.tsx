@@ -6,14 +6,30 @@ import {
 import {View, Pressable} from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import {Text, makeStyles, useTheme, Icon} from '@rneui/themed'
+import {useQuery} from '@tanstack/react-query'
+import {useWalletConnectModal} from '@walletconnect/modal-react-native'
 
+import {useBalance} from 'hooks/crypto'
 import Logo from 'components/Logo'
-import {useOnUnauthorized} from 'hooks/api'
+import {useProfile} from 'hooks/helper'
+import {cacheKey} from 'api/CacheKey'
+import {useApi, useOnUnauthorized} from 'hooks/api'
 
 const DrawerContainer = (props: DrawerContentComponentProps) => {
+  const api = useApi()
   const {theme} = useTheme()
   const styles = useStyles()
+  const {profile} = useProfile()
   const onUnauthorized = useOnUnauthorized()
+
+  const {data: userDetails} = useQuery({
+    queryKey: [cacheKey.userDetails, profile?.id],
+    queryFn: () => api.getUserInfo(profile?.id as number),
+    enabled: !!profile?.id,
+  })
+
+  const {balance: BwgBalance} = useBalance('BWG')
+  const {isConnected} = useWalletConnectModal()
 
   return (
     <View style={{flex: 1}}>
@@ -23,8 +39,12 @@ const DrawerContainer = (props: DrawerContentComponentProps) => {
           colors={[theme.colors.tertiary, theme.colors.tertiaryDark]}
         >
           <Logo height={80} width={80} />
-          <Text style={styles.title}>John Doe</Text>
-          <Text style={styles.subTitle}>280 BWG</Text>
+
+          <Text style={styles.title}>{`${userDetails?.user_detail?.first_name ?? ''} ${
+            userDetails?.user_detail?.last_name ?? ''
+          }`}</Text>
+
+          {isConnected && <Text style={styles.subTitle}>{BwgBalance?.value.toFixed(3)} BWG</Text>}
         </LinearGradient>
         <DrawerItemList {...props} />
       </DrawerContentScrollView>

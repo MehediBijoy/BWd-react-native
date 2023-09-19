@@ -4,20 +4,14 @@ import {Text} from '@rneui/themed'
 
 import ContainContainer from '@core/ContentContainer'
 
-import TransactionBarChart from './StackedBarChart'
 import TransactionsHistory from './TransactionsHistory'
 
 const Transactions = () => {
   return (
     <ScrollView>
       <ContainContainer>
-        <View>
-          <Text h3>Your recent purchases</Text>
-          <TransactionBarChart />
-        </View>
-
-        <View>
-          <Text h3>Orders History</Text>
+        <View style={{marginTop: 20}}>
+          <Text h4>Transactions</Text>
           <TransactionsHistory />
         </View>
       </ContainContainer>

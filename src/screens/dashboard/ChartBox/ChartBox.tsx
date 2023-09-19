@@ -40,12 +40,12 @@ const ChartBox = () => {
   }
 
   const chartData = reduceChart(data, 2)
-  const labels = chartData.map(value => formatDate(new Date(value.timestamp * 1000)))
+  const labels = chartData.map(value => formatDate(new Date(value.timestamp * 1000), 'day'))
   const chartPrice = chartData.map(value => Number(value.price))
 
   return (
     <>
-      <View style={{alignItems: 'center', flexDirection: 'row', gap: 5}}>
+      <View style={{alignItems: 'center', flexDirection: 'row', marginBottom: 10}}>
         <Logo width={35} height={35} />
         <Text h4>
           Bretton Woods{' '}
