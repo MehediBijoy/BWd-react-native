@@ -194,8 +194,8 @@ export default class ApiMethods extends ApiBase {
     })
   }
 
-  async getOrders(params: PaymentQueryProps): Promise<OrderHistory> {
-    const {payments, meta} = await this.get('/payments', params)
+  async getOrders(): Promise<OrderHistory> {
+    const {payments, meta} = await this.get('/payments')
     return {
       data: payments,
       meta: meta,

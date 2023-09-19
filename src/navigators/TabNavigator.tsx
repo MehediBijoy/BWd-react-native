@@ -23,6 +23,7 @@ const TabNavigator = () => {
         headerShown: false,
         tabBarActiveTintColor: colors.tertiary,
         tabBarInactiveTintColor: colors.textPrimary,
+        unmountOnBlur: true,
         tabBarLabelStyle: {
           fontSize: 14,
           paddingBottom: 10,

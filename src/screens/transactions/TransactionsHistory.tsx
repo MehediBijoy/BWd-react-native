@@ -1,26 +1,55 @@
 import React from 'react'
 import {ActivityIndicator, TouchableOpacity, View} from 'react-native'
 import {Badge, Text, makeStyles} from '@rneui/themed'
-import {useQuery} from '@tanstack/react-query'
+import {useQuery, useQueryClient} from '@tanstack/react-query'
 
 import {useApi} from 'hooks/api'
 import {OrderHistory, Payment, Transfer} from 'api/Response'
 import {cacheKey} from 'api/CacheKey'
 import {formatDate} from 'utils'
+import {useSocket} from 'hooks/helper'
 
 import OrderDetailsModal from './OrderDetailsModal'
 
 const TransactionsHistory = () => {
   const api = useApi()
   const styles = useStyles()
+  const {subscribe} = useSocket()
+  const queryClient = useQueryClient()
   const [selectedRow, setSelectedRow] = React.useState<Payment<Transfer> | undefined>()
 
-  const {data, isLoading} = useQuery<OrderHistory>({
+  const {data: orderHistory, isLoading} = useQuery<OrderHistory>({
     queryKey: [cacheKey.orderHistory],
-    queryFn: () => api.getOrders({}),
+    queryFn: api.getOrders,
   })
 
-  console.log(isLoading)
+  React.useEffect(() => {
+    subscribe('PaymentsChannel', {
+      received({data: socketData}) {
+        queryClient.setQueryData<Partial<OrderHistory>>([cacheKey.orderHistory], orders => {
+          const hasOrder = orders?.data?.find(item => item.id === socketData.id)
+          if (!hasOrder) {
+            orders?.data?.unshift(socketData)
+          } else {
+            Object.assign(hasOrder, socketData)
+          }
+          const data = orders?.data?.map(item => (item.id === socketData.id ? socketData : item))
+          return {data: data, meta: orders?.meta}
+        })
+      },
+    })
+
+    subscribe('TransfersChannel', {
+      received({data: socketData}) {
+        queryClient.setQueryData<Partial<OrderHistory>>([cacheKey.orderHistory], orders => {
+          const data = orders?.data?.map(item =>
+            item.id === socketData.payment_id ? {...item, transfer: socketData} : item
+          )
+          return {data, meta: orders?.meta}
+        })
+      },
+    })
+  }, [queryClient])
 
   return (
     <>
@@ -30,7 +59,7 @@ const TransactionsHistory = () => {
           <Text style={{width: '25%', textAlign: 'left'}}>Status</Text>
           <Text style={[styles.cellDate]}>Date</Text>
         </View>
-        {data?.data.map((item, index) => (
+        {orderHistory?.data.map((item, index) => (
           <TouchableOpacity
             activeOpacity={0.8}
             key={index}
@@ -39,7 +68,7 @@ const TransactionsHistory = () => {
           >
             <View style={styles.cellDetails}>
               <Text style={styles.titleText}>#Order: {item.id}</Text>
-              <Text>
+              <Text style={styles.subText}>
                 <Text style={styles.labelText}>Paid Amount:</Text> {item.paid_amount}{' '}
               </Text>
               <Text style={styles.subText}>
@@ -63,7 +92,7 @@ const TransactionsHistory = () => {
                   }
                   badgeStyle={{height: 22, borderRadius: 5}}
                   value={
-                    item.transfer ? item.transfer.status.toUpperCase() : item.status.toUpperCase()
+                    item.transfer ? item.transfer.status?.toUpperCase() : item.status?.toUpperCase()
                   }
                 />
               }
@@ -139,11 +168,10 @@ const useStyles = makeStyles(({colors}) => ({
   },
   titleText: {
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: '700',
     color: colors.tertiary,
   },
   labelText: {
-    // color: colors.tertiary,
     fontSize: 12,
     fontWeight: '700',
   },
