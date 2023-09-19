@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import {Icon, Text, makeStyles} from '@rneui/themed'
+import {Icon, Text, makeStyles, Button} from '@rneui/themed'
 import {View} from 'react-native'
 import {WebView} from 'react-native-webview'
 
@@ -39,9 +39,11 @@ const PaypalView = ({data, onClose}: PaypalViewProps) => {
           }}
         />
       ) : (
-        <Text h4 style={styles.successText}>
-          Payment successfully done.
-        </Text>
+        <View style={styles.successfulContainer}>
+          <Icon name='check-circle' type='feather' size={80} color={styles.warnIcon.color} />
+          <Text style={styles.successText}>Thanks!! Your payment is successful.</Text>
+          <Button title='OK' onPress={onClose} containerStyle={{minWidth: 100}} />
+        </View>
       )}
     </View>
   )
@@ -62,9 +64,20 @@ const useStyles = makeStyles(({colors}) => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  successText: {
+  successfulContainer: {
+    minHeight: '80%',
+    gap: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  warnIcon: {
     color: colors.primary,
+  },
+  successText: {
+    color: colors.tertiary,
     marginLeft: 10,
+    fontSize: 18,
+    fontWeight: '700',
   },
 }))
 
