@@ -1,10 +1,10 @@
-import {Platform} from 'react-native'
 import {Icon, useTheme} from '@rneui/themed'
+import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 
+import BuyToken from 'screens/BuyToken'
 import Dashboard from 'screens/dashboard'
 import Transactions from 'screens/transactions'
-import BuyToken from 'screens/BuyToken'
 import Notifications from 'screens/Notifications'
 
 import type {RouteStack} from './routes'
@@ -15,6 +15,7 @@ const TabNavigator = () => {
   const {
     theme: {colors},
   } = useTheme()
+  const {bottom: bottomOffset} = useSafeAreaInsets()
 
   return (
     <Tab.Navigator
@@ -28,7 +29,7 @@ const TabNavigator = () => {
           fontSize: 14,
           paddingBottom: 10,
         },
-        tabBarStyle: {padding: 10, height: Platform.OS === 'ios' ? 100 : 65},
+        tabBarStyle: {padding: 10, height: bottomOffset + 65},
       }}
     >
       <Tab.Screen
