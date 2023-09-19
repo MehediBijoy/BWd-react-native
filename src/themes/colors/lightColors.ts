@@ -24,6 +24,7 @@ export const lightColors: Colors = {
   error: '#E55050',
 
   border: defaultLightColors.greyOutline,
+  headerBackground: '#e0e0e0',
 }
 
 declare module '@rneui/themed' {
@@ -41,5 +42,6 @@ declare module '@rneui/themed' {
 
     readonly bgPaper: string
     readonly border: string
+    readonly headerBackground: string
   }
 }

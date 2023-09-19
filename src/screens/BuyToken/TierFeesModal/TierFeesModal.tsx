@@ -60,18 +60,18 @@ const useStyles = makeStyles(({colors}) => ({
   },
   tableBorder: {
     borderWidth: 2,
-    borderColor: '#e0e0e0',
+    borderColor: colors.border,
     borderRadius: 10,
   },
 
   headerRow: {
     padding: 10,
-    backgroundColor: '#e0e0e0',
+    backgroundColor: colors.headerBackground,
     height: 40,
     flexDirection: 'row',
     alignItems: 'center',
     borderBottomWidth: 1,
-    borderColor: '#e0e0e0',
+    borderColor: colors.border,
   },
 
   row: {
@@ -79,9 +79,9 @@ const useStyles = makeStyles(({colors}) => ({
     height: 40,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.white,
+    backgroundColor: colors.background,
     borderBottomWidth: 1,
-    borderColor: '#e0e0e0',
+    borderColor: colors.border,
   },
   tierDescription: {
     color: colors.textPrimary,

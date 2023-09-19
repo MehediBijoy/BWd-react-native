@@ -1,6 +1,6 @@
 import React from 'react'
 import {ActivityIndicator, TouchableOpacity, View} from 'react-native'
-import {Badge, Text, makeStyles} from '@rneui/themed'
+import {Badge, Text, makeStyles, useTheme} from '@rneui/themed'
 import {useQuery, useQueryClient} from '@tanstack/react-query'
 
 import {useApi} from 'hooks/api'
@@ -13,6 +13,7 @@ import OrderDetailsModal from './OrderDetailsModal'
 
 const TransactionsHistory = () => {
   const api = useApi()
+  const {theme} = useTheme()
   const styles = useStyles()
   const {subscribe} = useSocket()
   const queryClient = useQueryClient()
@@ -102,7 +103,11 @@ const TransactionsHistory = () => {
         ))}
 
         {isLoading && (
-          <ActivityIndicator style={{marginVertical: 20}} size='large' color='#00ff00' />
+          <ActivityIndicator
+            style={{marginVertical: 20}}
+            size='large'
+            color={theme.colors.primary}
+          />
         )}
       </View>
 
@@ -121,22 +126,22 @@ export default TransactionsHistory
 
 const useStyles = makeStyles(({colors}) => ({
   container: {
-    backgroundColor: colors.white,
+    backgroundColor: colors.background,
     marginTop: 10,
   },
   tableBorder: {
     borderWidth: 2,
-    borderColor: '#e0e0e0',
+    borderColor: colors.border,
     borderRadius: 10,
   },
   headerRow: {
     padding: 5,
-    backgroundColor: '#e0e0e0',
+    backgroundColor: colors.headerBackground,
     height: 40,
     flexDirection: 'row',
     alignItems: 'center',
     borderBottomWidth: 1,
-    borderColor: '#e0e0e0',
+    borderColor: colors.border,
   },
   row: {
     padding: 5,
@@ -144,9 +149,9 @@ const useStyles = makeStyles(({colors}) => ({
     minHeight: 80,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.white,
+    backgroundColor: colors.background,
     borderBottomWidth: 1,
-    borderColor: '#e0e0e0',
+    borderColor: colors.border,
   },
   cellDate: {
     textAlign: 'center',
