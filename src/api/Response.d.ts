@@ -56,7 +56,7 @@ export type UserDetail = {
 }
 
 export type UserInfo = {
-  user_detail?: UserDetail
+  user_detail: UserDetail
 } & User
 
 export type LoginResponse = {
@@ -177,4 +177,8 @@ type AssetChartItem = {
 type OrderHistory = {
   data: Payment<Transfer>[]
   meta: Meta
+}
+
+type CreateNewMfa = {
+  google_secret: string
 }

@@ -16,6 +16,7 @@ import {
   PaymentProps,
   PaymentQueryProps,
   UserWalletProps,
+  EstimateFeeProps,
 } from './Request'
 import ApiBase, {ApiBaseProps} from './Abstractions/ApiBase'
 import {
@@ -31,6 +32,7 @@ import {
   AssetChartItem,
   TransactionChart,
   OrderHistory,
+  CreateNewMfa,
 } from './Response'
 
 export default class ApiMethods extends ApiBase {
@@ -115,6 +117,18 @@ export default class ApiMethods extends ApiBase {
     }
   }
 
+  async createNewMfa(): Promise<CreateNewMfa> {
+    return await this.get('/auth/google_mfa/new')
+  }
+
+  async proceedMfa() {}
+
+  // async proceedMfa({activation, mfa_code}) {
+  //   return this.post('/auth/google_mfa', {
+  //     user_mfa_session: {activation, mfa_code},
+  //   })
+  // }
+
   async getProfile(): Promise<User> {
     const {user} = await this.get('/auth/profile')
     return user
@@ -166,7 +180,7 @@ export default class ApiMethods extends ApiBase {
   }
 
   // payments API
-  async getEstimateFee(params: PaymentProps): Promise<EstimateFee> {
+  async getEstimateFee(params: EstimateFeeProps): Promise<EstimateFee> {
     const result = await this.get('/payments/estimate_fee', params)
     return formatEstimatePay(result)
   }

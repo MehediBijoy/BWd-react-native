@@ -40,13 +40,19 @@ export type AssetProps = {
   params?: object
 }
 
-export type PaymentProps = {
+export type EstimateFeeProps = {
   asset: string
   target_asset: string
   amount: number | string
   in_base?: boolean
   payment_type?: string
 }
+
+export type PaymentProps = {
+  success_url: string
+  error_url: string
+} & EstimateFeeProps
+
 export type ChangeEmailProps = {
   id: number
   email: string

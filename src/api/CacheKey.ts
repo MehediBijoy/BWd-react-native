@@ -6,4 +6,5 @@ export const cacheKey = {
   transactionChart: 'transactionChart',
   dashboardChart: 'dashboardChart',
   orderHistory: 'orderHistory',
+  mfaSecret: 'mfaSecret',
 }

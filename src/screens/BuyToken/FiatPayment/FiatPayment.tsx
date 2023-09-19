@@ -23,7 +23,6 @@ const FiatPaymentModal = ({estimateFees, isOpened, onClose, in_base}: FiatPaymen
   const api = useApi()
   const styles = useStyles()
   const {isConnected} = useWalletConnectModal()
-  const [isOrder, setIsOrder] = React.useState<boolean>(false)
 
   const createOrder = useMutation<Payment, any, Pick<PaymentProps, 'payment_type'>>({
     mutationFn: ({payment_type}) =>
@@ -33,6 +32,8 @@ const FiatPaymentModal = ({estimateFees, isOpened, onClose, in_base}: FiatPaymen
         amount: in_base ? estimateFees.total_amount : estimateFees.received_amount,
         in_base,
         payment_type,
+        success_url: 'https://www.brettonwoods.gold/',
+        error_url: 'https://example.com',
       }),
     onSuccess: onClose,
   })
@@ -71,7 +72,6 @@ const FiatPaymentModal = ({estimateFees, isOpened, onClose, in_base}: FiatPaymen
         <Button
           title='Buy BWG'
           onPress={() => {
-            setIsOrder(true)
             createOrder.mutate({payment_type: 'paypal'})
           }}
           loading={createOrder.isLoading}
@@ -79,13 +79,11 @@ const FiatPaymentModal = ({estimateFees, isOpened, onClose, in_base}: FiatPaymen
         />
       </Modal>
 
-      {isOrder && createOrder.data && (
+      {createOrder.data && (
         <NativeModal visible>
           <PaypalView
             data={createOrder.data.payment_data}
-            isLoading={createOrder.isLoading}
             onClose={() => {
-              setIsOrder(false)
               createOrder.reset()
             }}
           />
