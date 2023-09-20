@@ -1,8 +1,7 @@
 import {Dimensions, View} from 'react-native'
 import {useQuery} from '@tanstack/react-query'
 import {LineChart} from 'react-native-chart-kit'
-import {useTheme} from '@rneui/themed'
-import {Text} from '@rneui/base'
+import {Text, useTheme} from '@rneui/themed'
 
 import {AssetChartItem} from 'api/Response'
 import {cacheKey} from 'api/CacheKey'

@@ -69,7 +69,7 @@ const Navigators = () => {
           <Stack.Screen
             name='ProfileMFA'
             component={MFA}
-            options={{title: ' Two Factor Authentication'}}
+            options={{title: 'Two Factor Authentication'}}
           />
         </Stack.Group>
       )}
