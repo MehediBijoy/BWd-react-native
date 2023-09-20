@@ -1,7 +1,8 @@
 import * as yup from 'yup'
-import {useQuery} from '@tanstack/react-query'
+import React from 'react'
+import {useQuery, useMutation} from '@tanstack/react-query'
+import {Text, makeStyles, Image, Button} from '@rneui/themed'
 import {View, Platform, TouchableOpacity, Linking} from 'react-native'
-import {Text, makeStyles, Image} from '@rneui/themed'
 
 import CopyButton from '@core/CopyButton'
 import Form from '@core/Form'
@@ -9,18 +10,30 @@ import FormInput from '@core/FormInput'
 
 import {cacheKey} from 'api'
 import {useApi} from 'hooks/api'
+import {useYupHooks, useProfile} from 'hooks/helper'
 import authenticatorImg from 'images/settings/google-2fa-app.png'
 import playStoreImg from 'images/settings/get-in-google-play.png'
 import appStoreImg from 'images/settings/get-in-app-store.png'
+import {User} from 'api/Response'
+import {ErrorObject} from 'api/Errors'
 
-const mafaActivationSchema = yup.object().shape({
-  mfa_code: yup.string().max(6, '2FA code Must 6 digits').min(6, '2FA code Must 6 digits'),
+const mfaActivationSchema = yup.object().shape({
+  mfa_code: yup
+    .string()
+    .max(6, '2FA code Must 6 digits')
+    .min(6, '2FA code Must 6 digits')
+    .required('2FA code is required field'),
   activation: yup.bool().default(false),
 })
 
+type mfaActivationFields = yup.InferType<typeof mfaActivationSchema>
+
 const MFAActive = () => {
-  const styles = useStyles()
   const api = useApi()
+  const styles = useStyles()
+  const {setProfile} = useProfile()
+  const {methods} = useYupHooks<mfaActivationFields>({schema: mfaActivationSchema})
+
   const playStoreUrl =
     'https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en'
   const appStoreUrl = 'https://apps.apple.com/us/app/google-authenticator/id388497605'
@@ -42,6 +55,21 @@ const MFAActive = () => {
     queryFn: api.createNewMfa,
     staleTime: Infinity,
   })
+
+  const {mutate, error} = useMutation<User, ErrorObject, mfaActivationFields>({
+    mutationFn: api.proceedMfa,
+    onError: () => {
+      methods.reset()
+    },
+    onSuccess: user => {
+      console.log(user)
+      setProfile(user)
+    },
+  })
+
+  const onSubmit = (data: mfaActivationFields) => {
+    mutate(data)
+  }
 
   return (
     <View style={styles.container}>
@@ -82,9 +110,17 @@ const MFAActive = () => {
 
         <View style={styles.container}>
           <Text style={styles.title}>3. Enter the 2FA code and click &quot;Activate&quot;</Text>
-          {/* <Form>
-            <FormInput label='2FA Code' name='mfa_code' />
-          </Form> */}
+          <Form methods={methods} style={styles.form}>
+            <FormInput label='2FA Code' name='mfa_code' placeholder='xxx xxx' />
+
+            <Button
+              title='Activate 2FA'
+              containerStyle={{maxWidth: '50%'}}
+              onPress={methods.handleSubmit(onSubmit)}
+            />
+
+            {error && <Text style={styles.error}>{error.message}</Text>}
+          </Form>
         </View>
       </View>
     </View>
@@ -129,6 +165,13 @@ const useStyles = makeStyles(({colors}) => ({
   mfaText: {
     fontSize: 14,
     fontWeight: '600',
+  },
+  form: {
+    rowGap: 20,
+    marginTop: 20,
+  },
+  error: {
+    color: colors.error,
   },
 }))
 

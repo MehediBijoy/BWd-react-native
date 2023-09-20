@@ -43,9 +43,9 @@ const ProfileSettings = ({userInfo}: ProfileSettingsProps) => {
         </View>
 
         {/*Note: This functionality will be add in future  */}
-        {/* <Link to={{screen: 'MFA'}} style={[styles.linkWrapper]}>
+        <Link to={{screen: 'MFA'}} style={[styles.linkWrapper]}>
           <Text style={[styles.editText]}> Edit </Text>
-        </Link> */}
+        </Link>
       </View>
 
       {/*Note: This functionality will be add in future  */}
