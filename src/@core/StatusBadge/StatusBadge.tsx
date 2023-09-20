@@ -1,33 +1,49 @@
-import {Badge, BadgeProps, useTheme} from '@rneui/themed'
+import {Badge, BadgeProps, useTheme, Colors, makeStyles} from '@rneui/themed'
 
-type BadgeComponentProps = {
-  badgeStatus: string
+import {Status} from 'api/Response'
+
+type BadgeStatus = Status | 'confirmed' | 'completed'
+
+type StatusBadgeProps = {
+  badgeStatus: BadgeStatus
 } & BadgeProps
 
-const StatusBadge = ({badgeStatus, badgeStyle, ...rest}: BadgeComponentProps) => {
-  const {theme} = useTheme()
-  let status: keyof typeof theme.colors = 'primary'
+type StatusMapper = 'default' | 'success' | 'error' | 'warning'
 
-  switch (badgeStatus) {
-    case 'init':
-    case 'accepted':
-      status = 'greyOutline'
-      break
-    case 'confirmed':
-    case 'completed':
-      status = 'success'
-      break
-    case 'rejected':
-      status = 'error'
-      break
-    case 'pending':
-      status = 'warning'
-      break
-    default:
-      break
+const getStyles = ({colors, status}: {colors: Colors; status?: StatusMapper}) =>
+  ({
+    default: {
+      color: colors.textPrimary,
+      backgroundColor: colors.greyOutline,
+    },
+    error: {
+      color: colors.textPrimary,
+      backgroundColor: colors.error,
+    },
+    warning: {
+      color: colors.textPrimary,
+      backgroundColor: colors.warning,
+    },
+    success: {
+      color: colors.textPrimary,
+      backgroundColor: colors.success,
+    },
+  }[status ?? 'default'])
+
+const StatusBadge = ({badgeStatus, badgeStyle, ...rest}: StatusBadgeProps) => {
+  const {theme} = useTheme()
+
+  const statuses: {[key: string]: StatusMapper} = {
+    accepted: 'default',
+    pending: 'warning',
+    rejected: 'error',
+    confirmed: 'success',
+    completed: 'success',
   }
 
-  return <Badge {...rest} badgeStyle={[badgeStyle, {backgroundColor: theme.colors?.[status]}]} />
+  const statusStyles = getStyles({colors: theme.colors, status: statuses[badgeStatus]})
+
+  return <Badge {...rest} badgeStyle={[badgeStyle, statusStyles]} />
 }
 
 export default StatusBadge
