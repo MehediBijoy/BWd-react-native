@@ -7,7 +7,9 @@ import useClient from './useClient'
 
 const useChain = () => {
   const {publicClient} = useClient()
+
   const chains = [bsc, bscTestnet]
+
   const {data, refetch, isLoading} = useQuery<number>({
     queryKey: ['chain'],
     queryFn: async () => await publicClient.getChainId(),

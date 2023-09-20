@@ -1,8 +1,8 @@
 import React from 'react'
 import {View} from 'react-native'
 import {Icon, makeStyles, useTheme} from '@rneui/themed'
-import {WalletConnectModal} from '@walletconnect/modal-react-native'
 import {createDrawerNavigator, DrawerScreenProps} from '@react-navigation/drawer'
+import {WalletConnectModal, useWalletConnectModal} from '@walletconnect/modal-react-native'
 
 import Hamburger from '@core/Hamburger'
 
@@ -24,6 +24,7 @@ const DrawerNavigator = () => {
     theme: {colors},
   } = useTheme()
   const styles = useStyles()
+  const {isConnected, provider} = useWalletConnectModal()
 
   return (
     <>
@@ -74,13 +75,16 @@ const DrawerNavigator = () => {
         />
       </Drawer.Navigator>
 
-      <WalletConnectModal
-        projectId={projectId}
-        providerMetadata={providerMetadata}
-        sessionParams={sessionParams}
-      />
+      {!isConnected && (
+        <WalletConnectModal
+          projectId={projectId}
+          providerMetadata={providerMetadata}
+          sessionParams={sessionParams}
+        />
+      )}
 
-      <WalletController />
+      {/* Todo: avoid modal because ios throw error when modal twice modal opened at a time */}
+      {isConnected && provider && <WalletController />}
     </>
   )
 }
