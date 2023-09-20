@@ -11,7 +11,7 @@ const Transactions = () => {
     <ScrollView>
       <ContainContainer>
         <View style={{marginTop: 20}}>
-          <Text h4>Transactions</Text>
+          <Text h3>Transactions</Text>
           <TransactionsHistory />
         </View>
       </ContainContainer>

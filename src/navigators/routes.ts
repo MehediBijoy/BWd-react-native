@@ -17,11 +17,10 @@ export type RouteStack = {
   Purchase: undefined
   Transactions: undefined
   Notifications: undefined
-  SettingsNavigation: undefined
   Settings: undefined
   Affiliates: undefined
 
-  EmailChange: undefined
-  PasswordChange: undefined
-  MFA: undefined
+  ProfileEmailChange: undefined
+  ProfilePasswordChange: undefined
+  ProfileMFA: undefined
 }
