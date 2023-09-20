@@ -12,11 +12,11 @@ import {EXPLORER_URL} from 'config/environments'
 
 export type OrderDetailsModalProps = {
   isOpened: boolean
-  selectedRow: Payment<Transfer>
+  data: Payment<Transfer>
   onClose: () => void
 }
 
-const OrderDetailsModal = ({selectedRow, isOpened, onClose}: OrderDetailsModalProps) => {
+const OrderDetailsModal = ({data, isOpened, onClose}: OrderDetailsModalProps) => {
   const styles = useStyles()
 
   const onExplorerClicked = (txHash: string) => {
@@ -29,40 +29,40 @@ const OrderDetailsModal = ({selectedRow, isOpened, onClose}: OrderDetailsModalPr
         <View style={{marginBottom: 30}}>
           <View style={styles.row}>
             <Text style={styles.label}>Date </Text>
-            <Text>{formatDate(new Date(selectedRow.created_at), 'long')}</Text>
+            <Text>{formatDate(new Date(data.created_at), 'long')}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.label}>Order ID </Text>
-            <Text>{selectedRow?.id}</Text>
+            <Text>{data?.id}</Text>
           </View>
 
           <View style={styles.row}>
             <Text style={styles.label}>Trade Pair</Text>
-            <Text style={[styles.labelRight]}>{selectedRow?.trade_pair}</Text>
+            <Text style={[styles.labelRight]}>{data?.trade_pair}</Text>
           </View>
 
           <View style={styles.row}>
             <Text style={styles.label}>Paid </Text>
-            <Text style={styles.labelRight}>{selectedRow?.paid_amount}</Text>
+            <Text style={styles.labelRight}>{data?.paid_amount}</Text>
           </View>
 
           <View style={styles.row}>
             <Text style={styles.label}>Received</Text>
-            <Text style={styles.labelRight}>{selectedRow?.received_amount}</Text>
+            <Text style={styles.labelRight}>{data?.received_amount}</Text>
           </View>
 
           <View style={styles.row}>
             <Text style={styles.label}>Payment Type</Text>
-            <Text style={[styles.labelRight]}>{selectedRow?.payment_type}</Text>
+            <Text style={[styles.labelRight]}>{data?.payment_type}</Text>
           </View>
-          {selectedRow?.transfer?.tx_hash && (
+          {data?.transfer?.tx_hash && (
             <>
               <View style={styles.row}>
                 <Text style={styles.label}>Block Explorer</Text>
                 <TouchableOpacity activeOpacity={0.8}>
                   <Text
                     style={styles.explorer}
-                    onPress={() => onExplorerClicked(selectedRow.transfer.tx_hash)}
+                    onPress={() => onExplorerClicked(data.transfer.tx_hash)}
                   >
                     View in Block Explorer
                   </Text>
@@ -70,49 +70,35 @@ const OrderDetailsModal = ({selectedRow, isOpened, onClose}: OrderDetailsModalPr
               </View>
               <View style={styles.row}>
                 <Text style={styles.label}>Sender</Text>
-                <Text style={[styles.labelRight]}>
-                  {shortAddress(selectedRow.transfer.sender, 8)}
-                </Text>
+                <Text style={[styles.labelRight]}>{shortAddress(data.transfer.sender, 8)}</Text>
                 <View style={{alignItems: 'flex-end'}}>
-                  <CopyButton toCopy={selectedRow.transfer.sender} />
+                  <CopyButton toCopy={data.transfer.sender} />
                 </View>
               </View>
               <View style={styles.row}>
                 <Text style={styles.label}>Recipient</Text>
-                <Text style={[styles.labelRight]}>
-                  {shortAddress(selectedRow.transfer.recipient, 8)}
-                </Text>
+                <Text style={[styles.labelRight]}>{shortAddress(data.transfer.recipient, 8)}</Text>
                 <View style={{alignItems: 'flex-end'}}>
-                  <CopyButton toCopy={selectedRow.transfer.recipient} />
+                  <CopyButton toCopy={data.transfer.recipient} />
                 </View>
               </View>
               <View style={styles.row}>
                 <Text style={styles.label}>Tx Hash</Text>
-                <Text style={[styles.labelRight]}>
-                  {shortAddress(selectedRow.transfer.tx_hash, 8)}
-                </Text>
+                <Text style={[styles.labelRight]}>{shortAddress(data.transfer.tx_hash, 8)}</Text>
                 <View style={{alignItems: 'flex-end'}}>
-                  <CopyButton toCopy={selectedRow.transfer.tx_hash} />
+                  <CopyButton toCopy={data.transfer.tx_hash} />
                 </View>
               </View>
               <View style={styles.row}>
                 <Text style={styles.label}>Payment Status</Text>
                 <Text style={[styles.labelRight]}>
-                  <StatusBadge
-                    badgeStatus={selectedRow.status}
-                    badgeStyle={{height: 22, borderRadius: 5}}
-                    value={selectedRow.status.toUpperCase()}
-                  />
+                  <StatusBadge status={data.status} />
                 </Text>
               </View>
               <View style={styles.row}>
                 <Text style={styles.label}>Transfer Status</Text>
                 <Text style={[styles.labelRight]}>
-                  <StatusBadge
-                    badgeStatus={selectedRow.transfer.status}
-                    badgeStyle={{height: 22, borderRadius: 5}}
-                    value={selectedRow.transfer?.status.toUpperCase()}
-                  />
+                  <StatusBadge status={data.transfer.status} />
                 </Text>
               </View>
             </>

@@ -87,15 +87,7 @@ const TransactionsHistory = () => {
             </View>
             <View style={styles.cellStatus}>
               <Text style={{fontSize: 12}}>{item.transfer ? 'Transfer' : 'Payment'}</Text>
-
-              <StatusBadge
-                containerStyle={{paddingTop: 5}}
-                badgeStatus={item.transfer ? item.transfer.status : item.status}
-                badgeStyle={{height: 22, borderRadius: 5}}
-                value={
-                  item.transfer ? item.transfer.status?.toUpperCase() : item.status?.toUpperCase()
-                }
-              />
+              <StatusBadge status={item.transfer.status ?? item.status} />
             </View>
             <Text style={styles.cellDate}>{formatDate(new Date(item.created_at))}</Text>
           </TouchableOpacity>
@@ -111,11 +103,7 @@ const TransactionsHistory = () => {
       </View>
 
       {selectedRow && (
-        <OrderDetailsModal
-          isOpened
-          selectedRow={selectedRow}
-          onClose={() => setSelectedId(undefined)}
-        />
+        <OrderDetailsModal isOpened data={selectedRow} onClose={() => setSelectedId(undefined)} />
       )}
     </>
   )

@@ -5,8 +5,9 @@ import {Status} from 'api/Response'
 type BadgeStatus = Status | 'confirmed' | 'completed'
 
 type StatusBadgeProps = {
-  badgeStatus: BadgeStatus
-} & BadgeProps
+  status: BadgeStatus
+  label?: string
+} & Omit<BadgeProps, 'status' | 'value'>
 
 type StatusMapper = 'default' | 'success' | 'error' | 'warning'
 
@@ -30,7 +31,7 @@ const getStyles = ({colors, status}: {colors: Colors; status?: StatusMapper}) =>
     },
   }[status ?? 'default'])
 
-const StatusBadge = ({badgeStatus, badgeStyle, ...rest}: StatusBadgeProps) => {
+const StatusBadge = ({status, label, badgeStyle, ...rest}: StatusBadgeProps) => {
   const {theme} = useTheme()
 
   const statuses: {[key: string]: StatusMapper} = {
@@ -41,9 +42,16 @@ const StatusBadge = ({badgeStatus, badgeStyle, ...rest}: StatusBadgeProps) => {
     completed: 'success',
   }
 
-  const statusStyles = getStyles({colors: theme.colors, status: statuses[badgeStatus]})
+  const statusStyles = getStyles({colors: theme.colors, status: statuses[status]})
 
-  return <Badge {...rest} badgeStyle={[badgeStyle, statusStyles]} />
+  return (
+    <Badge
+      badgeStyle={[{height: 25, paddingHorizontal: 5}, badgeStyle, statusStyles]}
+      value={label ?? status}
+      textStyle={{textTransform: 'capitalize'}}
+      {...rest}
+    />
+  )
 }
 
 export default StatusBadge
