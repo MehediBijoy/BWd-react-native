@@ -1,33 +1,54 @@
-import {Badge, BadgeProps, useTheme} from '@rneui/themed'
+import {Badge, BadgeProps, useTheme, Colors} from '@rneui/themed'
 
-type BadgeComponentProps = {
-  badgeStatus: string
+import {Status} from 'api/Response'
+
+type BadgeStatus = Status | 'confirmed' | 'completed'
+
+type StatusBadgeProps = {
+  badgeStatus: BadgeStatus
 } & BadgeProps
 
-const StatusBadge = ({badgeStatus, badgeStyle, ...rest}: BadgeComponentProps) => {
+const getStyles = ({colors, status}: {colors: Colors; status: BadgeStatus}) =>
+  ({
+    default: {
+      color: colors.textPrimary,
+      backgroundColor: colors.bgPaper,
+    },
+    init: {
+      color: colors.textPrimary,
+      backgroundColor: colors.greyOutline,
+    },
+    accepted: {
+      color: colors.textPrimary,
+      backgroundColor: colors.greyOutline,
+    },
+    rejected: {
+      color: colors.textPrimary,
+      backgroundColor: colors.error,
+    },
+    pending: {
+      color: colors.textPrimary,
+      backgroundColor: colors.warning,
+    },
+    confirmed: {
+      color: colors.textPrimary,
+      backgroundColor: colors.success,
+    },
+    completed: {
+      color: colors.textPrimary,
+      backgroundColor: colors.success,
+    },
+  }[status] ?? {
+    color: colors.textPrimary,
+    backgroundColor: colors.grey1,
+  })
+
+const StatusBadge = ({badgeStatus, badgeStyle, ...rest}: StatusBadgeProps) => {
   const {theme} = useTheme()
-  let status: keyof typeof theme.colors = 'primary'
+  console.log(badgeStatus)
+  const styles = getStyles({colors: theme.colors, status: badgeStatus})
 
-  switch (badgeStatus) {
-    case 'init':
-    case 'accepted':
-      status = 'greyOutline'
-      break
-    case 'confirmed':
-    case 'completed':
-      status = 'success'
-      break
-    case 'rejected':
-      status = 'error'
-      break
-    case 'pending':
-      status = 'warning'
-      break
-    default:
-      break
-  }
-
-  return <Badge {...rest} badgeStyle={[badgeStyle, {backgroundColor: theme.colors?.[status]}]} />
+  return <Badge {...rest} badgeStyle={[badgeStyle, styles]} />
 }
 
 export default StatusBadge
