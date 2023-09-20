@@ -125,7 +125,7 @@ type Payment<Tdata = null> = {
   }
   received_amount: string
   static_fee_amount: string
-  status: 'init' | 'accepted' | 'pending' | 'completed'
+  status: 'init' | 'accepted' | 'pending' | 'confirmed' | 'rejected'
   status_reason: string
   storage_fee_amount: string
   storage_fee_percentage: string
