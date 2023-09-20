@@ -1,4 +1,4 @@
-import {Badge, BadgeProps, useTheme, Colors, makeStyles} from '@rneui/themed'
+import {Badge, BadgeProps, useTheme, Colors} from '@rneui/themed'
 
 import {Status} from 'api/Response'
 
