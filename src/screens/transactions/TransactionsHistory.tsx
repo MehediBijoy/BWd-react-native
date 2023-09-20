@@ -1,7 +1,9 @@
 import React from 'react'
 import {ActivityIndicator, TouchableOpacity, View} from 'react-native'
-import {Badge, Text, makeStyles, useTheme} from '@rneui/themed'
+import {Text, makeStyles, useTheme} from '@rneui/themed'
 import {useQuery, useQueryClient} from '@tanstack/react-query'
+
+import StatusBadge from '@core/StatusBadge'
 
 import {useApi} from 'hooks/api'
 import {OrderHistory} from 'api/Response'
@@ -85,22 +87,15 @@ const TransactionsHistory = () => {
             </View>
             <View style={styles.cellStatus}>
               <Text style={{fontSize: 12}}>{item.transfer ? 'Transfer' : 'Payment'}</Text>
-              {
-                <Badge
-                  containerStyle={{paddingTop: 5}}
-                  status={
-                    item.transfer?.status == 'completed'
-                      ? 'success'
-                      : item.transfer?.status == 'rejected'
-                      ? 'error'
-                      : 'warning'
-                  }
-                  badgeStyle={{height: 22, borderRadius: 5}}
-                  value={
-                    item.transfer ? item.transfer.status?.toUpperCase() : item.status?.toUpperCase()
-                  }
-                />
-              }
+
+              <StatusBadge
+                containerStyle={{paddingTop: 5}}
+                badgeStatus={item.transfer ? item.transfer.status : item.status}
+                badgeStyle={{height: 22, borderRadius: 5}}
+                value={
+                  item.transfer ? item.transfer.status?.toUpperCase() : item.status?.toUpperCase()
+                }
+              />
             </View>
             <Text style={styles.cellDate}>{formatDate(new Date(item.created_at))}</Text>
           </TouchableOpacity>

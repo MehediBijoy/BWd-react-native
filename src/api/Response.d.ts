@@ -109,6 +109,8 @@ type EstimateFee = {
   storage_fee_remaining_days: number
 }
 
+type Status = 'init' | 'accepted' | 'rejected' | 'pending'
+
 type Payment<Tdata = null> = {
   id: number
   dynamic_fee_amount: string
@@ -125,7 +127,7 @@ type Payment<Tdata = null> = {
   }
   received_amount: string
   static_fee_amount: string
-  status: 'init' | 'accepted' | 'pending' | 'completed'
+  status: Status | 'confirmed'
   status_reason: string
   storage_fee_amount: string
   storage_fee_percentage: string
@@ -151,7 +153,7 @@ export type Transfer = {
   id: number
   recipient: string
   sender: string
-  status: string
+  status: Status | 'completed'
   status_reason: string
   tx_hash: string
   updated_at: string

@@ -1,9 +1,10 @@
 import React from 'react'
 import {View, Linking, TouchableOpacity, ScrollView} from 'react-native'
-import {Badge, Text, makeStyles} from '@rneui/themed'
+import {Text, makeStyles} from '@rneui/themed'
 
 import Modal from '@core/Modal'
 import CopyButton from '@core/CopyButton'
+import StatusBadge from '@core/StatusBadge'
 
 import {Payment, Transfer} from 'api/Response'
 import {formatDate, shortAddress} from 'utils'
@@ -97,8 +98,8 @@ const OrderDetailsModal = ({selectedRow, isOpened, onClose}: OrderDetailsModalPr
               <View style={styles.row}>
                 <Text style={styles.label}>Payment Status</Text>
                 <Text style={[styles.labelRight]}>
-                  <Badge
-                    status={selectedRow.status == 'completed' ? 'success' : 'warning'}
+                  <StatusBadge
+                    badgeStatus={selectedRow.status}
                     badgeStyle={{height: 22, borderRadius: 5}}
                     value={selectedRow.status.toUpperCase()}
                   />
@@ -107,16 +108,10 @@ const OrderDetailsModal = ({selectedRow, isOpened, onClose}: OrderDetailsModalPr
               <View style={styles.row}>
                 <Text style={styles.label}>Transfer Status</Text>
                 <Text style={[styles.labelRight]}>
-                  <Badge
-                    status={
-                      selectedRow.transfer?.status == 'completed'
-                        ? 'success'
-                        : selectedRow.transfer?.status == 'rejected'
-                        ? 'error'
-                        : 'warning'
-                    }
+                  <StatusBadge
+                    badgeStatus={selectedRow.transfer.status}
                     badgeStyle={{height: 22, borderRadius: 5}}
-                    value={selectedRow.transfer.status.toUpperCase()}
+                    value={selectedRow.transfer?.status.toUpperCase()}
                   />
                 </Text>
               </View>
