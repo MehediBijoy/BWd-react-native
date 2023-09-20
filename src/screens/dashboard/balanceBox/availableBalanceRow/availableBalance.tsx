@@ -91,7 +91,6 @@ const useStyles = makeStyles(({colors}) => ({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
     gap: 5,
   },
 }))

@@ -90,7 +90,9 @@ const BuyToken = () => {
         />
 
         <View style={{display: 'flex', rowGap: 20}}>
-          <Text h3>Purchase BWG</Text>
+          <Text h3 h3Style={{marginTop: 20}}>
+            Purchase BWG
+          </Text>
 
           <Form methods={methods} style={{rowGap: 15}}>
             <FormInput

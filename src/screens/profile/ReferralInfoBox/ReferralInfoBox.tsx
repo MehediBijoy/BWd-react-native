@@ -13,27 +13,27 @@ type ReferralInfoBoxProps = {
 const ReferralInfoBox = ({userInfo}: ReferralInfoBoxProps) => {
   const styles = useStyle()
   return (
-    <View style={[styles.container]}>
-      <Text style={[styles.title]}>Referral Information </Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>Referral Information </Text>
 
       <View style={[styles.textWrapper, styles.container]}>
-        <View style={[styles.copyWrapper]}>
+        <View style={styles.copyWrapper}>
           {/* {userInfo?.referral_token && <CopyButton toCopy={userInfo?.referral_token} />} */}
-          <Text style={{marginLeft: 2}}>Referral ID:</Text>
+          <Text>Referral ID:</Text>
         </View>
         <Text style={{fontWeight: 'bold'}}>{userInfo?.referral_token}</Text>
       </View>
-      <View style={[styles.copyWrapper, styles.container]}>
+      <View style={styles.copyWrapper}>
         {/* {userInfo?.referral_token && (
           <CopyButton toCopy={makeReferralLink(userInfo?.referral_token)} />
         )} */}
-        <Text style={{marginLeft: 2}}>Referral Link:</Text>
+        <Text style={{marginTop: 10}}>Referral Link:</Text>
       </View>
       {userInfo?.referral_token && (
         <CopyButton
           toCopy={makeReferralLink(userInfo?.referral_token)}
           buttonText={
-            <Text style={[styles.referralLink]}>{makeReferralLink(userInfo?.referral_token)}</Text>
+            <Text style={styles.referralLink}>{makeReferralLink(userInfo?.referral_token)}</Text>
           }
         />
       )}
