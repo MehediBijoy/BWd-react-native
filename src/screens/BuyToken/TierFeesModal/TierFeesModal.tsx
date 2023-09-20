@@ -41,8 +41,7 @@ const TierOverviewModal = ({bwgLimit, isOpened, onClose}: TierOverviewModalProps
             <View key={id} style={index === fees?.length - 1 ? styles.rowWithRadius : styles.row}>
               <Text style={styles.tierItem}>Level {id + 1}</Text>
               <Text style={styles.tierDescription}>
-                {' '}
-                {id === 0 ? `from ${bwgLimit?.min_payment_amount} up to ${max}` : `from ${min}`}
+                {id === 0 ? ` from ${bwgLimit?.min_payment_amount} up to ${max}` : `from ${min}`}
               </Text>
               <Text style={styles.tierFee}>{fee_percentage}%</Text>
             </View>
@@ -66,7 +65,7 @@ const useStyles = makeStyles(({colors}) => ({
   },
 
   headerRow: {
-    padding: 5,
+    padding: 10,
     backgroundColor: colors.bgPaper,
     height: 40,
     flexDirection: 'row',

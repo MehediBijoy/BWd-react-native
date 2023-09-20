@@ -123,7 +123,7 @@ const BuyToken = () => {
               rightElement={isLoading && inBase ? <ActivityIndicator /> : undefined}
             />
 
-            <Text style={{textAlign: 'right'}} onPress={() => setIsOpened(true)}>
+            <Text style={styles.tierLink} onPress={() => setIsOpened(true)}>
               More about the Tier System
             </Text>
             <Button
@@ -140,7 +140,7 @@ const BuyToken = () => {
   )
 }
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(({colors}) => ({
   currency: {
     height: 30,
     width: 30,
@@ -149,6 +149,12 @@ const useStyles = makeStyles(() => ({
     borderRadius: 15,
     backgroundColor: '#399fff',
     marginRight: 10,
+  },
+  tierLink: {
+    textAlign: 'right',
+    color: colors.tertiary,
+    marginRight: 5,
+    width: 'auto',
   },
 }))
 
