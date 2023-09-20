@@ -8,7 +8,7 @@ import Hamburger from '@core/Hamburger'
 
 import Logo from 'components/Logo'
 import Profile from 'screens/profile'
-import Affiliate from 'screens/affiliate'
+// import Affiliate from 'screens/affiliate'
 import {sessionParams, providerMetadata, projectId} from 'constants/wallet.config'
 
 import TabNavigator from './TabNavigator'
@@ -68,7 +68,7 @@ const DrawerNavigator = () => {
         /> */}
 
         <Drawer.Screen
-          name='SettingsNavigation'
+          name='Settings'
           component={Profile}
           options={{title: 'Settings', drawerIcon: props => <Icon name='settings' {...props} />}}
         />

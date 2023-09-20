@@ -1,5 +1,5 @@
 import {View} from 'react-native'
-import {Text, makeStyles} from '@rneui/base'
+import {Text, makeStyles} from '@rneui/themed'
 
 import Accordion from '@core/Accordion'
 
