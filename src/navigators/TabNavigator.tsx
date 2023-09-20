@@ -5,7 +5,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import BuyToken from 'screens/BuyToken'
 import Dashboard from 'screens/dashboard'
 import Transactions from 'screens/transactions'
-import Notifications from 'screens/Notifications'
+// import Notifications from 'screens/Notifications'
 
 import type {RouteStack} from './routes'
 
@@ -55,7 +55,8 @@ const TabNavigator = () => {
           ),
         }}
       />
-      <Tab.Screen
+      {/* Todo: will add notification screen later */}
+      {/* <Tab.Screen
         name='Notifications'
         component={Notifications}
         options={{
@@ -63,7 +64,7 @@ const TabNavigator = () => {
           tabBarBadgeStyle: {marginTop: -6, marginLeft: -2},
           tabBarIcon: props => <Icon name='notifications' type='material-icons' {...props} />,
         }}
-      />
+      /> */}
     </Tab.Navigator>
   )
 }

@@ -87,7 +87,7 @@ const TransactionsHistory = () => {
             </View>
             <View style={styles.cellStatus}>
               <Text style={{fontSize: 12}}>{item.transfer ? 'Transfer' : 'Payment'}</Text>
-              <StatusBadge status={item.transfer.status ?? item.status} />
+              <StatusBadge status={item.transfer?.status ?? item.status} />
             </View>
             <Text style={styles.cellDate}>{formatDate(new Date(item.created_at))}</Text>
           </TouchableOpacity>
