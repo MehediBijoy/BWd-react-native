@@ -98,11 +98,7 @@ const OrderDetailsModal = ({selectedRow, isOpened, onClose}: OrderDetailsModalPr
                 <Text style={styles.label}>Payment Status</Text>
                 <Text style={[styles.labelRight]}>
                   <Badge
-                    status={
-                      selectedRow.status == 'pending' || selectedRow.status == 'accepted'
-                        ? 'warning'
-                        : 'success'
-                    }
+                    status={selectedRow.status == 'completed' ? 'success' : 'warning'}
                     badgeStyle={{height: 22, borderRadius: 5}}
                     value={selectedRow.status.toUpperCase()}
                   />
@@ -113,10 +109,11 @@ const OrderDetailsModal = ({selectedRow, isOpened, onClose}: OrderDetailsModalPr
                 <Text style={[styles.labelRight]}>
                   <Badge
                     status={
-                      selectedRow.transfer.status == 'pending' ||
-                      selectedRow.transfer.status == 'accepted'
-                        ? 'warning'
-                        : 'success'
+                      selectedRow.transfer?.status == 'completed'
+                        ? 'success'
+                        : selectedRow.transfer?.status == 'rejected'
+                        ? 'error'
+                        : 'warning'
                     }
                     badgeStyle={{height: 22, borderRadius: 5}}
                     value={selectedRow.transfer.status.toUpperCase()}
@@ -144,10 +141,12 @@ const useStyles = makeStyles(({colors}) => ({
     width: '35%',
     textAlign: 'left',
     fontWeight: '700',
+    color: colors.textPrimary,
   },
   labelRight: {
     width: '50%',
     textAlign: 'left',
+    color: colors.textPrimary,
   },
   explorer: {
     color: colors.tertiary,

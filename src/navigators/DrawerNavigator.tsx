@@ -60,11 +60,12 @@ const DrawerNavigator = () => {
           options={{title: 'Dashboard', drawerIcon: props => <Icon name='dashboard' {...props} />}}
         />
 
-        <Drawer.Screen
+        {/* TODO! this will activate after first release */}
+        {/* <Drawer.Screen
           name='Affiliates'
           component={Affiliate}
           options={{drawerIcon: props => <Icon name='supervised-user-circle' {...props} />}}
-        />
+        /> */}
 
         <Drawer.Screen
           name='SettingsNavigation'

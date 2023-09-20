@@ -61,14 +61,14 @@ const TransactionsHistory = () => {
       <View style={[styles.container, styles.tableBorder]}>
         <View style={[styles.headerRow]}>
           <Text style={styles.cellDetails}>Description</Text>
-          <Text style={{width: '25%', textAlign: 'left'}}>Status</Text>
+          <Text style={styles.cellStatus}>Status</Text>
           <Text style={[styles.cellDate]}>Date</Text>
         </View>
         {orderHistory?.data.map((item, index) => (
           <TouchableOpacity
             activeOpacity={0.8}
             key={index}
-            style={styles.row}
+            style={index === orderHistory?.data.length - 1 ? styles.rowWithRadius : styles.row}
             onPress={() => setSelectedId(item.id)}
           >
             <View style={styles.cellDetails}>
@@ -83,7 +83,7 @@ const TransactionsHistory = () => {
                 <Text style={styles.labelText}>Payment Method:</Text> {item.payment_type}{' '}
               </Text>
             </View>
-            <View style={{width: '25%', alignItems: 'flex-start'}}>
+            <View style={styles.cellStatus}>
               <Text style={{fontSize: 12}}>{item.transfer ? 'Transfer' : 'Payment'}</Text>
               {
                 <Badge
@@ -131,12 +131,12 @@ export default TransactionsHistory
 const useStyles = makeStyles(({colors}) => ({
   container: {
     backgroundColor: colors.background,
-    marginTop: 10,
+    marginVertical: 10,
   },
   tableBorder: {
-    borderWidth: 2,
+    borderWidth: 1,
     borderColor: colors.border,
-    borderRadius: 10,
+    borderRadius: 8,
   },
   headerRow: {
     padding: 5,
@@ -145,35 +145,50 @@ const useStyles = makeStyles(({colors}) => ({
     flexDirection: 'row',
     alignItems: 'center',
     borderBottomWidth: 1,
-    borderColor: colors.border,
+    borderColor: colors.divider,
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
   },
   row: {
     padding: 5,
     height: 90,
-    minHeight: 80,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: colors.background,
     borderBottomWidth: 1,
-    borderColor: colors.border,
+    borderColor: colors.divider,
+  },
+  rowWithRadius: {
+    padding: 5,
+    height: 90,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: colors.background,
+    borderBottomLeftRadius: 8,
+    borderBottomRightRadius: 8,
   },
   cellDate: {
     textAlign: 'center',
     fontSize: 12,
-    fontWeight: '100',
     width: '20%',
+    color: colors.textPrimary,
   },
   cellDetails: {
     paddingLeft: 5,
     textAlign: 'left',
     width: '55%',
+    color: colors.textPrimary,
   },
   cellStatus: {
-    textAlign: 'center',
+    textAlign: 'left',
+    alignItems: 'flex-start',
     width: '25%',
+    fontSize: 12,
+    color: colors.textPrimary,
   },
   subText: {
     fontSize: 11,
+    color: colors.textPrimary,
   },
   titleText: {
     fontSize: 14,
@@ -183,5 +198,6 @@ const useStyles = makeStyles(({colors}) => ({
   labelText: {
     fontSize: 12,
     fontWeight: '700',
+    color: colors.textPrimary,
   },
 }))
