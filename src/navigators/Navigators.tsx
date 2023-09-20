@@ -59,17 +59,17 @@ const Navigators = () => {
           <Stack.Screen
             name='ProfileEmailChange'
             component={ChangeEmail}
-            options={{title: 'Email Change'}}
+            options={{title: 'Email Change', headerBackTitleVisible: false}}
           />
           <Stack.Screen
             name='ProfilePasswordChange'
             component={ChangePassword}
-            options={{title: 'Password Change'}}
+            options={{title: 'Password Change', headerBackTitleVisible: false}}
           />
           <Stack.Screen
             name='ProfileMFA'
             component={MFA}
-            options={{title: 'Two Factor Authentication'}}
+            options={{title: 'Two Factor Authentication', headerBackTitleVisible: false}}
           />
         </Stack.Group>
       )}
