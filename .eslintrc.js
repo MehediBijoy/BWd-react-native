@@ -20,6 +20,9 @@ module.exports = {
   },
   plugins: ['@typescript-eslint', 'react', 'react-native', 'prettier'],
   rules: {
+    'no-console': 'error',
+    'arrow-body-style': ['warn', 'as-needed'],
+    'no-empty-function': 'error',
     quotes: ['warn', 'single', {avoidEscape: true}],
     'prefer-const': 'off',
     'no-dupe-keys': 'warn',
