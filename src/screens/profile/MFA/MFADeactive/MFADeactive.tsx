@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 import {View} from 'react-native'
-import {useQuery, useMutation} from '@tanstack/react-query'
+import {useQuery, useMutation, useQueryClient} from '@tanstack/react-query'
 import {Text, Button, makeStyles} from '@rneui/themed'
 import {NativeStackScreenProps} from '@react-navigation/native-stack'
 
@@ -28,7 +28,8 @@ type mfaDeActivationFields = yup.InferType<typeof mfaDeActiveSchema>
 const MFADeactive = ({navigation}: NativeStackScreenProps<RouteStack>) => {
   const api = useApi()
   const styles = useStyles()
-  const {setProfile} = useProfile()
+  const {profile, setProfile} = useProfile()
+  const client = useQueryClient()
 
   const {methods} = useYupHooks<mfaDeActivationFields>({schema: mfaDeActiveSchema})
 
@@ -47,6 +48,7 @@ const MFADeactive = ({navigation}: NativeStackScreenProps<RouteStack>) => {
     onSuccess: ({user}) => {
       regenerateMfaSecret()
       setProfile(user)
+      client.invalidateQueries([cacheKey.userDetails, profile?.id])
       navigation.navigate('Settings')
     },
   })
