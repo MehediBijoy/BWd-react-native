@@ -1,14 +1,14 @@
 import React from 'react'
 import {View} from 'react-native'
 import {Icon, makeStyles, useTheme} from '@rneui/themed'
-import {WalletConnectModal} from '@walletconnect/modal-react-native'
 import {createDrawerNavigator, DrawerScreenProps} from '@react-navigation/drawer'
+import {WalletConnectModal, useWalletConnectModal} from '@walletconnect/modal-react-native'
 
 import Hamburger from '@core/Hamburger'
 
 import Logo from 'components/Logo'
 import Profile from 'screens/profile'
-import Affiliate from 'screens/affiliate'
+// import Affiliate from 'screens/affiliate'
 import {sessionParams, providerMetadata, projectId} from 'constants/wallet.config'
 
 import TabNavigator from './TabNavigator'
@@ -24,6 +24,7 @@ const DrawerNavigator = () => {
     theme: {colors},
   } = useTheme()
   const styles = useStyles()
+  const {isConnected, provider} = useWalletConnectModal()
 
   return (
     <>
@@ -60,26 +61,30 @@ const DrawerNavigator = () => {
           options={{title: 'Dashboard', drawerIcon: props => <Icon name='dashboard' {...props} />}}
         />
 
-        <Drawer.Screen
+        {/* TODO! this will activate after first release */}
+        {/* <Drawer.Screen
           name='Affiliates'
           component={Affiliate}
           options={{drawerIcon: props => <Icon name='supervised-user-circle' {...props} />}}
-        />
+        /> */}
 
         <Drawer.Screen
-          name='SettingsNavigation'
+          name='Settings'
           component={Profile}
           options={{title: 'Settings', drawerIcon: props => <Icon name='settings' {...props} />}}
         />
       </Drawer.Navigator>
 
-      <WalletConnectModal
-        projectId={projectId}
-        providerMetadata={providerMetadata}
-        sessionParams={sessionParams}
-      />
+      {!isConnected && (
+        <WalletConnectModal
+          projectId={projectId}
+          providerMetadata={providerMetadata}
+          sessionParams={sessionParams}
+        />
+      )}
 
-      <WalletController />
+      {/* Todo: avoid modal because ios throw error when modal twice modal opened at a time */}
+      {isConnected && provider && <WalletController />}
     </>
   )
 }

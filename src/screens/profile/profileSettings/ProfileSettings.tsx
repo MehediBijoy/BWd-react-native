@@ -13,31 +13,31 @@ const ProfileSettings = ({userInfo}: ProfileSettingsProps) => {
   const styles = useStyles()
 
   return (
-    <View style={[styles.container]}>
-      <View style={[styles.wrapper]}>
-        <View style={[styles.textWrapper]}>
+    <View>
+      <View style={styles.wrapper}>
+        <View style={styles.textWrapper}>
           <Text>Email:</Text>
-          <Text style={[styles.boldText]}>{userInfo?.email}</Text>
+          <Text style={styles.boldText}>{userInfo?.email}</Text>
         </View>
-        <Link to={{screen: 'EmailChange'}} style={[styles.linkWrapper]}>
-          <Text style={[styles.editText]}> Edit</Text>
+        <Link to={{screen: 'ProfileEmailChange'}} style={styles.linkWrapper}>
+          <Text style={styles.editText}> Edit</Text>
         </Link>
       </View>
-      <View style={[styles.wrapper]}>
-        <View style={[styles.textWrapper]}>
+      <View style={styles.wrapper}>
+        <View style={styles.textWrapper}>
           <Text>Password:</Text>
-          <Text style={[styles.boldText]}>********</Text>
+          <Text style={styles.boldText}>********</Text>
         </View>
-        <Link to={{screen: 'PasswordChange'}} style={[styles.linkWrapper]}>
-          <Text style={[styles.editText]}> Edit</Text>
+        <Link to={{screen: 'ProfilePasswordChange'}} style={styles.linkWrapper}>
+          <Text style={styles.editText}> Edit</Text>
         </Link>
       </View>
 
       {/*Note: This functionality will be add in future  */}
-      <View style={[styles.wrapper]}>
-        <View style={[styles.textWrapper]}>
+      <View style={styles.wrapper}>
+        <View style={styles.textWrapper}>
           <Text>2FA Authentication:</Text>
-          <Text style={[styles.boldText]}>
+          <Text style={styles.boldText}>
             {userInfo?.google_mfa_activated === true ? 'Activated' : 'Deactivated'}
           </Text>
         </View>
@@ -57,10 +57,10 @@ const ProfileSettings = ({userInfo}: ProfileSettingsProps) => {
       </View>
        */}
 
-      <View style={[styles.wrapper]}>
+      <View style={styles.wrapper}>
         {/* {userInfo?.wallet_address && <CopyButton toCopy={userInfo?.wallet_address} />} */}
-        <Text style={{marginLeft: 2}}>Saved Wallet Address:</Text>
-        <Text style={{marginLeft: 5, fontSize: 16}}>
+        <Text>Saved Wallet Address:</Text>
+        <Text style={{fontSize: 16, marginLeft: 5}}>
           {updateWalletConnectTitle(userInfo?.wallet_address)}
         </Text>
       </View>
@@ -71,14 +71,11 @@ const ProfileSettings = ({userInfo}: ProfileSettingsProps) => {
 export default ProfileSettings
 
 const useStyles = makeStyles(({colors}) => ({
-  container: {
-    marginTop: 20,
-  },
   wrapper: {
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 10,
-    padding: 5,
+    paddingBottom: 10,
     borderBottomColor: colors.bgPaper,
     borderBottomWidth: 1,
   },

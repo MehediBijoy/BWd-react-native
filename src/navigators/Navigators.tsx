@@ -9,6 +9,9 @@ import {useProfile} from 'hooks/helper'
 import ResetPassword from 'screens/auth/ResetPassword'
 import RegistrationProgress from 'screens/auth/Registration'
 import RegistrationForm from 'screens/auth/Registration/RegisterForm'
+import ChangeEmail from 'screens/profile/changeEmail'
+import ChangePassword from 'screens/profile/changePassword'
+import MFA from 'screens/profile/MFA'
 
 import type {RouteStack} from './routes'
 import DrawerNavigator from './DrawerNavigator'
@@ -47,8 +50,27 @@ const Navigators = () => {
           options={{headerShown: false}}
         />
       ) : (
-        <Stack.Group screenOptions={{headerShown: false}}>
-          <Stack.Screen name='DrawerComponents' component={DrawerNavigator} />
+        <Stack.Group>
+          <Stack.Screen
+            name='DrawerComponents'
+            options={{headerShown: false}}
+            component={DrawerNavigator}
+          />
+          <Stack.Screen
+            name='ProfileEmailChange'
+            component={ChangeEmail}
+            options={{title: 'Email Change', headerBackTitleVisible: false}}
+          />
+          <Stack.Screen
+            name='ProfilePasswordChange'
+            component={ChangePassword}
+            options={{title: 'Password Change', headerBackTitleVisible: false}}
+          />
+          <Stack.Screen
+            name='ProfileMFA'
+            component={MFA}
+            options={{title: 'Two Factor Authentication', headerBackTitleVisible: false}}
+          />
         </Stack.Group>
       )}
     </Stack.Navigator>

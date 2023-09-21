@@ -1,7 +1,7 @@
 import {Dimensions, View} from 'react-native'
 import {useQuery} from '@tanstack/react-query'
 import {LineChart} from 'react-native-chart-kit'
-import {Text} from '@rneui/base'
+import {Text, useTheme} from '@rneui/themed'
 
 import {AssetChartItem} from 'api/Response'
 import {cacheKey} from 'api/CacheKey'
@@ -12,6 +12,7 @@ import {formatDate} from 'utils'
 const ChartBox = () => {
   const api = useApi()
   const {token} = useAuthToken()
+  const {theme} = useTheme()
   const {data} = useQuery<AssetChartItem[]>({
     queryKey: [cacheKey.dashboardChart],
     queryFn: () => api.getChartSymbol({symbol: 'BWG', days: 30, currency: 'USD'}),
@@ -40,12 +41,12 @@ const ChartBox = () => {
   }
 
   const chartData = reduceChart(data, 2)
-  const labels = chartData.map(value => formatDate(new Date(value.timestamp * 1000)))
+  const labels = chartData.map(value => formatDate(new Date(value.timestamp * 1000), 'day'))
   const chartPrice = chartData.map(value => Number(value.price))
 
   return (
     <>
-      <View style={{alignItems: 'center', flexDirection: 'row', gap: 5}}>
+      <View style={{alignItems: 'center', flexDirection: 'row', marginBottom: 10}}>
         <Logo width={35} height={35} />
         <Text h4>
           Bretton Woods{' '}
@@ -65,13 +66,12 @@ const ChartBox = () => {
             },
           ],
         }}
-        width={Dimensions.get('window').width - 16} // from react-native
+        width={Dimensions.get('window').width - 18} // from react-native
         height={250}
         yAxisLabel={'$'}
         chartConfig={{
-          backgroundColor: '#1cc910',
-          backgroundGradientFrom: '#f2f2f2',
-          backgroundGradientTo: '#f5f5f5',
+          backgroundGradientFrom: theme.colors.primary,
+          backgroundGradientTo: theme.colors.grey5,
           decimalPlaces: 2, // optional, defaults to 2dp
           color: (opacity = 255) => `rgba(0, 0, 0, ${opacity})`,
           style: {

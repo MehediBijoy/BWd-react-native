@@ -32,7 +32,7 @@ const WalletButton = () => {
       loading={isOpen}
       onPress={connect}
       titleStyle={{fontSize: 14}}
-      title={isConnected ? shortAddress(address as string) : 'Connect Wallet'}
+      title={isConnected && address ? shortAddress(address) : 'Connect Wallet'}
       containerStyle={{minWidth: 120, borderRadius: 8}}
     />
   )

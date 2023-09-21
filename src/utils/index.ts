@@ -30,10 +30,17 @@ export function getMonth(month: number, lang = 'en') {
   return date.toLocaleString(lang, {month: 'long'})
 }
 
-export const formatDate = (date: Date) => {
-  const day = date.getDate()
-  const month = date.toLocaleString('default', {month: 'short'})
-  return `${day} ${month}`
+export const formatDate = (date: Date, type: string = 'short') => {
+  return date.toLocaleString(
+    'default',
+    type === 'long'
+      ? {year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit'}
+      : type === 'medium'
+      ? {day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit'}
+      : type === 'day'
+      ? {day: '2-digit'}
+      : {day: '2-digit', month: 'short'}
+  )
 }
 
 export const updateWalletConnectTitle = (title?: string) => {

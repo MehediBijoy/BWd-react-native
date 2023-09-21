@@ -5,8 +5,10 @@ import {Text, View, Modal as NativeModal} from 'react-native'
 import {useWalletConnectModal} from '@walletconnect/modal-react-native'
 
 import Modal from '@core/Modal'
+import SafeAreaView from '@core/SafeAreaView'
 
 import {useApi} from 'hooks/api'
+import {useDebounce} from 'hooks/helper'
 import {PaymentProps} from 'api/Request'
 import {EstimateFee, Payment} from 'api/Response'
 
@@ -35,61 +37,66 @@ const FiatPaymentModal = ({estimateFees, isOpened, onClose, in_base}: FiatPaymen
         success_url: 'https://www.brettonwoods.gold/',
         error_url: 'https://example.com',
       }),
-    onSuccess: onClose,
   })
+  const debounce = useDebounce(createOrder.reset)
+
+  const onModalClose = () => {
+    onClose()
+    if (createOrder.data) {
+      // Todo fixed debounce type error when D properties
+      // is unknown, blow debounce should be called without
+      // pass empty string
+      debounce('')
+    }
+  }
 
   return (
-    <>
-      <Modal title='ORDER DETAILS' isOpened={isOpened} onClose={onClose}>
-        {!isConnected && (
-          <View style={styles.alertContainer}>
-            <Icon name='warning' color={styles.icon.color} />
-            <Text style={styles.alertText}>Please connect your crypto wallet</Text>
-          </View>
-        )}
-
-        <View style={styles.grid}>
-          <Text style={styles.gridLeftItem}>Amount</Text>
-          <Text style={styles.gridRightItem}>${estimateFees?.total_amount}</Text>
+    <Modal title='ORDER DETAILS' isOpened={isOpened} onClose={onClose}>
+      {!isConnected && (
+        <View style={styles.alertContainer}>
+          <Icon name='warning' color={styles.icon.color} />
+          <Text style={styles.alertText}>Please connect your crypto wallet</Text>
         </View>
+      )}
 
-        <Text style={styles.grid}>
-          You are paying up front for {estimateFees?.storage_fee_remaining_days} days of storage for
-          your gold backing the token. The cost for this are
-          {parseFloat(estimateFees?.storage_fee_amount).toFixed(4)} BWG tokens.
-        </Text>
+      <View style={styles.grid}>
+        <Text style={styles.gridLeftItem}>Amount</Text>
+        <Text style={styles.gridRightItem}>${estimateFees?.total_amount}</Text>
+      </View>
 
-        <Text style={styles.grid}>
-          You`re paying {parseFloat(estimateFees?.total_fee_amount).toFixed(4)} BWG tokens fees.
-        </Text>
-        <Text style={styles.grid}>After completion you`re going to</Text>
+      <Text style={styles.grid}>
+        You are paying up front for {estimateFees?.storage_fee_remaining_days} days of storage for
+        your gold backing the token. The cost for this are
+        {parseFloat(estimateFees?.storage_fee_amount).toFixed(4)} BWG tokens.
+      </Text>
 
-        <View style={[styles.grid, {marginBottom: 10}]}>
-          <Text style={styles.gridLeftItem}>Receive:</Text>
-          <Text style={styles.gridLeftItem}>{parseFloat(estimateFees?.received_amount)} BWG</Text>
-        </View>
+      <Text style={styles.grid}>
+        You`re paying {parseFloat(estimateFees?.total_fee_amount).toFixed(4)} BWG tokens fees.
+      </Text>
+      <Text style={styles.grid}>After completion you`re going to</Text>
 
-        <Button
-          title='Buy BWG'
-          onPress={() => {
-            createOrder.mutate({payment_type: 'paypal'})
-          }}
-          loading={createOrder.isLoading}
-          disabled={!isConnected}
-        />
-      </Modal>
+      <View style={[styles.grid, {marginBottom: 10}]}>
+        <Text style={styles.gridLeftItem}>Receive:</Text>
+        <Text style={styles.gridLeftItem}>{parseFloat(estimateFees?.received_amount)} BWG</Text>
+      </View>
+
+      <Button
+        title='Buy BWG'
+        onPress={() => {
+          createOrder.mutate({payment_type: 'paypal'})
+        }}
+        loading={createOrder.isLoading}
+        disabled={!isConnected}
+      />
 
       {createOrder.data && (
         <NativeModal visible>
-          <PaypalView
-            data={createOrder.data.payment_data}
-            onClose={() => {
-              createOrder.reset()
-            }}
-          />
+          <SafeAreaView>
+            <PaypalView data={createOrder.data.payment_data} onClose={onModalClose} />
+          </SafeAreaView>
         </NativeModal>
       )}
-    </>
+    </Modal>
   )
 }
 

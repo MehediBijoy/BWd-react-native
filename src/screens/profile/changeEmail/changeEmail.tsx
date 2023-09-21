@@ -1,5 +1,5 @@
 import * as yup from 'yup'
-import {useEffect, useState} from 'react'
+import {useState} from 'react'
 import {useMutation} from '@tanstack/react-query'
 import {Button, makeStyles, Text} from '@rneui/themed'
 import {NativeStackScreenProps} from '@react-navigation/native-stack'
@@ -29,23 +29,11 @@ const ChangeEmail = ({navigation}: NativeStackScreenProps<RouteStack>) => {
   const api = useApi()
   const styles = useStyles()
   const {profile} = useProfile()
-  const parent = navigation.getParent()
 
   const [isMfaActive, setIsMfaActive] = useState(false)
   const [isModalOpened, setIsModalOpened] = useState(false)
 
   const {methods, setApiError} = useYupHooks<emailChangeFields>({schema: emailChangeSchema})
-
-  useEffect(() => {
-    parent?.setOptions({
-      headerShown: false,
-    })
-    return () => {
-      parent?.setOptions({
-        headerShown: true,
-      })
-    }
-  }, [parent])
 
   const {mutate, isLoading, error} = useMutation<UserInfo, ErrorObject, ChangeEmailProps>({
     mutationFn: api.changeEmail,
