@@ -3,6 +3,7 @@ import React from 'react'
 import {useQuery, useMutation} from '@tanstack/react-query'
 import {Text, makeStyles, Image, Button} from '@rneui/themed'
 import {View, Platform, TouchableOpacity, Linking} from 'react-native'
+import {NativeStackScreenProps} from '@react-navigation/native-stack'
 
 import CopyButton from '@core/CopyButton'
 import Form from '@core/Form'
@@ -14,8 +15,9 @@ import {useYupHooks, useProfile} from 'hooks/helper'
 import authenticatorImg from 'images/settings/google-2fa-app.png'
 import playStoreImg from 'images/settings/get-in-google-play.png'
 import appStoreImg from 'images/settings/get-in-app-store.png'
-import {User} from 'api/Response'
+import {ProceedMfaResponse} from 'api/Response'
 import {ErrorObject} from 'api/Errors'
+import {RouteStack} from 'navigators/routes'
 
 const mfaActivationSchema = yup.object().shape({
   mfa_code: yup
@@ -23,12 +25,12 @@ const mfaActivationSchema = yup.object().shape({
     .max(6, '2FA code Must 6 digits')
     .min(6, '2FA code Must 6 digits')
     .required('2FA code is required field'),
-  activation: yup.bool().default(false),
+  activation: yup.bool().default(true),
 })
 
 type mfaActivationFields = yup.InferType<typeof mfaActivationSchema>
 
-const MFAActive = () => {
+const MFAActive = ({navigation}: NativeStackScreenProps<RouteStack>) => {
   const api = useApi()
   const styles = useStyles()
   const {setProfile} = useProfile()
@@ -39,31 +41,27 @@ const MFAActive = () => {
   const appStoreUrl = 'https://apps.apple.com/us/app/google-authenticator/id388497605'
 
   const playStoreClick = () => {
-    Linking.openURL(playStoreUrl).catch(console.log)
+    Linking.openURL(playStoreUrl).catch()
   }
 
   const appStoreClick = () => {
-    Linking.openURL(appStoreUrl).catch(console.log)
+    Linking.openURL(appStoreUrl).catch()
   }
 
-  const {
-    data: mfaInfo,
-    // isLoading: createMfaLoading,
-    // error: createMfaError,
-  } = useQuery({
+  const {data: mfaInfo} = useQuery({
     queryKey: [cacheKey.mfaSecret],
     queryFn: api.createNewMfa,
     staleTime: Infinity,
   })
 
-  const {mutate, error} = useMutation<User, ErrorObject, mfaActivationFields>({
+  const {mutate, error} = useMutation<ProceedMfaResponse, ErrorObject, mfaActivationFields>({
     mutationFn: api.proceedMfa,
     onError: () => {
       methods.reset()
     },
-    onSuccess: user => {
-      console.log(user)
+    onSuccess: ({user}) => {
       setProfile(user)
+      navigation.navigate('Settings')
     },
   })
 
@@ -118,7 +116,6 @@ const MFAActive = () => {
               containerStyle={{maxWidth: '50%'}}
               onPress={methods.handleSubmit(onSubmit)}
             />
-
             {error && <Text style={styles.error}>{error.message}</Text>}
           </Form>
         </View>
