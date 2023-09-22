@@ -14,7 +14,7 @@ const useLocalCurrency = () => {
       if (storedCurrency === null) setCurrency('USD')
       storedCurrency && setCurrency(storedCurrency)
     } catch (error) {
-      console.error('Error retrieving currency:', error)
+      /* empty */
     }
   }
 
@@ -24,7 +24,7 @@ const useLocalCurrency = () => {
         await AsyncStorage.setItem('buy-token-asset', changeCurrency)
         setCurrency(changeCurrency)
       } catch (error) {
-        console.error('Error saving currency:', error)
+        /* empty */
       }
     },
     [setCurrency]

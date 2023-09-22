@@ -7,16 +7,14 @@ import BalanceBox from './balanceBox'
 import ChartBox from './ChartBox'
 import FAQ from './FAQ'
 
-const Dashboard = () => {
-  return (
-    <ScrollView>
-      <ContainContainer>
-        <BalanceBox />
-        <ChartBox />
-        <FAQ />
-      </ContainContainer>
-    </ScrollView>
-  )
-}
+const Dashboard = () => (
+  <ScrollView>
+    <ContainContainer>
+      <BalanceBox />
+      <ChartBox />
+      <FAQ />
+    </ContainContainer>
+  </ScrollView>
+)
 
 export default Dashboard

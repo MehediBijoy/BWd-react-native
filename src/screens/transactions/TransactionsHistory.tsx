@@ -26,9 +26,10 @@ const TransactionsHistory = () => {
     queryFn: api.getOrders,
   })
 
-  const selectedRow = React.useMemo(() => {
-    return orderHistory?.data?.find(item => item.id === selectedId)
-  }, [selectedId, orderHistory])
+  const selectedRow = React.useMemo(
+    () => orderHistory?.data?.find(item => item.id === selectedId),
+    [selectedId, orderHistory]
+  )
 
   React.useEffect(() => {
     subscribe('PaymentsChannel', {

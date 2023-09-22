@@ -215,4 +215,8 @@ export default class ApiMethods extends ApiBase {
       meta: meta,
     }
   }
+  async enableAffiliate(id: number): Promise<User> {
+    const {user} = await this.post(`/users/${id}/enable_affiliate`)
+    return user
+  }
 }

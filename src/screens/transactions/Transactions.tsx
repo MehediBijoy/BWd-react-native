@@ -6,17 +6,15 @@ import ContainContainer from '@core/ContentContainer'
 
 import TransactionsHistory from './TransactionsHistory'
 
-const Transactions = () => {
-  return (
-    <ScrollView>
-      <ContainContainer>
-        <View style={{marginTop: 20}}>
-          <Text h3>Transactions</Text>
-          <TransactionsHistory />
-        </View>
-      </ContainContainer>
-    </ScrollView>
-  )
-}
+const Transactions = () => (
+  <ScrollView>
+    <ContainContainer>
+      <View style={{marginTop: 20}}>
+        <Text h3>Transactions</Text>
+        <TransactionsHistory />
+      </View>
+    </ContainContainer>
+  </ScrollView>
+)
 
 export default Transactions
