@@ -43,7 +43,7 @@ const ProfileInfo = () => {
       <ContentContainer>
         <PersonalInfoBox userInfo={userDetails} />
         <ProfileSettings userInfo={userDetails} />
-        <ReferralInfoBox userInfo={userDetails} />
+        <ReferralInfoBox />
         {/*Note: This functionality will be add in future  */}
         {/* <AppSettings /> */}
       </ContentContainer>

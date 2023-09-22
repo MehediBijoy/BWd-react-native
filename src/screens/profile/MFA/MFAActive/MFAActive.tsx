@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 import React from 'react'
-import {useQuery, useMutation, useQueryClient} from '@tanstack/react-query'
+import {useQuery, useMutation} from '@tanstack/react-query'
 import {Text, makeStyles, Image, Button} from '@rneui/themed'
 import {View, Platform, TouchableOpacity, Linking} from 'react-native'
 import {NativeStackScreenProps} from '@react-navigation/native-stack'
@@ -32,9 +32,9 @@ type mfaActivationFields = yup.InferType<typeof mfaActivationSchema>
 
 const MFAActive = ({navigation}: NativeStackScreenProps<RouteStack>) => {
   const api = useApi()
-  const client = useQueryClient()
+
   const styles = useStyles()
-  const {profile, setProfile} = useProfile()
+  const {setProfile} = useProfile()
   const {methods} = useYupHooks<mfaActivationFields>({schema: mfaActivationSchema})
 
   const playStoreUrl =
@@ -62,7 +62,6 @@ const MFAActive = ({navigation}: NativeStackScreenProps<RouteStack>) => {
     },
     onSuccess: ({user}) => {
       setProfile(user)
-      client.invalidateQueries([cacheKey.userDetails, profile?.id])
       navigation.navigate('Settings')
     },
   })
