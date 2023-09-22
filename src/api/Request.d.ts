@@ -86,3 +86,8 @@ export type UserWalletProps = {
   wallet_type: 'walletConnect'
   mfa_code?: string
 }
+
+type ProceedMfaProps = {
+  activation: boolean
+  mfa_code: string
+}
