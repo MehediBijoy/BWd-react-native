@@ -10,7 +10,7 @@ import AvailableBalanceRow from './availableBalanceRow'
 const BalanceBox = () => {
   const styles = useStyles()
   const {balance: BnbBalance, isLoading} = useBalance()
-  const {balance: BwgBalance, isLoading: bwgLoading} = useBalance('BWG')
+  const {balance: BwgBalance, isLoading: bwgLoading} = useBalance({token: 'BWG', watch: true})
 
   return (
     <View style={styles.balanceBox}>

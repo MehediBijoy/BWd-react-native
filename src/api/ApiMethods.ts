@@ -14,9 +14,9 @@ import {
   DashboardChartProps,
   AssetProps,
   PaymentProps,
-  PaymentQueryProps,
   UserWalletProps,
   EstimateFeeProps,
+  ProceedMfaProps,
 } from './Request'
 import ApiBase, {ApiBaseProps} from './Abstractions/ApiBase'
 import {
@@ -33,6 +33,7 @@ import {
   TransactionChart,
   OrderHistory,
   CreateNewMfa,
+  ProceedMfaResponse,
 } from './Response'
 
 export default class ApiMethods extends ApiBase {
@@ -121,13 +122,11 @@ export default class ApiMethods extends ApiBase {
     return await this.get('/auth/google_mfa/new')
   }
 
-  async proceedMfa() {}
-
-  // async proceedMfa({activation, mfa_code}) {
-  //   return this.post('/auth/google_mfa', {
-  //     user_mfa_session: {activation, mfa_code},
-  //   })
-  // }
+  async proceedMfa(params: ProceedMfaProps): Promise<ProceedMfaResponse> {
+    return this.post('/auth/google_mfa', {
+      user_mfa_session: params,
+    })
+  }
 
   async getProfile(): Promise<User> {
     const {user} = await this.get('/auth/profile')

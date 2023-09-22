@@ -44,7 +44,7 @@ const ProfileInfo = ({navigation}: NativeStackScreenProps<RouteStack, 'Settings'
       <ContentContainer>
         <PersonalInfoBox userInfo={userDetails} />
         <ProfileSettings userInfo={userDetails} />
-        <ReferralInfoBox userInfo={userDetails} navigation={navigation} />
+        <ReferralInfoBox navigation={navigation} />
         {/*Note: This functionality will be add in future  */}
         {/* <AppSettings /> */}
       </ContentContainer>

@@ -64,6 +64,10 @@ export type LoginResponse = {
   token: string
 }
 
+type ProceedMfaResponse = {
+  user: User
+}
+
 export type KycAccessKey = {
   sucess: boolean
   result: {

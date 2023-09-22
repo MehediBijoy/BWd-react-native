@@ -4,17 +4,18 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack'
 
 import CopyButton from '@core/CopyButton'
 
-import {UserInfo} from 'api/Response'
 import {makeReferralLink} from 'utils'
+import {useProfile} from 'hooks/helper'
 import {RouteStack} from 'navigators/routes'
 
 type ReferralInfoBoxProps = {
-  userInfo?: UserInfo
   navigation: NativeStackScreenProps<RouteStack, 'Settings'>['navigation']
 }
 
-const ReferralInfoBox = ({userInfo, navigation}: ReferralInfoBoxProps) => {
+const ReferralInfoBox = ({navigation}: ReferralInfoBoxProps) => {
   const styles = useStyle()
+  const {profile} = useProfile()
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Referral Information </Text>
@@ -24,7 +25,7 @@ const ReferralInfoBox = ({userInfo, navigation}: ReferralInfoBoxProps) => {
           {/* {userInfo?.referral_token && <CopyButton toCopy={userInfo?.referral_token} />} */}
           <Text>Referral ID:</Text>
         </View>
-        <Text style={{fontWeight: 'bold'}}>{userInfo?.referral_token}</Text>
+        <Text style={{fontWeight: 'bold'}}>{profile?.referral_token}</Text>
       </View>
       <View style={styles.copyWrapper}>
         {/* {userInfo?.referral_token && (
@@ -32,16 +33,16 @@ const ReferralInfoBox = ({userInfo, navigation}: ReferralInfoBoxProps) => {
         )} */}
         <Text style={{marginTop: 10}}>Referral Link:</Text>
       </View>
-      {userInfo?.referral_token && (
+      {profile?.referral_token && (
         <CopyButton
-          toCopy={makeReferralLink(userInfo?.referral_token)}
+          toCopy={makeReferralLink(profile?.referral_token)}
           buttonText={
-            <Text style={styles.referralLink}>{makeReferralLink(userInfo?.referral_token)}</Text>
+            <Text style={styles.referralLink}>{makeReferralLink(profile?.referral_token)}</Text>
           }
         />
       )}
 
-      {userInfo?.user_type !== 'affiliate' && (
+      {profile?.user_type !== 'affiliate' && (
         <Button
           title='Become An Affiliate'
           onPress={() => navigation.navigate('ProfileBecomeAffiliate')}

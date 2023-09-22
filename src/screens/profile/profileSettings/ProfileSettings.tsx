@@ -4,6 +4,7 @@ import {Text, makeStyles} from '@rneui/themed'
 
 import {UserInfo} from 'api/Response'
 import {updateWalletConnectTitle} from 'utils'
+import {useProfile} from 'hooks/helper'
 
 type ProfileSettingsProps = {
   userInfo?: UserInfo
@@ -11,6 +12,7 @@ type ProfileSettingsProps = {
 
 const ProfileSettings = ({userInfo}: ProfileSettingsProps) => {
   const styles = useStyles()
+  const {profile} = useProfile()
 
   return (
     <View>
@@ -38,14 +40,14 @@ const ProfileSettings = ({userInfo}: ProfileSettingsProps) => {
         <View style={styles.textWrapper}>
           <Text>2FA Authentication:</Text>
           <Text style={styles.boldText}>
-            {userInfo?.google_mfa_activated === true ? 'Activated' : 'Deactivated'}
+            {profile?.google_mfa_activated === true ? 'Activated' : 'Deactivated'}
           </Text>
         </View>
 
         {/*Note: This functionality will be add in future  */}
-        {/* <Link to={{screen: 'MFA'}} style={[styles.linkWrapper]}>
+        <Link to={{screen: 'ProfileMFA'}} style={[styles.linkWrapper]}>
           <Text style={[styles.editText]}> Edit </Text>
-        </Link> */}
+        </Link>
       </View>
 
       {/*Note: This functionality will be add in future  */}
