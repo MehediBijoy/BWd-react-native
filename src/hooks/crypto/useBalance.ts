@@ -1,11 +1,12 @@
 import {bsc} from 'viem/chains'
 import {formatEther, Address} from 'viem'
 import {UseQueryOptions, useQuery} from '@tanstack/react-query'
-import {useWalletConnectModal} from '@walletconnect/modal-react-native'
 
 import {abi, getContractInfo, ContractInfo} from 'constants/wallet.config'
 
 import useClient from './useClient'
+import useWallet from './useWallet'
+import useInvalidateOnBlock from './useInvalidateOnBlock'
 
 export type DataProps = {
   decimals: number
@@ -19,11 +20,20 @@ type UseBalanceReturn = {
   refetch(): void
 }
 
-type UseBalanceOptions = Omit<UseQueryOptions<DataProps>, 'queryKey' | 'queryFn' | 'enabled'>
+type UseBalanceOptions = Omit<UseQueryOptions<DataProps>, 'queryKey' | 'queryFn' | 'enabled'> & {
+  token?: ContractInfo
+  watch?: boolean
+}
 
-const useBalance = (token?: ContractInfo, options?: UseBalanceOptions): UseBalanceReturn => {
+const useBalance = ({
+  token,
+  watch = false,
+  ...options
+}: UseBalanceOptions = {}): UseBalanceReturn => {
   const {publicClient} = useClient()
-  const {isConnected, address} = useWalletConnectModal()
+  const {address, isEnabled} = useWallet()
+
+  const queryKey = ['cryptoBalance', address, token]
 
   const getBalance = async (): Promise<DataProps> => {
     const balance = await publicClient.getBalance({address: address as Address})
@@ -60,19 +70,28 @@ const useBalance = (token?: ContractInfo, options?: UseBalanceOptions): UseBalan
     }
   }
 
-  const fetchBalance = (): Promise<DataProps> => {
+  const queryFn = (): Promise<DataProps> => {
     if (!token) return getBalance()
     return getContractBalance(token)
   }
 
   const {data, refetch, isLoading, fetchStatus} = useQuery<DataProps>({
-    queryKey: ['walletconnect', address, token],
-    queryFn: fetchBalance,
-    enabled: Boolean(isConnected && !!publicClient),
+    queryKey,
+    queryFn,
+    enabled: Boolean(!!publicClient && isEnabled),
     ...options,
   })
 
-  return {balance: data, refetch, isLoading: isLoading && fetchStatus !== 'idle'}
+  useInvalidateOnBlock({
+    queryKey,
+    enabled: Boolean(!!publicClient && isEnabled && watch),
+  })
+
+  return {
+    refetch,
+    balance: isEnabled ? data : undefined,
+    isLoading: isLoading && fetchStatus !== 'idle',
+  }
 }
 
 export default useBalance

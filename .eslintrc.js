@@ -20,7 +20,7 @@ module.exports = {
   },
   plugins: ['@typescript-eslint', 'react', 'react-native', 'prettier'],
   rules: {
-    'no-console': 'error',
+    'no-console': 'warn',
     'arrow-body-style': ['warn', 'as-needed'],
     'no-empty-function': 'error',
     quotes: ['warn', 'single', {avoidEscape: true}],
