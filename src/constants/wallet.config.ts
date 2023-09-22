@@ -1,9 +1,11 @@
-import {Address} from 'viem'
+import {Address, Chain} from 'viem'
+import {bsc, bscTestnet} from 'viem/chains'
 import type {IProviderMetadata} from '@walletconnect/modal-react-native'
 
 import {CHAIN} from 'config/environments'
 
 export const projectId = '2e31eb755bf20ae6956c4f75bae3fc3b'
+export const chain = [bsc, bscTestnet].find(item => item.id === CHAIN) as Chain
 
 export const providerMetadata: IProviderMetadata = {
   name: 'Bretton woods gold',
@@ -19,11 +21,12 @@ export const sessionParams = {
   namespaces: {
     eip155: {
       methods: [
-        'eth_sendTransaction',
-        'eth_signTransaction',
         'eth_sign',
         'personal_sign',
         'eth_signTypedData',
+        'wallet_watchAsset',
+        'wallet_switchEthereumChain',
+        'wallet_addEthereumChain',
       ],
       chains: [`eip155:${CHAIN}`],
       events: ['chainChanged', 'accountsChanged'],

@@ -28,7 +28,7 @@ const DrawerContainer = (props: DrawerContentComponentProps) => {
     enabled: !!profile?.id,
   })
 
-  const {balance: BwgBalance} = useBalance('BWG')
+  const {balance: BwgBalance} = useBalance({token: 'BWG', watch: true})
   const {isConnected} = useWalletConnectModal()
 
   return (
