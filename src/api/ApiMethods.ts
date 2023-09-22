@@ -34,6 +34,7 @@ import {
   OrderHistory,
   CreateNewMfa,
   ProceedMfaResponse,
+  CommissionProps,
 } from './Response'
 
 export default class ApiMethods extends ApiBase {
@@ -213,5 +214,10 @@ export default class ApiMethods extends ApiBase {
       data: payments,
       meta: meta,
     }
+  }
+
+  async getUserAffiliateCommission(id: number): Promise<CommissionProps> {
+    const {commissions_account} = await this.get(`/users/${id}/commissions_account`)
+    return commissions_account
   }
 }

@@ -68,6 +68,10 @@ type ProceedMfaResponse = {
   user: User
 }
 
+type CreateNewMfa = {
+  google_secret: string
+}
+
 export type KycAccessKey = {
   sucess: boolean
   result: {
@@ -184,7 +188,11 @@ type OrderHistory = {
   data: Payment<Transfer>[]
   meta: Meta
 }
-
-type CreateNewMfa = {
-  google_secret: string
+type CommissionProps = {
+  current_balance: string
+  total_income: string
+  total_payout: string
+  total_direct: string
+  total_unilevel: string
+  updated_at: string
 }

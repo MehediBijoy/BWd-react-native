@@ -1,0 +1,133 @@
+import React from 'react'
+import {View} from 'react-native'
+import {useQuery} from '@tanstack/react-query'
+import {Button, Text, makeStyles} from '@rneui/themed'
+import {NativeStackScreenProps} from '@react-navigation/native-stack'
+
+import CopyButton from '@core/CopyButton'
+
+import {cacheKey} from 'api'
+import {useApi} from 'hooks/api'
+import {useProfile} from 'hooks/helper'
+import {makeReferralLink} from 'utils'
+import {RouteStack} from 'navigators/routes'
+
+import PayoutModal from './payoutModal/payoutModal'
+
+type ReferralBoxProps = {
+  label: string
+  price?: string
+}
+
+type OverviewProps = {
+  navigation: NativeStackScreenProps<RouteStack, 'Affiliates'>['navigation']
+}
+
+const ReferralBox = ({label, price}: ReferralBoxProps) => {
+  const styles = useStyles()
+  return (
+    <View style={[styles.referralBoxOverview, styles.container]}>
+      <Text style={styles.referralLabel}>{label}</Text>
+      <Text style={styles.priceLabel}>{price} BWG</Text>
+    </View>
+  )
+}
+
+const Overview = ({navigation}: OverviewProps) => {
+  const api = useApi()
+  const styles = useStyles()
+  const {profile} = useProfile()
+
+  const [isOpened, setIsOpened] = React.useState<boolean>(false)
+
+  const {data: commissionData} = useQuery({
+    queryKey: [cacheKey.affiliateCommission, profile?.id],
+    queryFn: () => api.getUserAffiliateCommission(profile?.id as number),
+  })
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.label}>Total commission over lifetime: </Text>
+      <View style={[styles.referralBox, styles.boxWrapper]}>
+        <Text style={styles.label}>Referral ID:</Text>
+        <Text>{profile?.referral_token}</Text>
+      </View>
+      <View style={styles.boxWrapper}>
+        <Text style={styles.label}>Referral Link:</Text>
+        {profile?.referral_token && (
+          <CopyButton
+            toCopy={makeReferralLink(profile?.referral_token)}
+            buttonText={
+              <Text style={styles.referralLink}>{makeReferralLink(profile?.referral_token)}</Text>
+            }
+          />
+        )}
+      </View>
+
+      <ReferralBox label='Total direct commission' price={commissionData?.total_direct} />
+      <ReferralBox label='Total unilevel commission' price={commissionData?.total_unilevel} />
+      <ReferralBox label='Total Payout commission' price={commissionData?.total_payout} />
+      <ReferralBox label='Available account commission' price={commissionData?.current_balance} />
+
+      <View style={styles.payoutButtonWrapper}>
+        <Button
+          title='Payout commission'
+          // disabled={Number(commissionData?.current_balance) === 0}
+          onPress={() => setIsOpened(true)}
+          containerStyle={{maxWidth: '50%'}}
+        />
+      </View>
+
+      <PayoutModal isOpened={isOpened} onClose={() => setIsOpened(false)} navigation={navigation} />
+    </View>
+  )
+}
+
+const useStyles = makeStyles(({colors}) => ({
+  container: {
+    marginTop: 20,
+  },
+  boxWrapper: {
+    marginTop: 10,
+  },
+  referralBox: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
+  label: {
+    fontWeight: '700',
+    fontSize: 16,
+  },
+  referralLink: {
+    marginTop: 3,
+    fontWeight: 'bold',
+  },
+  referralBoxOverview: {
+    backgroundColor: colors.secondary,
+    width: '100%',
+    borderRadius: 6,
+    marginVertical: 5,
+    paddingVertical: 15,
+  },
+  referralLabel: {
+    fontWeight: '700',
+    fontSize: 16,
+    color: colors.textReverse,
+    textAlign: 'center',
+  },
+  priceLabel: {
+    fontWeight: 'bold',
+    fontSize: 20,
+    color: colors.textReverse,
+    textAlign: 'center',
+  },
+  payoutButtonWrapper: {
+    marginVertical: 20,
+    justifyContent: 'center',
+    flexDirection: 'row',
+    width: '100%',
+  },
+}))
+
+export default Overview

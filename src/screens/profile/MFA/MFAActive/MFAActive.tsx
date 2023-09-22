@@ -30,7 +30,11 @@ const mfaActivationSchema = yup.object().shape({
 
 type mfaActivationFields = yup.InferType<typeof mfaActivationSchema>
 
-const MFAActive = ({navigation}: NativeStackScreenProps<RouteStack>) => {
+type MfaActiveProps = {
+  navigation: NativeStackScreenProps<RouteStack, 'ProfileMFA'>['navigation']
+}
+
+const MFAActive = ({navigation}: MfaActiveProps) => {
   const api = useApi()
 
   const styles = useStyles()
