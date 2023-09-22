@@ -1,7 +1,6 @@
 import * as yup from 'yup'
 import React from 'react'
 import {View} from 'react-native'
-import {Address, isAddressEqual} from 'viem'
 import {useMutation} from '@tanstack/react-query'
 import {Button, Icon, Text, makeStyles} from '@rneui/themed'
 
@@ -114,7 +113,7 @@ const WalletController = () => {
       {isEnabled && profile?.wallet_address && (
         <Modal
           title='Change Wallet Address'
-          isOpened={!isAddressEqual(profile?.wallet_address as Address, address as Address)}
+          isOpened={profile?.wallet_address !== address}
           onClose={onDisconnect}
         >
           <View style={{rowGap: 15}}>
