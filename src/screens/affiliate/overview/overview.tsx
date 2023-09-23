@@ -5,6 +5,7 @@ import {Button, Text, makeStyles} from '@rneui/themed'
 import {NativeStackScreenProps} from '@react-navigation/native-stack'
 
 import CopyButton from '@core/CopyButton'
+import Loader from '@core/Loader'
 
 import {cacheKey} from 'api'
 import {useApi} from 'hooks/api'
@@ -17,18 +18,19 @@ import PayoutModal from './payoutModal/payoutModal'
 type ReferralBoxProps = {
   label: string
   price?: string
+  isLoading: boolean
 }
 
 type OverviewProps = {
   navigation: NativeStackScreenProps<RouteStack, 'Affiliates'>['navigation']
 }
 
-const ReferralBox = ({label, price}: ReferralBoxProps) => {
+const ReferralBox = ({label, price, isLoading}: ReferralBoxProps) => {
   const styles = useStyles()
   return (
     <View style={[styles.referralBoxOverview, styles.container]}>
       <Text style={styles.referralLabel}>{label}</Text>
-      <Text style={styles.priceLabel}>{price} BWG</Text>
+      {isLoading ? <Loader /> : <Text style={styles.priceLabel}>{price} BWG</Text>}
     </View>
   )
 }
@@ -40,14 +42,25 @@ const Overview = ({navigation}: OverviewProps) => {
 
   const [isOpened, setIsOpened] = React.useState<boolean>(false)
 
-  const {data: commissionData} = useQuery({
+  const {
+    data: commissionData,
+    isLoading,
+    refetch: refetchPayoutCommissions,
+  } = useQuery({
     queryKey: [cacheKey.affiliateCommission, profile?.id],
     queryFn: () => api.getUserAffiliateCommission(profile?.id as number),
   })
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Total commission over lifetime: </Text>
+      <View style={styles.labelWrapper}>
+        <Text style={styles.label}>Total commission over lifetime: </Text>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <Text style={styles.label}>{commissionData?.total_income} BWG</Text>
+        )}
+      </View>
       <View style={[styles.referralBox, styles.boxWrapper]}>
         <Text style={styles.label}>Referral ID:</Text>
         <Text>{profile?.referral_token}</Text>
@@ -64,21 +77,42 @@ const Overview = ({navigation}: OverviewProps) => {
         )}
       </View>
 
-      <ReferralBox label='Total direct commission' price={commissionData?.total_direct} />
-      <ReferralBox label='Total unilevel commission' price={commissionData?.total_unilevel} />
-      <ReferralBox label='Total Payout commission' price={commissionData?.total_payout} />
-      <ReferralBox label='Available account commission' price={commissionData?.current_balance} />
+      <ReferralBox
+        label='Total direct commission'
+        price={commissionData?.total_direct}
+        isLoading={isLoading}
+      />
+      <ReferralBox
+        label='Total unilevel commission'
+        price={commissionData?.total_unilevel}
+        isLoading={isLoading}
+      />
+      <ReferralBox
+        label='Total Payout commission'
+        price={commissionData?.total_payout}
+        isLoading={isLoading}
+      />
+      <ReferralBox
+        label='Available account commission'
+        price={commissionData?.current_balance}
+        isLoading={isLoading}
+      />
 
       <View style={styles.payoutButtonWrapper}>
         <Button
           title='Payout commission'
-          // disabled={Number(commissionData?.current_balance) === 0}
+          disabled={Number(commissionData?.current_balance) === 0}
           onPress={() => setIsOpened(true)}
           containerStyle={{maxWidth: '50%'}}
         />
       </View>
 
-      <PayoutModal isOpened={isOpened} onClose={() => setIsOpened(false)} navigation={navigation} />
+      <PayoutModal
+        isOpened={isOpened}
+        onClose={() => setIsOpened(false)}
+        navigation={navigation}
+        refetchPayoutCommissions={refetchPayoutCommissions}
+      />
     </View>
   )
 }
@@ -95,6 +129,10 @@ const useStyles = makeStyles(({colors}) => ({
     alignItems: 'center',
     gap: 10,
   },
+  labelWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   label: {
     fontWeight: '700',
     fontSize: 16,
@@ -107,7 +145,7 @@ const useStyles = makeStyles(({colors}) => ({
     backgroundColor: colors.secondary,
     width: '100%',
     borderRadius: 6,
-    marginVertical: 5,
+    rowGap: 7,
     paddingVertical: 15,
   },
   referralLabel: {

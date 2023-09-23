@@ -1,20 +1,25 @@
+import React from 'react'
 import * as yup from 'yup'
 import {isAddress} from 'viem'
 import {View} from 'react-native'
+import {useMutation} from '@tanstack/react-query'
 import {Button, Text, makeStyles} from '@rneui/themed'
 import {NativeStackScreenProps} from '@react-navigation/native-stack'
 
 import Modal from '@core/Modal'
 import Form from '@core/Form'
 import FormInput from '@core/FormInput'
+import FormCheckBox from '@core/FormCheckBox'
 
-import {useProfile} from 'hooks/helper'
+import {useApi} from 'hooks/api'
+import {useProfile, useYupHooks} from 'hooks/helper'
 import {RouteStack} from 'navigators/routes'
 
 type PayoutModalProps = {
   isOpened: boolean
   onClose: () => void
   navigation: NativeStackScreenProps<RouteStack, 'Affiliates'>['navigation']
+  refetchPayoutCommissions: () => void
 }
 
 const payoutCommissionSchema = yup.object().shape({
@@ -26,42 +31,96 @@ const payoutCommissionSchema = yup.object().shape({
   use_saved_address: yup.boolean().default(false),
   address: yup
     .string()
-    .nullable()
+    .nonNullable()
     .when('use_saved_address', {
-      is: (val: any) => val as boolean, // Type assertion
-      then: yup
-        .string()
-        .nullable()
-        .notRequired()
-        .transform(() => null) as yup.StringSchema<null>, // Type assertion
-      otherwise: yup
-        .string()
-        .required()
-        .test('_', 'Invalid address', value => {
-          // Your custom address validation logic here
-          return true // Replace with your validation logic
-        }),
+      is: true,
+      then: () =>
+        yup
+          .string()
+          .nullable()
+          .notRequired()
+          .transform(() => null),
+      otherwise: () => yup.string().required().test('_', 'Invalid address', isAddress),
     }),
   mfa_code: yup
     .string()
-    .required('2FA is required')
-    .min(6, '2FA must be at least 6 characters')
-    .max(6, '2FA must be at most 6 characters'),
+    .required('2FA code is required')
+    .min(6, '2FA code Must 6 digits')
+    .max(6, '2FA code Must 6 digits'),
 })
 
-const PayoutModal = ({isOpened, onClose, navigation}: PayoutModalProps) => {
-  const {profile} = useProfile()
+type payoutCommissionFields = yup.InferType<typeof payoutCommissionSchema>
+
+const PayoutModal = ({
+  isOpened,
+  onClose,
+  navigation,
+  refetchPayoutCommissions,
+}: PayoutModalProps) => {
   const styles = useStyles()
+  const api = useApi()
+  const {profile} = useProfile()
+
+  const {methods} = useYupHooks<payoutCommissionFields>({schema: payoutCommissionSchema})
+
+  const isSaveAddress = methods.watch('use_saved_address')
+
+  React.useEffect(() => {
+    if (isSaveAddress) {
+      methods.clearErrors('address')
+      methods.setValue('address', profile?.payout_address)
+    } else {
+      methods.setValue('address', '')
+    }
+  }, [isSaveAddress])
+
+  const {mutate} = useMutation({
+    mutationFn: api.commissionPayout,
+    onSuccess: () => {
+      onClose()
+      methods.reset()
+      refetchPayoutCommissions()
+    },
+  })
+
+  const submit = ({mfa_code, ...rest}: payoutCommissionFields) => {
+    mutate({payout: rest, mfa_code})
+  }
 
   return (
     <Modal
       title={profile?.google_mfa_activated ? 'Payout Commissions' : 'Your 2FA is not Enabled'}
-      onClose={onClose}
+      onClose={() => {
+        onClose()
+        methods.reset()
+      }}
       isOpened={isOpened}
     >
       {profile?.google_mfa_activated ? (
         <View>
-          <Text>This is the payout modal </Text>
+          <Form methods={methods} style={styles.from}>
+            <FormInput
+              name='amount'
+              label='Amount'
+              keyboardType='numeric'
+              placeholder='Enter your amount'
+            />
+            <FormInput
+              name='address'
+              label='Address'
+              placeholder='Enter your address'
+              editable={isSaveAddress ? false : true}
+            />
+            {profile?.payout_address && (
+              <FormCheckBox name='use_saved_address' title='Use previous address' color='grey1' />
+            )}
+            <FormInput name='mfa_code' label='2FA Code' placeholder='xxx xxx' />
+            <Button
+              title='Submit'
+              containerStyle={{maxWidth: '50%'}}
+              onPress={methods.handleSubmit(submit)}
+            />
+          </Form>
         </View>
       ) : (
         <View>
@@ -86,6 +145,9 @@ const useStyles = makeStyles(({colors}) => ({
   label: {
     fontSize: 16,
     color: colors.textPrimary,
+  },
+  from: {
+    rowGap: 20,
   },
 }))
 

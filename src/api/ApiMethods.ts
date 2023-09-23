@@ -17,6 +17,7 @@ import {
   UserWalletProps,
   EstimateFeeProps,
   ProceedMfaProps,
+  PayoutCommissionProps,
 } from './Request'
 import ApiBase, {ApiBaseProps} from './Abstractions/ApiBase'
 import {
@@ -34,7 +35,9 @@ import {
   OrderHistory,
   CreateNewMfa,
   ProceedMfaResponse,
-  CommissionProps,
+  Commission,
+  CommissionPayout,
+  ReferralAccount,
 } from './Response'
 
 export default class ApiMethods extends ApiBase {
@@ -216,8 +219,22 @@ export default class ApiMethods extends ApiBase {
     }
   }
 
-  async getUserAffiliateCommission(id: number): Promise<CommissionProps> {
+  async getUserAffiliateCommission(id: number): Promise<Commission> {
     const {commissions_account} = await this.get(`/users/${id}/commissions_account`)
     return commissions_account
+  }
+
+  async commissionPayout(params: PayoutCommissionProps): Promise<CommissionPayout> {
+    return await this.post('/payouts', params)
+  }
+
+  async getReferralStats(id: number): Promise<ReferralAccount> {
+    const {referrals_stats, meta} = await this.get(`/users/${id}/referrals_stats`)
+
+    return {
+      // data: referrals_stats?.map(referralStatsDateFormat),
+      data: referrals_stats,
+      meta: meta,
+    }
   }
 }

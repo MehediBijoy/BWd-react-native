@@ -188,11 +188,45 @@ type OrderHistory = {
   data: Payment<Transfer>[]
   meta: Meta
 }
-type CommissionProps = {
+type Commission = {
   current_balance: string
   total_income: string
   total_payout: string
   total_direct: string
   total_unilevel: string
   updated_at: string
+}
+
+type Payout = {
+  id: number
+  amount: string
+  address: string
+  confirmations: string
+  sender: string
+  recipient: string
+  tx_hash: string
+  status: string
+  status_reason: string
+  created_at: string
+  updated_at: string
+}
+
+type CommissionPayout = {
+  payout: Payout
+}
+
+type ReferralStats = {
+  total_amount: string
+  referral_id: number
+  referral_account_type: string
+  referral_status: string
+  referral_joined_at: string
+  referral_total_invites: number
+  referral_total_regulars: number
+  referral_total_affiliates: number
+}
+
+type ReferralAccount = {
+  data: ReferralStats[]
+  meta: Meta
 }
