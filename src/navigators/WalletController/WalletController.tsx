@@ -21,6 +21,7 @@ import {useWalletController} from 'hooks/states'
 import {useProfile, useYupHooks} from 'hooks/helper'
 import {chain} from 'constants/wallet.config'
 import {useChain, useWallet, useSetToken} from 'hooks/crypto'
+import WalletDisconnect from 'components/modals/WalletDisconnect'
 
 const mfaSchema = yup.object().shape({
   mfa_code: yup
@@ -42,10 +43,12 @@ const WalletController = () => {
   const styles = useStyles()
   const setToken = useSetToken()
   const {isOpened, setIsOpened} = useWalletController()
-  const {address, provider, isConnected, isEnabled} = useWallet()
+  const {address, isConnected, isEnabled} = useWallet()
   const {profile, setProfile, refetch: profileRefetch} = useProfile()
-  const [isSubmitEmail, setIsSubmitEmail] = React.useState<boolean>(false)
   const {setNetwork, isChainLoading, isSwitchLoading, isConnected: isChainConnected} = useChain()
+
+  const [isSubmitEmail, setIsSubmitEmail] = React.useState<boolean>(false)
+  const [isDisconnectModal, setIsDisconnectModal] = React.useState<boolean>(false)
 
   const {methods: mfaForm} = useYupHooks<MfaTypes>({schema: mfaSchema})
   const {methods: confirmForm} = useYupHooks<ConfirmTokenTypes>({schema: confirmSchema})
@@ -78,10 +81,6 @@ const WalletController = () => {
     mutationFn: api.walletChangeWithToken,
   })
 
-  const onDisconnect = async () => {
-    await provider?.disconnect().then(() => setIsOpened(false))
-  }
-
   return (
     <>
       <BottomSheet
@@ -90,6 +89,10 @@ const WalletController = () => {
         isOpened={isOpened}
         onClose={() => setIsOpened(false)}
       >
+        <WalletDisconnect
+          isOpened={isDisconnectModal}
+          onClose={() => setIsDisconnectModal(false)}
+        />
         <Pressable style={styles.item}>
           <Icon name='wallet' size={35} color={styles.item.color} />
           <Text style={[styles.text, {color: styles.item.color}]}>
@@ -104,7 +107,7 @@ const WalletController = () => {
 
         <Pressable
           style={[styles.item, {backgroundColor: Color(theme.colors.error).alpha(0.1).toString()}]}
-          onPress={onDisconnect}
+          onPress={() => setIsDisconnectModal(true)}
         >
           <Icon name='exit-to-app' size={35} color={theme.colors.error} />
           <Text style={[styles.text, {color: theme.colors.error}]}>Disconnect</Text>
@@ -112,7 +115,7 @@ const WalletController = () => {
       </BottomSheet>
 
       {isConnected && !isChainLoading && !isChainConnected && (
-        <BottomSheet title='Unsupported chain' isOpened onClose={onDisconnect}>
+        <BottomSheet title='Unsupported chain' isOpened onClose={() => setIsDisconnectModal(true)}>
           <View style={[styles.alertContainer, {marginBottom: 15}]}>
             <Icon name='warning' color={styles.icon.color} size={30} />
             <Text style={styles.alertText}>
@@ -132,6 +135,10 @@ const WalletController = () => {
             onPress={() => setNetwork()}
             loading={isSwitchLoading}
           />
+          <WalletDisconnect
+            isOpened={isDisconnectModal}
+            onClose={() => setIsDisconnectModal(false)}
+          />
         </BottomSheet>
       )}
 
@@ -139,7 +146,7 @@ const WalletController = () => {
         <Modal
           title='Change Wallet Address'
           isOpened={profile?.wallet_address !== address}
-          onClose={onDisconnect}
+          onClose={() => setIsDisconnectModal(true)}
         >
           <View style={{rowGap: 15}}>
             {!isSubmitEmail ? (
@@ -196,6 +203,10 @@ const WalletController = () => {
               </>
             )}
           </View>
+          <WalletDisconnect
+            isOpened={isDisconnectModal}
+            onClose={() => setIsDisconnectModal(false)}
+          />
         </Modal>
       )}
     </>

@@ -22,10 +22,10 @@ const useChain = () => {
 
   const chainChange = (id: string) => queryClient.setQueryData(queryKey, parseInt(id))
 
-  const watchChainId = () => {
+  const watchChainId = React.useCallback(() => {
     provider?.on('chainChanged', chainChange)
     return () => provider?.removeListener('chainChanged', chainChange)
-  }
+  }, [provider])
 
   React.useEffect(() => {
     if (!provider) return
