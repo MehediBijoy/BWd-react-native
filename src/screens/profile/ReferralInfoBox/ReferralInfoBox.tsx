@@ -1,12 +1,18 @@
 import {View} from 'react-native'
-import {Text, makeStyles} from '@rneui/themed'
+import {Button, Text, makeStyles} from '@rneui/themed'
+import {NativeStackScreenProps} from '@react-navigation/native-stack'
 
 import CopyButton from '@core/CopyButton'
 
 import {makeReferralLink} from 'utils'
 import {useProfile} from 'hooks/helper'
+import {RouteStack} from 'navigators/routes'
 
-const ReferralInfoBox = () => {
+type ReferralInfoBoxProps = {
+  navigation: NativeStackScreenProps<RouteStack, 'Settings'>['navigation']
+}
+
+const ReferralInfoBox = ({navigation}: ReferralInfoBoxProps) => {
   const styles = useStyle()
   const {profile} = useProfile()
 
@@ -36,9 +42,13 @@ const ReferralInfoBox = () => {
         />
       )}
 
-      {/* {userInfo?.user_type !== 'affiliate' && (
-        <Button title='Become An Affiliate' containerStyle={{maxWidth: '50%', minHeight: 40}} />
-      )} */}
+      {profile?.user_type !== 'affiliate' && (
+        <Button
+          title='Become An Affiliate'
+          onPress={() => navigation.navigate('ProfileBecomeAffiliate')}
+          containerStyle={{maxWidth: '50%', minHeight: 40}}
+        />
+      )}
     </View>
   )
 }
@@ -71,5 +81,16 @@ const useStyle = makeStyles(({colors}) => ({
     paddingBottom: 10,
     borderBottomColor: colors.bgPaper,
     borderBottomWidth: 1,
+  },
+  linkWrapper: {
+    width: 150,
+    color: colors.tertiary,
+    backgroundColor: colors.primary,
+    padding: 5,
+    borderRadius: 6,
+  },
+  linkText: {
+    textAlign: 'center',
+    color: colors.tertiary,
   },
 }))

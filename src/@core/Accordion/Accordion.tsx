@@ -7,7 +7,7 @@ import {useStyles} from './Accordion.styles'
 export type ListData = {
   id: number
   title: string
-  description: string | JSX.Element
+  description: string | JSX.Element | JSX.Element[]
 }
 
 export type AccordionProps = {

@@ -12,6 +12,7 @@ import RegistrationForm from 'screens/auth/Registration/RegisterForm'
 import ChangeEmail from 'screens/profile/changeEmail'
 import ChangePassword from 'screens/profile/changePassword'
 import MFA from 'screens/profile/MFA'
+import BecomeAffiliate from 'screens/profile/becomeAffiliate'
 
 import type {RouteStack} from './routes'
 import DrawerNavigator from './DrawerNavigator'
@@ -70,6 +71,11 @@ const Navigators = () => {
             name='ProfileMFA'
             component={MFA}
             options={{title: 'Two Factor Authentication', headerBackTitleVisible: false}}
+          />
+          <Stack.Screen
+            name='ProfileBecomeAffiliate'
+            component={BecomeAffiliate}
+            options={{title: 'Become An Affiliate', headerBackTitleVisible: false}}
           />
         </Stack.Group>
       )}

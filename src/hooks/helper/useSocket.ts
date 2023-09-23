@@ -56,9 +56,7 @@ const useSocket = () => {
 
   // disconnect action cable when
   // unmount component/screen
-  React.useEffect(() => {
-    return () => actionCable.disconnect()
-  }, [])
+  React.useEffect(() => () => actionCable.disconnect(), [])
 
   return {subscribe, unsubscribe}
 }

@@ -23,4 +23,5 @@ export type RouteStack = {
   ProfileEmailChange: undefined
   ProfilePasswordChange: undefined
   ProfileMFA: undefined
+  ProfileBecomeAffiliate: undefined
 }

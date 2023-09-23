@@ -15,9 +15,8 @@ export const formatEstimatePay = (object: EstimateFee): EstimateFee => ({
   dynamic_fee_amount: parseFloat(object?.dynamic_fee_amount as unknown as string).toFixed(4),
 })
 
-export const shortAddress = (address: string, skip = 5) => {
-  return address.slice(0, skip) + '.'.repeat(3) + address.slice(-(skip - 2))
-}
+export const shortAddress = (address: string, skip = 5) =>
+  address.slice(0, skip) + '.'.repeat(3) + address.slice(-(skip - 2))
 
 export const makeReferralLink = (token: string) => {
   const rootUrl = APP_BASE_URL + `/invite?token=${token}`
@@ -30,18 +29,17 @@ export function getMonth(month: number, lang = 'en') {
   return date.toLocaleString(lang, {month: 'long'})
 }
 
-export const formatDate = (date: Date, type: string = 'short') => {
-  return date.toLocaleString(
+export const formatDate = (date: Date, type: string = 'date') =>
+  date.toLocaleString(
     'default',
     type === 'long'
       ? {year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit'}
-      : type === 'medium'
-      ? {day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit'}
       : type === 'day'
       ? {day: '2-digit'}
-      : {day: '2-digit', month: 'short'}
+      : type === 'time'
+      ? {hour: '2-digit', minute: '2-digit'}
+      : {year: '2-digit', month: 'short', day: '2-digit'}
   )
-}
 
 export const updateWalletConnectTitle = (title?: string) => {
   const prefix = title?.slice(0, 5)
