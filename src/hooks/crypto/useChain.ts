@@ -39,7 +39,7 @@ const useChain = () => {
   const {mutate, isLoading: isSwitchLoading} = useMutation({
     mutationFn: async () => {
       const timeout = new Promise((_, rejected) =>
-        setTimeout(() => rejected('Network switching timeout'), 10000)
+        setTimeout(() => rejected('Network switching timeout'), 15000)
       )
       return await Promise.race([setNetworkFn(), timeout])
     },

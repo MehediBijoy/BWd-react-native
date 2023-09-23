@@ -1,12 +1,15 @@
 import React from 'react'
+import Color from 'color'
 import Modal from 'react-native-modal'
 import {View, TouchableOpacity} from 'react-native'
 import {Icon, Text, makeStyles, Divider} from '@rneui/themed'
+import {useSafeAreaInsets} from 'react-native-safe-area-context'
 
 import type {ModalProps} from '@core/Modal'
 
 const BottomSheet = ({title, children, isOpened, onClose, style}: ModalProps) => {
   const styles = useStyles()
+  const {bottom: bottomInset} = useSafeAreaInsets()
 
   return (
     <Modal
@@ -17,11 +20,11 @@ const BottomSheet = ({title, children, isOpened, onClose, style}: ModalProps) =>
       useNativeDriver
       statusBarTranslucent
     >
-      <View style={styles.container}>
+      <View style={[styles.container, {paddingBottom: bottomInset}]}>
         <View style={styles.titleContainer}>
           {React.isValidElement(title) ? title : <Text style={styles.title}>{title}</Text>}
           <TouchableOpacity onPress={onClose} activeOpacity={0.8}>
-            <Icon name='close' size={20} style={styles.icon} />
+            <Icon name='close' size={25} style={styles.icon} color={styles.icon.color} />
           </TouchableOpacity>
         </View>
         <Divider />
@@ -60,7 +63,8 @@ const useStyles = makeStyles(({colors}) => ({
     borderRadius: 15,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.bgPaper,
+    color: colors.error,
+    backgroundColor: Color(colors.error).alpha(0.2).toString(),
   },
   children: {
     padding: 15,
