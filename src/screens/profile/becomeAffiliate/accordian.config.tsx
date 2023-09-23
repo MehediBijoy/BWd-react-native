@@ -64,13 +64,6 @@ const poolArray = [
   '7. Charity Pool - 1% of CV collected - Affiliates give back! This goes to a charity to support a good cause\n',
 ]
 
-const formateString = (array: any[]) =>
-  array.map((item, index) => (
-    <Text style={{lineHeight: 20}} key={index}>
-      {item}
-    </Text>
-  ))
-
 export const poolConfig = [
   {
     id: 1,
@@ -81,6 +74,14 @@ export const poolConfig = [
   {
     id: 2,
     title: 'Pool Descriptions',
-    description: formateString(poolArray),
+    description: (
+      <Text style={{rowGap: 20}}>
+        {poolArray.map((item, index) => (
+          <Text key={index} style={{flexShrink: 1, flexWrap: 'wrap'}}>
+            {item}
+          </Text>
+        ))}
+      </Text>
+    ),
   },
 ]

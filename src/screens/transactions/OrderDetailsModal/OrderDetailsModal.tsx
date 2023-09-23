@@ -70,16 +70,16 @@ const OrderDetailsModal = ({data, isOpened, onClose}: OrderDetailsModalProps) =>
               </View>
               <View style={styles.row}>
                 <Text style={styles.label}>Sender</Text>
-                <Text style={[styles.labelRight]}>{shortAddress(data.transfer.sender, 8)}</Text>
+                <Text style={[styles.labelRight]}>{shortAddress(data.transfer?.sender, 8)}</Text>
                 <View style={{alignItems: 'flex-end'}}>
-                  <CopyButton toCopy={data.transfer.sender} />
+                  <CopyButton toCopy={data.transfer?.sender} />
                 </View>
               </View>
               <View style={styles.row}>
                 <Text style={styles.label}>Recipient</Text>
-                <Text style={[styles.labelRight]}>{shortAddress(data.transfer.recipient, 8)}</Text>
+                <Text style={[styles.labelRight]}>{shortAddress(data.transfer?.recipient, 8)}</Text>
                 <View style={{alignItems: 'flex-end'}}>
-                  <CopyButton toCopy={data.transfer.recipient} />
+                  <CopyButton toCopy={data.transfer?.recipient} />
                 </View>
               </View>
               <View style={styles.row}>
@@ -89,19 +89,34 @@ const OrderDetailsModal = ({data, isOpened, onClose}: OrderDetailsModalProps) =>
                   <CopyButton toCopy={data.transfer.tx_hash} />
                 </View>
               </View>
-              <View style={styles.row}>
-                <Text style={styles.label}>Payment Status</Text>
-                <Text style={[styles.labelRight]}>
-                  <StatusBadge status={data.status} />
-                </Text>
-              </View>
-              <View style={styles.row}>
-                <Text style={styles.label}>Transfer Status</Text>
-                <Text style={[styles.labelRight]}>
-                  <StatusBadge status={data.transfer.status} />
-                </Text>
-              </View>
             </>
+          )}
+
+          <View style={styles.row}>
+            <Text style={styles.label}>Payment Status</Text>
+            <Text style={[styles.labelRight]}>
+              <StatusBadge status={data.status} />
+            </Text>
+          </View>
+          {data?.status == 'rejected' && (
+            <View style={styles.row}>
+              <Text style={styles.label}> Status Reason</Text>
+              <Text style={[styles.labelRight]}>{data.status_reason}</Text>
+            </View>
+          )}
+          {data?.transfer?.status && (
+            <View style={styles.row}>
+              <Text style={styles.label}>Transfer Status</Text>
+              <Text style={[styles.labelRight]}>
+                <StatusBadge status={data.transfer.status} />
+              </Text>
+            </View>
+          )}
+          {data?.transfer?.status == 'rejected' && (
+            <View style={styles.row}>
+              <Text style={styles.label}> Status Reason</Text>
+              <Text style={[styles.labelRight]}>{data.transfer.status_reason}</Text>
+            </View>
           )}
         </View>
       </ScrollView>

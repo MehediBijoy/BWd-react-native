@@ -31,14 +31,20 @@ const TierOverviewModal = ({bwgLimit, isOpened, onClose}: TierOverviewModalProps
   return (
     <Modal title='FEE TIERS OVERVIEW' isOpened={isOpened} onClose={onClose}>
       <ScrollView>
-        <View style={[styles.container, styles.tableBorder]}>
-          <View style={styles.headerRow}>
+        <View style={[styles.container]}>
+          <View style={[styles.tableRow, styles.headerRow]}>
             <Text style={styles.tierItem}>Tier</Text>
             <Text style={styles.tierDescription}>Amount</Text>
             <Text style={styles.tierFee}>Fee</Text>
           </View>
           {fees?.map(({id, min, max, fee_percentage}: any, index: number) => (
-            <View key={id} style={index === fees?.length - 1 ? styles.rowWithRadius : styles.row}>
+            <View
+              key={id}
+              style={[
+                styles.tableRow,
+                index === fees?.length - 1 ? styles.bottomRow : styles.bodyRow,
+              ]}
+            >
               <Text style={styles.tierItem}>Level {id + 1}</Text>
               <Text style={styles.tierDescription}>
                 {id === 0 ? ` from ${bwgLimit?.min_payment_amount} up to ${max}` : `from ${min}`}
@@ -57,43 +63,30 @@ const useStyles = makeStyles(({colors}) => ({
   container: {
     backgroundColor: colors.background,
     marginVertical: 10,
-  },
-  tableBorder: {
+    borderRadius: 8,
     borderWidth: 1,
     borderColor: colors.border,
-    borderRadius: 8,
   },
-
-  headerRow: {
+  tableRow: {
     padding: 10,
-    backgroundColor: colors.bgPaper,
     height: 40,
     flexDirection: 'row',
     alignItems: 'center',
-    borderBottomWidth: 1,
-    borderColor: colors.divider,
+    backgroundColor: colors.background,
+  },
+  headerRow: {
+    backgroundColor: colors.bgPaper,
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
   },
-  row: {
-    padding: 10,
-    height: 40,
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: colors.background,
+  bodyRow: {
     borderBottomWidth: 1,
     borderColor: colors.divider,
   },
-  rowWithRadius: {
-    padding: 10,
-    height: 40,
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: colors.background,
+  bottomRow: {
     borderBottomLeftRadius: 8,
     borderBottomRightRadius: 8,
   },
-
   tierDescription: {
     color: colors.textPrimary,
     width: '50%',
