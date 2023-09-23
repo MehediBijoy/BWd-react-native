@@ -29,16 +29,16 @@ export function getMonth(month: number, lang = 'en') {
   return date.toLocaleString(lang, {month: 'long'})
 }
 
-export const formatDate = (date: Date, type: string = 'short') =>
+export const formatDate = (date: Date, type: string = 'date') =>
   date.toLocaleString(
     'default',
     type === 'long'
       ? {year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit'}
-      : type === 'medium'
-      ? {day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit'}
       : type === 'day'
       ? {day: '2-digit'}
-      : {day: '2-digit', month: 'short'}
+      : type === 'time'
+      ? {hour: '2-digit', minute: '2-digit'}
+      : {year: '2-digit', month: 'short', day: '2-digit'}
   )
 
 export const updateWalletConnectTitle = (title?: string) => {
