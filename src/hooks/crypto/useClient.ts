@@ -1,7 +1,8 @@
 import React from 'react'
-import {bscTestnet} from 'viem/chains'
 import {createPublicClient, custom, PublicClient, createWalletClient, WalletClient} from 'viem'
 import {useWalletConnectModal, IProvider} from '@walletconnect/modal-react-native'
+
+import {chain} from 'constants/wallet.config'
 
 const useClient = () => {
   const {isConnected, provider} = useWalletConnectModal()
@@ -9,7 +10,7 @@ const useClient = () => {
   const publicClient = React.useMemo<PublicClient | undefined>(
     () =>
       isConnected && provider
-        ? createPublicClient({chain: bscTestnet, transport: custom(provider as IProvider)})
+        ? createPublicClient({chain: chain, transport: custom(provider as IProvider)})
         : undefined,
     [isConnected, provider]
   )
@@ -17,7 +18,7 @@ const useClient = () => {
   const walletClient = React.useMemo<WalletClient | undefined>(
     () =>
       isConnected && provider
-        ? createWalletClient({chain: bscTestnet, transport: custom(provider as IProvider)})
+        ? createWalletClient({chain: chain, transport: custom(provider as IProvider)})
         : undefined,
     [isConnected, provider]
   )

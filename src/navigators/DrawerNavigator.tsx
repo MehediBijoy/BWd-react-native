@@ -8,6 +8,7 @@ import Hamburger from '@core/Hamburger'
 
 import Logo from 'components/Logo'
 import Profile from 'screens/profile'
+import {useProfile} from 'hooks/helper'
 import Affiliate from 'screens/affiliate'
 import {sessionParams, providerMetadata, projectId} from 'constants/wallet.config'
 
@@ -24,6 +25,7 @@ const DrawerNavigator = () => {
     theme: {colors},
   } = useTheme()
   const styles = useStyles()
+  const {profile} = useProfile()
   const {isConnected, provider} = useWalletConnectModal()
 
   return (
@@ -61,11 +63,13 @@ const DrawerNavigator = () => {
           options={{title: 'Dashboard', drawerIcon: props => <Icon name='dashboard' {...props} />}}
         />
 
-        <Drawer.Screen
-          name='Affiliates'
-          component={Affiliate}
-          options={{drawerIcon: props => <Icon name='supervised-user-circle' {...props} />}}
-        />
+        {profile?.user_type === 'affiliate' && (
+          <Drawer.Screen
+            name='Affiliates'
+            component={Affiliate}
+            options={{drawerIcon: props => <Icon name='supervised-user-circle' {...props} />}}
+          />
+        )}
 
         <Drawer.Screen
           name='Settings'

@@ -26,9 +26,10 @@ const TransactionsHistory = () => {
     queryFn: api.getOrders,
   })
 
-  const selectedRow = React.useMemo(() => {
-    return orderHistory?.data?.find(item => item.id === selectedId)
-  }, [selectedId, orderHistory])
+  const selectedRow = React.useMemo(
+    () => orderHistory?.data?.find(item => item.id === selectedId),
+    [selectedId, orderHistory]
+  )
 
   React.useEffect(() => {
     subscribe('PaymentsChannel', {
@@ -66,32 +67,41 @@ const TransactionsHistory = () => {
           <Text style={styles.cellStatus}>Status</Text>
           <Text style={[styles.cellDate]}>Date</Text>
         </View>
-        {orderHistory?.data.map((item, index) => (
-          <TouchableOpacity
-            activeOpacity={0.8}
-            key={index}
-            style={index === orderHistory?.data.length - 1 ? styles.rowWithRadius : styles.row}
-            onPress={() => setSelectedId(item.id)}
-          >
-            <View style={styles.cellDetails}>
-              <Text style={styles.titleText}>#Order: {item.id}</Text>
-              <Text style={styles.subText}>
-                <Text style={styles.labelText}>Paid Amount:</Text> {item.paid_amount}{' '}
-              </Text>
-              <Text style={styles.subText}>
-                <Text style={styles.labelText}>Received Amount:</Text> {item.received_amount}{' '}
-              </Text>
-              <Text style={styles.subText}>
-                <Text style={styles.labelText}>Payment Method:</Text> {item.payment_type}{' '}
-              </Text>
-            </View>
-            <View style={styles.cellStatus}>
-              <Text style={{fontSize: 12}}>{item.transfer ? 'Transfer' : 'Payment'}</Text>
-              <StatusBadge status={item.transfer?.status ?? item.status} />
-            </View>
-            <Text style={styles.cellDate}>{formatDate(new Date(item.created_at))}</Text>
-          </TouchableOpacity>
-        ))}
+        {orderHistory?.data.length == 0 ? (
+          <View style={styles.emptyRow}>
+            <Text style={styles.emptyRowText}>No data found</Text>
+          </View>
+        ) : (
+          orderHistory?.data.map((item, index) => (
+            <TouchableOpacity
+              activeOpacity={0.8}
+              key={index}
+              style={index === orderHistory?.data.length - 1 ? styles.rowWithRadius : styles.row}
+              onPress={() => setSelectedId(item.id)}
+            >
+              <View style={styles.cellDetails}>
+                <Text style={styles.titleText}>#Order: {item.id}</Text>
+                <Text style={styles.subText}>
+                  <Text style={styles.labelText}>Paid Amount:</Text> {item.paid_amount}{' '}
+                </Text>
+                <Text style={styles.subText}>
+                  <Text style={styles.labelText}>Received Amount:</Text> {item.received_amount}{' '}
+                </Text>
+                <Text style={styles.subText}>
+                  <Text style={styles.labelText}>Payment Method:</Text> {item.payment_type}{' '}
+                </Text>
+              </View>
+              <View style={styles.cellStatus}>
+                <Text style={styles.textStatus}>{item.transfer ? 'Transfer' : 'Payment'}</Text>
+                <StatusBadge status={item.transfer?.status ?? item.status} />
+              </View>
+              <View style={styles.cellDate}>
+                <Text style={styles.textDate}>{formatDate(new Date(item.created_at), 'time')}</Text>
+                <Text style={styles.textDate}>{formatDate(new Date(item.created_at))}</Text>
+              </View>
+            </TouchableOpacity>
+          ))
+        )}
 
         {isLoading && (
           <ActivityIndicator
@@ -120,6 +130,17 @@ const useStyles = makeStyles(({colors}) => ({
     borderWidth: 1,
     borderColor: colors.border,
     borderRadius: 8,
+  },
+  emptyRow: {
+    padding: 5,
+    backgroundColor: colors.background,
+    height: 40,
+    borderBottomLeftRadius: 8,
+    borderBottomRightRadius: 8,
+  },
+  emptyRowText: {
+    textAlign: 'center',
+    marginTop: 5,
   },
   headerRow: {
     padding: 5,
@@ -151,22 +172,32 @@ const useStyles = makeStyles(({colors}) => ({
     borderBottomRightRadius: 8,
   },
   cellDate: {
-    textAlign: 'center',
+    alignItems: 'flex-end',
+    textAlign: 'right',
+    width: '22%',
     fontSize: 12,
-    width: '20%',
+    color: colors.textPrimary,
+  },
+  textDate: {
+    fontSize: 12,
     color: colors.textPrimary,
   },
   cellDetails: {
     paddingLeft: 5,
     textAlign: 'left',
-    width: '55%',
+    width: '53%',
     color: colors.textPrimary,
   },
   cellStatus: {
-    textAlign: 'left',
-    alignItems: 'flex-start',
+    textAlign: 'center',
+    alignItems: 'center',
     width: '25%',
     fontSize: 12,
+    color: colors.textPrimary,
+  },
+  textStatus: {
+    fontSize: 12,
+    marginBottom: 5,
     color: colors.textPrimary,
   },
   subText: {

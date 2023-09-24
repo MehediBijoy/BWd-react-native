@@ -54,9 +54,7 @@ const ChangePassword = ({
     ErrorObject,
     ChangePasswordFormProps
   >({
-    mutationFn: (data: FormFields) => {
-      return api.passwordResetConfirm({code, ...data})
-    },
+    mutationFn: (data: FormFields) => api.passwordResetConfirm({code, ...data}),
     onSuccess: () => setOpened(true),
   })
 

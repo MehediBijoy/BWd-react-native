@@ -17,9 +17,7 @@ const RegistrationProgress = () => {
   const {profile} = useProfile()
   const unAuthorized = useOnUnauthorized()
 
-  const isEmailConfirmed = React.useMemo(() => {
-    return profile && profile.email_confirmed
-  }, [profile])
+  const isEmailConfirmed = React.useMemo(() => profile && profile.email_confirmed, [profile])
 
   return (
     <Stack.Navigator

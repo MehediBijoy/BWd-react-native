@@ -1,10 +1,9 @@
+import Color from 'color'
 import * as yup from 'yup'
 import React from 'react'
 import {View} from 'react-native'
-import {Address, isAddressEqual} from 'viem'
 import {useMutation} from '@tanstack/react-query'
-import {Button, Icon, Text, makeStyles} from '@rneui/themed'
-import {useWalletConnectModal} from '@walletconnect/modal-react-native'
+import {Button, Icon, Text, makeStyles, useTheme} from '@rneui/themed'
 
 import Form from '@core/Form'
 import Modal from '@core/Modal'
@@ -20,6 +19,8 @@ import {UserWalletProps} from 'api/Request'
 import {shortAddress, isMfaRequired} from 'utils'
 import {useWalletController} from 'hooks/states'
 import {useProfile, useYupHooks} from 'hooks/helper'
+import {chain} from 'constants/wallet.config'
+import {useChain, useWallet, useSetToken} from 'hooks/crypto'
 
 const mfaSchema = yup.object().shape({
   mfa_code: yup
@@ -37,13 +38,17 @@ type ConfirmTokenTypes = yup.InferType<typeof confirmSchema>
 
 const WalletController = () => {
   const api = useApi()
+  const {theme} = useTheme()
   const styles = useStyles()
+  const setToken = useSetToken()
+  const {isOpened, setIsOpened} = useWalletController()
+  const {address, provider, isConnected, isEnabled} = useWallet()
   const {profile, setProfile, refetch: profileRefetch} = useProfile()
+  const [isSubmitEmail, setIsSubmitEmail] = React.useState<boolean>(false)
+  const {setNetwork, isChainLoading, isSwitchLoading, isConnected: isChainConnected} = useChain()
+
   const {methods: mfaForm} = useYupHooks<MfaTypes>({schema: mfaSchema})
   const {methods: confirmForm} = useYupHooks<ConfirmTokenTypes>({schema: confirmSchema})
-  const {address, provider} = useWalletConnectModal()
-  const {isOpened, setIsOpened} = useWalletController()
-  const [isSubmitEmail, setIsSubmitEmail] = React.useState<boolean>(false)
 
   const mfaMutation = useMutation<User, ErrorObject, Partial<UserWalletProps>>({
     mutationFn: ({...props}) =>
@@ -79,22 +84,61 @@ const WalletController = () => {
 
   return (
     <>
-      <BottomSheet title='Options' isOpened={isOpened} onClose={() => setIsOpened(false)}>
-        <Pressable onPress={() => {}} style={styles.item}>
-          <Icon name='wallet' size={25} />
-          <Text style={styles.text}>{(address && shortAddress(address, 10)) ?? '-'}</Text>
+      <BottomSheet
+        style={{rowGap: 10}}
+        title='Options'
+        isOpened={isOpened}
+        onClose={() => setIsOpened(false)}
+      >
+        <Pressable style={styles.item}>
+          <Icon name='wallet' size={35} color={styles.item.color} />
+          <Text style={[styles.text, {color: styles.item.color}]}>
+            {(address && shortAddress(address, 10)) ?? '-'}
+          </Text>
         </Pressable>
 
-        <Pressable style={styles.item} onPress={onDisconnect}>
-          <Icon name='exit-to-app' size={25} />
-          <Text style={styles.text}>Disconnect</Text>
+        <Pressable style={styles.item} onPress={setToken}>
+          <Icon name='playlist-add-check-circle' size={35} color={styles.item.color} />
+          <Text style={[styles.text, {color: styles.item.color}]}>Track BWG token</Text>
+        </Pressable>
+
+        <Pressable
+          style={[styles.item, {backgroundColor: Color(theme.colors.error).alpha(0.1).toString()}]}
+          onPress={onDisconnect}
+        >
+          <Icon name='exit-to-app' size={35} color={theme.colors.error} />
+          <Text style={[styles.text, {color: theme.colors.error}]}>Disconnect</Text>
         </Pressable>
       </BottomSheet>
 
-      {address && profile?.wallet_address && (
+      {isConnected && !isChainLoading && !isChainConnected && (
+        <BottomSheet title='Unsupported chain' isOpened onClose={onDisconnect}>
+          <View style={[styles.alertContainer, {marginBottom: 15}]}>
+            <Icon name='warning' color={styles.icon.color} size={30} />
+            <Text style={styles.alertText}>
+              We are not support connected chain, please switch to {chain.name}
+            </Text>
+          </View>
+          <Button
+            color='error'
+            icon={
+              <Icon
+                name='exchange'
+                type='font-awesome'
+                iconStyle={{marginRight: 10, color: theme.colors.textReverse}}
+              />
+            }
+            title='Switch Network'
+            onPress={() => setNetwork()}
+            loading={isSwitchLoading}
+          />
+        </BottomSheet>
+      )}
+
+      {isEnabled && profile?.wallet_address && (
         <Modal
           title='Change Wallet Address'
-          isOpened={!isAddressEqual(profile?.wallet_address as Address, address as Address)}
+          isOpened={profile?.wallet_address !== address}
           onClose={onDisconnect}
         >
           <View style={{rowGap: 15}}>
@@ -106,7 +150,7 @@ const WalletController = () => {
                 </View>
                 <View>
                   <Text style={styles.text}>New Address</Text>
-                  <Text style={styles.subText}>{shortAddress(address, 15)}</Text>
+                  <Text style={styles.subText}>{shortAddress(address as string, 15)}</Text>
                 </View>
 
                 {profile && profile.google_mfa_activated ? (
@@ -160,12 +204,14 @@ const WalletController = () => {
 
 const useStyles = makeStyles(({colors}) => ({
   item: {
-    height: 40,
+    height: 45,
     borderRadius: 5,
     flexDirection: 'row',
     columnGap: 10,
     alignItems: 'center',
-    paddingHorizontal: 10,
+    paddingHorizontal: 20,
+    color: colors.tertiary,
+    backgroundColor: Color(colors.tertiary).alpha(0.1).string(),
   },
   text: {
     fontSize: 16,

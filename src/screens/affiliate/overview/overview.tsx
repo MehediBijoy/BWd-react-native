@@ -63,17 +63,12 @@ const Overview = ({navigation}: OverviewProps) => {
       </View>
       <View style={[styles.referralBox, styles.boxWrapper]}>
         <Text style={styles.label}>Referral ID:</Text>
-        <Text>{profile?.referral_token}</Text>
+        <Text style={styles.label}>{profile?.referral_token}</Text>
       </View>
-      <View style={styles.boxWrapper}>
-        <Text style={styles.label}>Referral Link:</Text>
+      <View style={[styles.referralBox]}>
+        <Text style={styles.label}>Copy Link:</Text>
         {profile?.referral_token && (
-          <CopyButton
-            toCopy={makeReferralLink(profile?.referral_token)}
-            buttonText={
-              <Text style={styles.referralLink}>{makeReferralLink(profile?.referral_token)}</Text>
-            }
-          />
+          <CopyButton toCopy={makeReferralLink(profile?.referral_token)} />
         )}
       </View>
 
@@ -125,6 +120,7 @@ const useStyles = makeStyles(({colors}) => ({
     marginTop: 10,
   },
   referralBox: {
+    marginVertical: 5,
     flexDirection: 'row',
     alignItems: 'center',
     gap: 10,
