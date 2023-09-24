@@ -16,7 +16,7 @@ const ThemeProvider = ({children}: {children: ReactNode}) => {
             style: {flexShrink: 1},
           }),
           Button: () => ({
-            containerStyle: {borderRadius: 8},
+            buttonStyle: {borderRadius: 8},
           }),
         },
       }),
