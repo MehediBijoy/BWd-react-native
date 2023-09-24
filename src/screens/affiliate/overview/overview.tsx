@@ -2,7 +2,6 @@ import React from 'react'
 import {View} from 'react-native'
 import {useQuery} from '@tanstack/react-query'
 import {Button, Text, makeStyles} from '@rneui/themed'
-import {NativeStackScreenProps} from '@react-navigation/native-stack'
 
 import CopyButton from '@core/CopyButton'
 import Loader from '@core/Loader'
@@ -11,18 +10,13 @@ import {cacheKey} from 'api'
 import {useApi} from 'hooks/api'
 import {useProfile} from 'hooks/helper'
 import {makeReferralLink} from 'utils'
-import {RouteStack} from 'navigators/routes'
 
-import PayoutModal from './payoutModal/payoutModal'
+import PayoutModal from './payoutModal'
 
 type ReferralBoxProps = {
   label: string
   price?: string
   isLoading: boolean
-}
-
-type OverviewProps = {
-  navigation: NativeStackScreenProps<RouteStack, 'Affiliates'>['navigation']
 }
 
 const ReferralBox = ({label, price, isLoading}: ReferralBoxProps) => {
@@ -35,18 +29,14 @@ const ReferralBox = ({label, price, isLoading}: ReferralBoxProps) => {
   )
 }
 
-const Overview = ({navigation}: OverviewProps) => {
+const Overview = () => {
   const api = useApi()
   const styles = useStyles()
   const {profile} = useProfile()
 
   const [isOpened, setIsOpened] = React.useState<boolean>(false)
 
-  const {
-    data: commissionData,
-    isLoading,
-    refetch: refetchPayoutCommissions,
-  } = useQuery({
+  const {data, isLoading, refetch} = useQuery({
     queryKey: [cacheKey.affiliateCommission, profile?.id],
     queryFn: () => api.getUserAffiliateCommission(profile?.id as number),
   })
@@ -55,11 +45,7 @@ const Overview = ({navigation}: OverviewProps) => {
     <View style={styles.container}>
       <View style={styles.labelWrapper}>
         <Text style={styles.label}>Total commission over lifetime: </Text>
-        {isLoading ? (
-          <Loader />
-        ) : (
-          <Text style={styles.label}>{commissionData?.total_income} BWG</Text>
-        )}
+        {isLoading ? <Loader /> : <Text style={styles.label}>{data?.total_income} BWG</Text>}
       </View>
       <View style={[styles.referralBox, styles.boxWrapper]}>
         <Text style={styles.label}>Referral ID:</Text>
@@ -74,39 +60,41 @@ const Overview = ({navigation}: OverviewProps) => {
 
       <ReferralBox
         label='Total direct commission'
-        price={commissionData?.total_direct}
+        price={data?.total_direct}
         isLoading={isLoading}
       />
       <ReferralBox
         label='Total unilevel commission'
-        price={commissionData?.total_unilevel}
+        price={data?.total_unilevel}
         isLoading={isLoading}
       />
       <ReferralBox
         label='Total Payout commission'
-        price={commissionData?.total_payout}
+        price={data?.total_payout}
         isLoading={isLoading}
       />
       <ReferralBox
         label='Available account commission'
-        price={commissionData?.current_balance}
+        price={data?.current_balance}
         isLoading={isLoading}
       />
 
-      <View style={styles.payoutButtonWrapper}>
-        <Button
-          title='Payout commission'
-          disabled={Number(commissionData?.current_balance) === 0}
-          onPress={() => setIsOpened(true)}
-          containerStyle={{maxWidth: '50%'}}
-        />
-      </View>
+      <Button
+        title='Payout commission'
+        disabled={Number(data?.current_balance) === 0}
+        onPress={() => setIsOpened(true)}
+        containerStyle={{
+          marginVertical: 20,
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'row',
+        }}
+      />
 
       <PayoutModal
         isOpened={isOpened}
         onClose={() => setIsOpened(false)}
-        navigation={navigation}
-        refetchPayoutCommissions={refetchPayoutCommissions}
+        refetchPayoutCommissions={refetch}
       />
     </View>
   )
@@ -155,12 +143,6 @@ const useStyles = makeStyles(({colors}) => ({
     fontSize: 20,
     color: colors.textReverse,
     textAlign: 'center',
-  },
-  payoutButtonWrapper: {
-    marginVertical: 20,
-    justifyContent: 'center',
-    flexDirection: 'row',
-    width: '100%',
   },
 }))
 

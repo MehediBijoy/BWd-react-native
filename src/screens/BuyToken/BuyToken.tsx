@@ -3,7 +3,6 @@ import {useForm} from 'react-hook-form'
 import {useMutation} from '@tanstack/react-query'
 import {Text, Button, Icon, makeStyles} from '@rneui/themed'
 import {ActivityIndicator, ScrollView, View} from 'react-native'
-import {NativeStackScreenProps} from '@react-navigation/native-stack'
 
 import Form from '@core/Form'
 import FormInput from '@core/FormInput'
@@ -14,7 +13,6 @@ import useApi from 'hooks/api/useApi'
 import {EstimateFee} from 'api/Response'
 import {PaymentProps} from 'api/Request'
 import {useDebounce, useAssets} from 'hooks/helper'
-import {RouteStack} from 'navigators/routes'
 
 import TierOverviewModal from './TierFeesModal'
 import FiatPaymentModal from './FiatPayment/FiatPayment'
@@ -24,7 +22,7 @@ type BuyBoxFields = {
   total: string
 }
 
-const BuyToken = ({navigation}: NativeStackScreenProps<RouteStack, 'Purchase'>) => {
+const BuyToken = () => {
   const api = useApi()
   const styles = useStyles()
   const {data: bwgLimit} = useAssets('BWG')
@@ -89,7 +87,6 @@ const BuyToken = ({navigation}: NativeStackScreenProps<RouteStack, 'Purchase'>) 
           }}
           estimateFees={estimateFees as EstimateFee}
           in_base={inBase}
-          navigation={navigation}
         />
 
         <View style={{display: 'flex', rowGap: 20}}>

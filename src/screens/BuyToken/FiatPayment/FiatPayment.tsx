@@ -2,7 +2,6 @@ import React from 'react'
 import {Button, Icon, makeStyles} from '@rneui/themed'
 import {useMutation} from '@tanstack/react-query'
 import {Text, View, Modal as NativeModal} from 'react-native'
-import {NativeStackScreenProps} from '@react-navigation/native-stack'
 import {useWalletConnectModal} from '@walletconnect/modal-react-native'
 
 import Modal from '@core/Modal'
@@ -12,7 +11,6 @@ import {useApi} from 'hooks/api'
 import {useDebounce} from 'hooks/helper'
 import {PaymentProps} from 'api/Request'
 import {EstimateFee, Payment} from 'api/Response'
-import {RouteStack} from 'navigators/routes'
 
 import PaypalView from '../PaypalView'
 
@@ -21,18 +19,12 @@ type FiatPaymentModalProps = {
   isOpened: boolean
   onClose: () => void
   in_base: boolean
-  navigation: NativeStackScreenProps<RouteStack, 'Purchase'>['navigation']
 }
 
-const FiatPaymentModal = ({
-  estimateFees,
-  isOpened,
-  onClose,
-  in_base,
-  navigation,
-}: FiatPaymentModalProps) => {
+const FiatPaymentModal = ({estimateFees, isOpened, onClose, in_base}: FiatPaymentModalProps) => {
   const api = useApi()
   const styles = useStyles()
+
   const {isConnected} = useWalletConnectModal()
 
   const createOrder = useMutation<Payment, any, Pick<PaymentProps, 'payment_type'>>({
@@ -101,11 +93,7 @@ const FiatPaymentModal = ({
       {createOrder.data && (
         <NativeModal visible>
           <SafeAreaView>
-            <PaypalView
-              data={createOrder.data.payment_data}
-              onClose={onModalClose}
-              navigation={navigation}
-            />
+            <PaypalView data={createOrder.data.payment_data} onClose={onModalClose} />
           </SafeAreaView>
         </NativeModal>
       )}

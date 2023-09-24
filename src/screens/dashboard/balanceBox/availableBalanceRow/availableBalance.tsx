@@ -18,11 +18,15 @@ export type AvailableBalanceRowProps = {
 export type LoaderBoxProps = {
   isLoading?: boolean
   price: number | undefined | null
+  isSymbol?: boolean
 }
 
-const LoaderBox = ({isLoading, price}: LoaderBoxProps) => {
+const LoaderBox = ({isLoading, price, isSymbol}: LoaderBoxProps) => {
   if (isLoading) {
     return <Loader />
+  }
+  if (isSymbol && !isLoading) {
+    return <Text>{price ? `$${price}` : '-'}</Text>
   }
   return <Text>{price ?? '-'}</Text>
 }
@@ -54,13 +58,17 @@ const AvailableBalanceRow = ({asset, logo, data, isLoading}: AvailableBalanceRow
         </Text>
       </View>
       <View style={styles.gridItem}>
-        <LoaderBox isLoading={isLoading} price={isConnected ? Number(assetData?.price) : null} />
+        <LoaderBox
+          isLoading={isLoading}
+          price={isConnected ? Number(assetData?.price) : null}
+          isSymbol
+        />
       </View>
       <View style={styles.gridItem}>
         <LoaderBox isLoading={isLoading} price={balance} />
       </View>
       <View style={styles.gridItem}>
-        <LoaderBox isLoading={isLoading} price={totalPrice} />
+        <LoaderBox isLoading={isLoading} price={totalPrice} isSymbol />
       </View>
     </View>
   )
@@ -85,6 +93,7 @@ const useStyles = makeStyles(({colors}) => ({
     alignItems: 'center',
     justifyContent: 'center',
     textAlign: 'center',
+    flexDirection: 'row',
   },
   iconBox: {
     display: 'flex',

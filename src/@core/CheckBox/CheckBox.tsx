@@ -46,6 +46,7 @@ const useStyles = makeStyles(({colors}, {color: defaultColor}: StyledTypes) => (
   },
   title: {
     color: defaultColor ? colors[defaultColor] : colors.textPrimary,
+    fontWeight: '600',
   },
   checked: {
     color: colors.primary,

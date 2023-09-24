@@ -4,7 +4,8 @@ import {isAddress} from 'viem'
 import {View} from 'react-native'
 import {useMutation} from '@tanstack/react-query'
 import {Button, Text, makeStyles} from '@rneui/themed'
-import {NativeStackScreenProps} from '@react-navigation/native-stack'
+import {useNavigation} from '@react-navigation/native'
+import {DrawerNavigationProp} from '@react-navigation/drawer'
 
 import Modal from '@core/Modal'
 import Form from '@core/Form'
@@ -18,16 +19,11 @@ import {RouteStack} from 'navigators/routes'
 type PayoutModalProps = {
   isOpened: boolean
   onClose: () => void
-  navigation: NativeStackScreenProps<RouteStack, 'Affiliates'>['navigation']
   refetchPayoutCommissions: () => void
 }
 
 const payoutCommissionSchema = yup.object().shape({
-  amount: yup
-    .number()
-    .required('Amount is required')
-    .typeError('Amount is required')
-    .positive('Amount must be a positive number'),
+  amount: yup.number().required().positive('Amount must be a positive number'),
   use_saved_address: yup.boolean().default(false),
   address: yup
     .string()
@@ -37,7 +33,7 @@ const payoutCommissionSchema = yup.object().shape({
       then: () =>
         yup
           .string()
-          .nullable()
+          // .nullable()
           .notRequired()
           .transform(() => null),
       otherwise: () => yup.string().required().test('_', 'Invalid address', isAddress),
@@ -54,13 +50,13 @@ type payoutCommissionFields = yup.InferType<typeof payoutCommissionSchema>
 const PayoutModal = ({
   isOpened,
   onClose,
-  navigation,
+
   refetchPayoutCommissions,
 }: PayoutModalProps) => {
   const styles = useStyles()
   const api = useApi()
   const {profile} = useProfile()
-
+  const navigation = useNavigation<DrawerNavigationProp<RouteStack, 'Purchase'>>()
   const {methods} = useYupHooks<payoutCommissionFields>({schema: payoutCommissionSchema})
 
   const isSaveAddress = methods.watch('use_saved_address')
@@ -74,7 +70,7 @@ const PayoutModal = ({
     }
   }, [isSaveAddress])
 
-  const {mutate} = useMutation({
+  const {mutate, isLoading} = useMutation({
     mutationFn: api.commissionPayout,
     onSuccess: () => {
       onClose()
@@ -112,11 +108,12 @@ const PayoutModal = ({
               editable={isSaveAddress ? false : true}
             />
             {profile?.payout_address && (
-              <FormCheckBox name='use_saved_address' title='Use previous address' color='grey1' />
+              <FormCheckBox name='use_saved_address' title='Use previous address' />
             )}
             <FormInput name='mfa_code' label='2FA Code' placeholder='xxx xxx' />
             <Button
               title='Submit'
+              loading={isLoading}
               containerStyle={{maxWidth: '50%'}}
               onPress={methods.handleSubmit(submit)}
             />

@@ -2,7 +2,8 @@ import {useState} from 'react'
 import {Icon, Text, makeStyles, Button} from '@rneui/themed'
 import {View} from 'react-native'
 import {WebView} from 'react-native-webview'
-import {NativeStackScreenProps} from '@react-navigation/native-stack'
+import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs'
+import {useNavigation} from '@react-navigation/native'
 
 import {RouteStack} from 'navigators/routes'
 
@@ -14,11 +15,11 @@ type PaypalViewProps = {
     links: string[]
   }
   onClose(): void
-  navigation: NativeStackScreenProps<RouteStack, 'Purchase'>['navigation']
 }
 
-const PaypalView = ({data, onClose, navigation}: PaypalViewProps) => {
+const PaypalView = ({data, onClose}: PaypalViewProps) => {
   const [isSuccess, setIsSuccess] = useState(false)
+  const navigation = useNavigation<BottomTabNavigationProp<RouteStack, 'Purchase'>>()
 
   const styles = useStyles()
 
@@ -50,7 +51,6 @@ const PaypalView = ({data, onClose, navigation}: PaypalViewProps) => {
             title='OK'
             onPress={() => {
               navigation.navigate('Transactions')
-              onClose()
             }}
             containerStyle={{minWidth: 100}}
           />

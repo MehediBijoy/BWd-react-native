@@ -24,7 +24,7 @@ export type User = {
   wallet_address_candidate: string
   wallet_type: string
   wallet_type_candidate: string
-  user_type: string
+  user_type: 'affiliate' | 'regular'
   referral_token: string
   downline_users_count: number
   payout_address: string
