@@ -1,5 +1,7 @@
 export {default as useBalance} from './useBalance'
 export {default as useClient} from './useClient'
-export {default as useChain} from './useChain'
+export {default as useNetwork} from './useNetwork'
 export {default as useWallet} from './useWallet'
 export {default as useSetToken} from './useSetToken'
+export {default as useDisconnect} from './useDisconnect'
+export {default as useChainId} from './useChainId'

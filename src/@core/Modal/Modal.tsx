@@ -12,7 +12,7 @@ export type ModalProps = {
   style?: ViewStyle
 }
 
-const Modal = ({isOpened, onClose, title, children}: ModalProps) => {
+const Modal = ({isOpened, onClose, title, children, style}: ModalProps) => {
   const styles = useStyles()
 
   return (
@@ -21,6 +21,8 @@ const Modal = ({isOpened, onClose, title, children}: ModalProps) => {
       backdropTransitionOutTiming={0}
       animationIn='fadeIn'
       animationOut='fadeOut'
+      useNativeDriver
+      statusBarTranslucent
     >
       <View style={[styles.container]}>
         <View style={[styles.titleContainer]}>
@@ -35,7 +37,7 @@ const Modal = ({isOpened, onClose, title, children}: ModalProps) => {
             />
           </TouchableOpacity>
         </View>
-        <View>{children}</View>
+        <View style={style}>{children}</View>
       </View>
     </ModalBase>
   )
