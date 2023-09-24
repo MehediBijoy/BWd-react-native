@@ -20,8 +20,8 @@ import {shortAddress, isMfaRequired} from 'utils'
 import {useWalletController} from 'hooks/states'
 import {useProfile, useYupHooks} from 'hooks/helper'
 import {chain} from 'constants/wallet.config'
-import {useChain, useWallet, useSetToken} from 'hooks/crypto'
 import WalletDisconnect from 'components/modals/WalletDisconnect'
+import {useWallet, useSetToken, useChainId, useNetwork} from 'hooks/crypto'
 
 const mfaSchema = yup.object().shape({
   mfa_code: yup
@@ -42,10 +42,10 @@ const WalletController = () => {
   const {theme} = useTheme()
   const styles = useStyles()
   const setToken = useSetToken()
+  const {setNetwork, isSwitchLoading} = useNetwork()
   const {isOpened, setIsOpened} = useWalletController()
-  const {address, isConnected, isEnabled} = useWallet()
   const {profile, setProfile, refetch: profileRefetch} = useProfile()
-  const {setNetwork, isChainLoading, isSwitchLoading, isConnected: isChainConnected} = useChain()
+  const {address, isConnected, isEnabled, provider, isChainConnected} = useWallet()
 
   const [isSubmitEmail, setIsSubmitEmail] = React.useState<boolean>(false)
   const [isDisconnectModal, setIsDisconnectModal] = React.useState<boolean>(false)
@@ -81,6 +81,13 @@ const WalletController = () => {
     mutationFn: api.walletChangeWithToken,
   })
 
+  const {subscribe, unsubscribe} = useChainId()
+
+  React.useEffect(() => {
+    subscribe(provider)
+    return () => unsubscribe(provider)
+  }, [provider])
+
   return (
     <>
       <BottomSheet
@@ -101,7 +108,7 @@ const WalletController = () => {
         </Pressable>
 
         <Pressable style={styles.item} onPress={setToken}>
-          <Icon name='playlist-add-check-circle' size={35} color={styles.item.color} />
+          <Icon name='add-chart' size={35} color={styles.item.color} />
           <Text style={[styles.text, {color: styles.item.color}]}>Track BWG token</Text>
         </Pressable>
 
@@ -114,7 +121,7 @@ const WalletController = () => {
         </Pressable>
       </BottomSheet>
 
-      {isConnected && !isChainLoading && !isChainConnected && (
+      {isConnected && !isChainConnected && (
         <BottomSheet title='Unsupported chain' isOpened onClose={() => setIsDisconnectModal(true)}>
           <View style={[styles.alertContainer, {marginBottom: 15}]}>
             <Icon name='warning' color={styles.icon.color} size={30} />
