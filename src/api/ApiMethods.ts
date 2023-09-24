@@ -232,7 +232,6 @@ export default class ApiMethods extends ApiBase {
     const {referrals_stats, meta} = await this.get(`/users/${id}/referrals_stats`)
 
     return {
-      // data: referrals_stats?.map(referralStatsDateFormat),
       data: referrals_stats,
       meta: meta,
     }
