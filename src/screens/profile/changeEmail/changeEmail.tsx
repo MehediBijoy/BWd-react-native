@@ -14,7 +14,7 @@ import useApi from 'hooks/api/useApi'
 import {UserInfo} from 'api/Response'
 import {ErrorObject} from 'api/Errors'
 import {ChangeEmailProps} from 'api/Request'
-import {isMfaRequired} from 'utils'
+import {isMfaRequired} from 'utils/response'
 
 import EmailConfirmationModal from './confirmationModal'
 

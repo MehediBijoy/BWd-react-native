@@ -1,6 +1,6 @@
 import autoBind from 'auto-bind'
 
-import {formatEstimatePay} from 'utils'
+import {formatEstimatePay} from 'utils/response'
 
 import {
   LoginProps,

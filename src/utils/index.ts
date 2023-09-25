@@ -1,22 +1,7 @@
 import Color from 'color'
 import dayjs from 'dayjs'
 
-import {ErrorObject} from 'api/Errors'
-import {EstimateFee, User} from 'api/Response'
 import {APP_BASE_URL} from 'config/environments'
-
-export function isUserConfirmed(user: User) {
-  return user && user.email_confirmed && user.kyc_status === 'approved'
-}
-
-export const isMfaRequired = (error: ErrorObject | null) => error && error.code === '005'
-
-export const formatEstimatePay = (object: EstimateFee): EstimateFee => ({
-  ...object,
-  received_amount: parseFloat(object?.received_amount as unknown as string).toFixed(4),
-  total_amount: parseFloat(object?.total_amount as unknown as string).toFixed(2),
-  dynamic_fee_amount: parseFloat(object?.dynamic_fee_amount as unknown as string).toFixed(4),
-})
 
 /**
  * Shortens a given address string by replacing a portion of it with ellipsis ('...').
@@ -69,3 +54,11 @@ export const updateWalletConnectTitle = (title?: string) => {
  */
 export const alpha = (color: string, opacity: number): string =>
   Color(color).alpha(opacity).toString()
+
+/**
+ * Capitalizes the first letter of a given string.
+ *
+ * @param {string} input - The input string to be capitalized.
+ * @returns {string} The input string with the first letter capitalized.
+ */
+export const capitalize = (input: string): string => input.charAt(0).toUpperCase() + input.slice(1)
