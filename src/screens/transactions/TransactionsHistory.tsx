@@ -51,7 +51,7 @@ const TransactionsHistory = () => {
       received({data: socketData}) {
         queryClient.setQueryData<Partial<OrderHistory>>([cacheKey.orderHistory], orders => {
           const data = orders?.data?.map(item =>
-            item.id === socketData.payment_id ? {...item, transfer: socketData} : item
+            item.id === socketData?.payment_id ? {...item, transfer: socketData} : item
           )
           return {data, meta: orders?.meta}
         })
@@ -75,18 +75,14 @@ const TransactionsHistory = () => {
             color={theme.colors.primary}
           />
         )}
-        {orderHistory?.data?.length == 0 ? (
-          <View style={[styles.tableRow, styles.emptyRow]}>
-            <Text>No data found</Text>
-          </View>
-        ) : (
-          orderHistory?.data?.map((item, index) => (
+        {!isLoading && orderHistory && orderHistory.data && orderHistory.data.length !== 0 ? (
+          orderHistory.data.map((item, index) => (
             <TouchableOpacity
               activeOpacity={0.8}
               key={index}
               style={[
                 styles.tableRow,
-                index === orderHistory?.data.length - 1 ? styles.bottomRow : styles.bodyRow,
+                index === orderHistory.data.length - 1 ? styles.bottomRow : styles.bodyRow,
               ]}
               onPress={() => setSelectedId(item.id)}
             >
@@ -105,16 +101,20 @@ const TransactionsHistory = () => {
               </View>
               <View style={styles.cellStatus}>
                 <Text style={[styles.rowText, {marginBottom: 5}]}>
-                  {item.transfer ? 'Transfer' : 'Payment'}
+                  {item.transfer.status ? 'Transfer' : 'Payment'}
                 </Text>
                 <StatusBadge status={item.transfer?.status ?? item.status} />
               </View>
               <View style={styles.cellDate}>
-                <Text style={styles.rowText}>{formatDate(new Date(item.created_at), 'time')}</Text>
-                <Text style={styles.rowText}>{formatDate(new Date(item.created_at))}</Text>
+                <Text style={styles.rowText}>{formatDate(item.created_at, 'hh:mm A')}</Text>
+                <Text style={styles.rowText}>{formatDate(item.created_at, 'MMM DD,YYYY')}</Text>
               </View>
             </TouchableOpacity>
           ))
+        ) : (
+          <View style={[styles.tableRow, styles.emptyRow]}>
+            <Text>No data found</Text>
+          </View>
         )}
       </View>
 
