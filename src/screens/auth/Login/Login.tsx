@@ -9,7 +9,7 @@ import Form from '@core/Form'
 import FormInput from '@core/FormInput'
 import ContainContainer from '@core/ContentContainer'
 
-import {isMfaRequired} from 'utils'
+import {isMfaRequired} from 'utils/response'
 import useApi from 'hooks/api/useApi'
 import {ErrorObject} from 'api/Errors'
 import FAQ from 'screens/auth/FAQ/FAQ'
