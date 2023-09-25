@@ -33,7 +33,7 @@ const DrawerNavigator = () => {
       <Drawer.Navigator
         id='drawer'
         drawerContent={DrawerContainer}
-        screenOptions={({navigation}: DrawerScreenProps<RouteStack>) => ({
+        screenOptions={({navigation, route}: DrawerScreenProps<RouteStack>) => ({
           headerTitle: '',
           headerStyle: styles.shadow,
           drawerLabelStyle: {marginLeft: -25},
@@ -41,7 +41,9 @@ const DrawerNavigator = () => {
           drawerInactiveTintColor: colors.textPrimary,
           headerLeftContainerStyle: {marginStart: 10},
           headerRightContainerStyle: {marginEnd: 10},
-          headerLeft: () => <Logo />,
+          headerLeft: () => (
+            <Logo onPress={() => route.name !== 'Home' && navigation.navigate('Home')} />
+          ),
           headerRight: () => (
             <View
               style={{

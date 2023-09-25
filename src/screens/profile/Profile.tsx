@@ -2,8 +2,9 @@ import {ScrollView, View} from 'react-native'
 import {useQuery} from '@tanstack/react-query'
 import {NativeStackScreenProps} from '@react-navigation/native-stack'
 
-import ContentContainer from '@core/ContentContainer'
 import Loader from '@core/Loader'
+import SafeAreaView from '@core/SafeAreaView'
+import ContentContainer from '@core/ContentContainer'
 
 import {useProfile} from 'hooks/helper'
 import {useApi} from 'hooks/api'
@@ -40,15 +41,17 @@ const ProfileInfo = ({navigation}: NativeStackScreenProps<RouteStack, 'Settings'
   }
 
   return (
-    <ScrollView>
-      <ContentContainer>
-        <PersonalInfoBox userInfo={userDetails} />
-        <ProfileSettings userInfo={userDetails} />
-        <ReferralInfoBox navigation={navigation} />
-        {/*Note: This functionality will be add in future  */}
-        {/* <AppSettings /> */}
-      </ContentContainer>
-    </ScrollView>
+    <SafeAreaView edges={['bottom']}>
+      <ScrollView>
+        <ContentContainer>
+          <PersonalInfoBox userInfo={userDetails} />
+          <ProfileSettings userInfo={userDetails} />
+          <ReferralInfoBox navigation={navigation} />
+          {/*Note: This functionality will be add in future  */}
+          {/* <AppSettings /> */}
+        </ContentContainer>
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 
