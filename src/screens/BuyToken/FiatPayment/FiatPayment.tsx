@@ -24,6 +24,7 @@ type FiatPaymentModalProps = {
 const FiatPaymentModal = ({estimateFees, isOpened, onClose, in_base}: FiatPaymentModalProps) => {
   const api = useApi()
   const styles = useStyles()
+
   const {isConnected} = useWalletConnectModal()
 
   const createOrder = useMutation<Payment, any, Pick<PaymentProps, 'payment_type'>>({

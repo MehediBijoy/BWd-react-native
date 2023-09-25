@@ -31,19 +31,10 @@ export function getMonth(month: number, lang = 'en') {
  * @param {string | Date} date - The date to be formatted. It can be either a valid date string or a Date object.
  * @param {string} [format='MMM DD, YYYY, hh:mm A'] - The format to use for formatting the date.
  * @returns {string} The formatted date string.
- * @see {@link https://day.js.org/docs/en/display/format|Day.js Format Function Documentation}
+ * @see {@link https://day.js.org/docs/en/display/format Format Function Documentation}
  */
 export const formatDate = (date: string | Date, format: string = 'MMM DD, YYYY, hh:mm A'): string =>
   dayjs(date).format(format)
-
-// Please remove this method from utils
-export const updateWalletConnectTitle = (title?: string) => {
-  const prefix = title?.slice(0, 5)
-  const suffix = title?.slice(-4)
-
-  const masked = prefix + '.'.repeat(4) + suffix
-  return masked
-}
 
 /**
  * Adjusts the opacity (alpha channel) of a color.

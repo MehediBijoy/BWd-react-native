@@ -12,7 +12,7 @@ const PersonalInfoBox = ({userInfo}: PersonalInfoBoxProps) => {
 
   return (
     <View style={[styles.container]}>
-      <Text h4 h4Style={{marginBottom: 20}}>
+      <Text h3 h3Style={{marginBottom: 20}}>
         Settings
       </Text>
 

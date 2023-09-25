@@ -91,3 +91,12 @@ type ProceedMfaProps = {
   activation: boolean
   mfa_code: string
 }
+
+type PayoutCommissionProps = {
+  payout: {
+    amount: number | string
+    address?: string
+    use_saved_address: boolean
+  }
+  mfa_code: string
+}

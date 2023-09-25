@@ -7,4 +7,6 @@ export const cacheKey = {
   dashboardChart: 'dashboardChart',
   orderHistory: 'orderHistory',
   mfaSecret: 'mfaSecret',
+  affiliateCommission: 'affiliateCommission',
+  affiliateStats: 'affiliateStats',
 }
