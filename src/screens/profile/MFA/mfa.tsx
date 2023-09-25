@@ -10,10 +10,10 @@ import MFADeactive from './MFADeactive'
 
 const MFA = ({navigation}: NativeStackScreenProps<RouteStack, 'ProfileMFA'>) => {
   const {profile} = useProfile()
-  if (!profile) return null
+
   return (
     <ContainContainer>
-      {!profile.google_mfa_activated ? (
+      {!profile?.google_mfa_activated ? (
         <MFAActive navigation={navigation} />
       ) : (
         <MFADeactive navigation={navigation} />

@@ -85,9 +85,7 @@ const Overview = () => {
         onPress={() => setIsOpened(true)}
         containerStyle={{
           marginVertical: 20,
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'row',
+          alignSelf: 'center',
         }}
       />
 
