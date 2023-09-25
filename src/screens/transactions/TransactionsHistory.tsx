@@ -96,8 +96,8 @@ const TransactionsHistory = () => {
                 <StatusBadge status={item.transfer?.status ?? item.status} />
               </View>
               <View style={styles.cellDate}>
-                <Text style={styles.textDate}>{formatDate(new Date(item.created_at), 'time')}</Text>
-                <Text style={styles.textDate}>{formatDate(new Date(item.created_at))}</Text>
+                <Text style={styles.textDate}>{formatDate(item.created_at, 'hh:mm A')}</Text>
+                <Text style={styles.textDate}>{formatDate(item.created_at, 'MMM DD,YYYY')}</Text>
               </View>
             </TouchableOpacity>
           ))
