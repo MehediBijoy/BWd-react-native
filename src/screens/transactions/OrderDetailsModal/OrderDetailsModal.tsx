@@ -29,7 +29,7 @@ const OrderDetailsModal = ({data, isOpened, onClose}: OrderDetailsModalProps) =>
         <View style={{marginBottom: 30}}>
           <View style={styles.row}>
             <Text style={styles.label}>Date </Text>
-            <Text>{formatDate(new Date(data.created_at), 'long')}</Text>
+            <Text>{formatDate(data.created_at)}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.label}>Order ID </Text>
