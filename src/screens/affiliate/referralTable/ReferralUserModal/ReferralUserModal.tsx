@@ -30,7 +30,7 @@ const Column = ({label, text, ...rest}: ColumnProps) => (
 
 const ReferralModal = ({isOpened, data, onClose}: ReferralModalProps) => (
   <Modal title='Referral Details' isOpened={isOpened} onClose={onClose}>
-    <Column label={'Joining Date'} text={formatDate(new Date(data.referral_joined_at), 'long')} />
+    <Column label={'Joining Date'} text={formatDate(data.referral_joined_at)} />
     <Column label={'Friends User ID'} text={data.referral_id} />
     <Column label={'Account Type'} text={data.referral_account_type} />
     <Column label={'Amount'} text={data.total_amount} />

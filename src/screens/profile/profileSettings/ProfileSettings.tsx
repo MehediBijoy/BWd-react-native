@@ -3,7 +3,7 @@ import {Link} from '@react-navigation/native'
 import {Text, makeStyles} from '@rneui/themed'
 
 import {UserInfo} from 'api/Response'
-import {updateWalletConnectTitle} from 'utils'
+import {shortAddress} from 'utils'
 import {useProfile} from 'hooks/helper'
 
 type ProfileSettingsProps = {
@@ -63,7 +63,7 @@ const ProfileSettings = ({userInfo}: ProfileSettingsProps) => {
         {/* {userInfo?.wallet_address && <CopyButton toCopy={userInfo?.wallet_address} />} */}
         <Text>Saved Wallet Address:</Text>
         <Text style={{fontSize: 16, marginLeft: 5}}>
-          {updateWalletConnectTitle(userInfo?.wallet_address)}
+          {userInfo?.wallet_address ? shortAddress(userInfo.wallet_address) : '-'}
         </Text>
       </View>
     </View>

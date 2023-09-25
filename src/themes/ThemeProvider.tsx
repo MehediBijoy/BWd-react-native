@@ -13,7 +13,7 @@ const ThemeProvider = ({children}: {children: ReactNode}) => {
         mode: 'light',
         components: {
           Text: () => ({
-            style: {flexShrink: 1},
+            style: {flexShrink: 1, fontSize: 14},
           }),
           Button: () => ({
             buttonStyle: {borderRadius: 8},

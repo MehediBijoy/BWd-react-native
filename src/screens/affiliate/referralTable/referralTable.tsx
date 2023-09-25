@@ -66,8 +66,8 @@ const ReferralTable = () => {
                   <Text style={styles.labelText}>Friends User ID:</Text> {item.referral_id}
                 </Text>
                 <Text style={styles.subText}>
-                  <Text style={styles.labelText}>Joining Date:</Text>{' '}
-                  {formatDate(new Date(item.referral_joined_at))}
+                  <Text style={styles.labelText}>Joining Date:</Text>
+                  {formatDate(item.referral_joined_at, 'MMM DD,YYYY')}
                 </Text>
               </View>
               <View style={styles.cellStatus}>
