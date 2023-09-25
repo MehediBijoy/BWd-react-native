@@ -3,7 +3,7 @@ import {Button} from '@rneui/themed'
 import {createNativeStackNavigator, NativeStackScreenProps} from '@react-navigation/native-stack'
 
 import Logo from 'components/Logo'
-import {isUserConfirmed} from 'utils'
+import {isUserConfirmed} from 'utils/response'
 import Login from 'screens/auth/Login'
 import {useProfile} from 'hooks/helper'
 import ResetPassword from 'screens/auth/ResetPassword'
