@@ -34,7 +34,7 @@ const CopyButton = ({toCopy, buttonText}: CopyButtonProps) => {
       </TouchableOpacity>
       <Tooltip
         width={80}
-        skipAndroidStatusBar={true}
+        // skipAndroidStatusBar={true}
         visible={tooltipVisible}
         popover={<Text style={[styles.tooltipText]}>Copied</Text>}
         onClose={() => setTooltipVisible(false)}

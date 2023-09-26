@@ -1,9 +1,9 @@
-import Color from 'color'
 import {View} from 'react-native'
 import {Button, Icon, Text, makeStyles} from '@rneui/themed'
 
 import Modal, {ModalProps} from '@core/Modal'
 
+import {alpha} from 'utils'
 import {useDisconnect} from 'hooks/crypto'
 import {useWalletController} from 'hooks/states'
 
@@ -55,7 +55,7 @@ const useStyles = makeStyles(({colors}) => ({
     justifyContent: 'center',
   },
   error: {
-    color: Color(colors.error).alpha(0.8).toString(),
+    color: alpha(colors.error, 0.8),
   },
 }))
 
