@@ -25,7 +25,7 @@ const WalletButton = () => {
     if (isConnected && address && !profile?.wallet_address) {
       mutate({id: profile?.id as number, wallet_address: address, wallet_type: 'walletConnect'})
     }
-  }, [isConnected, address, profile])
+  }, [isConnected, address, profile, mutate])
 
   return (
     <Button

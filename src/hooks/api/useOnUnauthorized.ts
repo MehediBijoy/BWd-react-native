@@ -14,7 +14,7 @@ const useOnUnauthorized = () => {
     setToken(undefined)
     queryClient.clear()
     if (!isDisconnected) disconnect()
-  }, [setToken, queryClient])
+  }, [setToken, queryClient, isDisconnected, disconnect])
 }
 
 export default useOnUnauthorized
