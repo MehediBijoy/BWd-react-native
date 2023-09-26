@@ -57,7 +57,7 @@ const TransactionsHistory = () => {
         })
       },
     })
-  }, [queryClient])
+  }, [queryClient, subscribe])
 
   return (
     <>

@@ -28,7 +28,7 @@ const TwoFactorModal = ({isOpened, isLoading, error, onClose, onSubmit}: TwoFact
 
   React.useEffect(() => {
     methods.reset()
-  }, [isOpened])
+  }, [isOpened, methods])
 
   return (
     <Modal title='ENTER THE 2FA CODE' isOpened={isOpened} onClose={onClose}>

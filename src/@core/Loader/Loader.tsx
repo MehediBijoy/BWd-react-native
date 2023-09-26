@@ -7,10 +7,6 @@ const Loader: React.FC = () => {
   const styles = useStyles()
 
   useEffect(() => {
-    animate()
-  }, [])
-
-  const animate = () => {
     Animated.loop(
       Animated.sequence([
         Animated.timing(animation, {
@@ -27,7 +23,7 @@ const Loader: React.FC = () => {
         }),
       ])
     ).start()
-  }
+  }, [animation])
 
   return (
     <View style={styles.container}>
