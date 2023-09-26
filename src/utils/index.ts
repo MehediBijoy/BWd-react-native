@@ -4,14 +4,26 @@ import dayjs from 'dayjs'
 import {APP_BASE_URL} from 'config/environments'
 
 /**
+ * Shortens a given string by preserving a specified number of characters at both ends,
+ * while replacing the middle portion with ellipsis ('...').
+ *
+ * @param {string} input - The input string to be shortened.
+ * @param {number} preserve - The number of characters to preserve at the beginning and end of the input.
+ * @param {number} [ellipsis=3] - The number of ellipsis characters to use in the middle.
+ * @returns {string} The shortened string with ellipsis in the middle.
+ */
+export const shorten = (input: string, preserve: number = 3, ellipsis: number = 3): string =>
+  input.slice(0, preserve) + '.'.repeat(ellipsis) + input.slice(-preserve)
+
+/**
  * Shortens a given address string by replacing a portion of it with ellipsis ('...').
  *
  * @param {string} address - The full address string to be shortened.
  * @param {number} [preserve=5] - The number of characters to preserve at the beginning and end of the address.
  * @returns {string} The shortened address string with ellipsis in the middle.
  */
-export const shortAddress = (address: string, preserve: number = 5): string =>
-  address.slice(0, preserve) + '.'.repeat(3) + address.slice(-(preserve - 2))
+export const shortAddress = (address: string, preserve: number = 3): string =>
+  address.slice(0, 2) + shorten(address.slice(2), preserve, 3)
 
 export const makeReferralLink = (token: string) => {
   const rootUrl = APP_BASE_URL + `/invite?token=${token}`

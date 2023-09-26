@@ -7,7 +7,7 @@ import type {Children} from 'types'
 const SafeAreaView = ({
   children,
   edges = ['left', 'top', 'right', 'bottom'],
-}: Children & {edges: Edge[]}) => {
+}: Children & {edges?: Edge[]}) => {
   const insets = useSafeAreaInsets()
 
   const mappedInsets = edges.reduce(

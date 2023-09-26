@@ -86,7 +86,7 @@ const WalletController = () => {
   React.useEffect(() => {
     subscribe(provider)
     return () => unsubscribe(provider)
-  }, [provider])
+  }, [provider, subscribe, unsubscribe])
 
   return (
     <>
