@@ -9,6 +9,8 @@ import {Text, makeStyles, useTheme, Icon} from '@rneui/themed'
 import {useQuery} from '@tanstack/react-query'
 import {useWalletConnectModal} from '@walletconnect/modal-react-native'
 
+import SafeAreaView from '@core/SafeAreaView'
+
 import {useBalance} from 'hooks/crypto'
 import Logo from 'components/Logo'
 import {useProfile} from 'hooks/helper'
@@ -32,33 +34,35 @@ const DrawerContainer = (props: DrawerContentComponentProps) => {
   const {isConnected} = useWalletConnectModal()
 
   return (
-    <View style={{flex: 1}}>
-      <DrawerContentScrollView contentContainerStyle={{paddingTop: 0}} {...props}>
-        <LinearGradient
-          style={styles.header}
-          colors={[theme.colors.tertiary, theme.colors.tertiaryDark]}
-        >
-          <Logo height={80} width={80} />
+    <SafeAreaView edges={['bottom']}>
+      <View style={{flex: 1}}>
+        <DrawerContentScrollView contentContainerStyle={{paddingTop: 0}} {...props}>
+          <LinearGradient
+            style={styles.header}
+            colors={[theme.colors.tertiary, theme.colors.tertiaryDark]}
+          >
+            <Logo height={80} width={80} />
 
-          <Text style={styles.title}>{`${userDetails?.user_detail?.first_name ?? ''} ${
-            userDetails?.user_detail?.last_name ?? ''
-          }`}</Text>
+            <Text style={styles.title}>{`${userDetails?.user_detail?.first_name ?? ''} ${
+              userDetails?.user_detail?.last_name ?? ''
+            }`}</Text>
 
-          {isConnected && <Text style={styles.subTitle}>{BwgBalance?.value.toFixed(3)} BWG</Text>}
-        </LinearGradient>
-        <DrawerItemList {...props} />
-      </DrawerContentScrollView>
-      <View style={styles.footer}>
-        <Pressable style={styles.footerItem}>
-          <Icon name='share' />
-          <Text style={styles.footerText}>Refer a friend</Text>
-        </Pressable>
-        <Pressable style={styles.footerItem} onPress={() => onUnauthorized()}>
-          <Icon name='logout' />
-          <Text style={styles.footerText}>Logout</Text>
-        </Pressable>
+            {isConnected && <Text style={styles.subTitle}>{BwgBalance?.value.toFixed(3)} BWG</Text>}
+          </LinearGradient>
+          <DrawerItemList {...props} />
+        </DrawerContentScrollView>
+        <View style={styles.footer}>
+          <Pressable style={styles.footerItem}>
+            <Icon name='share' />
+            <Text style={styles.footerText}>Refer a friend</Text>
+          </Pressable>
+          <Pressable style={styles.footerItem} onPress={() => onUnauthorized()}>
+            <Icon name='logout' />
+            <Text style={styles.footerText}>Logout</Text>
+          </Pressable>
+        </View>
       </View>
-    </View>
+    </SafeAreaView>
   )
 }
 

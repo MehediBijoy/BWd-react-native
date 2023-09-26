@@ -25,7 +25,11 @@ const mfaDeActiveSchema = yup.object().shape({
 
 type mfaDeActivationFields = yup.InferType<typeof mfaDeActiveSchema>
 
-const MFADeactive = ({navigation}: NativeStackScreenProps<RouteStack>) => {
+type MFADeactiveProps = {
+  navigation: NativeStackScreenProps<RouteStack, 'ProfileMFA'>['navigation']
+}
+
+const MFADeactive = ({navigation}: MFADeactiveProps) => {
   const api = useApi()
   const styles = useStyles()
   const {setProfile} = useProfile()

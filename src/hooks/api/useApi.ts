@@ -22,7 +22,7 @@ const useApi = () => {
             }
           : {},
       }),
-    [token]
+    [token, unAuthorized]
   )
 }
 

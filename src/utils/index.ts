@@ -1,22 +1,19 @@
 import Color from 'color'
 import dayjs from 'dayjs'
 
-import {ErrorObject} from 'api/Errors'
-import {EstimateFee, User} from 'api/Response'
 import {APP_BASE_URL} from 'config/environments'
 
-export function isUserConfirmed(user: User) {
-  return user && user.email_confirmed && user.kyc_status === 'approved'
-}
-
-export const isMfaRequired = (error: ErrorObject | null) => error && error.code === '005'
-
-export const formatEstimatePay = (object: EstimateFee): EstimateFee => ({
-  ...object,
-  received_amount: parseFloat(object?.received_amount as unknown as string).toFixed(4),
-  total_amount: parseFloat(object?.total_amount as unknown as string).toFixed(2),
-  dynamic_fee_amount: parseFloat(object?.dynamic_fee_amount as unknown as string).toFixed(4),
-})
+/**
+ * Shortens a given string by preserving a specified number of characters at both ends,
+ * while replacing the middle portion with ellipsis ('...').
+ *
+ * @param {string} input - The input string to be shortened.
+ * @param {number} preserve - The number of characters to preserve at the beginning and end of the input.
+ * @param {number} [ellipsis=3] - The number of ellipsis characters to use in the middle.
+ * @returns {string} The shortened string with ellipsis in the middle.
+ */
+export const shorten = (input: string, preserve: number = 3, ellipsis: number = 3): string =>
+  input.slice(0, preserve) + '.'.repeat(ellipsis) + input.slice(-preserve)
 
 /**
  * Shortens a given address string by replacing a portion of it with ellipsis ('...').
@@ -25,8 +22,8 @@ export const formatEstimatePay = (object: EstimateFee): EstimateFee => ({
  * @param {number} [preserve=5] - The number of characters to preserve at the beginning and end of the address.
  * @returns {string} The shortened address string with ellipsis in the middle.
  */
-export const shortAddress = (address: string, preserve: number = 5): string =>
-  address.slice(0, preserve) + '.'.repeat(3) + address.slice(-(preserve - 2))
+export const shortAddress = (address: string, preserve: number = 3): string =>
+  address.slice(0, 2) + shorten(address.slice(2), preserve, 3)
 
 export const makeReferralLink = (token: string) => {
   const rootUrl = APP_BASE_URL + `/invite?token=${token}`
@@ -46,19 +43,10 @@ export function getMonth(month: number, lang = 'en') {
  * @param {string | Date} date - The date to be formatted. It can be either a valid date string or a Date object.
  * @param {string} [format='MMM DD, YYYY, hh:mm A'] - The format to use for formatting the date.
  * @returns {string} The formatted date string.
- * @see {@link https://day.js.org/docs/en/display/format|Day.js Format Function Documentation}
+ * @see {@link https://day.js.org/docs/en/display/format Format Function Documentation}
  */
 export const formatDate = (date: string | Date, format: string = 'MMM DD, YYYY, hh:mm A'): string =>
   dayjs(date).format(format)
-
-// Please remove this method from utils
-export const updateWalletConnectTitle = (title?: string) => {
-  const prefix = title?.slice(0, 5)
-  const suffix = title?.slice(-4)
-
-  const masked = prefix + '.'.repeat(4) + suffix
-  return masked
-}
 
 /**
  * Adjusts the opacity (alpha channel) of a color.
@@ -69,3 +57,11 @@ export const updateWalletConnectTitle = (title?: string) => {
  */
 export const alpha = (color: string, opacity: number): string =>
   Color(color).alpha(opacity).toString()
+
+/**
+ * Capitalizes the first letter of a given string.
+ *
+ * @param {string} input - The input string to be capitalized.
+ * @returns {string} The input string with the first letter capitalized.
+ */
+export const capitalize = (input: string): string => input.charAt(0).toUpperCase() + input.slice(1)

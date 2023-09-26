@@ -27,7 +27,7 @@ const getStyles = ({colors, status}: {colors: Colors; status?: StatusMapper}) =>
     },
     success: {
       color: colors.textPrimary,
-      backgroundColor: colors.success,
+      backgroundColor: colors.tertiary,
     },
   }[status ?? 'default'])
 

@@ -8,7 +8,8 @@ import Hamburger from '@core/Hamburger'
 
 import Logo from 'components/Logo'
 import Profile from 'screens/profile'
-// import Affiliate from 'screens/affiliate'
+import {useProfile} from 'hooks/helper'
+import Affiliate from 'screens/affiliate'
 import {sessionParams, providerMetadata, projectId} from 'constants/wallet.config'
 
 import TabNavigator from './TabNavigator'
@@ -24,6 +25,7 @@ const DrawerNavigator = () => {
     theme: {colors},
   } = useTheme()
   const styles = useStyles()
+  const {profile} = useProfile()
   const {isConnected, provider} = useWalletConnectModal()
 
   return (
@@ -31,7 +33,7 @@ const DrawerNavigator = () => {
       <Drawer.Navigator
         id='drawer'
         drawerContent={DrawerContainer}
-        screenOptions={({navigation}: DrawerScreenProps<RouteStack>) => ({
+        screenOptions={({navigation, route}: DrawerScreenProps<RouteStack>) => ({
           headerTitle: '',
           headerStyle: styles.shadow,
           drawerLabelStyle: {marginLeft: -25},
@@ -39,7 +41,9 @@ const DrawerNavigator = () => {
           drawerInactiveTintColor: colors.textPrimary,
           headerLeftContainerStyle: {marginStart: 10},
           headerRightContainerStyle: {marginEnd: 10},
-          headerLeft: () => <Logo />,
+          headerLeft: () => (
+            <Logo onPress={() => route.name !== 'Home' && navigation.navigate('Home')} />
+          ),
           headerRight: () => (
             <View
               style={{
@@ -61,12 +65,13 @@ const DrawerNavigator = () => {
           options={{title: 'Dashboard', drawerIcon: props => <Icon name='dashboard' {...props} />}}
         />
 
-        {/* TODO! this will activate after first release */}
-        {/* <Drawer.Screen
-          name='Affiliates'
-          component={Affiliate}
-          options={{drawerIcon: props => <Icon name='supervised-user-circle' {...props} />}}
-        /> */}
+        {profile?.user_type === 'affiliate' && (
+          <Drawer.Screen
+            name='Affiliates'
+            component={Affiliate}
+            options={{drawerIcon: props => <Icon name='supervised-user-circle' {...props} />}}
+          />
+        )}
 
         <Drawer.Screen
           name='Settings'

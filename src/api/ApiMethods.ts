@@ -1,6 +1,6 @@
 import autoBind from 'auto-bind'
 
-import {formatEstimatePay} from 'utils'
+import {formatEstimatePay} from 'utils/response'
 
 import {
   LoginProps,
@@ -17,6 +17,7 @@ import {
   UserWalletProps,
   EstimateFeeProps,
   ProceedMfaProps,
+  PayoutCommissionProps,
 } from './Request'
 import ApiBase, {ApiBaseProps} from './Abstractions/ApiBase'
 import {
@@ -34,6 +35,9 @@ import {
   OrderHistory,
   CreateNewMfa,
   ProceedMfaResponse,
+  Commission,
+  CommissionPayout,
+  ReferralAccount,
 } from './Response'
 
 export default class ApiMethods extends ApiBase {
@@ -214,6 +218,25 @@ export default class ApiMethods extends ApiBase {
       meta: meta,
     }
   }
+
+  async getUserAffiliateCommission(id: number): Promise<Commission> {
+    const {commissions_account} = await this.get(`/users/${id}/commissions_account`)
+    return commissions_account
+  }
+
+  async commissionPayout(params: PayoutCommissionProps): Promise<CommissionPayout> {
+    return await this.post('/payouts', params)
+  }
+
+  async getReferralStats(id: number): Promise<ReferralAccount> {
+    const {referrals_stats, meta} = await this.get(`/users/${id}/referrals_stats`)
+
+    return {
+      data: referrals_stats,
+      meta: meta,
+    }
+  }
+
   async enableAffiliate(id: number): Promise<User> {
     const {user} = await this.post(`/users/${id}/enable_affiliate`)
     return user

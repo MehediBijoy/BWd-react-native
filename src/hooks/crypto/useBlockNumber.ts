@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import {GetBlockNumberReturnType} from 'viem'
 import {useQueryClient, useQuery, UseQueryOptions} from '@tanstack/react-query'
 
@@ -19,7 +19,7 @@ const useBlockNumber = ({
   const {publicClient} = useClient()
   const queryClient = useQueryClient()
 
-  const queryKey = ['blockNumber'] as const
+  const queryKey = React.useMemo(() => ['blockNumber'] as const, [])
   const queryFn = () => publicClient.getBlockNumber()
 
   React.useEffect(() => {
@@ -34,7 +34,7 @@ const useBlockNumber = ({
       emitOnBegin: true,
     })
     return unwatch
-  }, [onBlock, publicClient, watch, enabled])
+  }, [onBlock, publicClient, watch, enabled, queryClient, queryKey])
 
   return useQuery<GetBlockNumberReturnType>({
     queryKey,

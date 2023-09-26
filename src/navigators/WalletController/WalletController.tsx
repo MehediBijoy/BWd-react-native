@@ -1,4 +1,3 @@
-import Color from 'color'
 import * as yup from 'yup'
 import React from 'react'
 import {View} from 'react-native'
@@ -16,7 +15,8 @@ import {useApi} from 'hooks/api'
 import {User} from 'api/Response'
 import {ErrorObject} from 'api/Errors'
 import {UserWalletProps} from 'api/Request'
-import {shortAddress, isMfaRequired} from 'utils'
+import {shortAddress, alpha} from 'utils'
+import {isMfaRequired} from 'utils/response'
 import {useWalletController} from 'hooks/states'
 import {useProfile, useYupHooks} from 'hooks/helper'
 import {chain} from 'constants/wallet.config'
@@ -86,7 +86,7 @@ const WalletController = () => {
   React.useEffect(() => {
     subscribe(provider)
     return () => unsubscribe(provider)
-  }, [provider])
+  }, [provider, subscribe, unsubscribe])
 
   return (
     <>
@@ -113,7 +113,7 @@ const WalletController = () => {
         </Pressable>
 
         <Pressable
-          style={[styles.item, {backgroundColor: Color(theme.colors.error).alpha(0.1).toString()}]}
+          style={[styles.item, {backgroundColor: alpha(theme.colors.error, 0.1)}]}
           onPress={() => setIsDisconnectModal(true)}
         >
           <Icon name='exit-to-app' size={35} color={theme.colors.error} />
@@ -229,7 +229,7 @@ const useStyles = makeStyles(({colors}) => ({
     alignItems: 'center',
     paddingHorizontal: 20,
     color: colors.tertiary,
-    backgroundColor: Color(colors.tertiary).alpha(0.1).string(),
+    backgroundColor: alpha(colors.tertiary, 0.1),
   },
   text: {
     fontSize: 16,

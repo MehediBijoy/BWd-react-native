@@ -2,6 +2,10 @@ import {useState} from 'react'
 import {Icon, Text, makeStyles, Button} from '@rneui/themed'
 import {View} from 'react-native'
 import {WebView} from 'react-native-webview'
+import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs'
+import {useNavigation} from '@react-navigation/native'
+
+import {RouteStack} from 'navigators/routes'
 
 type PaypalViewProps = {
   data: {
@@ -15,6 +19,7 @@ type PaypalViewProps = {
 
 const PaypalView = ({data, onClose}: PaypalViewProps) => {
   const [isSuccess, setIsSuccess] = useState(false)
+  const navigation = useNavigation<BottomTabNavigationProp<RouteStack, 'Purchase'>>()
 
   const styles = useStyles()
 
@@ -42,7 +47,13 @@ const PaypalView = ({data, onClose}: PaypalViewProps) => {
         <View style={styles.successfulContainer}>
           <Icon name='check-circle' type='feather' size={80} color={styles.warnIcon.color} />
           <Text style={styles.successText}>Thanks!! Your payment is successful.</Text>
-          <Button title='OK' onPress={onClose} containerStyle={{minWidth: 100}} />
+          <Button
+            title='OK'
+            onPress={() => {
+              navigation.navigate('Transactions')
+            }}
+            containerStyle={{minWidth: 100}}
+          />
         </View>
       )}
     </View>

@@ -1,11 +1,12 @@
 import React from 'react'
-import Color from 'color'
 import Modal from 'react-native-modal'
 import {View, TouchableOpacity} from 'react-native'
 import {Icon, Text, makeStyles, Divider} from '@rneui/themed'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
 
 import type {ModalProps} from '@core/Modal'
+
+import {alpha} from 'utils'
 
 const BottomSheet = ({title, children, isOpened, onClose, style}: ModalProps) => {
   const styles = useStyles()
@@ -64,7 +65,7 @@ const useStyles = makeStyles(({colors}) => ({
     alignItems: 'center',
     justifyContent: 'center',
     color: colors.error,
-    backgroundColor: Color(colors.error).alpha(0.2).toString(),
+    backgroundColor: alpha(colors.error, 0.2),
   },
   children: {
     padding: 15,

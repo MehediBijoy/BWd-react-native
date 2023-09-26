@@ -26,7 +26,7 @@ const useSocket = () => {
     const url =
       token && `${BASE_URL.replace('http', 'ws')}/cable?token=${token.split(' ').pop()}&scope=user`
     return createConsumer(url)
-  }, [])
+  }, [token])
 
   const subscribe = React.useCallback(
     (channelName: ChannelProps, callback: CallbackProps) => {
@@ -56,7 +56,7 @@ const useSocket = () => {
 
   // disconnect action cable when
   // unmount component/screen
-  React.useEffect(() => () => actionCable.disconnect(), [])
+  React.useEffect(() => () => actionCable.disconnect(), [actionCable])
 
   return {subscribe, unsubscribe}
 }

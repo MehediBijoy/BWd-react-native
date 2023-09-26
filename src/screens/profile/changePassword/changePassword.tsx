@@ -14,7 +14,7 @@ import {useApi} from 'hooks/api'
 import {ErrorObject} from 'api/Errors'
 import {Success} from 'api/Response'
 import {ChangePasswordProps} from 'api/Request'
-import {isMfaRequired} from 'utils'
+import {isMfaRequired} from 'utils/response'
 
 const changePasswordSchema = yup.object().shape({
   mfa_code: yup.string().max(6, '2FA code Must 6 digits').min(6, '2FA code Must 6 digits'),

@@ -1,8 +1,9 @@
 import React from 'react'
-import Color from 'color'
 import ModalBase from 'react-native-modal'
 import {Icon, Text, makeStyles} from '@rneui/themed'
 import {View, ViewStyle, TouchableOpacity} from 'react-native'
+
+import {alpha} from 'utils'
 
 export type ModalProps = {
   title: string | JSX.Element
@@ -69,7 +70,7 @@ const useStyles = makeStyles(({colors}) => ({
     alignItems: 'center',
     justifyContent: 'center',
     color: colors.error,
-    backgroundColor: Color(colors.error).alpha(0.2).toString(),
+    backgroundColor: alpha(colors.error, 0.2),
   },
 }))
 
