@@ -71,33 +71,38 @@ const OrderDetailsModal = ({data, isOpened, onClose}: OrderDetailsModalProps) =>
               <View style={styles.row}>
                 <Text style={styles.label}>Sender</Text>
                 <Text style={[styles.labelRight]}>
-                  {shortAddress(data.transfer.sender ? data.transfer.sender : '-', 8)}
+                  {data.transfer.sender ? shortAddress(data.transfer.sender, 8) : '-'}
                 </Text>
-
-                <View style={{alignItems: 'flex-end'}}>
-                  <CopyButton toCopy={data.transfer.sender ? data.transfer.sender : '-'} />
-                </View>
+                {data.transfer.sender && (
+                  <View style={{alignItems: 'flex-end'}}>
+                    <CopyButton toCopy={data.transfer.sender} />
+                  </View>
+                )}
               </View>
 
               <View style={styles.row}>
                 <Text style={styles.label}>Recipient</Text>
-                <Text style={[styles.labelRight]}>
-                  {shortAddress(data.transfer.recipient ? data.transfer.recipient : '-', 8)}
-                </Text>
 
-                <View style={{alignItems: 'flex-end'}}>
-                  <CopyButton toCopy={data.transfer.recipient ? data.transfer.recipient : '-'} />
-                </View>
+                <Text style={[styles.labelRight]}>
+                  {data.transfer.recipient ? shortAddress(data.transfer.recipient, 8) : '-'}
+                </Text>
+                {data.transfer.recipient && (
+                  <View style={{alignItems: 'flex-end'}}>
+                    <CopyButton toCopy={data.transfer.recipient} />
+                  </View>
+                )}
               </View>
 
               <View style={styles.row}>
                 <Text style={styles.label}>Tx Hash</Text>
                 <Text style={[styles.labelRight]}>
-                  {shortAddress(data.transfer.tx_hash ? data.transfer.tx_hash : '-', 8)}
+                  {data.transfer.tx_hash ? shortAddress(data.transfer.tx_hash, 8) : '-'}
                 </Text>
-                <View style={{alignItems: 'flex-end'}}>
-                  <CopyButton toCopy={data.transfer.tx_hash ? data.transfer.tx_hash : '-'} />
-                </View>
+                {data.transfer.tx_hash && (
+                  <View style={{alignItems: 'flex-end'}}>
+                    <CopyButton toCopy={data.transfer.tx_hash} />
+                  </View>
+                )}
               </View>
             </>
           )}
