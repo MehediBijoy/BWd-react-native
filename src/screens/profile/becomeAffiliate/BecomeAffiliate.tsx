@@ -1,6 +1,6 @@
 import React from 'react'
-import {Image, Text, Button, makeStyles} from '@rneui/themed'
-import {ActivityIndicator, ScrollView, View} from 'react-native'
+import {Image, Text, Button, Tooltip, makeStyles} from '@rneui/themed'
+import {ActivityIndicator, Linking, ScrollView, TouchableOpacity, View} from 'react-native'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {useMutation, useQueryClient} from '@tanstack/react-query'
 import {NativeStackScreenProps} from '@react-navigation/native-stack'
@@ -29,12 +29,8 @@ const BecomeAffiliate = ({navigation}: NativeStackScreenProps<RouteStack>) => {
 
   const client = useQueryClient()
   const [isChecked, SetIsChecked] = React.useState(false)
-  const [isDisabled, setIsDisabled] = React.useState(false)
-
-  const isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}: any) => {
-    const paddingToBottom = 20
-    return layoutMeasurement.height + contentOffset.y >= contentSize.height - paddingToBottom
-  }
+  const [isDisabled, setIsDisabled] = React.useState(true)
+  const [tooltipVisible, setTooltipVisible] = React.useState(false)
 
   const {mutate: enableAffiliate, isLoading} = useMutation<User, ErrorObject, any, any>({
     mutationFn: api.enableAffiliate,
@@ -44,6 +40,15 @@ const BecomeAffiliate = ({navigation}: NativeStackScreenProps<RouteStack>) => {
       navigation.navigate('Settings')
     },
   })
+
+  const handleCheckBox = () => {
+    if (isDisabled) {
+      setTooltipVisible(true)
+      setTimeout(() => setTooltipVisible(false), 2000)
+    } else {
+      SetIsChecked(!isChecked)
+    }
+  }
 
   return (
     <ScrollView nestedScrollEnabled={true}>
@@ -128,71 +133,35 @@ const BecomeAffiliate = ({navigation}: NativeStackScreenProps<RouteStack>) => {
         <View style={styles.accordionWrapper}>
           <Accordion data={poolConfig} />
         </View>
-        <Text style={styles.title}>Affiliate Terms & Conditions</Text>
 
-        <View style={{marginTop: 10, height: 300}}>
-          <ScrollView
-            style={styles.termsConditionText}
-            nestedScrollEnabled={true}
-            onScroll={({nativeEvent}) => {
-              if (isCloseToBottom(nativeEvent)) {
-                setIsDisabled(true)
-              }
+        <TouchableOpacity activeOpacity={0.8}>
+          <Text
+            style={styles.link}
+            onPress={() => {
+              Linking.openURL('https://brettonwoods.gold/documents/affiliate_agreement.pdf')
+              setIsDisabled(false)
             }}
           >
-            <Text>
-              Ad occaecat laborum reprehenderit velit nulla. Laborum reprehenderit velit, nulla
-              ipsum deserunt. Nulla ipsum deserunt cupidatat. Deserunt cupidatat sed laboris. Sed
-              laboris deserunt pariatur. Deserunt pariatur do exercitation officia commodo duis. Do,
-              exercitation officia commodo duis sed ullamco sunt. Commodo duis sed ullamco sunt.
-            </Text>
-            <Text>
-              Sed ullamco sunt consectetur laborum nostrud. Sunt consectetur laborum, nostrud veniam
-              labore qui quis. Ad occaecat laborum reprehenderit velit nulla. Laborum reprehenderit
-              velit, nulla ipsum deserunt. Nulla ipsum deserunt cupidatat. Deserunt cupidatat sed
-              laboris.
-            </Text>
-            <Text>
-              Sed laboris deserunt pariatur. Deserunt pariatur do exercitation officia commodo duis.
-              Do, exercitation officia commodo duis sed ullamco sunt. Commodo duis sed ullamco sunt.
-              Sed ullamco sunt consectetur laborum nostrud. Sunt consectetur laborum, nostrud veniam
-              labore qui quis.
-            </Text>
-            <Text>
-              Sed laboris deserunt pariatur. Deserunt pariatur do exercitation officia commodo duis.
-              Do, exercitation officia commodo duis sed ullamco sunt. Commodo duis sed ullamco sunt.
-              Sed ullamco sunt consectetur laborum nostrud. Sunt consectetur laborum, nostrud veniam
-              labore qui quis.
-            </Text>
-            <Text>
-              Sed laboris deserunt pariatur. Deserunt pariatur do exercitation officia commodo duis.
-              Do, exercitation officia commodo duis sed ullamco sunt. Commodo duis sed ullamco sunt.
-              Sed ullamco sunt consectetur laborum nostrud. Sunt consectetur laborum, nostrud veniam
-              labore qui quis.
-            </Text>
-          </ScrollView>
-        </View>
-        <Text style={{fontSize: 15, marginVertical: 10}}>
-          Be one of the first affiliates to secure your place and embark on a journey towards a
-          solid passive income. Join us today and let&apos;s unlock your potential together!
-        </Text>
+            Download Affiliate Terms & Conditions
+          </Text>
+        </TouchableOpacity>
+
+        {tooltipVisible && (
+          <Tooltip
+            width={320}
+            visible
+            popover={
+              <Text style={[styles.tooltipText]}>Please download affiliate trams & conditions</Text>
+            }
+            onClose={() => setTooltipVisible(false)}
+          />
+        )}
 
         <CheckBox
           checked={isChecked}
-          title={
-            <View style={{alignItems: 'baseline', alignContent: 'center'}}>
-              <Text style={{marginStart: 10, fontSize: 16}}>By signing up you agree to our</Text>
-            </View>
-          }
-          disabled={!isDisabled}
-          onPress={() => SetIsChecked(!isChecked)}
+          title='Agree with affiliate Terms & Conditions'
+          onPress={() => handleCheckBox()}
         />
-
-        <View style={{flexDirection: 'column', rowGap: 5, marginLeft: 35}}>
-          <Text style={styles.link}>
-            Whitepaper, Legal Notice, User Agreement, Privacy Statement, Terms & Conditions
-          </Text>
-        </View>
 
         <Button
           loading={isLoading}
@@ -239,9 +208,14 @@ const useStyle = makeStyles(({colors}) => ({
   },
   link: {
     color: colors.tertiary,
+    fontSize: 16,
+    marginVertical: 20,
   },
   accordionWrapper: {
     marginVertical: 10,
+  },
+  tooltipText: {
+    color: colors.textReverse,
   },
 }))
 
