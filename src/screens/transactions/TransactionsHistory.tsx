@@ -51,7 +51,7 @@ const TransactionsHistory = () => {
       received({data: socketData}) {
         queryClient.setQueryData<Partial<OrderHistory>>([cacheKey.orderHistory], orders => {
           const data = orders?.data?.map(item =>
-            item.id === socketData.payment_id ? {...item, transfer: socketData} : item
+            item.id === socketData?.payment_id ? {...item, transfer: socketData} : item
           )
           return {data, meta: orders?.meta}
         })
@@ -61,47 +61,12 @@ const TransactionsHistory = () => {
 
   return (
     <>
-      <View style={[styles.container, styles.tableBorder]}>
-        <View style={[styles.headerRow]}>
+      <View style={[styles.container]}>
+        <View style={[styles.tableRow, styles.headerRow]}>
           <Text style={styles.cellDetails}>Description</Text>
           <Text style={styles.cellStatus}>Status</Text>
-          <Text style={[styles.cellDate]}>Date</Text>
+          <Text style={[styles.cellDate, styles.rowText]}>Date</Text>
         </View>
-        {orderHistory?.data.length == 0 ? (
-          <View style={styles.emptyRow}>
-            <Text style={styles.emptyRowText}>No data found</Text>
-          </View>
-        ) : (
-          orderHistory?.data.map((item, index) => (
-            <TouchableOpacity
-              activeOpacity={0.8}
-              key={index}
-              style={index === orderHistory?.data.length - 1 ? styles.rowWithRadius : styles.row}
-              onPress={() => setSelectedId(item.id)}
-            >
-              <View style={styles.cellDetails}>
-                <Text style={styles.titleText}>#Order: {item.id}</Text>
-                <Text style={styles.subText}>
-                  <Text style={styles.labelText}>Paid Amount:</Text> {item.paid_amount}{' '}
-                </Text>
-                <Text style={styles.subText}>
-                  <Text style={styles.labelText}>Received Amount:</Text> {item.received_amount}{' '}
-                </Text>
-                <Text style={styles.subText}>
-                  <Text style={styles.labelText}>Payment Method:</Text> {item.payment_type}{' '}
-                </Text>
-              </View>
-              <View style={styles.cellStatus}>
-                <Text style={styles.textStatus}>{item.transfer ? 'Transfer' : 'Payment'}</Text>
-                <StatusBadge status={item.transfer?.status ?? item.status} />
-              </View>
-              <View style={styles.cellDate}>
-                <Text style={styles.textDate}>{formatDate(item.created_at, 'hh:mm A')}</Text>
-                <Text style={styles.textDate}>{formatDate(item.created_at, 'MMM DD,YYYY')}</Text>
-              </View>
-            </TouchableOpacity>
-          ))
-        )}
 
         {isLoading && (
           <ActivityIndicator
@@ -109,6 +74,47 @@ const TransactionsHistory = () => {
             size='large'
             color={theme.colors.primary}
           />
+        )}
+        {!isLoading && orderHistory && orderHistory.data && orderHistory.data.length !== 0 ? (
+          orderHistory.data.map((item, index) => (
+            <TouchableOpacity
+              activeOpacity={0.8}
+              key={index}
+              style={[
+                styles.tableRow,
+                index === orderHistory.data.length - 1 ? styles.bottomRow : styles.bodyRow,
+              ]}
+              onPress={() => setSelectedId(item.id)}
+            >
+              <View style={styles.cellDetails}>
+                <Text style={[styles.rowText, styles.titleText]}>#Order: {item.id}</Text>
+                <Text style={styles.rowText}>
+                  <Text style={[styles.rowText, styles.labelText]}>Paid Amount:</Text>
+                  {item.paid_amount}
+                </Text>
+                <Text style={styles.rowText}>
+                  <Text style={styles.labelText}>Received Amount:</Text> {item.received_amount}
+                </Text>
+                <Text style={styles.rowText}>
+                  <Text style={styles.labelText}>Payment Method:</Text> {item.payment_type}
+                </Text>
+              </View>
+              <View style={styles.cellStatus}>
+                <Text style={[styles.rowText, {marginBottom: 5}]}>
+                  {item.transfer.status ? 'Transfer' : 'Payment'}
+                </Text>
+                <StatusBadge status={item.transfer?.status ?? item.status} />
+              </View>
+              <View style={styles.cellDate}>
+                <Text style={styles.rowText}>{formatDate(item.created_at, 'hh:mm A')}</Text>
+                <Text style={styles.rowText}>{formatDate(item.created_at, 'MMM DD,YYYY')}</Text>
+              </View>
+            </TouchableOpacity>
+          ))
+        ) : (
+          <View style={[styles.tableRow, styles.emptyRow]}>
+            <Text>No data found</Text>
+          </View>
         )}
       </View>
 
@@ -125,93 +131,60 @@ const useStyles = makeStyles(({colors}) => ({
   container: {
     backgroundColor: colors.background,
     marginVertical: 10,
-  },
-  tableBorder: {
+    borderRadius: 8,
     borderWidth: 1,
     borderColor: colors.border,
-    borderRadius: 8,
   },
-  emptyRow: {
-    padding: 5,
-    backgroundColor: colors.background,
-    height: 40,
-    borderBottomLeftRadius: 8,
-    borderBottomRightRadius: 8,
-  },
-  emptyRowText: {
-    textAlign: 'center',
-    marginTop: 5,
-  },
-  headerRow: {
-    padding: 5,
-    backgroundColor: colors.bgPaper,
+  tableRow: {
+    padding: 10,
     height: 40,
     flexDirection: 'row',
     alignItems: 'center',
-    borderBottomWidth: 1,
-    borderColor: colors.divider,
+    backgroundColor: colors.background,
+  },
+  headerRow: {
+    backgroundColor: colors.bgPaper,
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
   },
-  row: {
-    padding: 5,
+  emptyRow: {
+    justifyContent: 'center',
+    borderBottomLeftRadius: 8,
+    borderBottomRightRadius: 8,
+  },
+  bodyRow: {
     height: 90,
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: colors.background,
     borderBottomWidth: 1,
     borderColor: colors.divider,
   },
-  rowWithRadius: {
-    padding: 5,
+  bottomRow: {
     height: 90,
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: colors.background,
     borderBottomLeftRadius: 8,
     borderBottomRightRadius: 8,
+  },
+  rowText: {
+    fontSize: 12,
+    color: colors.textPrimary,
   },
   cellDate: {
     alignItems: 'flex-end',
     textAlign: 'right',
     width: '22%',
-    fontSize: 12,
-    color: colors.textPrimary,
-  },
-  textDate: {
-    fontSize: 12,
-    color: colors.textPrimary,
   },
   cellDetails: {
-    paddingLeft: 5,
     textAlign: 'left',
     width: '53%',
-    color: colors.textPrimary,
   },
   cellStatus: {
     textAlign: 'center',
     alignItems: 'center',
     width: '25%',
-    fontSize: 12,
-    color: colors.textPrimary,
-  },
-  textStatus: {
-    fontSize: 12,
-    marginBottom: 5,
-    color: colors.textPrimary,
-  },
-  subText: {
-    fontSize: 11,
-    color: colors.textPrimary,
   },
   titleText: {
     fontSize: 14,
     fontWeight: '700',
-    color: colors.tertiary,
   },
   labelText: {
-    fontSize: 12,
     fontWeight: '700',
-    color: colors.textPrimary,
   },
 }))

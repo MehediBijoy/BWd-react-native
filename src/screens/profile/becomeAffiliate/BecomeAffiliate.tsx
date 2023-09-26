@@ -1,7 +1,8 @@
 import React from 'react'
-import {useMutation, useQueryClient} from '@tanstack/react-query'
 import {Image, Text, Button, makeStyles} from '@rneui/themed'
 import {ActivityIndicator, ScrollView, View} from 'react-native'
+import {useSafeAreaInsets} from 'react-native-safe-area-context'
+import {useMutation, useQueryClient} from '@tanstack/react-query'
 import {NativeStackScreenProps} from '@react-navigation/native-stack'
 
 import CheckBox from '@core/CheckBox'
@@ -12,11 +13,11 @@ import {useApi} from 'hooks/api'
 import {User} from 'api/Response'
 import {ErrorObject} from 'api/Errors'
 import {useProfile} from 'hooks/helper'
+import {RouteStack} from 'navigators/routes'
 import affiliateTreeImg from 'images/affiliates/affiliate-tree.png'
 import affiliateLevelImg from 'images/affiliates/affiliate-level.png'
 import affiliatePoolsImg from 'images/affiliates/affiliate-pools.png'
 import affiliateNetworkImg from 'images/affiliates/affiliate-network.png'
-import {RouteStack} from 'navigators/routes'
 
 import {howItWorks, benefitsConfig, poolConfig} from './accordian.config'
 
@@ -24,6 +25,7 @@ const BecomeAffiliate = ({navigation}: NativeStackScreenProps<RouteStack>) => {
   const styles = useStyle()
   const api = useApi()
   const {profile, setProfile} = useProfile()
+  const {bottom: bottomInset} = useSafeAreaInsets()
 
   const client = useQueryClient()
   const [isChecked, SetIsChecked] = React.useState(false)
@@ -45,7 +47,7 @@ const BecomeAffiliate = ({navigation}: NativeStackScreenProps<RouteStack>) => {
 
   return (
     <ScrollView nestedScrollEnabled={true}>
-      <View style={styles.container}>
+      <View style={[styles.container, {paddingBottom: bottomInset}]}>
         <Text style={styles.title}>
           Join Our Affiliate Program and Unlock Your Potential with Bretton Woods AG{' '}
         </Text>
