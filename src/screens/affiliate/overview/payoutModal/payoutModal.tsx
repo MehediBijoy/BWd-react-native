@@ -68,7 +68,7 @@ const PayoutModal = ({
     } else {
       methods.setValue('address', '')
     }
-  }, [isSaveAddress])
+  }, [isSaveAddress, methods, profile?.payout_address])
 
   const {mutate, isLoading} = useMutation({
     mutationFn: api.commissionPayout,
