@@ -46,7 +46,7 @@ const ReferralInfoBox = ({navigation}: ReferralInfoBoxProps) => {
         <Button
           title='Become An Affiliate'
           onPress={() => navigation.navigate('ProfileBecomeAffiliate')}
-          containerStyle={{minHeight: 40}}
+          containerStyle={{minHeight: 40, marginTop: 20}}
         />
       )}
     </View>
