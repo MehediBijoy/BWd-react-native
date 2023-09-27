@@ -1,16 +1,20 @@
+import React from 'react'
 import {
   DrawerItemList,
   DrawerContentScrollView,
   DrawerContentComponentProps,
 } from '@react-navigation/drawer'
-import {View, Pressable} from 'react-native'
-import LinearGradient from 'react-native-linear-gradient'
-import {Text, makeStyles, useTheme, Icon} from '@rneui/themed'
+import {View} from 'react-native'
 import {useQuery} from '@tanstack/react-query'
+import LinearGradient from 'react-native-linear-gradient'
+import Clipboard from '@react-native-clipboard/clipboard'
+import {Text, makeStyles, useTheme, Icon} from '@rneui/themed'
 import {useWalletConnectModal} from '@walletconnect/modal-react-native'
 
+import Pressable from '@core/Pressable'
 import SafeAreaView from '@core/SafeAreaView'
 
+import {makeReferralLink} from 'utils'
 import {useBalance} from 'hooks/crypto'
 import Logo from 'components/Logo'
 import {useProfile} from 'hooks/helper'
@@ -24,6 +28,8 @@ const DrawerContainer = (props: DrawerContentComponentProps) => {
   const {profile} = useProfile()
   const onUnauthorized = useOnUnauthorized()
 
+  const [isCopied, setIsCopied] = React.useState<boolean>(false)
+
   const {data: userDetails} = useQuery({
     queryKey: [cacheKey.userDetails, profile?.id],
     queryFn: () => api.getUserInfo(profile?.id as number),
@@ -32,6 +38,12 @@ const DrawerContainer = (props: DrawerContentComponentProps) => {
 
   const {balance: BwgBalance} = useBalance({token: 'BWG', watch: true})
   const {isConnected} = useWalletConnectModal()
+
+  const copyReferral = () => {
+    setIsCopied(true)
+    setTimeout(() => setIsCopied(false), 1000)
+    Clipboard.setString(makeReferralLink(profile?.referral_token as string))
+  }
 
   return (
     <SafeAreaView edges={['bottom']}>
@@ -52,9 +64,9 @@ const DrawerContainer = (props: DrawerContentComponentProps) => {
           <DrawerItemList {...props} />
         </DrawerContentScrollView>
         <View style={styles.footer}>
-          <Pressable style={styles.footerItem}>
+          <Pressable style={styles.footerItem} onPress={copyReferral}>
             <Icon name='share' />
-            <Text style={styles.footerText}>Refer a friend</Text>
+            <Text style={styles.footerText}>{isCopied ? 'Link copied' : 'Refer a friend'}</Text>
           </Pressable>
           <Pressable style={styles.footerItem} onPress={() => onUnauthorized()}>
             <Icon name='logout' />
