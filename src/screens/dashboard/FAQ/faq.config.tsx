@@ -1,3 +1,12 @@
+import {Text} from '@rneui/themed'
+
+const connectionReason = [
+  'If you are having trouble connecting your wallet, either not being redirected back from the wallet to our application or not getting the connection dialogue please try the following steps. \n',
+  '1. Close the Bretton Woods Gold app and open it again, then try to connect your wallet again \n',
+  '2. If that did not resolve it please try closing the app and wallet and try to connect again \n',
+  '3.If you are facing persistent issues and the steps above did not resolve it, please contact our support and supply the details of your error, wallet of choice and phone, to receive personalised support',
+]
+
 export const config = [
   {
     id: 1,
@@ -16,5 +25,18 @@ export const config = [
     title: 'How do I pay with Crypto tokens?',
     description:
       'Currently, payment with cryptocurrencies is not possible. As soon as we receive regulatory permission, we will accept common stablecoins. To pay with crypto tokens, you need to have BNB in your wallet to pay blockchain transfer fees for a transaction as well as the stablecoin you mean to pay with.',
+  },
+  {
+    id: 4,
+    title: 'I am having trouble connecting my wallet',
+    description: (
+      <>
+        {connectionReason.map((item, index) => (
+          <Text key={index} style={{lineHeight: 20}}>
+            {item}
+          </Text>
+        ))}
+      </>
+    ),
   },
 ]

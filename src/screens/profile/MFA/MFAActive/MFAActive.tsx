@@ -116,11 +116,7 @@ const MFAActive = ({navigation}: MfaActiveProps) => {
           <Form methods={methods} style={styles.form}>
             <FormInput label='2FA Code' name='mfa_code' placeholder='xxx xxx' />
 
-            <Button
-              title='Activate 2FA'
-              containerStyle={{maxWidth: '50%'}}
-              onPress={methods.handleSubmit(onSubmit)}
-            />
+            <Button title='Activate 2FA' onPress={methods.handleSubmit(onSubmit)} />
             {error && <Text style={styles.error}>{error.message}</Text>}
           </Form>
         </View>

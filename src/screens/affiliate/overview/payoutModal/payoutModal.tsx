@@ -111,12 +111,7 @@ const PayoutModal = ({
               <FormCheckBox name='use_saved_address' title='Use previous address' />
             )}
             <FormInput name='mfa_code' label='2FA Code' placeholder='xxx xxx' />
-            <Button
-              title='Submit'
-              loading={isLoading}
-              containerStyle={{maxWidth: '50%'}}
-              onPress={methods.handleSubmit(submit)}
-            />
+            <Button title='Submit' loading={isLoading} onPress={methods.handleSubmit(submit)} />
           </Form>
         </View>
       ) : (
@@ -126,7 +121,7 @@ const PayoutModal = ({
           </Text>
           <Button
             title='Enable 2FA'
-            containerStyle={{marginTop: 20, maxWidth: '50%'}}
+            containerStyle={{marginTop: 20}}
             onPress={() => {
               onClose()
               navigation.navigate('ProfileMFA')

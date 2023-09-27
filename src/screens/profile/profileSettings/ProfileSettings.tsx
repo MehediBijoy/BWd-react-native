@@ -22,7 +22,7 @@ const ProfileSettings = ({userInfo}: ProfileSettingsProps) => {
           <Text style={styles.boldText}>{userInfo?.email}</Text>
         </View>
         <Link to={{screen: 'ProfileEmailChange'}} style={styles.linkWrapper}>
-          <Text style={styles.editText}> Edit</Text>
+          Edit
         </Link>
       </View>
       <View style={styles.wrapper}>
@@ -31,7 +31,7 @@ const ProfileSettings = ({userInfo}: ProfileSettingsProps) => {
           <Text style={styles.boldText}>********</Text>
         </View>
         <Link to={{screen: 'ProfilePasswordChange'}} style={styles.linkWrapper}>
-          <Text style={styles.editText}> Edit</Text>
+          Edit
         </Link>
       </View>
 
@@ -46,7 +46,7 @@ const ProfileSettings = ({userInfo}: ProfileSettingsProps) => {
 
         {/*Note: This functionality will be add in future  */}
         <Link to={{screen: 'ProfileMFA'}} style={[styles.linkWrapper]}>
-          <Text style={[styles.editText]}> Edit </Text>
+          Edit
         </Link>
       </View>
 
@@ -91,14 +91,9 @@ const useStyles = makeStyles(({colors}) => ({
     fontWeight: '700',
   },
   linkWrapper: {
-    width: 40,
     color: colors.tertiary,
     backgroundColor: colors.bgPaper,
     padding: 5,
     borderRadius: 6,
-  },
-  editText: {
-    textAlign: 'center',
-    color: colors.tertiary,
   },
 }))

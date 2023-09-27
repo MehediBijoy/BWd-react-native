@@ -61,12 +61,7 @@ const ChangeEmail = ({navigation}: NativeStackScreenProps<RouteStack>) => {
         {isMfaRequired(error) && error?.message !== '2FA code is not present' && (
           <Text style={styles.error}>{error?.message}</Text>
         )}
-        <Button
-          title='Change Email'
-          loading={isLoading}
-          containerStyle={{maxWidth: '50%'}}
-          onPress={methods.handleSubmit(onSubmit)}
-        />
+        <Button title='Change Email' loading={isLoading} onPress={methods.handleSubmit(onSubmit)} />
       </Form>
 
       <EmailConfirmationModal isOpened={isModalOpened} onClose={onClose} />
