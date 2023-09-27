@@ -53,7 +53,7 @@ const AvailableBalanceRow = ({asset, logo, data, isLoading}: AvailableBalanceRow
     <View style={styles.assetGrid}>
       <View style={styles.iconBox}>
         {logo}
-        <Text h4 h4Style={{fontSize: 15, fontWeight: '700'}}>
+        <Text h4 h4Style={{fontSize: 14, fontWeight: '700'}}>
           {asset}
         </Text>
       </View>
@@ -97,6 +97,7 @@ const useStyles = makeStyles(({colors}) => ({
   },
   iconBox: {
     display: 'flex',
+    flexWrap: 'wrap',
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',

@@ -1,6 +1,6 @@
 import React from 'react'
 import * as yup from 'yup'
-import {ScrollView} from 'react-native'
+import {ScrollView, Linking} from 'react-native'
 import {useMutation} from '@tanstack/react-query'
 import {Text, Button, makeStyles} from '@rneui/themed'
 
@@ -155,9 +155,36 @@ const RegisterForm = () => {
               title={
                 <Text style={styles.checkboxTitle}>
                   By signing up you agree to our
-                  <Text style={styles.link}> Terms & Conditions</Text>
-                  <Text style={styles.link}> Privacy Statement</Text> and
-                  <Text style={styles.link}> User Agreement</Text>
+                  <Text
+                    style={styles.link}
+                    onPress={() =>
+                      Linking.openURL(
+                        'https://brettonwoods.gold/documents/terms_and_conditions.pdf'
+                      )
+                    }
+                  >
+                    {' '}
+                    Terms & Conditions
+                  </Text>
+                  <Text
+                    style={styles.link}
+                    onPress={() =>
+                      Linking.openURL('https://brettonwoods.gold/documents/privacy_statement.pdf')
+                    }
+                  >
+                    {' '}
+                    Privacy Statement
+                  </Text>{' '}
+                  and
+                  <Text
+                    style={styles.link}
+                    onPress={() =>
+                      Linking.openURL('https://brettonwoods.gold/documents/user_agreement.pdf')
+                    }
+                  >
+                    {' '}
+                    User Agreement
+                  </Text>
                 </Text>
               }
               color='bgPaper'

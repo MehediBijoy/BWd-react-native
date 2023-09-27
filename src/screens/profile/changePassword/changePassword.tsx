@@ -90,7 +90,6 @@ const ChangePassword = ({navigation}: NativeStackScreenProps<RouteStack>) => {
         <Button
           title='Update Password'
           loading={isLoading}
-          containerStyle={{maxWidth: '50%'}}
           onPress={methods.handleSubmit(handleSubmit)}
         />
       </Form>
