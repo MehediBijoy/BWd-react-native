@@ -67,7 +67,7 @@ const FiatPaymentModal = ({estimateFees, isOpened, onClose, in_base}: FiatPaymen
 
       <Text style={styles.grid}>
         You are paying up front for {estimateFees?.storage_fee_remaining_days} days of storage for
-        your gold backing the token. The cost for this are
+        your gold backing the token. The cost for this are{' '}
         {parseFloat(estimateFees?.storage_fee_amount).toFixed(4)} BWG tokens.
       </Text>
 

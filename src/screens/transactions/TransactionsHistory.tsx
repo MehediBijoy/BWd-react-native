@@ -101,7 +101,7 @@ const TransactionsHistory = () => {
               </View>
               <View style={styles.cellStatus}>
                 <Text style={[styles.rowText, {marginBottom: 5}]}>
-                  {item.transfer.status ? 'Transfer' : 'Payment'}
+                  {item.transfer?.status ? 'Transfer' : 'Payment'}
                 </Text>
                 <StatusBadge status={item.transfer?.status ?? item.status} />
               </View>

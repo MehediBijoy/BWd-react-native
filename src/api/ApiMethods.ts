@@ -212,7 +212,7 @@ export default class ApiMethods extends ApiBase {
   }
 
   async getOrders(): Promise<OrderHistory> {
-    const {payments, meta} = await this.get('/payments')
+    const {payments, meta} = await this.get('/payments', {page: 1, limit: 100})
     return {
       data: payments,
       meta: meta,
@@ -229,7 +229,10 @@ export default class ApiMethods extends ApiBase {
   }
 
   async getReferralStats(id: number): Promise<ReferralAccount> {
-    const {referrals_stats, meta} = await this.get(`/users/${id}/referrals_stats`)
+    const {referrals_stats, meta} = await this.get(`/users/${id}/referrals_stats`, {
+      page: 1,
+      limit: 100,
+    })
 
     return {
       data: referrals_stats,
