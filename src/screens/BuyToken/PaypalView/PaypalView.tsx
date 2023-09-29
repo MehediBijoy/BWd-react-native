@@ -46,7 +46,7 @@ const PaypalView = ({data, onClose}: PaypalViewProps) => {
       ) : (
         <View style={styles.successfulContainer}>
           <Icon name='check-circle' type='feather' size={80} color={styles.warnIcon.color} />
-          <Text style={styles.successText}>Thanks!! Your payment is successful.</Text>
+          <Text style={styles.successText}>Thanks! Your payment was successful.</Text>
           <Button
             title='OK'
             onPress={() => {
