@@ -108,7 +108,7 @@ const PayoutModal = ({
               editable={isSaveAddress ? false : true}
             />
             {profile?.payout_address && (
-              <FormCheckBox name='use_saved_address' title='Use previous address' />
+              <FormCheckBox name='use_saved_address' label='Use previous address' />
             )}
             <FormInput name='mfa_code' label='2FA Code' placeholder='xxx xxx' />
             <Button title='Submit' loading={isLoading} onPress={methods.handleSubmit(submit)} />

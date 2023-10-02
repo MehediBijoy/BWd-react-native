@@ -4,20 +4,21 @@ import CheckBox, {CheckBoxProps} from '../CheckBox'
 
 type FormCheckBoxProps = {
   name: string
-} & Omit<CheckBoxProps, 'checked'>
+} & Omit<CheckBoxProps, 'checked' | 'onPress'>
 
-const FormCheckBox = ({name, title, ...props}: FormCheckBoxProps) => {
+const FormCheckBox = ({name, label, ...props}: FormCheckBoxProps) => {
   const {control} = useFormContext()
+
   return (
     <Controller
       name={name}
       control={control}
       render={({field, fieldState}) => (
         <CheckBox
-          title={title}
+          label={label}
           checked={field.value}
           error={Boolean(fieldState.error)}
-          onIconPress={() => field.onChange(!field.value)}
+          onPress={() => field.onChange(!field.value)}
           onBlur={field.onBlur}
           {...props}
         />
