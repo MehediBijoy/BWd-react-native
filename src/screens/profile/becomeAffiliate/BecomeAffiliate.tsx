@@ -162,7 +162,7 @@ const BecomeAffiliate = ({navigation}: NativeStackScreenProps<RouteStack>) => {
 
           <CheckBox
             checked={isChecked}
-            title='Agree with affiliate Terms & Conditions'
+            label='Agree with affiliate Terms & Conditions'
             onPress={() => handleCheckBox()}
           />
 

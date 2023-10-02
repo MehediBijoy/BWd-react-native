@@ -146,13 +146,13 @@ const RegisterForm = () => {
 
             <FormCheckBox
               name='referral_checkbox'
-              title='Sign up without a referral code'
-              color='bgPaper'
+              label='Sign up without a referral code'
+              labelColor='bgPaper'
             />
 
             <FormCheckBox
               name='agree_terms'
-              title={
+              label={
                 <Text style={styles.checkboxTitle}>
                   By signing up you agree to our
                   <Text
@@ -187,7 +187,6 @@ const RegisterForm = () => {
                   </Text>
                 </Text>
               }
-              color='bgPaper'
             />
 
             <Button
