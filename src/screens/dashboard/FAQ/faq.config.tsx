@@ -4,7 +4,7 @@ const connectionReason = [
   'If you are having trouble connecting your wallet, either not being redirected back from the wallet to our application or not getting the connection dialogue please try the following steps. \n',
   '1. Close the Bretton Woods Gold app and open it again, then try to connect your wallet again \n',
   '2. If that did not resolve it please try closing the app and wallet and try to connect again \n',
-  '3.If you are facing persistent issues and the steps above did not resolve it, please contact our support and supply the details of your error, wallet of choice and phone, to receive personalised support',
+  '3. If you are facing persistent issues and the steps above did not resolve it, please contact our support and supply the details of your error, wallet of choice and phone, to receive personalised support',
 ]
 
 export const config = [
