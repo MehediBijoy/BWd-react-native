@@ -89,7 +89,7 @@ const TransactionsHistory = () => {
               <View style={styles.cellDetails}>
                 <Text style={[styles.rowText, styles.titleText]}>#Order: {item.id}</Text>
                 <Text style={styles.rowText}>
-                  <Text style={[styles.rowText, styles.labelText]}>Paid Amount:</Text>
+                  <Text style={[styles.rowText, styles.labelText]}>Paid Amount: </Text>
                   {item.paid_amount}
                 </Text>
                 <Text style={styles.rowText}>

@@ -71,7 +71,7 @@ const OrderDetailsModal = ({data, isOpened, onClose}: OrderDetailsModalProps) =>
               <View style={styles.row}>
                 <Text style={styles.label}>Sender</Text>
                 <Text style={[styles.labelRight]}>
-                  {data.transfer.sender ? shortAddress(data.transfer.sender, 8) : '-'}
+                  {data.transfer.sender ? shortAddress(data.transfer.sender, 7) : '-'}
                 </Text>
                 {data.transfer.sender && (
                   <View style={{alignItems: 'flex-end'}}>
@@ -84,7 +84,7 @@ const OrderDetailsModal = ({data, isOpened, onClose}: OrderDetailsModalProps) =>
                 <Text style={styles.label}>Recipient</Text>
 
                 <Text style={[styles.labelRight]}>
-                  {data.transfer.recipient ? shortAddress(data.transfer.recipient, 8) : '-'}
+                  {data.transfer.recipient ? shortAddress(data.transfer.recipient, 7) : '-'}
                 </Text>
                 {data.transfer.recipient && (
                   <View style={{alignItems: 'flex-end'}}>
@@ -96,7 +96,7 @@ const OrderDetailsModal = ({data, isOpened, onClose}: OrderDetailsModalProps) =>
               <View style={styles.row}>
                 <Text style={styles.label}>Tx Hash</Text>
                 <Text style={[styles.labelRight]}>
-                  {data.transfer.tx_hash ? shortAddress(data.transfer.tx_hash, 8) : '-'}
+                  {data.transfer.tx_hash ? shortAddress(data.transfer.tx_hash, 7) : '-'}
                 </Text>
                 {data.transfer.tx_hash && (
                   <View style={{alignItems: 'flex-end'}}>

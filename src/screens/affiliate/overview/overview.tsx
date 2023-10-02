@@ -8,23 +8,28 @@ import Loader from '@core/Loader'
 
 import {cacheKey} from 'api'
 import {useApi} from 'hooks/api'
-import {useProfile} from 'hooks/helper'
+import {useAssets, useProfile} from 'hooks/helper'
 import {makeReferralLink} from 'utils'
 
 import PayoutModal from './payoutModal'
 
 type ReferralBoxProps = {
   label: string
-  price?: string
+  price?: string | number
   isLoading: boolean
+  fiat?: boolean
 }
 
-const ReferralBox = ({label, price, isLoading}: ReferralBoxProps) => {
+const ReferralBox = ({label, price, isLoading, fiat}: ReferralBoxProps) => {
   const styles = useStyles()
   return (
     <View style={[styles.referralBoxOverview, styles.container]}>
       <Text style={styles.referralLabel}>{label}</Text>
-      {isLoading ? <Loader /> : <Text style={styles.priceLabel}>{price} BWG</Text>}
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <Text style={styles.priceLabel}>{fiat ? `$${price}` : `${price} BWG`}</Text>
+      )}
     </View>
   )
 }
@@ -33,6 +38,7 @@ const Overview = () => {
   const api = useApi()
   const styles = useStyles()
   const {profile} = useProfile()
+  const {data: bwgPrice, isLoading: bwgILoading} = useAssets('BWG')
 
   const [isOpened, setIsOpened] = React.useState<boolean>(false)
 
@@ -69,7 +75,7 @@ const Overview = () => {
         isLoading={isLoading}
       />
       <ReferralBox
-        label='Total Payout commission'
+        label='Total commission payed out'
         price={data?.total_payout}
         isLoading={isLoading}
       />
@@ -77,6 +83,13 @@ const Overview = () => {
         label='Available account commission'
         price={data?.current_balance}
         isLoading={isLoading}
+      />
+
+      <ReferralBox
+        label='Available commission in fiat'
+        price={bwgPrice && Number(data?.current_balance) * Number(bwgPrice?.price)}
+        isLoading={isLoading || bwgILoading}
+        fiat
       />
 
       <Button
