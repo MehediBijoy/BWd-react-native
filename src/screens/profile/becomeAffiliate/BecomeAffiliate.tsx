@@ -18,6 +18,7 @@ import affiliateTreeImg from 'images/affiliates/affiliate-tree.png'
 import affiliateLevelImg from 'images/affiliates/affiliate-level.png'
 import affiliatePoolsImg from 'images/affiliates/affiliate-pools.png'
 import affiliateNetworkImg from 'images/affiliates/affiliate-network.png'
+import {LegalStuff} from 'constants/legalStuff.config'
 
 import {howItWorks, benefitsConfig, poolConfig} from './accordian.config'
 
@@ -139,7 +140,7 @@ const BecomeAffiliate = ({navigation}: NativeStackScreenProps<RouteStack>) => {
             <Text
               style={styles.link}
               onPress={() => {
-                Linking.openURL('https://brettonwoods.gold/documents/affiliate_agreement.pdf')
+                Linking.openURL(LegalStuff.affiliateTerms)
                 setIsDisabled(false)
               }}
             >

@@ -1,5 +1,5 @@
 import React from 'react'
-import {View} from 'react-native'
+import {View, Linking} from 'react-native'
 import {useQuery} from '@tanstack/react-query'
 import {Button, Text, makeStyles} from '@rneui/themed'
 
@@ -8,8 +8,9 @@ import Loader from '@core/Loader'
 
 import {cacheKey} from 'api'
 import {useApi} from 'hooks/api'
-import {useAssets, useProfile} from 'hooks/helper'
 import {makeReferralLink} from 'utils'
+import {useAssets, useProfile} from 'hooks/helper'
+import {LegalStuff} from 'constants/legalStuff.config'
 
 import PayoutModal from './payoutModal'
 
@@ -63,6 +64,14 @@ const Overview = () => {
           <CopyButton toCopy={makeReferralLink(profile?.referral_token)} />
         )}
       </View>
+
+      <Button
+        title='Affiliate Terms & Conditions'
+        onPress={() => Linking.openURL(LegalStuff.affiliateTerms)}
+        containerStyle={{
+          marginVertical: 10,
+        }}
+      />
 
       <ReferralBox
         label='Total direct commission'

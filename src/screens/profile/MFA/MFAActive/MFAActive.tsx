@@ -158,7 +158,8 @@ const useStyles = makeStyles(({colors}) => ({
   mfaContainer: {
     marginVertical: 10,
     flexDirection: 'row',
-    gap: 5,
+    columnGap: 10,
+    alignItems: 'center',
   },
   mfaText: {
     fontSize: 14,
