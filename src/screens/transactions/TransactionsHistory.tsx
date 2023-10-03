@@ -75,7 +75,9 @@ const TransactionsHistory = () => {
             color={theme.colors.primary}
           />
         )}
-        {!isLoading && orderHistory && orderHistory.data && orderHistory.data.length !== 0 ? (
+        {!isLoading &&
+          orderHistory &&
+          orderHistory.data &&
           orderHistory.data.map((item, index) => (
             <TouchableOpacity
               activeOpacity={0.8}
@@ -89,7 +91,7 @@ const TransactionsHistory = () => {
               <View style={styles.cellDetails}>
                 <Text style={[styles.rowText, styles.titleText]}>#Order: {item.id}</Text>
                 <Text style={styles.rowText}>
-                  <Text style={[styles.rowText, styles.labelText]}>Paid Amount: </Text>
+                  <Text style={styles.labelText}>Paid Amount: </Text>
                   {item.paid_amount}
                 </Text>
                 <Text style={styles.rowText}>
@@ -110,8 +112,8 @@ const TransactionsHistory = () => {
                 <Text style={styles.rowText}>{formatDate(item.created_at, 'MMM DD,YYYY')}</Text>
               </View>
             </TouchableOpacity>
-          ))
-        ) : (
+          ))}
+        {orderHistory && orderHistory.data.length === 0 && (
           <View style={[styles.tableRow, styles.emptyRow]}>
             <Text>No data found</Text>
           </View>
@@ -163,7 +165,7 @@ const useStyles = makeStyles(({colors}) => ({
     borderBottomRightRadius: 8,
   },
   rowText: {
-    fontSize: 12,
+    fontSize: 11,
     color: colors.textPrimary,
   },
   cellDate: {
