@@ -60,7 +60,6 @@ const ProfileSettings = ({userInfo}: ProfileSettingsProps) => {
        */}
 
       <View style={styles.wrapper}>
-        {/* {userInfo?.wallet_address && <CopyButton toCopy={userInfo?.wallet_address} />} */}
         <Text>Saved Wallet Address:</Text>
         <Text style={{fontSize: 16, marginLeft: 5}}>
           {userInfo?.wallet_address ? shortAddress(userInfo.wallet_address) : '-'}

@@ -21,26 +21,16 @@ const ReferralInfoBox = ({navigation}: ReferralInfoBoxProps) => {
       <Text style={styles.title}>Referral Information </Text>
 
       <View style={[styles.textWrapper, styles.container]}>
-        <View style={styles.copyWrapper}>
-          {/* {userInfo?.referral_token && <CopyButton toCopy={userInfo?.referral_token} />} */}
-          <Text>Referral ID:</Text>
-        </View>
+        <Text>Referral ID:</Text>
         <Text style={{fontWeight: 'bold'}}>{profile?.referral_token}</Text>
       </View>
-      <View style={styles.copyWrapper}>
-        {/* {userInfo?.referral_token && (
-          <CopyButton toCopy={makeReferralLink(userInfo?.referral_token)} />
-        )} */}
-        <Text style={{marginTop: 10}}>Referral Link:</Text>
+
+      <View style={[styles.textWrapper, styles.container]}>
+        <Text>Referral Link:</Text>
+        {profile?.referral_token && (
+          <CopyButton toCopy={makeReferralLink(profile?.referral_token)} />
+        )}
       </View>
-      {profile?.referral_token && (
-        <CopyButton
-          toCopy={makeReferralLink(profile?.referral_token)}
-          buttonText={
-            <Text style={styles.referralLink}>{makeReferralLink(profile?.referral_token)}</Text>
-          }
-        />
-      )}
 
       {profile?.user_type !== 'affiliate' && (
         <Button
@@ -57,15 +47,12 @@ export default ReferralInfoBox
 
 const useStyle = makeStyles(({colors}) => ({
   container: {
-    marginTop: 20,
+    marginTop: 10,
   },
   title: {
     fontSize: 16,
     fontWeight: '700',
-  },
-  copyWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    marginBottom: 10,
   },
   textWrapper: {
     flexDirection: 'row',
@@ -74,23 +61,5 @@ const useStyle = makeStyles(({colors}) => ({
     paddingBottom: 10,
     borderBottomColor: colors.bgPaper,
     borderBottomWidth: 1,
-  },
-  referralLink: {
-    marginTop: 3,
-    fontWeight: 'bold',
-    paddingBottom: 10,
-    borderBottomColor: colors.bgPaper,
-    borderBottomWidth: 1,
-  },
-  linkWrapper: {
-    width: 150,
-    color: colors.tertiary,
-    backgroundColor: colors.primary,
-    padding: 5,
-    borderRadius: 6,
-  },
-  linkText: {
-    textAlign: 'center',
-    color: colors.tertiary,
   },
 }))

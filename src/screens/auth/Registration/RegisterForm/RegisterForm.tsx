@@ -13,6 +13,7 @@ import ContainContainer from '@core/ContentContainer'
 import FAQ from 'screens/auth/FAQ'
 import {useApi, useAuthToken} from 'hooks/api'
 import {useProfile, useYupHooks} from 'hooks/helper'
+import {LegalStuff} from 'constants/legalStuff.config'
 
 import StepNumber from '../StepNumber'
 import GradientBox from '../../GradientBox'
@@ -157,20 +158,14 @@ const RegisterForm = () => {
                   By signing up you agree to our
                   <Text
                     style={styles.link}
-                    onPress={() =>
-                      Linking.openURL(
-                        'https://brettonwoods.gold/documents/terms_and_conditions.pdf'
-                      )
-                    }
+                    onPress={() => Linking.openURL(LegalStuff.termAndConditions)}
                   >
                     {' '}
                     Terms & Conditions
                   </Text>
                   <Text
                     style={styles.link}
-                    onPress={() =>
-                      Linking.openURL('https://brettonwoods.gold/documents/privacy_statement.pdf')
-                    }
+                    onPress={() => Linking.openURL(LegalStuff.privacyStatement)}
                   >
                     {' '}
                     Privacy Statement
@@ -178,9 +173,7 @@ const RegisterForm = () => {
                   and
                   <Text
                     style={styles.link}
-                    onPress={() =>
-                      Linking.openURL('https://brettonwoods.gold/documents/user_agreement.pdf')
-                    }
+                    onPress={() => Linking.openURL(LegalStuff.userAgreement)}
                   >
                     {' '}
                     User Agreement
