@@ -159,7 +159,7 @@ const RegisterForm = () => {
                     style={styles.link}
                     onPress={() =>
                       Linking.openURL(
-                        'https://brettonwoods.gold/documents/terms_and_conditions.pdf'
+                        'https://app.brettonwoods.us.com/documents/terms_and_conditions.pdf'
                       )
                     }
                   >
@@ -169,7 +169,9 @@ const RegisterForm = () => {
                   <Text
                     style={styles.link}
                     onPress={() =>
-                      Linking.openURL('https://brettonwoods.gold/documents/privacy_statement.pdf')
+                      Linking.openURL(
+                        'https://app.brettonwoods.us.com/documents/privacy_statement.pdf'
+                      )
                     }
                   >
                     {' '}
@@ -179,7 +181,9 @@ const RegisterForm = () => {
                   <Text
                     style={styles.link}
                     onPress={() =>
-                      Linking.openURL('https://brettonwoods.gold/documents/user_agreement.pdf')
+                      Linking.openURL(
+                        'https://app.brettonwoods.us.com/documents/user_agreement.pdf'
+                      )
                     }
                   >
                     {' '}

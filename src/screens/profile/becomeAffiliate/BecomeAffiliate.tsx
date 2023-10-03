@@ -147,24 +147,27 @@ const BecomeAffiliate = ({navigation}: NativeStackScreenProps<RouteStack>) => {
             </Text>
           </TouchableOpacity>
 
-          {tooltipVisible && (
-            <Tooltip
-              width={320}
-              visible
-              popover={
-                <Text style={[styles.tooltipText]}>
-                  Please download affiliate trams & conditions
-                </Text>
-              }
-              onClose={() => setTooltipVisible(false)}
+          <View>
+            <CheckBox
+              checked={isChecked}
+              label='Agree with affiliate Terms & Conditions'
+              onPress={() => handleCheckBox()}
             />
-          )}
 
-          <CheckBox
-            checked={isChecked}
-            label='Agree with affiliate Terms & Conditions'
-            onPress={() => handleCheckBox()}
-          />
+            {tooltipVisible && (
+              <Tooltip
+                width={320}
+                height={60}
+                visible
+                popover={
+                  <Text style={[styles.tooltipText]}>
+                    You need to download and read the affiliate Terms & Conditions before agreeing
+                  </Text>
+                }
+                onClose={() => setTooltipVisible(false)}
+              />
+            )}
+          </View>
 
           <Button
             loading={isLoading}
