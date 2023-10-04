@@ -9,15 +9,15 @@ export const howItWorks = [
   },
   {
     id: 2,
-    title: 'Direct Commission of 20% of Fees',
+    title: '20% Direct Commission of CV',
     description:
-      'When a user, invited through your link or code, purchases BWG Tokens, you will earn a direct commission of 20% of the fees generated from their transaction. This commission is a reflection of the value you bring to our platform by introducing new users who engage with our products.',
+      'When a user, invited through your link or code, purchases BWG Tokens, you will earn a direct commission of 20% of the CV generated from their transaction. This commission is a reflection of the value you bring to our platform by introducing new users who engage with our products.',
   },
   {
     id: 3,
-    title: 'Uni-Level Commission of 4%',
+    title: '36% Uni-Level Commission of CV',
     description:
-      'The benefits of our affiliate system extend beyond just your direct referrals. If the new user you invited also becomes an affiliate and invites further users who purchase BWG Tokens, you will receive a Uni-Level Commission of 4% from their transactions. This Uni-Level Commission ensures that you continue to earn passive income from the activities of affiliates within your referral network.',
+      'The benefits of our affiliate system extend beyond just your direct referrals. If the new user you invited also becomes an affiliate and invites further users who purchase BWG Tokens, you will receive a Uni-Level commission of 4% of the CV. This Uni-Level commission ensures that you continue to earn passive income from the activities of affiliates within your referral network.',
   },
 ]
 
