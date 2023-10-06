@@ -59,7 +59,7 @@ This readme outlines the process for building and publishing a React Native iOS 
 
 ### Installation of React Native Dependencies for iOS Build
 
-> [!IMPORTANT]  
+> **Important**
 > Before started iOS build must check two official docs for setup system properly. Please check both links [system setup docs](https://reactnative.dev/docs/environment-setup) and [run ios app in simulator](https://reactnative.dev/docs/running-on-simulator-ios)
 
 Before you start building the iOS app, ensure that you have yarn installed on your machine. If not, you can install it using the following command:
@@ -78,7 +78,7 @@ It will installed all required packages (`already defined in package.json`) for 
 
 ### Publishing to the Apple App Store
 
-> [!IMPORTANT]  
+> **Important** 
 > Before started iOS app published to apple app store please the [official docs](https://reactnative.dev/docs/publishing-to-app-store) first
 
 Follow the steps below to prepare your app for publishing:
