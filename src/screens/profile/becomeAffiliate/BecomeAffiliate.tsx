@@ -121,7 +121,7 @@ const BecomeAffiliate = ({navigation}: NativeStackScreenProps<RouteStack>) => {
             between 1 - 10% of the CV (commissionable volume) each. The final version of the
             marketing plan will be published in 2024 with all requirements for pool qualification
             specified. Until then the top performers and global leaders are placed in the pools
-            manually by our director of sales. For questions please inquire at
+            manually by our president of sales and marketing. For questions please inquire at
             pa-sales@brettonwoods.ch.
           </Text>
 
