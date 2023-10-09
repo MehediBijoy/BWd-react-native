@@ -23,6 +23,7 @@ import useYupHooks from 'hooks/helper/useYupHooks'
 import GradientBox from '../GradientBox'
 import {useStyles} from './Login.styles'
 import TwoFactorModal from '../TwoFactorModal'
+import PlatformSelect from './PlatformSelect'
 
 const loginSchema = yup.object().shape({
   email: yup.string().email().required('Email is required'),
@@ -70,13 +71,14 @@ const Login = ({navigation}: NativeStackScreenProps<RouteStack, 'Login'>) => {
   return (
     <ScrollView>
       <ContainContainer>
-        <GradientBox styles={{marginTop: 30}}>
-          <View style={styles.innerContainer}>
+        <PlatformSelect />
+        <GradientBox style={{marginTop: 30}}>
+          <View style={{rowGap: 10}}>
             <Text h3 h3Style={styles.headerTextStyles}>
               Login
             </Text>
 
-            <Form methods={methods} style={styles.innerContainer}>
+            <Form methods={methods} style={{rowGap: 10}}>
               <TwoFactorModal
                 isOpened={isOpened}
                 onClose={onCloseModal}

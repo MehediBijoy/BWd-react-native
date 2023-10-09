@@ -8,8 +8,7 @@ import Loader from '@core/Loader'
 
 import {cacheKey} from 'api'
 import {useApi} from 'hooks/api'
-import {makeReferralLink} from 'utils'
-import {useAssets, useProfile} from 'hooks/helper'
+import {useAssets, usePlatform, useProfile} from 'hooks/helper'
 import {LegalStuff} from 'constants/legalStuff.config'
 
 import PayoutModal from './payoutModal'
@@ -39,6 +38,7 @@ const Overview = () => {
   const api = useApi()
   const styles = useStyles()
   const {profile} = useProfile()
+  const {APP_URL} = usePlatform()
   const {data: bwgPrice, isLoading: bwgILoading} = useAssets('BWG')
 
   const [isOpened, setIsOpened] = React.useState<boolean>(false)
@@ -61,7 +61,7 @@ const Overview = () => {
       <View style={[styles.referralBox]}>
         <Text style={styles.label}>Copy Link:</Text>
         {profile?.referral_token && (
-          <CopyButton toCopy={makeReferralLink(profile?.referral_token)} />
+          <CopyButton toCopy={`${APP_URL}/invite?token=${profile.referral_token}`} />
         )}
       </View>
 

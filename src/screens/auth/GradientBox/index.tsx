@@ -1,30 +1,30 @@
 import React from 'react'
-import {useTheme} from '@rneui/themed'
+import {useTheme, makeStyles} from '@rneui/themed'
 import {StyleProp, ViewStyle, StyleSheet} from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 
 type BoxProps = {
   children: React.ReactNode
   gradientColors?: string[]
-  styles?: StyleProp<ViewStyle>
+  style?: StyleProp<ViewStyle>
 }
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles(() => ({
   gradient: {
-    maxWidth: 400,
     borderRadius: 10,
     padding: 20,
   },
-})
+}))
 
 const GradientBox = (props: BoxProps) => {
+  const styles = useStyles()
   const {theme} = useTheme()
   const colors = React.useMemo(
     () => props.gradientColors ?? [theme.colors.tertiary, theme.colors.tertiaryDark],
     [theme, props.gradientColors]
   )
 
-  const gradientStyles = StyleSheet.compose(styles.gradient, props.styles)
+  const gradientStyles = StyleSheet.compose(styles.gradient, props.style)
 
   return (
     <LinearGradient colors={colors} style={gradientStyles}>
