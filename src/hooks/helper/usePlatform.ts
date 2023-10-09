@@ -10,15 +10,17 @@ interface IState {
   platform: PlatformType
   API_URL: string
   APP_URL: string
+  hasHydrate: boolean
   switchPlatform: (type: PlatformType) => void
 }
 
 const usePlatform = create<IState>()(
   persist(
     set => ({
-      platform: 'EU',
-      API_URL: EU_API_URL,
-      APP_URL: EU_APP_URL,
+      platform: 'US',
+      API_URL: US_API_URL,
+      APP_URL: US_APP_URL,
+      hasHydrate: false,
       switchPlatform: type =>
         set(() => ({
           platform: type,
@@ -29,6 +31,9 @@ const usePlatform = create<IState>()(
     {
       name: 'platform',
       storage: createJSONStorage(() => AsyncStorage),
+      onRehydrateStorage: () => () => {
+        usePlatform.setState({hasHydrate: true})
+      },
     }
   )
 )
