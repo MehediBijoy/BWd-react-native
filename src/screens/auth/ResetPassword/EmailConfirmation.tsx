@@ -35,7 +35,7 @@ const EmailConfirmation = ({
   return (
     <ScrollView>
       <ContainContainer>
-        <GradientBox styles={{marginTop: 30}}>
+        <GradientBox style={{marginTop: 30}}>
           <View style={{rowGap: 20}}>
             <Text h3 h3Style={styles.headerTextStyles}>
               Email Confirmation

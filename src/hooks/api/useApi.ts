@@ -1,19 +1,20 @@
 import {useMemo} from 'react'
 
 import ApiMethods from 'api'
-import {BASE_URL} from 'config/environments'
+import {usePlatform} from 'hooks/helper'
 
 import useAuthToken from './useAuthToken'
 import useOnUnauthorized from './useOnUnauthorized'
 
 const useApi = () => {
+  const {API_URL} = usePlatform()
   const unAuthorized = useOnUnauthorized()
   const token = useAuthToken(state => state.token)
 
   return useMemo(
     () =>
       new ApiMethods({
-        baseURL: BASE_URL,
+        baseURL: API_URL,
         timeout: 60000,
         onAction: unAuthorized,
         commonHeaders: token
@@ -22,7 +23,7 @@ const useApi = () => {
             }
           : {},
       }),
-    [token, unAuthorized]
+    [API_URL, token, unAuthorized]
   )
 }
 

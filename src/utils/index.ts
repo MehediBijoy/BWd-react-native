@@ -1,8 +1,6 @@
 import Color from 'color'
 import dayjs from 'dayjs'
 
-import {APP_BASE_URL} from 'config/environments'
-
 /**
  * Shortens a given string by preserving a specified number of characters at both ends,
  * while replacing the middle portion with ellipsis ('...').
@@ -24,11 +22,6 @@ export const shorten = (input: string, preserve: number = 3, ellipsis: number = 
  */
 export const shortAddress = (address: string, preserve: number = 3): string =>
   address.slice(0, 2) + shorten(address.slice(2), preserve, 3)
-
-export const makeReferralLink = (token: string) => {
-  const rootUrl = APP_BASE_URL + `/invite?token=${token}`
-  return rootUrl
-}
 
 export function getMonth(month: number, lang = 'en') {
   const date = new Date()

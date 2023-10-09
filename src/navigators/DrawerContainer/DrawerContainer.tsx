@@ -14,10 +14,9 @@ import Pressable from '@core/Pressable'
 import SafeAreaView from '@core/SafeAreaView'
 import CopyButton from '@core/CopyButton'
 
-import {makeReferralLink} from 'utils'
 import {useBalance} from 'hooks/crypto'
 import Logo from 'components/Logo'
-import {useProfile} from 'hooks/helper'
+import {usePlatform, useProfile} from 'hooks/helper'
 import {cacheKey} from 'api/CacheKey'
 import {useApi, useOnUnauthorized} from 'hooks/api'
 
@@ -25,6 +24,7 @@ const DrawerContainer = (props: DrawerContentComponentProps) => {
   const api = useApi()
   const {theme} = useTheme()
   const styles = useStyles()
+  const {APP_URL} = usePlatform()
   const {profile} = useProfile()
   const onUnauthorized = useOnUnauthorized()
 
@@ -63,7 +63,7 @@ const DrawerContainer = (props: DrawerContentComponentProps) => {
             </View>
             <CopyButton
               style={{marginRight: 10}}
-              toCopy={makeReferralLink(profile?.referral_token as string)}
+              toCopy={`${APP_URL}/invite?token=${profile?.referral_token}`}
               size='sm'
             />
           </View>

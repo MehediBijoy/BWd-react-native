@@ -1,9 +1,8 @@
 import React from 'react'
 import {createConsumer, Subscription} from '@rails/actioncable'
 
-import {BASE_URL} from 'config/environments'
-
 import {useAuthToken} from '../api'
+import usePlatform from './usePlatform'
 
 type ChannelProps = 'PaymentsChannel' | 'TransfersChannel' | 'NotificationsChannel'
 
@@ -15,18 +14,21 @@ type CallbackProps = {
 }
 
 // Event listeners required for @rails/actioncable
+// eslint-disable-next-line no-empty-function
 global.addEventListener = () => {}
+// eslint-disable-next-line no-empty-function
 global.removeEventListener = () => {}
 
 const useSocket = () => {
+  const {API_URL} = usePlatform()
   const {token} = useAuthToken()
   const channelRef = React.useRef<Subscription>()
 
   const actionCable = React.useMemo(() => {
     const url =
-      token && `${BASE_URL.replace('http', 'ws')}/cable?token=${token.split(' ').pop()}&scope=user`
+      token && `${API_URL.replace('http', 'ws')}/cable?token=${token.split(' ').pop()}&scope=user`
     return createConsumer(url)
-  }, [token])
+  }, [API_URL, token])
 
   const subscribe = React.useCallback(
     (channelName: ChannelProps, callback: CallbackProps) => {

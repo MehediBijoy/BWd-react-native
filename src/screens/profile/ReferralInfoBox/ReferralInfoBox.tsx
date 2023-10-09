@@ -4,9 +4,8 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack'
 
 import CopyButton from '@core/CopyButton'
 
-import {makeReferralLink} from 'utils'
-import {useProfile} from 'hooks/helper'
 import {RouteStack} from 'navigators/routes'
+import {usePlatform, useProfile} from 'hooks/helper'
 
 type ReferralInfoBoxProps = {
   navigation: NativeStackScreenProps<RouteStack, 'Settings'>['navigation']
@@ -14,6 +13,7 @@ type ReferralInfoBoxProps = {
 
 const ReferralInfoBox = ({navigation}: ReferralInfoBoxProps) => {
   const styles = useStyle()
+  const {APP_URL} = usePlatform()
   const {profile} = useProfile()
 
   return (
@@ -28,7 +28,7 @@ const ReferralInfoBox = ({navigation}: ReferralInfoBoxProps) => {
       <View style={[styles.textWrapper, styles.container]}>
         <Text>Referral Link:</Text>
         {profile?.referral_token && (
-          <CopyButton toCopy={makeReferralLink(profile?.referral_token)} />
+          <CopyButton toCopy={`${APP_URL}/invite?token=${profile.referral_token}`} />
         )}
       </View>
 
