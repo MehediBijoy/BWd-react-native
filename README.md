@@ -22,34 +22,68 @@ yarn start
 
 Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
 
-### For Android
+# For Android
+
+This readme outlines the process for building and publishing a React Native Android app. Please follow these steps carefully to ensure a smooth build and publication process. Make sure you have already completed the initial system setup and simulator setup as specified in the [react native official documentation](https://reactnative.dev/docs/environment-setup)
+
+### Installing dependencies and development environment
+
+You will need Node, the React Native command line interface, a JDK, and Android Studio.
+
+Please verify the [link](https://reactnative.dev/docs/environment-setup#installing-dependencies) to ensure that the necessary dependencies are properly configured.
+
+Prior to commencing the Android app development, make sure you have Yarn installed on your system. If it's not already installed, you can do so by executing the following command:
+
+```shell
+npm install -g yarn
+```
+
+Now, navigate to the root directory of your React Native project and run the following command to install all required android dependencies defined in your package.json:
+
+```shell
+yarn android
+```
+
+To create an APK file, execute the following command:
+
+```shell
+yarn build
+```
+
+## Publishing to Google Play Store
+
+Android requires that all apps be digitally signed with a certificate before they can be installed. In order to distribute your Android application via Google Play store it needs to be signed with a release key that then needs to be used for all future updates. Since 2017 it is possible for Google Play to manage signing releases automatically. However, before your application binary is uploaded to Google Play it needs to be signed with an upload key. The Signing Your Applications page on Android Developers documentation describes the topic in detail.
+
+## Generating an upload key
+
+You can generate a private signing key using **keytool**.
+Please execute the following command to generate the keystore for Android:
 
 ```bash
-# using npm
-npm run android
+cd android/app && sudo keytool -genkey -v -keystore brettonwoods-gold.keystore -alias brettonwoods-key-alias -keyalg RSA -keysize 2048 -validity 10000
+```
 
-# OR using Yarn
-yarn android
+> **CAUTION**
+> Remember to keep the keystore file private. In case you've lost upload key or it's been compromised you should follow these [instructions](https://support.google.com/googleplay/android-developer/answer/9842756?visit_id=638324443352545255-3013092957&rd=1#reset).
 
-# generate keystore
-cd android/app
-sudo keytool -genkey -v -keystore brettonwoods-gold.keystore -alias brettonwoods-key-alias -keyalg RSA -keysize 2048 -validity 10000
+## Setting up Gradle variables
 
+Create a file named gradle.properties in your home directory within the .gradle folder (usually located at ~/.gradle/gradle.properties) and insert the following content:
 
-#create personalize build config
-create file gradle.properties in your home directory under .gradle folder (~/.gradle/gradle.properties) and add following content
-
+```bash
 STORE_FILE=brettonwoods-gold.keystore
 KEY_ALIAS=brettonwoods-key-alias
 STORE_PASSWORD=******
 KEY_PASSWORD=******
 APP_VERSION_CODE=1 #Please use numerical digits.
-APP_VERSION_NAME=alpha-release
+APP_VERSION_NAME=beta-1.0.1
+```
 
-#build release apk
-yarn build
+## Generating the release AAB
 
-#Generating the release AAB
+Run the following command in a terminal:
+
+```bash
 yarn prod-build
 ```
 
@@ -78,7 +112,7 @@ It will installed all required packages (`already defined in package.json`) for 
 
 ### Publishing to the Apple App Store
 
-> **Important** 
+> **Important**
 > Before started iOS app published to apple app store please the [official docs](https://reactnative.dev/docs/publishing-to-app-store) first
 
 Follow the steps below to prepare your app for publishing:
