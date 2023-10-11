@@ -27,7 +27,7 @@ const FiatPaymentModal = ({estimateFees, isOpened, onClose, in_base}: FiatPaymen
 
   const {isConnected} = useWalletConnectModal()
 
-  const createOrder = useMutation<Payment, any, Pick<PaymentProps, 'payment_type'>>({
+  const createOrder = useMutation<Payment, unknown, Pick<PaymentProps, 'payment_type'>>({
     mutationFn: ({payment_type}) =>
       api.createPayment({
         asset: 'USD',

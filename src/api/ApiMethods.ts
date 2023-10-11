@@ -12,7 +12,6 @@ import {
   ChangePasswordProps,
   TransactionChartProps,
   DashboardChartProps,
-  AssetProps,
   PaymentProps,
   UserWalletProps,
   EstimateFeeProps,
@@ -47,7 +46,7 @@ export default class ApiMethods extends ApiBase {
   }
 
   async signUpInitial(params: RegistrationProp): Promise<LoginResponse> {
-    const {data, headers} = await this.post(
+    const {data, headers} = await this.post<{user: User}>(
       '/auth/signup',
       {
         user: params,
@@ -61,7 +60,7 @@ export default class ApiMethods extends ApiBase {
   }
 
   async login({mfa_code, ...userProps}: LoginProps): Promise<LoginResponse> {
-    const {data, headers} = await this.post(
+    const {data, headers} = await this.post<{user: User}>(
       '/auth/login',
       {
         user: userProps,
@@ -70,7 +69,7 @@ export default class ApiMethods extends ApiBase {
       true
     )
     return {
-      user: data?.user,
+      user: data.user,
       token: headers.authorization,
     }
   }
@@ -98,7 +97,7 @@ export default class ApiMethods extends ApiBase {
   }
 
   async changeEmail({id, email, mfa_code}: ChangeEmailProps): Promise<UserInfo> {
-    const {user} = await this.put(`/users/${id}`, {
+    const {user} = await this.put<{user: UserInfo}>(`/users/${id}`, {
       mfa_code,
       user: {
         email,
@@ -108,7 +107,7 @@ export default class ApiMethods extends ApiBase {
   }
 
   async emailConfirm(token: string): Promise<LoginResponse> {
-    const {data, headers} = await this.get(
+    const {data, headers} = await this.get<{user: User}>(
       '/auth/confirmation',
       {
         confirmation_token: token,
@@ -133,12 +132,12 @@ export default class ApiMethods extends ApiBase {
   }
 
   async getProfile(): Promise<User> {
-    const {user} = await this.get('/auth/profile')
+    const {user} = await this.get<{user: User}>('/auth/profile')
     return user
   }
 
   async getUserInfo(id: number): Promise<UserInfo> {
-    const {user} = await this.get(`/users/${id}`)
+    const {user} = await this.get<{user: UserInfo}>(`/users/${id}`)
     return user
   }
 
@@ -159,7 +158,7 @@ export default class ApiMethods extends ApiBase {
   }
 
   async userWallet({id, ...params}: UserWalletProps): Promise<User> {
-    const {user} = await this.post(`/users/${id}/wallet`, params)
+    const {user} = await this.post<{user: User}>(`/users/${id}/wallet`, params)
     return user
   }
 
@@ -168,28 +167,28 @@ export default class ApiMethods extends ApiBase {
   }
 
   async getAssets(): Promise<Asset[]> {
-    const {assets} = await this.get('/assets')
+    const {assets} = await this.get<{assets: Asset[]}>('/assets')
     return assets
   }
 
-  async getAssetBySymbol({symbol, params}: AssetProps): Promise<Asset> {
-    const {asset} = await this.get(`/assets/${symbol}`, params)
+  async getAssetBySymbol(symbol: string): Promise<Asset> {
+    const {asset} = await this.get<{asset: Asset}>(`/assets/${symbol}`)
     return asset
   }
 
   async getDynamicFees(): Promise<DynamicFee[]> {
-    const {dynamic_fees} = await this.get('/dynamic_fees')
+    const {dynamic_fees} = await this.get<{dynamic_fees: DynamicFee[]}>('/dynamic_fees')
     return dynamic_fees
   }
 
   // payments API
   async getEstimateFee(params: EstimateFeeProps): Promise<EstimateFee> {
-    const result = await this.get('/payments/estimate_fee', params)
+    const result = await this.get<EstimateFee>('/payments/estimate_fee', params)
     return formatEstimatePay(result)
   }
 
   async createPayment(params: PaymentProps): Promise<Payment> {
-    const {payment} = await this.post('/payments', {payment: params})
+    const {payment} = await this.post<{payment: Payment}>('/payments', {payment: params})
     return payment
   }
   async getTransferChart(params: TransactionChartProps): Promise<TransactionChart[]> {
@@ -212,15 +211,13 @@ export default class ApiMethods extends ApiBase {
   }
 
   async getOrders(): Promise<OrderHistory> {
-    const {payments, meta} = await this.get('/payments', {page: 1, limit: 100})
-    return {
-      data: payments,
-      meta: meta,
-    }
+    return await this.get<OrderHistory>('/payments', {page: 1, limit: 100})
   }
 
   async getUserAffiliateCommission(id: number): Promise<Commission> {
-    const {commissions_account} = await this.get(`/users/${id}/commissions_account`)
+    const {commissions_account} = await this.get<{commissions_account: Commission}>(
+      `/users/${id}/commissions_account`
+    )
     return commissions_account
   }
 
@@ -229,19 +226,14 @@ export default class ApiMethods extends ApiBase {
   }
 
   async getReferralStats(id: number): Promise<ReferralAccount> {
-    const {referrals_stats, meta} = await this.get(`/users/${id}/referrals_stats`, {
+    return await this.get<ReferralAccount>(`/users/${id}/referrals_stats`, {
       page: 1,
       limit: 100,
     })
-
-    return {
-      data: referrals_stats,
-      meta: meta,
-    }
   }
 
   async enableAffiliate(id: number): Promise<User> {
-    const {user} = await this.post(`/users/${id}/enable_affiliate`)
+    const {user} = await this.post<{user: User}>(`/users/${id}/enable_affiliate`)
     return user
   }
 }

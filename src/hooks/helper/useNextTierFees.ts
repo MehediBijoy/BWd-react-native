@@ -1,23 +1,26 @@
 import {useMemo} from 'react'
 
+import {DynamicFee} from 'api/Response'
+
 import useDynamicFees from './useDynamicFees'
 
 export default function useNextTierFees(fees?: string) {
   const {data} = useDynamicFees()
 
   const sortedData = useMemo(
-    () => data?.sort((a, b) => parseFloat(b.fee_percentage) - parseFloat(a.fee_percentage)),
+    () => data && data.sort((a, b) => parseFloat(b.fee_percentage) - parseFloat(a.fee_percentage)),
     [data]
   )
 
-  const feesObject = useMemo<any>(
+  const feesObject = useMemo<undefined | {[key: string]: DynamicFee[]}>(
     () =>
-      sortedData?.reduce(
-        (acc, curr, index, arr) => ({...acc, [curr?.fee_percentage]: arr[index + 1]}),
+      sortedData &&
+      sortedData.reduce(
+        (acc, curr, index, arr) => ({...acc, [curr.fee_percentage]: arr[index + 1]}),
         {}
       ),
     [sortedData]
   )
 
-  return fees && feesObject?.[fees]
+  return fees && feesObject && feesObject[fees]
 }

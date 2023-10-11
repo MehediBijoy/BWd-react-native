@@ -10,12 +10,17 @@ type CallbackProps = {
   connected?(): void
   disconnected?(): void
   initialized?(): void
-  received?(data: any): void
+  received?(data: unknown): void
 }
 
 // Event listeners required for @rails/actioncable
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+/* @ts-ignore */
 // eslint-disable-next-line no-empty-function
 global.addEventListener = () => {}
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+/* @ts-ignore */
 // eslint-disable-next-line no-empty-function
 global.removeEventListener = () => {}
 

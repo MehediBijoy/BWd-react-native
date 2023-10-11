@@ -27,7 +27,7 @@ function useAssets(
     queryKey: [cacheKey.asset, symbol],
     queryFn: () => {
       if (!symbol) return api.getAssets()
-      return api.getAssetBySymbol({symbol})
+      return api.getAssetBySymbol(symbol)
     },
     enabled: !!token,
     ...options,

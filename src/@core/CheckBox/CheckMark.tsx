@@ -1,6 +1,11 @@
 import React from 'react'
 import {Path} from 'react-native-svg'
-import Animated, {DerivedValue, useAnimatedProps, withTiming} from 'react-native-reanimated'
+import Animated, {
+  DerivedValue,
+  useAnimatedProps,
+  withTiming,
+  useAnimatedRef,
+} from 'react-native-reanimated'
 
 type CheckMarkProps = {
   progress: DerivedValue<number>
@@ -10,8 +15,9 @@ type CheckMarkProps = {
 const AnimatedPath = Animated.createAnimatedComponent(Path)
 
 const CheckMark: React.FC<CheckMarkProps> = ({progress, color}) => {
+  const animatedRef = useAnimatedRef<Path>()
   const [length, setLength] = React.useState<number>(0)
-  const ref = React.useRef<any>(null)
+
   const checkMarkAnimation = useAnimatedProps(() => {
     const strokeDashoffset = withTiming(length - length * progress.value)
     const opacity = progress.value
@@ -21,9 +27,14 @@ const CheckMark: React.FC<CheckMarkProps> = ({progress, color}) => {
   return (
     <AnimatedPath
       fill={'none'}
-      ref={ref}
+      ref={animatedRef}
       animatedProps={checkMarkAnimation}
-      onLayout={() => ref.current && setLength(ref.current.getTotalLength())}
+      onLayout={() => {
+        if (!animatedRef.current) return
+        const length = animatedRef.current.getTotalLength()
+        if (!length) return
+        setLength(length)
+      }}
       d='M12 24.4068L20.6667 32.9999L36.5 17.1667'
       stroke={color}
       strokeWidth={5}

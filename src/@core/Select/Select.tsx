@@ -1,7 +1,7 @@
+import React, {useState} from 'react'
 import {Text, View} from 'react-native'
-import React, {useState, forwardRef} from 'react'
 import {makeStyles, Colors} from '@rneui/themed'
-import {Dropdown} from 'react-native-element-dropdown'
+import {Dropdown, IDropdownRef} from 'react-native-element-dropdown'
 
 type DataTypes = {
   label: string
@@ -17,25 +17,24 @@ export type SelectProps = {
   data: DataTypes[]
   onBlur?: () => void
   onChange?: (props: DataTypes) => void
+  selectRef?: React.RefObject<IDropdownRef> | null
 }
 
 type StyledTypes = {
   color?: keyof Omit<Colors, 'platform'>
 }
 
-const Select = (
-  {
-    label,
-    color,
-    onBlur,
-    onChange,
-    helperText,
-    error,
-    placeholder = 'Select an item',
-    data,
-  }: SelectProps,
-  ref: any
-) => {
+const Select: React.FC<SelectProps> = ({
+  label,
+  color,
+  onBlur,
+  onChange,
+  helperText,
+  error,
+  placeholder = 'Select an item',
+  data,
+  selectRef,
+}) => {
   const styles = useStyles({color})
   const [isFocused, setIsFocused] = useState(false)
   const styleState = error ? styles.error : isFocused ? styles.focused : null
@@ -44,7 +43,7 @@ const Select = (
     <View style={styles.container}>
       <Text style={[styles.label, styleState]}>{label}</Text>
       <Dropdown
-        ref={ref}
+        ref={selectRef}
         style={[styles.dropdown, styleState]}
         placeholderStyle={styles.placeholderStyle}
         selectedTextStyle={styles.selectedTextStyle}
@@ -119,4 +118,4 @@ const useStyles = makeStyles(({colors}, {color: defaultColor}: StyledTypes) => (
   },
 }))
 
-export default forwardRef(Select)
+export default Select

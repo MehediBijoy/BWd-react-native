@@ -35,11 +35,6 @@ export type ReferralProps = {
   [token: string]: string
 }
 
-export type AssetProps = {
-  symbol: string
-  params?: object
-}
-
 export type EstimateFeeProps = {
   asset: string
   target_asset: string

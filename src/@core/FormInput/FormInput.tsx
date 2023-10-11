@@ -3,11 +3,14 @@ import {useFormContext, Controller} from 'react-hook-form'
 
 import Input, {InputProps} from '@core/Input'
 
+import {ControllerProps} from 'types'
+
 export type FormInputProps = {
   name: string
-} & InputProps
+} & InputProps &
+  ControllerProps
 
-const FormInput = ({name, onChangeText, ...props}: FormInputProps) => {
+const FormInput: React.FC<FormInputProps> = ({name, onChangeText, ...props}) => {
   const {control} = useFormContext()
 
   return (
@@ -16,7 +19,7 @@ const FormInput = ({name, onChangeText, ...props}: FormInputProps) => {
       control={control}
       render={({field: {onChange, ...restField}, fieldState}) => (
         <Input
-          onChangeText={(props: any) => {
+          onChangeText={props => {
             onChange(props)
             onChangeText && onChangeText(props)
           }}

@@ -185,7 +185,7 @@ type AssetChartItem = {
 }
 
 type OrderHistory = {
-  data: Payment<Transfer>[]
+  payments: Payment<Transfer>[]
   meta: Meta
 }
 type Commission = {
@@ -227,6 +227,6 @@ type ReferralStats = {
 }
 
 type ReferralAccount = {
-  data: ReferralStats[]
+  referrals_stats: ReferralStats[]
   meta: Meta
 }

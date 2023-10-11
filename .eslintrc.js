@@ -30,7 +30,7 @@ module.exports = {
     'react/react-in-jsx-scope': ['off'],
     'no-duplicate-imports': ['warn'],
     '@typescript-eslint/no-unused-vars': ['warn'],
-    '@typescript-eslint/no-explicit-any': ['off'],
+    // '@typescript-eslint/no-explicit-any': ['error'],
     'valid-typeof': ['error', {requireStringLiterals: true}],
 
     'prettier/prettier': ['warn'],

@@ -33,7 +33,7 @@ const Input = (
     rightElement: RightElement,
     ...props
   }: InputProps,
-  ref: any
+  ref: React.ForwardedRef<TextInput>
 ) => {
   const styles = useStyles({color})
   const [isFocused, setIsFocused] = React.useState<boolean>(false)
@@ -57,6 +57,7 @@ const Input = (
       <View style={[styles.inputWrapper, styleState]}>
         {LeftElement ?? null}
         <TextInput
+          ref={ref}
           cursorColor={styles.input.color}
           placeholderTextColor={styles.input.color}
           placeholder={placeholder}
@@ -70,7 +71,6 @@ const Input = (
             onBlur && onBlur()
             setIsFocused(false)
           }}
-          ref={ref}
           {...props}
         />
         {RightElement ?? null}

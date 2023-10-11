@@ -1,5 +1,5 @@
 import autoBind from 'auto-bind'
-import axios, {AxiosInstance, AxiosRequestConfig, AxiosError} from 'axios'
+import axios, {AxiosInstance, AxiosRequestConfig, AxiosError, AxiosResponse} from 'axios'
 
 import {ApiErrorResponse} from '../Errors'
 
@@ -11,6 +11,10 @@ export type ApiBaseProps = {
   onAction?: () => void
   timeout?: number
 }
+
+type OtherProps = Omit<AxiosRequestConfig, 'url' | 'method'>
+type GetOrDeleteOtherProps = Omit<OtherProps, 'params'>
+type PostOrPutOtherProps = Omit<OtherProps, 'data'>
 
 export default class ApiBas {
   private axiosClient: AxiosInstance
@@ -57,19 +61,107 @@ export default class ApiBas {
     return response.data
   }
 
-  async get(url: string, params?: object, fullResponse: boolean = false, others?: object) {
+  async get<Tdata>(url: string): Promise<Tdata>
+  async get<Tdata>(url: string, params: object): Promise<Tdata>
+  async get<Tdata>(url: string, params: object, fullResponse: false): Promise<Tdata>
+  async get<Tdata>(url: string, params: object, fullResponse: true): Promise<AxiosResponse<Tdata>>
+  async get<Tdata>(
+    url: string,
+    params: object,
+    fullResponse: false,
+    others: GetOrDeleteOtherProps
+  ): Promise<Tdata>
+  async get<Tdata>(
+    url: string,
+    params: object,
+    fullResponse: true,
+    others: GetOrDeleteOtherProps
+  ): Promise<AxiosResponse<Tdata>>
+  async get<Tdata>(
+    url: string,
+    params?: object,
+    fullResponse = false,
+    others?: GetOrDeleteOtherProps
+  ): Promise<Tdata | AxiosResponse<Tdata>> {
     return this.request({url, method: 'get', params, ...others}, fullResponse)
   }
 
-  async post(url: string, data?: object, fullResponse: boolean = false, others?: object) {
+  async post<Tdata>(url: string): Promise<Tdata>
+  async post<Tdata>(url: string, data: object): Promise<Tdata>
+  async post<Tdata>(url: string, data: object, fullResponse: false): Promise<Tdata>
+  async post<Tdata>(url: string, data: object, fullResponse: true): Promise<AxiosResponse<Tdata>>
+  async post<Tdata>(
+    url: string,
+    data: object,
+    fullResponse: false,
+    others: PostOrPutOtherProps
+  ): Promise<Tdata>
+  async post<Tdata>(
+    url: string,
+    data: object,
+    fullResponse: true,
+    others: PostOrPutOtherProps
+  ): Promise<AxiosResponse<Tdata>>
+  async post<Tdata>(
+    url: string,
+    data?: object,
+    fullResponse: boolean = false,
+    others?: PostOrPutOtherProps
+  ): Promise<Tdata | AxiosResponse<Tdata>> {
     return this.request({url, method: 'post', data, ...others}, fullResponse)
   }
 
-  async put(url: string, data?: object, fullResponse: boolean = false, others?: object) {
+  async put<Tdata>(url: string): Promise<Tdata>
+  async put<Tdata>(url: string, data: object): Promise<Tdata>
+  async put<Tdata>(url: string, data: object, fullResponse: false): Promise<Tdata>
+  async put<Tdata>(url: string, data: object, fullResponse: true): Promise<AxiosResponse<Tdata>>
+  async put<Tdata>(
+    url: string,
+    data: object,
+    fullResponse: false,
+    others: PostOrPutOtherProps
+  ): Promise<Tdata>
+  async put<Tdata>(
+    url: string,
+    data: object,
+    fullResponse: true,
+    others: PostOrPutOtherProps
+  ): Promise<AxiosResponse<Tdata>>
+  async put<Tdata>(
+    url: string,
+    data?: object,
+    fullResponse: boolean = false,
+    others?: PostOrPutOtherProps
+  ): Promise<Tdata | AxiosResponse<Tdata>> {
     return this.request({url, method: 'put', data, ...others}, fullResponse)
   }
 
-  async delete(url: string, params?: object, fullResponse: boolean = false, others?: object) {
+  async delete<Tdata>(url: string): Promise<Tdata>
+  async delete<Tdata>(url: string, params: object): Promise<Tdata>
+  async delete<Tdata>(url: string, params: object, fullResponse: false): Promise<Tdata>
+  async delete<Tdata>(
+    url: string,
+    params: object,
+    fullResponse: true
+  ): Promise<AxiosResponse<Tdata>>
+  async delete<Tdata>(
+    url: string,
+    params: object,
+    fullResponse: false,
+    others: GetOrDeleteOtherProps
+  ): Promise<Tdata>
+  async delete<Tdata>(
+    url: string,
+    params: object,
+    fullResponse: true,
+    others: GetOrDeleteOtherProps
+  ): Promise<AxiosResponse<Tdata>>
+  async delete<Tdata>(
+    url: string,
+    params?: object,
+    fullResponse = false,
+    others?: GetOrDeleteOtherProps
+  ): Promise<Tdata | AxiosResponse<Tdata>> {
     return this.request({url, method: 'delete', params, ...others}, fullResponse)
   }
 }

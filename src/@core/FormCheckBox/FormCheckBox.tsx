@@ -1,10 +1,13 @@
 import {Controller, useFormContext} from 'react-hook-form'
 
+import {ControllerProps} from 'types'
+
 import CheckBox, {CheckBoxProps} from '../CheckBox'
 
 type FormCheckBoxProps = {
   name: string
-} & Omit<CheckBoxProps, 'checked' | 'onPress'>
+} & Omit<CheckBoxProps, 'checked' | 'onPress'> &
+  ControllerProps
 
 const FormCheckBox = ({name, label, ...props}: FormCheckBoxProps) => {
   const {control} = useFormContext()
