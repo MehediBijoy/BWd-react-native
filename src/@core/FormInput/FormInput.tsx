@@ -1,12 +1,14 @@
 import React from 'react'
-import {useFormContext, Controller, ControllerProps} from 'react-hook-form'
+import {useFormContext, Controller} from 'react-hook-form'
 
 import Input, {InputProps} from '@core/Input'
+
+import {ControllerProps} from 'types'
 
 export type FormInputProps = {
   name: string
 } & InputProps &
-  Omit<ControllerProps, 'render'>
+  ControllerProps
 
 const FormInput: React.FC<FormInputProps> = ({name, onChangeText, ...props}) => {
   const {control} = useFormContext()

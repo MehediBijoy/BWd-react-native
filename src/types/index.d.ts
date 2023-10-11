@@ -1,10 +1,13 @@
 import type {ReactNode} from 'react'
 import type {Colors as RNColors} from '@rneui/themed'
+import type {ControllerProps as Controller} from 'react-hook-form'
 
 export type Children = {
   children: ReactNode
 }
 
+// types for react-hook-form
 export type SetErrorKey = `root.${string}`
+export type ControllerProps = Omit<Controller, 'render' | 'name' | 'control'>
 
 export type Colors = keyof Omit<RNColors, 'platform'>

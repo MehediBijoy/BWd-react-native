@@ -1,12 +1,14 @@
 import React from 'react'
-import {Controller, useFormContext, ControllerProps} from 'react-hook-form'
+import {Controller, useFormContext} from 'react-hook-form'
 
 import Select, {SelectProps} from '@core/Select'
+
+import {ControllerProps} from 'types'
 
 type FormSelectProps = {
   name: string
 } & Omit<SelectProps, 'onChange'> &
-  Omit<ControllerProps, 'render'>
+  ControllerProps
 
 const FormSelect = ({name, ...props}: FormSelectProps) => {
   const {control} = useFormContext()
