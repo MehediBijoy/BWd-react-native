@@ -27,7 +27,7 @@ const TransactionsHistory = () => {
   })
 
   const selectedRow = React.useMemo(
-    () => orderHistory?.data?.find(item => item.id === selectedId),
+    () => orderHistory?.payments?.find(item => item.id === selectedId),
     [selectedId, orderHistory]
   )
 
@@ -35,13 +35,15 @@ const TransactionsHistory = () => {
     subscribe('PaymentsChannel', {
       received({data: socketData}) {
         queryClient.setQueryData<Partial<OrderHistory>>([cacheKey.orderHistory], orders => {
-          const hasOrder = orders?.data?.find(item => item.id === socketData.id)
+          const hasOrder = orders?.payments?.find(item => item.id === socketData.id)
           if (!hasOrder) {
-            orders?.data?.unshift(socketData)
+            orders?.payments?.unshift(socketData)
           } else {
             Object.assign(hasOrder, socketData)
           }
-          const data = orders?.data?.map(item => (item.id === socketData.id ? socketData : item))
+          const data = orders?.payments?.map(item =>
+            item.id === socketData.id ? socketData : item
+          )
           return {data: data, meta: orders?.meta}
         })
       },
@@ -50,7 +52,7 @@ const TransactionsHistory = () => {
     subscribe('TransfersChannel', {
       received({data: socketData}) {
         queryClient.setQueryData<Partial<OrderHistory>>([cacheKey.orderHistory], orders => {
-          const data = orders?.data?.map(item =>
+          const data = orders?.payments?.map(item =>
             item.id === socketData?.payment_id ? {...item, transfer: socketData} : item
           )
           return {data, meta: orders?.meta}
@@ -77,14 +79,14 @@ const TransactionsHistory = () => {
         )}
         {!isLoading &&
           orderHistory &&
-          orderHistory.data &&
-          orderHistory.data.map((item, index) => (
+          orderHistory.payments &&
+          orderHistory.payments.map((item, index) => (
             <TouchableOpacity
               activeOpacity={0.8}
               key={index}
               style={[
                 styles.tableRow,
-                index === orderHistory.data.length - 1 ? styles.bottomRow : styles.bodyRow,
+                index === orderHistory.payments.length - 1 ? styles.bottomRow : styles.bodyRow,
               ]}
               onPress={() => setSelectedId(item.id)}
             >
@@ -113,7 +115,7 @@ const TransactionsHistory = () => {
               </View>
             </TouchableOpacity>
           ))}
-        {orderHistory && orderHistory.data.length === 0 && (
+        {orderHistory && orderHistory.payments.length === 0 && (
           <View style={[styles.tableRow, styles.emptyRow]}>
             <Text>No data found</Text>
           </View>

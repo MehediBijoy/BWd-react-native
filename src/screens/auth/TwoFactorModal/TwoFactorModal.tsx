@@ -19,7 +19,7 @@ export type TwoFactorModalProps = {
   isLoading: boolean
   error: ErrorObject | null
   onClose: () => void
-  onSubmit(data: any): void
+  onSubmit(mfa_code: string): void
 }
 
 const TwoFactorModal = ({isOpened, isLoading, error, onClose, onSubmit}: TwoFactorModalProps) => {
@@ -43,7 +43,7 @@ const TwoFactorModal = ({isOpened, isLoading, error, onClose, onSubmit}: TwoFact
         <Button
           title='Submit'
           loading={isLoading}
-          onPress={methods.handleSubmit(data => onSubmit(data))}
+          onPress={methods.handleSubmit(({mfa_code}) => onSubmit(mfa_code))}
         />
       </Form>
     </Modal>

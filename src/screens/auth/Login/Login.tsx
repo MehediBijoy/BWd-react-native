@@ -59,8 +59,8 @@ const Login = ({navigation}: NativeStackScreenProps<RouteStack, 'Login'>) => {
     },
   })
 
-  const onSubmit = (data: any) => {
-    mutate({...methods.getValues(), ...data})
+  const onSubmit = (mfa_code?: string) => {
+    mutate({...methods.getValues(), mfa_code})
   }
 
   const onCloseModal = () => {
@@ -108,7 +108,11 @@ const Login = ({navigation}: NativeStackScreenProps<RouteStack, 'Login'>) => {
                 <Text style={styles.forgotPasswordStyles}>Forgot Password?</Text>
               </TouchableOpacity>
 
-              <Button title='Login' loading={isLoading} onPress={methods.handleSubmit(onSubmit)} />
+              <Button
+                title='Login'
+                loading={isLoading}
+                onPress={methods.handleSubmit(() => onSubmit())}
+              />
 
               <Button
                 color={'secondary'}

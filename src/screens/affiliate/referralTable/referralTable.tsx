@@ -44,17 +44,17 @@ const ReferralTable = () => {
             color={theme.colors.primary}
           />
         )}
-        {referralStats?.data.length == 0 ? (
+        {referralStats?.referrals_stats.length == 0 ? (
           <View style={styles.emptyRow}>
             <Text style={styles.emptyRowText}>No data found</Text>
           </View>
         ) : (
-          referralStats?.data.map((item, index) => (
+          referralStats?.referrals_stats.map((item, index) => (
             <TouchableOpacity
               activeOpacity={0.8}
               key={index}
               style={
-                index === referralStats?.data.length - 1
+                index === referralStats?.referrals_stats.length - 1
                   ? [styles.row, styles.rowWithRadius]
                   : [styles.row, styles.rowDivider]
               }

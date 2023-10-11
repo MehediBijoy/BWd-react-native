@@ -36,7 +36,7 @@ const BuyToken = () => {
     mutate,
     isLoading,
     data: estimateFees,
-  } = useMutation<EstimateFee, any, Partial<PaymentProps>>({
+  } = useMutation<EstimateFee, unknown, Partial<PaymentProps>>({
     mutationFn: ({amount, in_base}) =>
       api.getEstimateFee({
         asset: 'USD',
