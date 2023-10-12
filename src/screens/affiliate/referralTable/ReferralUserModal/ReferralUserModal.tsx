@@ -16,7 +16,7 @@ type ReferralModalProps = {
 type ColumnProps = {
   label: string
   text: string | JSX.Element | number
-  [key: string]: any
+  [key: string]: unknown
 }
 
 const Column = ({label, text, ...rest}: ColumnProps) => (

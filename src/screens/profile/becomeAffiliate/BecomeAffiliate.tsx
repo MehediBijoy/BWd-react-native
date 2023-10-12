@@ -32,7 +32,7 @@ const BecomeAffiliate = ({navigation}: NativeStackScreenProps<RouteStack>) => {
   const [isDisabled, setIsDisabled] = React.useState(true)
   const [tooltipVisible, setTooltipVisible] = React.useState(false)
 
-  const {mutate: enableAffiliate, isLoading} = useMutation<User, ErrorObject, any, any>({
+  const {mutate: enableAffiliate, isLoading} = useMutation<User, ErrorObject, number>({
     mutationFn: api.enableAffiliate,
     onSuccess: user => {
       client.invalidateQueries([cacheKey.profile, profile?.id])

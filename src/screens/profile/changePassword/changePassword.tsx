@@ -48,7 +48,7 @@ const ChangePassword = ({navigation}: NativeStackScreenProps<RouteStack>) => {
     }
   }, [parent])
 
-  const {mutate, error, isLoading} = useMutation<Success, ErrorObject, ChangePasswordProps, any>({
+  const {mutate, error, isLoading} = useMutation<Success, ErrorObject, ChangePasswordProps>({
     mutationFn: api.changePassword,
     onError: error => {
       if (isMfaRequired(error)) setIsMfaActive(true)

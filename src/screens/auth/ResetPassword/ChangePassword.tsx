@@ -50,7 +50,7 @@ const ChangePassword = ({
   const {methods} = useYupHooks<FormFields>({schema: emailConfirmationSchema})
 
   const {mutate, isLoading, isError, error} = useMutation<
-    any,
+    unknown,
     ErrorObject,
     ChangePasswordFormProps
   >({
