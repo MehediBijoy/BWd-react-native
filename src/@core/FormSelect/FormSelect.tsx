@@ -10,13 +10,16 @@ type FormSelectProps = {
 } & Omit<SelectProps, 'onChange'> &
   ControllerProps
 
-const FormSelect = ({name, ...props}: FormSelectProps) => {
+const FormSelect = ({name, defaultValue, shouldUnregister, rules, ...props}: FormSelectProps) => {
   const {control} = useFormContext()
 
   return (
     <Controller
       name={name}
+      rules={rules}
       control={control}
+      defaultValue={defaultValue}
+      shouldUnregister={shouldUnregister}
       render={({field: {onChange, onBlur}, fieldState}) => (
         <Select
           onBlur={onBlur}

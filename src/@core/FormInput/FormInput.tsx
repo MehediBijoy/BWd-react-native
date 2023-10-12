@@ -10,13 +10,23 @@ export type FormInputProps = {
 } & InputProps &
   ControllerProps
 
-const FormInput: React.FC<FormInputProps> = ({name, onChangeText, ...props}) => {
+const FormInput: React.FC<FormInputProps> = ({
+  name,
+  rules,
+  onChangeText,
+  defaultValue,
+  shouldUnregister,
+  ...props
+}) => {
   const {control} = useFormContext()
 
   return (
     <Controller
       name={name}
+      rules={rules}
       control={control}
+      defaultValue={defaultValue}
+      shouldUnregister={shouldUnregister}
       render={({field: {onChange, ...restField}, fieldState}) => (
         <Input
           onChangeText={props => {
