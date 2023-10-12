@@ -9,13 +9,23 @@ type FormCheckBoxProps = {
 } & Omit<CheckBoxProps, 'checked' | 'onPress'> &
   ControllerProps
 
-const FormCheckBox = ({name, label, ...props}: FormCheckBoxProps) => {
+const FormCheckBox = ({
+  name,
+  label,
+  defaultValue,
+  shouldUnregister,
+  rules,
+  ...props
+}: FormCheckBoxProps) => {
   const {control} = useFormContext()
 
   return (
     <Controller
       name={name}
+      rules={rules}
       control={control}
+      defaultValue={defaultValue}
+      shouldUnregister={shouldUnregister}
       render={({field, fieldState}) => (
         <CheckBox
           label={label}
