@@ -24,6 +24,8 @@ const Modal = ({isOpened, onClose, title, children, style}: ModalProps) => {
       animationOut='fadeOut'
       useNativeDriver
       statusBarTranslucent
+      backdropColor='transparent'
+      style={styles.modal}
     >
       <View style={[styles.container]}>
         <View style={[styles.titleContainer]}>
@@ -45,6 +47,11 @@ const Modal = ({isOpened, onClose, title, children, style}: ModalProps) => {
 }
 
 const useStyles = makeStyles(({colors}) => ({
+  modal: {
+    margin: 0,
+    padding: 15,
+    backgroundColor: alpha(colors.black, 0.7),
+  },
   titleContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
