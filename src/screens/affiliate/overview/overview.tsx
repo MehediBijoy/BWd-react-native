@@ -10,6 +10,8 @@ import {cacheKey} from 'api'
 import {useApi} from 'hooks/api'
 import {useAssets, usePlatform, useProfile} from 'hooks/helper'
 import {LegalStuff} from 'constants/legalStuff.config'
+import FiatImg from 'images/affiliates/fiat.svg'
+import TotalCommissionImg from 'images/affiliates/total_commission_lifetime.svg'
 
 import PayoutModal from './payoutModal'
 
@@ -50,6 +52,17 @@ const Overview = () => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.grid}>
+        <View style={styles.box}>
+          <Text>Total commission over lifetime</Text>
+          <View style={[styles.imageWrapper, {backgroundColor: 'rgba(110, 255, 0, 0.20)'}]}>
+            <TotalCommissionImg height={20} width={20} />
+          </View>
+        </View>
+
+        {isLoading ? <Loader /> : <Text style={styles.priceText}>{data?.total_income} BWG</Text>}
+      </View>
+
       <View style={styles.labelWrapper}>
         <Text style={styles.label}>Total commission over lifetime: </Text>
         {isLoading ? <Loader /> : <Text style={styles.label}>{data?.total_income} BWG</Text>}
@@ -124,6 +137,41 @@ const useStyles = makeStyles(({colors}) => ({
   container: {
     marginTop: 20,
   },
+  grid: {
+    marginBottom: 20,
+    padding: 20,
+    // height: 100,
+    borderRadius: 3,
+
+    //for iOS app
+    shadowColor: 'rgba(0, 0, 0, 0.25)',
+    shadowOffset: {
+      height: 0,
+      width: 0,
+    },
+    shadowRadius: 6,
+    shadowOpacity: 1,
+
+    // for android
+    elevation: 1,
+  },
+  box: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  imageWrapper: {
+    height: 40,
+    width: 40,
+    borderRadius: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  subTitle: {},
+  priceText: {
+    fontWeight: 'bold',
+    color: colors.secondary,
+    fontSize: 24,
+  },
   boxWrapper: {
     marginTop: 10,
   },
@@ -139,7 +187,8 @@ const useStyles = makeStyles(({colors}) => ({
   },
   label: {
     fontWeight: '700',
-    fontSize: 16,
+    color: colors.secondary,
+    fontSize: 20,
   },
   referralLink: {
     marginTop: 3,

@@ -4,6 +4,7 @@ export const lightColors: Colors = {
   ...defaultLightColors,
   textPrimary: '#000000',
   textReverse: '#FFFFFF',
+  textGray: '#787878',
 
   primaryLight: '#AAF27F',
   primary: '#86C22E',
@@ -30,6 +31,7 @@ declare module '@rneui/themed' {
   interface Colors {
     readonly textPrimary: string
     readonly textReverse: string
+    readonly textGray: string
 
     readonly primaryLight: string
     readonly primaryDark: string
