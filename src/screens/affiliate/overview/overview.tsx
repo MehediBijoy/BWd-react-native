@@ -8,10 +8,15 @@ import Loader from '@core/Loader'
 
 import {cacheKey} from 'api'
 import {useApi} from 'hooks/api'
+import {alpha} from 'utils'
 import {useAssets, usePlatform, useProfile} from 'hooks/helper'
 import {LegalStuff} from 'constants/legalStuff.config'
 import FiatImg from 'images/affiliates/fiat.svg'
 import TotalCommissionImg from 'images/affiliates/total_commission_lifetime.svg'
+import DirectImg from 'images/affiliates/direct_commission.svg'
+import UnilevelImg from 'images/affiliates/unilevel_commission.svg'
+import PayedOutImg from 'images/affiliates/available.svg'
+import AvailableImg from 'images/affiliates/payedOut.svg'
 
 import PayoutModal from './payoutModal'
 
@@ -20,17 +25,22 @@ type ReferralBoxProps = {
   price?: string | number
   isLoading: boolean
   fiat?: boolean
+  bgColor: string
+  icon: React.ReactNode
 }
 
-const ReferralBox = ({label, price, isLoading, fiat}: ReferralBoxProps) => {
+const ReferralBox = ({label, price, isLoading, fiat, icon, bgColor}: ReferralBoxProps) => {
   const styles = useStyles()
   return (
-    <View style={[styles.referralBoxOverview, styles.container]}>
-      <Text style={styles.referralLabel}>{label}</Text>
+    <View style={styles.grid}>
+      <View style={styles.box}>
+        <Text style={styles.subTitle}>{label}</Text>
+        <View style={[styles.imageWrapper, {backgroundColor: bgColor}]}>{icon}</View>
+      </View>
       {isLoading ? (
         <Loader />
       ) : (
-        <Text style={styles.priceLabel}>{fiat ? `$${price}` : `${price} BWG`}</Text>
+        <Text style={styles.priceText}>{fiat ? `$${price}` : `${price} BWG`}</Text>
       )}
     </View>
   )
@@ -42,6 +52,7 @@ const Overview = () => {
   const {profile} = useProfile()
   const {APP_URL} = usePlatform()
   const {data: bwgPrice, isLoading: bwgILoading} = useAssets('BWG')
+  const [isShowAll, setIsShowAll] = React.useState(false)
 
   const [isOpened, setIsOpened] = React.useState<boolean>(false)
 
@@ -52,17 +63,67 @@ const Overview = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.grid}>
-        <View style={styles.box}>
-          <Text>Total commission over lifetime</Text>
-          <View style={[styles.imageWrapper, {backgroundColor: 'rgba(110, 255, 0, 0.20)'}]}>
-            <TotalCommissionImg height={20} width={20} />
-          </View>
-        </View>
+      <ReferralBox
+        icon={<FiatImg height={20} width={20} />}
+        bgColor='rgba(229, 80, 80, 0.20)'
+        label='Available commission in fiat'
+        price={bwgPrice && (Number(data?.current_balance) * Number(bwgPrice?.price)).toFixed(4)}
+        isLoading={isLoading || bwgILoading}
+        fiat
+      />
 
-        {isLoading ? <Loader /> : <Text style={styles.priceText}>{data?.total_income} BWG</Text>}
-      </View>
+      <ReferralBox
+        icon={<TotalCommissionImg height={20} width={20} />}
+        bgColor='rgba(110, 255, 0, 0.20)'
+        label='Total commission over lifetime'
+        price={data?.total_income}
+        isLoading={isLoading}
+      />
 
+      {isShowAll && (
+        <>
+          <ReferralBox
+            icon={<DirectImg height={20} width={20} />}
+            bgColor='rgba(163, 198, 233, 0.2)'
+            label='Total direct commission'
+            price={data?.total_direct}
+            isLoading={isLoading}
+          />
+
+          <ReferralBox
+            icon={<UnilevelImg height={20} width={20} />}
+            bgColor='rgba(21, 193, 170, 0.20)'
+            label='Total unilevel commission'
+            price={data?.total_unilevel}
+            isLoading={isLoading}
+          />
+
+          <ReferralBox
+            icon={<PayedOutImg height={20} width={20} />}
+            bgColor='rgba(216, 189, 124, 0.20)'
+            label='Total commission payed out'
+            price={data?.total_payout}
+            isLoading={isLoading}
+          />
+
+          <ReferralBox
+            icon={<AvailableImg height={20} width={20} />}
+            bgColor='rgba(169, 213, 108, 0.20)'
+            label='Available account commission'
+            price={data?.current_balance}
+            isLoading={isLoading}
+          />
+        </>
+      )}
+
+      <Button
+        title={isShowAll ? 'Close' : 'Show all'}
+        onPress={() => setIsShowAll(!isShowAll)}
+        containerStyle={{
+          marginBottom: 20,
+        }}
+        buttonStyle={styles.toggleBtn}
+      />
       <View style={styles.labelWrapper}>
         <Text style={styles.label}>Total commission over lifetime: </Text>
         {isLoading ? <Loader /> : <Text style={styles.label}>{data?.total_income} BWG</Text>}
@@ -84,34 +145,6 @@ const Overview = () => {
         containerStyle={{
           marginVertical: 10,
         }}
-      />
-
-      <ReferralBox
-        label='Total direct commission'
-        price={data?.total_direct}
-        isLoading={isLoading}
-      />
-      <ReferralBox
-        label='Total unilevel commission'
-        price={data?.total_unilevel}
-        isLoading={isLoading}
-      />
-      <ReferralBox
-        label='Total commission payed out'
-        price={data?.total_payout}
-        isLoading={isLoading}
-      />
-      <ReferralBox
-        label='Available account commission'
-        price={data?.current_balance}
-        isLoading={isLoading}
-      />
-
-      <ReferralBox
-        label='Available commission in fiat'
-        price={bwgPrice && Number(data?.current_balance) * Number(bwgPrice?.price)}
-        isLoading={isLoading || bwgILoading}
-        fiat
       />
 
       <Button
@@ -140,20 +173,21 @@ const useStyles = makeStyles(({colors}) => ({
   grid: {
     marginBottom: 20,
     padding: 20,
-    // height: 100,
-    borderRadius: 3,
+    backgroundColor: colors.background,
+    borderRadius: 10,
+    minHeight: 110,
 
     //for iOS app
-    shadowColor: 'rgba(0, 0, 0, 0.25)',
+    shadowColor: colors.black,
     shadowOffset: {
       height: 0,
       width: 0,
     },
-    shadowRadius: 6,
-    shadowOpacity: 1,
+    shadowRadius: 3,
+    shadowOpacity: 0.25,
 
     // for android
-    elevation: 1,
+    elevation: 5,
   },
   box: {
     flexDirection: 'row',
@@ -166,11 +200,18 @@ const useStyles = makeStyles(({colors}) => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  subTitle: {},
+  subTitle: {
+    color: colors.textGray,
+    fontSize: 16,
+  },
   priceText: {
     fontWeight: 'bold',
     color: colors.secondary,
     fontSize: 24,
+  },
+  toggleBtn: {
+    backgroundColor: alpha(colors.grey3, 0.9),
+    height: 50,
   },
   boxWrapper: {
     marginTop: 10,
