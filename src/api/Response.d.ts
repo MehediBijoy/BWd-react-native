@@ -224,6 +224,8 @@ type ReferralStats = {
   referral_total_invites: number
   referral_total_regulars: number
   referral_total_affiliates: number
+  referral_full_name: string
+  referral_email: string
 }
 
 type ReferralAccount = {

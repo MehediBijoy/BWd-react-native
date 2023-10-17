@@ -1,16 +1,34 @@
 import React from 'react'
-import {View, Linking} from 'react-native'
+import {View} from 'react-native'
 import {useQuery} from '@tanstack/react-query'
+import Animated, {
+  FadeIn,
+  FadeInDown,
+  FadeInUp,
+  FadeOut,
+  FadeOutUp,
+  Layout,
+  RollInLeft,
+  RollInRight,
+  RollOutRight,
+  SlideInDown,
+  SlideInLeft,
+  SlideInRight,
+  SlideInUp,
+  SlideOutDown,
+  SlideOutRight,
+  StretchOutY,
+  ZoomInUp,
+  ZoomOut,
+} from 'react-native-reanimated'
 import {Button, Text, makeStyles} from '@rneui/themed'
 
-import CopyButton from '@core/CopyButton'
 import Loader from '@core/Loader'
 
 import {cacheKey} from 'api'
 import {useApi} from 'hooks/api'
 import {alpha} from 'utils'
-import {useAssets, usePlatform, useProfile} from 'hooks/helper'
-import {LegalStuff} from 'constants/legalStuff.config'
+import {useAssets, useProfile} from 'hooks/helper'
 import FiatImg from 'images/affiliates/fiat.svg'
 import TotalCommissionImg from 'images/affiliates/total_commission_lifetime.svg'
 import DirectImg from 'images/affiliates/direct_commission.svg'
@@ -50,7 +68,6 @@ const Overview = () => {
   const api = useApi()
   const styles = useStyles()
   const {profile} = useProfile()
-  const {APP_URL} = usePlatform()
   const {data: bwgPrice, isLoading: bwgILoading} = useAssets('BWG')
   const [isShowAll, setIsShowAll] = React.useState(false)
 
@@ -81,7 +98,8 @@ const Overview = () => {
       />
 
       {isShowAll && (
-        <>
+        <Animated.View layout={Layout.stiffness(0)} entering={FadeInUp} exiting={StretchOutY}>
+          {/* <Animated.View layout={Layout.stiffness(0)} entering={FadeInUp} exiting={ZoomOut}> */}
           <ReferralBox
             icon={<DirectImg height={20} width={20} />}
             bgColor='rgba(163, 198, 233, 0.2)'
@@ -89,7 +107,9 @@ const Overview = () => {
             price={data?.total_direct}
             isLoading={isLoading}
           />
+          {/* </Animated.View> */}
 
+          {/* <Animated.View layout={Layout.stiffness(0)} entering={FadeInUp} exiting={ZoomOut}> */}
           <ReferralBox
             icon={<UnilevelImg height={20} width={20} />}
             bgColor='rgba(21, 193, 170, 0.20)'
@@ -97,7 +117,8 @@ const Overview = () => {
             price={data?.total_unilevel}
             isLoading={isLoading}
           />
-
+          {/* </Animated.View> */}
+          {/* <Animated.View layout={Layout.stiffness(0)} entering={FadeInUp} exiting={ZoomOut}> */}
           <ReferralBox
             icon={<PayedOutImg height={20} width={20} />}
             bgColor='rgba(216, 189, 124, 0.20)'
@@ -105,7 +126,8 @@ const Overview = () => {
             price={data?.total_payout}
             isLoading={isLoading}
           />
-
+          {/* </Animated.View> */}
+          {/* <Animated.View layout={Layout.stiffness(0)} entering={FadeInUp} exiting={ZoomOut}> */}
           <ReferralBox
             icon={<AvailableImg height={20} width={20} />}
             bgColor='rgba(169, 213, 108, 0.20)'
@@ -113,7 +135,8 @@ const Overview = () => {
             price={data?.current_balance}
             isLoading={isLoading}
           />
-        </>
+          {/* </Animated.View> */}
+        </Animated.View>
       )}
 
       <Button
@@ -124,36 +147,16 @@ const Overview = () => {
         }}
         buttonStyle={styles.toggleBtn}
       />
-      <View style={styles.labelWrapper}>
-        <Text style={styles.label}>Total commission over lifetime: </Text>
-        {isLoading ? <Loader /> : <Text style={styles.label}>{data?.total_income} BWG</Text>}
-      </View>
-      <View style={[styles.referralBox, styles.boxWrapper]}>
-        <Text style={styles.label}>Referral ID:</Text>
-        <Text style={styles.label}>{profile?.referral_token}</Text>
-      </View>
-      <View style={[styles.referralBox]}>
-        <Text style={styles.label}>Copy Link:</Text>
-        {profile?.referral_token && (
-          <CopyButton toCopy={`${APP_URL}/invite?token=${profile.referral_token}`} />
-        )}
-      </View>
-
-      <Button
-        title='Affiliate Terms & Conditions'
-        onPress={() => Linking.openURL(LegalStuff.affiliateTerms)}
-        containerStyle={{
-          marginVertical: 10,
-        }}
-      />
 
       <Button
         title='Payout commission'
         disabled={Number(data?.current_balance) === 0}
         onPress={() => setIsOpened(true)}
         containerStyle={{
-          marginVertical: 20,
-          alignSelf: 'center',
+          marginBottom: 20,
+        }}
+        buttonStyle={{
+          height: 50,
         }}
       />
 
@@ -211,7 +214,6 @@ const useStyles = makeStyles(({colors}) => ({
   },
   toggleBtn: {
     backgroundColor: alpha(colors.grey3, 0.9),
-    height: 50,
   },
   boxWrapper: {
     marginTop: 10,

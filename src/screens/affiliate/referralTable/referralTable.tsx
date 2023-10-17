@@ -1,15 +1,17 @@
 import React from 'react'
 import {useQuery} from '@tanstack/react-query'
-import {Text, makeStyles, useTheme} from '@rneui/themed'
-import {ActivityIndicator, View, TouchableOpacity} from 'react-native'
+import {Text, makeStyles, useTheme, Button} from '@rneui/themed'
+import {ActivityIndicator, View, TouchableOpacity, Linking} from 'react-native'
 
 import StatusBadge from '@core/StatusBadge'
 
 import {useApi} from 'hooks/api'
 import {cacheKey} from 'api/CacheKey'
 import {useProfile} from 'hooks/helper'
-import {formatDate} from 'utils'
+import {shorten} from 'utils'
 import {ReferralStats} from 'api/Response'
+import {LegalStuff} from 'constants/legalStuff.config'
+import ShareImg from 'images/affiliates/share.svg'
 
 import ReferralUserModal from './ReferralUserModal'
 
@@ -61,14 +63,11 @@ const ReferralTable = () => {
               onPress={() => setSelectedItem(item)}
             >
               <View style={styles.cellDetails}>
-                <Text style={styles.titleText}>Account Type: {item.referral_account_type}</Text>
-                <Text style={styles.subText}>
-                  <Text style={styles.labelText}>Friends User ID:</Text> {item.referral_id}
+                <Text style={styles.titleText}>
+                  Account Type: {item.referral_account_type.toUpperCase()}
                 </Text>
-                <Text style={styles.subText}>
-                  <Text style={styles.labelText}>Joining Date:</Text>
-                  {formatDate(item.referral_joined_at, 'MMM DD,YYYY')}
-                </Text>
+                <Text style={styles.labelText}>Name: {item.referral_full_name}</Text>
+                <Text style={styles.labelText}>Email: {shorten(item.referral_email, 7)}</Text>
               </View>
               <View style={styles.cellStatus}>
                 <StatusBadge
@@ -80,6 +79,21 @@ const ReferralTable = () => {
             </TouchableOpacity>
           ))
         )}
+      </View>
+
+      <View style={styles.bottomWrapper}>
+        <Button
+          title='Affiliate Terms & Conditions'
+          onPress={() => Linking.openURL(LegalStuff.affiliateTerms)}
+          containerStyle={{
+            marginVertical: 10,
+            width: '80%',
+          }}
+        />
+
+        <View style={styles.shareBtnWrapper}>
+          <ShareImg height={20} width={20} />
+        </View>
       </View>
 
       {selectedItem && (
@@ -159,18 +173,28 @@ const useStyles = makeStyles(({colors}) => ({
     fontSize: 12,
     color: colors.textPrimary,
   },
-  subText: {
-    fontSize: 11,
-    color: colors.textPrimary,
-  },
   titleText: {
     fontSize: 14,
     fontWeight: '700',
     color: colors.tertiary,
+    textTransform: 'capitalize',
   },
   labelText: {
-    fontSize: 12,
-    fontWeight: '700',
+    fontSize: 14,
     color: colors.textPrimary,
+  },
+  bottomWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  shareBtnWrapper: {
+    borderWidth: 0.5,
+    borderRadius: 5,
+    height: 35,
+    width: 35,
+    borderColor: colors.divider,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 }))
