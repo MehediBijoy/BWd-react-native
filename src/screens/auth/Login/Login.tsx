@@ -19,6 +19,7 @@ import {LoginResponse} from 'api/Response'
 import {RouteStack} from 'navigators/routes'
 import {isMfaRequired} from 'utils/response'
 import useYupHooks from 'hooks/helper/useYupHooks'
+import ZenDesk from 'components/ZenDesk'
 
 import GradientBox from '../GradientBox'
 import {useStyles} from './Login.styles'
@@ -131,6 +132,7 @@ const Login = ({navigation}: NativeStackScreenProps<RouteStack, 'Login'>) => {
           </View>
         </GradientBox>
         <FAQ />
+        <ZenDesk floating />
       </ContainContainer>
     </ScrollView>
   )

@@ -13,6 +13,7 @@ import ChangeEmail from 'screens/profile/changeEmail'
 import ChangePassword from 'screens/profile/changePassword'
 import MFA from 'screens/profile/MFA'
 import BecomeAffiliate from 'screens/profile/becomeAffiliate'
+import ZenDesk from 'components/ZenDesk'
 
 import type {RouteStack} from './routes'
 import DrawerNavigator from './DrawerNavigator'
@@ -25,25 +26,27 @@ const Navigators = () => {
   return (
     <Stack.Navigator>
       {!profile ? (
-        <Stack.Group
-          screenOptions={{
-            title: '',
-            headerLeft: () => <Logo />,
-          }}
-        >
-          <Stack.Screen name='Login' component={Login} />
+        <>
           <Stack.Group
-            screenOptions={({navigation}: NativeStackScreenProps<RouteStack>) => ({
-              headerBackVisible: false,
-              headerRight: () => (
-                <Button title='Login' onPress={() => navigation.navigate('Login')} />
-              ),
-            })}
+            screenOptions={{
+              title: '',
+              headerLeft: () => <Logo />,
+            }}
           >
-            <Stack.Screen name='ResetPassword' component={ResetPassword} />
-            <Stack.Screen name='RegistrationForm' component={RegistrationForm} />
+            <Stack.Screen name='Login' component={Login} />
+            <Stack.Group
+              screenOptions={({navigation}: NativeStackScreenProps<RouteStack>) => ({
+                headerBackVisible: false,
+                headerRight: () => (
+                  <Button title='Login' onPress={() => navigation.navigate('Login')} />
+                ),
+              })}
+            >
+              <Stack.Screen name='ResetPassword' component={ResetPassword} />
+              <Stack.Screen name='RegistrationForm' component={RegistrationForm} />
+            </Stack.Group>
           </Stack.Group>
-        </Stack.Group>
+        </>
       ) : !isUserConfirmed(profile) ? (
         <Stack.Screen
           name='RegistrationProgress'
