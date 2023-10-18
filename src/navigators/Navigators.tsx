@@ -3,16 +3,17 @@ import {Button} from '@rneui/themed'
 import {createNativeStackNavigator, NativeStackScreenProps} from '@react-navigation/native-stack'
 
 import Logo from 'components/Logo'
-import {isUserConfirmed} from 'utils/response'
+import MFA from 'screens/profile/MFA'
 import Login from 'screens/auth/Login'
 import {useProfile} from 'hooks/helper'
+import ZenDesk from 'components/ZenDesk'
+import {isUserConfirmed} from 'utils/response'
+import ChangeEmail from 'screens/profile/changeEmail'
 import ResetPassword from 'screens/auth/ResetPassword'
 import RegistrationProgress from 'screens/auth/Registration'
-import RegistrationForm from 'screens/auth/Registration/RegisterForm'
-import ChangeEmail from 'screens/profile/changeEmail'
 import ChangePassword from 'screens/profile/changePassword'
-import MFA from 'screens/profile/MFA'
 import BecomeAffiliate from 'screens/profile/becomeAffiliate'
+import RegistrationForm from 'screens/auth/Registration/RegisterForm'
 
 import type {RouteStack} from './routes'
 import DrawerNavigator from './DrawerNavigator'
@@ -22,9 +23,9 @@ const Stack = createNativeStackNavigator<RouteStack>()
 const Navigators = () => {
   const {profile} = useProfile()
 
-  return (
-    <Stack.Navigator>
-      {!profile ? (
+  return !profile ? (
+    <>
+      <Stack.Navigator>
         <Stack.Group
           screenOptions={{
             title: '',
@@ -44,41 +45,46 @@ const Navigators = () => {
             <Stack.Screen name='RegistrationForm' component={RegistrationForm} />
           </Stack.Group>
         </Stack.Group>
-      ) : !isUserConfirmed(profile) ? (
+      </Stack.Navigator>
+      <ZenDesk floating />
+    </>
+  ) : !isUserConfirmed(profile) ? (
+    <Stack.Navigator>
+      <Stack.Screen
+        name='RegistrationProgress'
+        component={RegistrationProgress}
+        options={{headerShown: false}}
+      />
+    </Stack.Navigator>
+  ) : (
+    <Stack.Navigator>
+      <Stack.Group>
         <Stack.Screen
-          name='RegistrationProgress'
-          component={RegistrationProgress}
+          name='DrawerComponents'
           options={{headerShown: false}}
+          component={DrawerNavigator}
         />
-      ) : (
-        <Stack.Group>
-          <Stack.Screen
-            name='DrawerComponents'
-            options={{headerShown: false}}
-            component={DrawerNavigator}
-          />
-          <Stack.Screen
-            name='ProfileEmailChange'
-            component={ChangeEmail}
-            options={{title: 'Email Change', headerBackTitleVisible: false}}
-          />
-          <Stack.Screen
-            name='ProfilePasswordChange'
-            component={ChangePassword}
-            options={{title: 'Password Change', headerBackTitleVisible: false}}
-          />
-          <Stack.Screen
-            name='ProfileMFA'
-            component={MFA}
-            options={{title: 'Two Factor Authentication', headerBackTitleVisible: false}}
-          />
-          <Stack.Screen
-            name='ProfileBecomeAffiliate'
-            component={BecomeAffiliate}
-            options={{title: 'Become An Affiliate', headerBackTitleVisible: false}}
-          />
-        </Stack.Group>
-      )}
+        <Stack.Screen
+          name='ProfileEmailChange'
+          component={ChangeEmail}
+          options={{title: 'Email Change', headerBackTitleVisible: false}}
+        />
+        <Stack.Screen
+          name='ProfilePasswordChange'
+          component={ChangePassword}
+          options={{title: 'Password Change', headerBackTitleVisible: false}}
+        />
+        <Stack.Screen
+          name='ProfileMFA'
+          component={MFA}
+          options={{title: 'Two Factor Authentication', headerBackTitleVisible: false}}
+        />
+        <Stack.Screen
+          name='ProfileBecomeAffiliate'
+          component={BecomeAffiliate}
+          options={{title: 'Become An Affiliate', headerBackTitleVisible: false}}
+        />
+      </Stack.Group>
     </Stack.Navigator>
   )
 }
