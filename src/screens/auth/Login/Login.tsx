@@ -106,7 +106,7 @@ const Login = ({navigation}: NativeStackScreenProps<RouteStack, 'Login'>) => {
               {mfaRequired && (
                 <FormInput
                   name='mfa_code'
-                  placeholder='Password'
+                  placeholder='XXX XXX'
                   label='Enter 2FA code'
                   color='bgPaper'
                 />

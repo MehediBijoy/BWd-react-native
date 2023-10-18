@@ -107,11 +107,11 @@ const ReferralTable = () => {
           }}
         />
 
-        <View style={styles.shareBtnWrapper}>
-          <TouchableWithoutFeedback onPress={onShare}>
+        <TouchableWithoutFeedback onPress={onShare}>
+          <View style={styles.shareBtnWrapper}>
             <ShareImg height={20} width={20} />
-          </TouchableWithoutFeedback>
-        </View>
+          </View>
+        </TouchableWithoutFeedback>
       </View>
 
       {selectedItem && (

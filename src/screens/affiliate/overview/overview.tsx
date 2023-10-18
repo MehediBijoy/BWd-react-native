@@ -1,7 +1,6 @@
 import React from 'react'
 import {View} from 'react-native'
 import {useQuery} from '@tanstack/react-query'
-import Animated, {FadeInUp, Layout} from 'react-native-reanimated'
 import {Button, Text, makeStyles} from '@rneui/themed'
 
 import Loader from '@core/Loader'
@@ -79,7 +78,7 @@ const Overview = () => {
       />
 
       {isShowAll && (
-        <Animated.View layout={Layout.stiffness(0)} entering={FadeInUp}>
+        <>
           <ReferralBox
             icon={<DirectImg height={20} width={20} />}
             bgColor='rgba(163, 198, 233, 0.2)'
@@ -111,7 +110,7 @@ const Overview = () => {
             price={data?.current_balance}
             isLoading={isLoading}
           />
-        </Animated.View>
+        </>
       )}
 
       <Button
