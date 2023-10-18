@@ -1,26 +1,7 @@
 import React from 'react'
 import {View} from 'react-native'
 import {useQuery} from '@tanstack/react-query'
-import Animated, {
-  FadeIn,
-  FadeInDown,
-  FadeInUp,
-  FadeOut,
-  FadeOutUp,
-  Layout,
-  RollInLeft,
-  RollInRight,
-  RollOutRight,
-  SlideInDown,
-  SlideInLeft,
-  SlideInRight,
-  SlideInUp,
-  SlideOutDown,
-  SlideOutRight,
-  StretchOutY,
-  ZoomInUp,
-  ZoomOut,
-} from 'react-native-reanimated'
+import Animated, {FadeInUp, Layout} from 'react-native-reanimated'
 import {Button, Text, makeStyles} from '@rneui/themed'
 
 import Loader from '@core/Loader'
@@ -98,8 +79,7 @@ const Overview = () => {
       />
 
       {isShowAll && (
-        <Animated.View layout={Layout.stiffness(0)} entering={FadeInUp} exiting={StretchOutY}>
-          {/* <Animated.View layout={Layout.stiffness(0)} entering={FadeInUp} exiting={ZoomOut}> */}
+        <Animated.View layout={Layout.stiffness(0)} entering={FadeInUp}>
           <ReferralBox
             icon={<DirectImg height={20} width={20} />}
             bgColor='rgba(163, 198, 233, 0.2)'
@@ -107,9 +87,7 @@ const Overview = () => {
             price={data?.total_direct}
             isLoading={isLoading}
           />
-          {/* </Animated.View> */}
 
-          {/* <Animated.View layout={Layout.stiffness(0)} entering={FadeInUp} exiting={ZoomOut}> */}
           <ReferralBox
             icon={<UnilevelImg height={20} width={20} />}
             bgColor='rgba(21, 193, 170, 0.20)'
@@ -117,8 +95,7 @@ const Overview = () => {
             price={data?.total_unilevel}
             isLoading={isLoading}
           />
-          {/* </Animated.View> */}
-          {/* <Animated.View layout={Layout.stiffness(0)} entering={FadeInUp} exiting={ZoomOut}> */}
+
           <ReferralBox
             icon={<PayedOutImg height={20} width={20} />}
             bgColor='rgba(216, 189, 124, 0.20)'
@@ -126,8 +103,7 @@ const Overview = () => {
             price={data?.total_payout}
             isLoading={isLoading}
           />
-          {/* </Animated.View> */}
-          {/* <Animated.View layout={Layout.stiffness(0)} entering={FadeInUp} exiting={ZoomOut}> */}
+
           <ReferralBox
             icon={<AvailableImg height={20} width={20} />}
             bgColor='rgba(169, 213, 108, 0.20)'
@@ -135,7 +111,6 @@ const Overview = () => {
             price={data?.current_balance}
             isLoading={isLoading}
           />
-          {/* </Animated.View> */}
         </Animated.View>
       )}
 
@@ -214,47 +189,6 @@ const useStyles = makeStyles(({colors}) => ({
   },
   toggleBtn: {
     backgroundColor: alpha(colors.grey3, 0.9),
-  },
-  boxWrapper: {
-    marginTop: 10,
-  },
-  referralBox: {
-    marginVertical: 5,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-  },
-  labelWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  label: {
-    fontWeight: '700',
-    color: colors.secondary,
-    fontSize: 20,
-  },
-  referralLink: {
-    marginTop: 3,
-    fontWeight: 'bold',
-  },
-  referralBoxOverview: {
-    backgroundColor: colors.secondary,
-    width: '100%',
-    borderRadius: 6,
-    rowGap: 7,
-    paddingVertical: 15,
-  },
-  referralLabel: {
-    fontWeight: '700',
-    fontSize: 16,
-    color: colors.textReverse,
-    textAlign: 'center',
-  },
-  priceLabel: {
-    fontWeight: 'bold',
-    fontSize: 20,
-    color: colors.textReverse,
-    textAlign: 'center',
   },
 }))
 

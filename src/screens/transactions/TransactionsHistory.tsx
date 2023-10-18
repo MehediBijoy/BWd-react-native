@@ -147,7 +147,7 @@ const useStyles = makeStyles(({colors}) => ({
     backgroundColor: colors.background,
   },
   headerRow: {
-    backgroundColor: colors.bgPaper,
+    backgroundColor: colors.grey4,
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
   },

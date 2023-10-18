@@ -1,13 +1,20 @@
 import React from 'react'
 import {useQuery} from '@tanstack/react-query'
 import {Text, makeStyles, useTheme, Button} from '@rneui/themed'
-import {ActivityIndicator, View, TouchableOpacity, Linking} from 'react-native'
+import {
+  ActivityIndicator,
+  View,
+  TouchableOpacity,
+  Linking,
+  Share,
+  TouchableWithoutFeedback,
+} from 'react-native'
 
 import StatusBadge from '@core/StatusBadge'
 
 import {useApi} from 'hooks/api'
 import {cacheKey} from 'api/CacheKey'
-import {useProfile} from 'hooks/helper'
+import {useProfile, usePlatform} from 'hooks/helper'
 import {shorten} from 'utils'
 import {ReferralStats} from 'api/Response'
 import {LegalStuff} from 'constants/legalStuff.config'
@@ -20,6 +27,7 @@ const ReferralTable = () => {
   const styles = useStyles()
   const {theme} = useTheme()
   const {profile} = useProfile()
+  const {APP_URL} = usePlatform()
 
   const [selectedItem, setSelectedItem] = React.useState<ReferralStats>()
 
@@ -27,6 +35,17 @@ const ReferralTable = () => {
     queryKey: [cacheKey.affiliateStats, profile?.id],
     queryFn: () => api.getReferralStats(profile?.id as number),
   })
+
+  const onShare = async () => {
+    try {
+      await Share.share({
+        message: `${APP_URL}/invite?token=${profile?.referral_token}`,
+        title: 'Share',
+      })
+    } catch (error) {
+      // Alert.alert(error.message)
+    }
+  }
 
   return (
     <View>
@@ -70,10 +89,7 @@ const ReferralTable = () => {
                 <Text style={styles.labelText}>Email: {shorten(item.referral_email, 7)}</Text>
               </View>
               <View style={styles.cellStatus}>
-                <StatusBadge
-                  status={item.referral_status === 'active' ? 'completed' : 'rejected'}
-                  label={item.referral_status}
-                />
+                <StatusBadge status={item.referral_status} label={item.referral_status} />
               </View>
               <Text style={styles.cellDate}>{item.total_amount}</Text>
             </TouchableOpacity>
@@ -92,7 +108,9 @@ const ReferralTable = () => {
         />
 
         <View style={styles.shareBtnWrapper}>
-          <ShareImg height={20} width={20} />
+          <TouchableWithoutFeedback onPress={onShare}>
+            <ShareImg height={20} width={20} />
+          </TouchableWithoutFeedback>
         </View>
       </View>
 
@@ -137,7 +155,7 @@ const useStyles = makeStyles(({colors}) => ({
     alignItems: 'center',
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
-    backgroundColor: colors.bgPaper,
+    backgroundColor: colors.grey4,
   },
   row: {
     paddingHorizontal: 5,

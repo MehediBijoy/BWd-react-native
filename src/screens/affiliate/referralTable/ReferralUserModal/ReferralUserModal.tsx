@@ -41,12 +41,7 @@ const ReferralModal = ({isOpened, data, onClose}: ReferralModalProps) => (
     <Column label='Users Signed Up' text={data.referral_total_invites} />
     <Column
       label='Status'
-      text={
-        <StatusBadge
-          status={data.referral_status === 'active' ? 'completed' : 'rejected'}
-          label={data.referral_status}
-        />
-      }
+      text={<StatusBadge status={data.referral_status} label={data.referral_status} />}
     />
   </Modal>
 )
