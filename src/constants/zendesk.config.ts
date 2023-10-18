@@ -1,0 +1,5 @@
+export const ZENDESK_KEYS = {
+  ios: 'eyJzZXR0aW5nc191cmwiOiJodHRwczovL2Rpc3RlY2hoZWxwLnplbmRlc2suY29tL21vYmlsZV9zZGtfYXBpL3NldHRpbmdzLzAxSENXQlEwSk03U0ZFRkM1SkhHRDJOSk0wLmpzb24ifQ==',
+  android:
+    'eyJzZXR0aW5nc191cmwiOiJodHRwczovL2Rpc3RlY2hoZWxwLnplbmRlc2suY29tL21vYmlsZV9zZGtfYXBpL3NldHRpbmdzLzAxSENXQlRaU0EyNkIyRks1REJUMzhNNk5CLmpzb24ifQ==',
+}

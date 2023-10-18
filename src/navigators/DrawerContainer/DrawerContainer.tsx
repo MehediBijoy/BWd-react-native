@@ -4,13 +4,12 @@ import {
   DrawerContentScrollView,
   DrawerContentComponentProps,
 } from '@react-navigation/drawer'
-import {View} from 'react-native'
+import {TouchableOpacity, View} from 'react-native'
 import {useQuery} from '@tanstack/react-query'
 import LinearGradient from 'react-native-linear-gradient'
-import {Text, makeStyles, useTheme, Icon} from '@rneui/themed'
+import {Text, makeStyles, useTheme, Icon, Divider} from '@rneui/themed'
 import {useWalletConnectModal} from '@walletconnect/modal-react-native'
 
-import Pressable from '@core/Pressable'
 import SafeAreaView from '@core/SafeAreaView'
 import CopyButton from '@core/CopyButton'
 
@@ -19,6 +18,8 @@ import Logo from 'components/Logo'
 import {usePlatform, useProfile} from 'hooks/helper'
 import {cacheKey} from 'api/CacheKey'
 import {useApi, useOnUnauthorized} from 'hooks/api'
+import ZenDesk from 'components/ZenDesk'
+import {alpha} from 'utils'
 
 const DrawerContainer = (props: DrawerContentComponentProps) => {
   const api = useApi()
@@ -28,14 +29,22 @@ const DrawerContainer = (props: DrawerContentComponentProps) => {
   const {profile} = useProfile()
   const onUnauthorized = useOnUnauthorized()
 
-  const {data: userDetails} = useQuery({
+  const {data: user} = useQuery({
     queryKey: [cacheKey.userDetails, profile?.id],
     queryFn: () => api.getUserInfo(profile?.id as number),
     enabled: !!profile?.id,
   })
 
-  const {balance: BwgBalance} = useBalance({token: 'BWG', watch: true})
+  const {balance} = useBalance({token: 'BWG', watch: true})
   const {isConnected} = useWalletConnectModal()
+
+  const fullName = React.useMemo(() => {
+    if (!user) return
+    if (!user.user_detail) return
+    if (user.user_detail.first_name && user.user_detail.last_name)
+      return user.user_detail.first_name + ' ' + user.user_detail.last_name
+    return user.user_detail.first_name || user.user_detail.last_name
+  }, [user])
 
   return (
     <SafeAreaView edges={['bottom']}>
@@ -46,31 +55,53 @@ const DrawerContainer = (props: DrawerContentComponentProps) => {
             colors={[theme.colors.tertiary, theme.colors.tertiaryDark]}
           >
             <Logo height={80} width={80} />
-
-            <Text style={styles.title}>{`${userDetails?.user_detail?.first_name ?? ''} ${
-              userDetails?.user_detail?.last_name ?? ''
-            }`}</Text>
-
-            {isConnected && <Text style={styles.subTitle}>{BwgBalance?.value.toFixed(3)} BWG</Text>}
+            <Text style={styles.title}>{fullName ?? ''}</Text>
+            {isConnected && (
+              <Text style={styles.subTitle}>{Number(balance?.value.toFixed(3) ?? 0)} BWG</Text>
+            )}
           </LinearGradient>
           <DrawerItemList {...props} />
         </DrawerContentScrollView>
+        <Divider width={2} style={{marginBottom: 20}} />
         <View style={styles.footer}>
-          <View style={{justifyContent: 'space-between', flexDirection: 'row'}}>
-            <View style={styles.footerItem}>
-              <Icon name='share' />
-              <Text style={styles.footerText}>Refer a friend</Text>
+          <View
+            style={[
+              styles.footerItem,
+              {
+                columnGap: 0,
+                justifyContent: 'space-between',
+              },
+            ]}
+          >
+            <View style={{flexDirection: 'row', alignItems: 'center', columnGap: 10}}>
+              <Icon name='share' color={theme.colors.tertiary} />
+              <Text style={[styles.footerItemText, {color: theme.colors.tertiary}]}>
+                Refer a friend
+              </Text>
             </View>
             <CopyButton
               style={{marginRight: 10}}
               toCopy={`${APP_URL}/invite?token=${profile?.referral_token}`}
               size='sm'
+              enterIconColor='grey2'
             />
           </View>
-          <Pressable style={styles.footerItem} onPress={() => onUnauthorized()}>
-            <Icon name='logout' />
-            <Text style={styles.footerText}>Logout</Text>
-          </Pressable>
+          <ZenDesk
+            textStyle={[styles.footerItemText, {color: theme.colors.tertiary}]}
+            style={[styles.footerItem]}
+            iconStyles={{color: theme.colors.tertiary}}
+          />
+          <TouchableOpacity
+            style={[
+              styles.footerItem,
+              {padding: 5, backgroundColor: alpha(theme.colors.error, 0.1)},
+            ]}
+            onPress={() => onUnauthorized()}
+            activeOpacity={0.8}
+          >
+            <Icon name='logout' color={theme.colors.error} />
+            <Text style={[styles.footerItemText, {color: theme.colors.error}]}>Logout</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </SafeAreaView>
@@ -96,21 +127,17 @@ const useStyles = makeStyles(({colors}) => ({
     color: colors.textReverse,
   },
   footer: {
-    height: 100,
-    paddingLeft: 20,
-    paddingBottom: 20,
-    paddingTop: 10,
-    borderTopWidth: 2,
-    borderRadius: 2,
-    borderTopColor: colors.textPrimary,
-    justifyContent: 'space-between',
+    paddingHorizontal: 10,
+    rowGap: 12,
   },
   footerItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    columnGap: 7,
+    columnGap: 10,
+    paddingStart: 15,
+    borderRadius: 5,
   },
-  footerText: {
+  footerItemText: {
     fontSize: 14,
     fontWeight: '700',
     color: colors.textPrimary,
