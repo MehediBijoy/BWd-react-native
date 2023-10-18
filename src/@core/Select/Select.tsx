@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
-import {Text, View} from 'react-native'
-import {makeStyles, Colors} from '@rneui/themed'
+import {View} from 'react-native'
+import {makeStyles, Colors, Text} from '@rneui/themed'
 import {Dropdown, IDropdownRef} from 'react-native-element-dropdown'
 
 type DataTypes = {

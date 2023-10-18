@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react'
-import {ScrollView, Text, View} from 'react-native'
-import {makeStyles} from '@rneui/themed'
+import {ScrollView, View} from 'react-native'
+import {makeStyles, Text} from '@rneui/themed'
 
 import Modal from '@core/Modal'
 

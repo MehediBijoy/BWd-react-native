@@ -1,6 +1,6 @@
 import React, {forwardRef} from 'react'
-import {Colors, Icon} from '@rneui/themed'
-import {View, Text, TextInput, TextInputProps, ViewStyle} from 'react-native'
+import {Colors, Icon, Text} from '@rneui/themed'
+import {View, TextInput, TextInputProps, ViewStyle} from 'react-native'
 
 import {useStyles} from './input.styles'
 
