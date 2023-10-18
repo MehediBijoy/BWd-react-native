@@ -44,7 +44,7 @@ const TransactionsHistory = () => {
           const data = orders?.payments?.map(item =>
             item.id === socketData.id ? socketData : item
           )
-          return {data: data, meta: orders?.meta}
+          return {payments: data, meta: orders?.meta}
         })
       },
     })
@@ -55,7 +55,7 @@ const TransactionsHistory = () => {
           const data = orders?.payments?.map(item =>
             item.id === socketData?.payment_id ? {...item, transfer: socketData} : item
           )
-          return {data, meta: orders?.meta}
+          return {payments: data, meta: orders?.meta}
         })
       },
     })
@@ -115,7 +115,7 @@ const TransactionsHistory = () => {
               </View>
             </TouchableOpacity>
           ))}
-        {orderHistory && orderHistory.payments.length === 0 && (
+        {orderHistory && orderHistory.payments && orderHistory.payments.length === 0 && (
           <View style={[styles.tableRow, styles.emptyRow]}>
             <Text>No data found</Text>
           </View>

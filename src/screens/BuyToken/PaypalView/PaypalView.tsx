@@ -1,18 +1,24 @@
-import {useState} from 'react'
-import {Icon, Text, makeStyles, Button} from '@rneui/themed'
+import React, {useState} from 'react'
 import {View} from 'react-native'
 import {WebView} from 'react-native-webview'
-import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs'
 import {useNavigation} from '@react-navigation/native'
+import {Icon, Text, makeStyles, Button} from '@rneui/themed'
+import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs'
 
 import {RouteStack} from 'navigators/routes'
+
+type LinkProps = {
+  href: string
+  rel: 'self' | 'payer-action'
+  method: 'GET' | 'POST'
+}
 
 type PaypalViewProps = {
   data: {
     id: number
     external_id: string
     status: string
-    links: string[]
+    links: LinkProps[]
   }
   onClose(): void
 }
@@ -23,6 +29,14 @@ const PaypalView = ({data, onClose}: PaypalViewProps) => {
 
   const styles = useStyles()
 
+  const paymentUri = React.useMemo<LinkProps | undefined>(
+    () =>
+      data &&
+      data.links &&
+      data.links.find(item => item['rel'] === 'payer-action' && item['method'] === 'GET'),
+    [data]
+  )
+
   return (
     <View style={{flex: 1}}>
       <View style={styles.iconWrapper}>
@@ -30,19 +44,23 @@ const PaypalView = ({data, onClose}: PaypalViewProps) => {
       </View>
 
       {!isSuccess ? (
-        <WebView
-          originWhitelist={['*']}
-          style={{flex: 1}}
-          source={{uri: 'https://www.sandbox.paypal.com/checkoutnow?token=' + data.external_id}}
-          javaScriptEnabled
-          domStorageEnabled
-          startInLoadingState
-          onNavigationStateChange={data => {
-            if (data.url.includes('https://www.brettonwoods.gold/')) {
-              setIsSuccess(true)
-            }
-          }}
-        />
+        paymentUri &&
+        paymentUri.href && (
+          <WebView
+            originWhitelist={['*']}
+            style={{flex: 1}}
+            source={{uri: paymentUri.href}}
+            javaScriptEnabled
+            domStorageEnabled
+            startInLoadingState
+            onNavigationStateChange={data => {
+              if (data.url.includes('https://www.brettonwoods.gold/')) {
+                setIsSuccess(true)
+              }
+            }}
+          />
+          // Todo: we need to handle here for invalid order creation
+        )
       ) : (
         <View style={styles.successfulContainer}>
           <Icon name='check-circle' type='feather' size={80} color={styles.warnIcon.color} />
