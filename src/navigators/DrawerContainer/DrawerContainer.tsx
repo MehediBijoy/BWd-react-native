@@ -4,9 +4,10 @@ import {
   DrawerContentScrollView,
   DrawerContentComponentProps,
 } from '@react-navigation/drawer'
-import {TouchableOpacity, View} from 'react-native'
 import {useQuery} from '@tanstack/react-query'
+import {TouchableOpacity, View} from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
+import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {Text, makeStyles, useTheme, Icon, Divider} from '@rneui/themed'
 import {useWalletConnectModal} from '@walletconnect/modal-react-native'
 
@@ -28,6 +29,7 @@ const DrawerContainer = (props: DrawerContentComponentProps) => {
   const {APP_URL} = usePlatform()
   const {profile} = useProfile()
   const onUnauthorized = useOnUnauthorized()
+  const {bottom: bottomInset} = useSafeAreaInsets()
 
   const {data: user} = useQuery({
     queryKey: [cacheKey.userDetails, profile?.id],
@@ -94,7 +96,11 @@ const DrawerContainer = (props: DrawerContentComponentProps) => {
           <TouchableOpacity
             style={[
               styles.footerItem,
-              {padding: 5, backgroundColor: alpha(theme.colors.error, 0.1)},
+              {
+                padding: 5,
+                backgroundColor: alpha(theme.colors.error, 0.1),
+                marginBottom: bottomInset ? 0 : 10,
+              },
             ]}
             onPress={() => onUnauthorized()}
             activeOpacity={0.8}
