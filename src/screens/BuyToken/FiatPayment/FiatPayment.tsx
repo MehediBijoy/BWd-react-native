@@ -1,7 +1,7 @@
 import React from 'react'
-import {Button, Icon, makeStyles} from '@rneui/themed'
 import {useMutation} from '@tanstack/react-query'
-import {Text, View, Modal as NativeModal} from 'react-native'
+import {View, Modal as NativeModal} from 'react-native'
+import {Button, Icon, makeStyles, Text} from '@rneui/themed'
 import {useWalletConnectModal} from '@walletconnect/modal-react-native'
 
 import Modal from '@core/Modal'

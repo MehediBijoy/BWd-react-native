@@ -133,7 +133,11 @@ type Payment<Tdata = null> = {
     id: number
     external_id: string
     status: string
-    links: string[]
+    links: {
+      href: string
+      rel: 'self' | 'payer-action'
+      method: 'GET' | 'POST'
+    }[]
   }
   received_amount: string
   static_fee_amount: string
