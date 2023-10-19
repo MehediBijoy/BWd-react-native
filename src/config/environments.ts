@@ -1,4 +1,4 @@
-export const ENV = process.env.REACT_APP_MODE || 'dev'
+export const ENV = process.env.REACT_APP_MODE || 'prod'
 
 export const EU_API_URL = process.env.REACT_APP_EU_API_URL || 'https://api.brettonwoods.gold'
 export const US_API_URL = process.env.REACT_APP_US_API_URL || 'https://api.brettonwoods.us.com'
