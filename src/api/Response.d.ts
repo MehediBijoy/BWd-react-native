@@ -9,6 +9,8 @@ export type Meta = {
   page: number
 }
 
+type UserStatus = 'active' | 'inactive' | 'investigate' | 'blocked' | 'banned' | 'deleted'
+
 export type User = {
   id: number
   email: string
@@ -28,7 +30,7 @@ export type User = {
   referral_token: string
   downline_users_count: number
   payout_address: string
-  status: string
+  status: UserStatus
   status_reason: string
   created_at: Date
   updated_at: Date
@@ -223,11 +225,13 @@ type ReferralStats = {
   total_amount: string
   referral_id: number
   referral_account_type: string
-  referral_status: string
+  referral_status: UserStatus
   referral_joined_at: string
   referral_total_invites: number
   referral_total_regulars: number
   referral_total_affiliates: number
+  referral_full_name: string
+  referral_email: string
 }
 
 type ReferralAccount = {

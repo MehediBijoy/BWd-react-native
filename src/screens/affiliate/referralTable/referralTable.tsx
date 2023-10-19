@@ -1,15 +1,24 @@
 import React from 'react'
 import {useQuery} from '@tanstack/react-query'
-import {Text, makeStyles, useTheme} from '@rneui/themed'
-import {ActivityIndicator, View, TouchableOpacity} from 'react-native'
+import {Text, makeStyles, useTheme, Button} from '@rneui/themed'
+import {
+  ActivityIndicator,
+  View,
+  TouchableOpacity,
+  Linking,
+  Share,
+  TouchableWithoutFeedback,
+} from 'react-native'
 
 import StatusBadge from '@core/StatusBadge'
 
 import {useApi} from 'hooks/api'
 import {cacheKey} from 'api/CacheKey'
-import {useProfile} from 'hooks/helper'
-import {formatDate} from 'utils'
+import {useProfile, usePlatform} from 'hooks/helper'
+import {shorten} from 'utils'
 import {ReferralStats} from 'api/Response'
+import {LegalStuff} from 'constants/legalStuff.config'
+import ShareImg from 'images/affiliates/share.svg'
 
 import ReferralUserModal from './ReferralUserModal'
 
@@ -18,6 +27,7 @@ const ReferralTable = () => {
   const styles = useStyles()
   const {theme} = useTheme()
   const {profile} = useProfile()
+  const {APP_URL} = usePlatform()
 
   const [selectedItem, setSelectedItem] = React.useState<ReferralStats>()
 
@@ -25,6 +35,17 @@ const ReferralTable = () => {
     queryKey: [cacheKey.affiliateStats, profile?.id],
     queryFn: () => api.getReferralStats(profile?.id as number),
   })
+
+  const onShare = async () => {
+    try {
+      await Share.share({
+        message: `${APP_URL}/invite?token=${profile?.referral_token}`,
+        title: 'Share',
+      })
+    } catch (error) {
+      // Alert.alert(error.message)
+    }
+  }
 
   return (
     <View>
@@ -61,25 +82,36 @@ const ReferralTable = () => {
               onPress={() => setSelectedItem(item)}
             >
               <View style={styles.cellDetails}>
-                <Text style={styles.titleText}>Account Type: {item.referral_account_type}</Text>
-                <Text style={styles.subText}>
-                  <Text style={styles.labelText}>Friends User ID:</Text> {item.referral_id}
+                <Text style={styles.titleText}>
+                  Account Type: {item.referral_account_type.toUpperCase()}
                 </Text>
-                <Text style={styles.subText}>
-                  <Text style={styles.labelText}>Joining Date:</Text>
-                  {formatDate(item.referral_joined_at, 'MMM DD,YYYY')}
-                </Text>
+                <Text style={styles.labelText}>Name: {item.referral_full_name}</Text>
+                <Text style={styles.labelText}>Email: {shorten(item.referral_email, 7)}</Text>
               </View>
               <View style={styles.cellStatus}>
-                <StatusBadge
-                  status={item.referral_status === 'active' ? 'completed' : 'rejected'}
-                  label={item.referral_status}
-                />
+                <StatusBadge status={item.referral_status} label={item.referral_status} />
               </View>
               <Text style={styles.cellDate}>{item.total_amount}</Text>
             </TouchableOpacity>
           ))
         )}
+      </View>
+
+      <View style={styles.bottomWrapper}>
+        <Button
+          title='Affiliate Terms & Conditions'
+          onPress={() => Linking.openURL(LegalStuff.affiliateTerms)}
+          containerStyle={{
+            marginVertical: 10,
+            width: '80%',
+          }}
+        />
+
+        <TouchableWithoutFeedback onPress={onShare}>
+          <View style={styles.shareBtnWrapper}>
+            <ShareImg height={20} width={20} />
+          </View>
+        </TouchableWithoutFeedback>
       </View>
 
       {selectedItem && (
@@ -123,7 +155,7 @@ const useStyles = makeStyles(({colors}) => ({
     alignItems: 'center',
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
-    backgroundColor: colors.bgPaper,
+    backgroundColor: colors.grey4,
   },
   row: {
     paddingHorizontal: 5,
@@ -159,18 +191,28 @@ const useStyles = makeStyles(({colors}) => ({
     fontSize: 12,
     color: colors.textPrimary,
   },
-  subText: {
-    fontSize: 11,
-    color: colors.textPrimary,
-  },
   titleText: {
     fontSize: 14,
     fontWeight: '700',
     color: colors.tertiary,
+    textTransform: 'capitalize',
   },
   labelText: {
-    fontSize: 12,
-    fontWeight: '700',
+    fontSize: 14,
     color: colors.textPrimary,
+  },
+  bottomWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  shareBtnWrapper: {
+    borderWidth: 0.5,
+    borderRadius: 5,
+    height: 35,
+    width: 35,
+    borderColor: colors.divider,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 }))

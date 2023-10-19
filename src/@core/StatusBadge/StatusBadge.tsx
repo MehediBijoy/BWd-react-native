@@ -1,15 +1,15 @@
 import {Badge, BadgeProps, useTheme, Colors} from '@rneui/themed'
 
-import {Status} from 'api/Response'
+import {Status, UserStatus} from 'api/Response'
 
 type BadgeStatus = Status | 'confirmed' | 'completed'
 
 type StatusBadgeProps = {
-  status: BadgeStatus
+  status: BadgeStatus | UserStatus
   label?: string
 } & Omit<BadgeProps, 'status' | 'value'>
 
-type StatusMapper = 'default' | 'success' | 'error' | 'warning'
+type StatusMapper = 'default' | 'success' | 'error' | 'warning' | 'active'
 
 const getStyles = ({colors, status}: {colors: Colors; status?: StatusMapper}) =>
   ({
@@ -29,24 +29,35 @@ const getStyles = ({colors, status}: {colors: Colors; status?: StatusMapper}) =>
       color: colors.textPrimary,
       backgroundColor: colors.tertiary,
     },
+    active: {
+      color: colors.textPrimary,
+      backgroundColor: colors.primary,
+    },
   }[status ?? 'default'])
 
 const StatusBadge = ({status, label, badgeStyle, ...rest}: StatusBadgeProps) => {
   const {theme} = useTheme()
 
+  // active inactive investigate blocked banned deleted
   const statuses: {[key: string]: StatusMapper} = {
     accepted: 'default',
     pending: 'warning',
     rejected: 'error',
     confirmed: 'success',
     completed: 'success',
+    active: 'active',
+    inactive: 'error',
+    investigate: 'warning',
+    blocked: 'error',
+    banned: 'error',
+    deleted: 'error',
   }
 
   const statusStyles = getStyles({colors: theme.colors, status: statuses[status]})
 
   return (
     <Badge
-      badgeStyle={[{height: 25, paddingHorizontal: 5}, badgeStyle, statusStyles]}
+      badgeStyle={[{height: 25, paddingHorizontal: 5, borderRadius: 50}, badgeStyle, statusStyles]}
       value={label ?? status}
       textStyle={{textTransform: 'capitalize'}}
       {...rest}

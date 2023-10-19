@@ -22,10 +22,9 @@ buildscript {
     // added for sumsub integration
     allprojects {
         repositories {
-            maven {
-                url "https://maven.sumsub.com/repository/maven-public/"
-                url "https://zendesk.jfrog.io/artifactory/repo"
-            }
+            maven { url "https://maven.sumsub.com/repository/maven-public/" }
+            // added for zendesk
+            maven { url "https://zendesk.jfrog.io/artifactory/repo" }
         }
     }
 }
