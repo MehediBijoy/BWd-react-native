@@ -191,6 +191,11 @@ export default class ApiMethods extends ApiBase {
     const {payment} = await this.post<{payment: Payment}>('/payments', {payment: params})
     return payment
   }
+
+  async paypalCapture(id: number): Promise<Success> {
+    return await this.post(`/payments/${id}/capture`)
+  }
+
   async getTransferChart(params: TransactionChartProps): Promise<TransactionChart[]> {
     return await this.get('transfers/marimekko_chart', params)
   }
