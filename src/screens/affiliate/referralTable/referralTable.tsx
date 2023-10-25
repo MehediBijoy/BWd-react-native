@@ -97,22 +97,20 @@ const ReferralTable = () => {
         )}
       </View>
 
-      <View style={styles.bottomWrapper}>
-        <Button
-          title='Affiliate Terms & Conditions'
-          onPress={() => Linking.openURL(LegalStuff.affiliateTerms)}
-          containerStyle={{
-            marginVertical: 10,
-            width: '80%',
-          }}
-        />
+      <Button
+        title='Affiliate Terms & Conditions'
+        onPress={() => Linking.openURL(LegalStuff.affiliateTerms)}
+        containerStyle={{
+          marginVertical: 10,
+        }}
+      />
 
-        <TouchableWithoutFeedback onPress={onShare}>
-          <View style={styles.shareBtnWrapper}>
-            <ShareImg height={20} width={20} />
-          </View>
-        </TouchableWithoutFeedback>
-      </View>
+      <TouchableWithoutFeedback onPress={onShare}>
+        <View style={styles.shareBtnWrapper}>
+          <Text>Share link with social media</Text>
+          <ShareImg height={20} width={20} />
+        </View>
+      </TouchableWithoutFeedback>
 
       {selectedItem && (
         <ReferralUserModal
@@ -207,11 +205,14 @@ const useStyles = makeStyles(({colors}) => ({
     justifyContent: 'space-between',
   },
   shareBtnWrapper: {
-    borderWidth: 0.5,
-    borderRadius: 5,
-    height: 35,
-    width: 35,
+    marginTop: 15,
+    marginBottom: 15,
+    borderWidth: 1.5,
+    borderRadius: 8,
+    height: 40,
     borderColor: colors.divider,
+    columnGap: 15,
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
