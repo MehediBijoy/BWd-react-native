@@ -4,5 +4,6 @@ export {default as useSocket} from './useSocket'
 export {default as useDebounce} from './useDebounce'
 export {default as useAssets} from './useAssets'
 export {default as usePlatform} from './usePlatform'
+export {default as useYupLocaleFormat} from './useYupLocaleFormat'
 // Todo: we need to improved functionality in future
 export {default as useLocalCurrency} from './useLocalCurrency'

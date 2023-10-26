@@ -4,6 +4,7 @@ import {useFormContext, Controller} from 'react-hook-form'
 import Input, {InputProps} from '@core/Input'
 
 import {ControllerProps} from 'types'
+import {useYupLocaleFormat} from 'hooks/helper'
 
 export type FormInputProps = {
   name: string
@@ -19,6 +20,7 @@ const FormInput: React.FC<FormInputProps> = ({
   ...props
 }) => {
   const {control} = useFormContext()
+  const {t} = useYupLocaleFormat()
 
   return (
     <Controller
@@ -34,7 +36,7 @@ const FormInput: React.FC<FormInputProps> = ({
             onChangeText && onChangeText(props)
           }}
           error={fieldState.invalid}
-          helperText={fieldState.error?.message}
+          helperText={t(fieldState.error?.message)}
           {...restField}
           {...props}
         />

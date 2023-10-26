@@ -19,8 +19,8 @@ import {isMfaRequired} from 'utils/response'
 import EmailConfirmationModal from './confirmationModal'
 
 const emailChangeSchema = yup.object().shape({
-  email: yup.string().email('Email must be a valid email').required('Email is required'),
-  mfa_code: yup.string().max(6, '2FA code Must 6 digits').min(6, '2FA code Must 6 digits'),
+  email: yup.string().email().required(),
+  mfa_code: yup.string().max(6).min(6),
 })
 
 type emailChangeFields = yup.InferType<typeof emailChangeSchema>

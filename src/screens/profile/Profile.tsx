@@ -11,6 +11,7 @@ import {useApi} from 'hooks/api'
 import {cacheKey} from 'api'
 import {RouteStack} from 'navigators/routes'
 
+import AppSettings from './AppSettings'
 import PersonalInfoBox from './personalInfoBox'
 import ProfileSettings from './profileSettings'
 import ReferralInfoBox from './ReferralInfoBox'
@@ -48,7 +49,7 @@ const ProfileInfo = ({navigation}: NativeStackScreenProps<RouteStack, 'Settings'
           <ProfileSettings userInfo={userDetails} />
           <ReferralInfoBox navigation={navigation} />
           {/*Note: This functionality will be add in future  */}
-          {/* <AppSettings /> */}
+          <AppSettings />
         </ContentContainer>
       </ScrollView>
     </SafeAreaView>

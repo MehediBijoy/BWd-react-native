@@ -8,3 +8,14 @@ export const switchConfig = [
     label: 'EUR',
   },
 ]
+
+export const languageConfig = [
+  {
+    id: 'en',
+    label: 'English',
+  },
+  {
+    id: 'de',
+    label: 'German',
+  },
+]

@@ -23,7 +23,7 @@ type PayoutModalProps = {
 }
 
 const payoutCommissionSchema = yup.object().shape({
-  amount: yup.number().required().positive('Amount must be a positive number'),
+  amount: yup.number().required().positive(),
   use_saved_address: yup.boolean().default(false),
   address: yup
     .string()
@@ -38,11 +38,7 @@ const payoutCommissionSchema = yup.object().shape({
           .transform(() => null),
       otherwise: () => yup.string().required().test('_', 'Invalid address', isAddress),
     }),
-  mfa_code: yup
-    .string()
-    .required('2FA code is required')
-    .min(6, '2FA code Must 6 digits')
-    .max(6, '2FA code Must 6 digits'),
+  mfa_code: yup.string().required().min(6).max(6),
 })
 
 type payoutCommissionFields = yup.InferType<typeof payoutCommissionSchema>

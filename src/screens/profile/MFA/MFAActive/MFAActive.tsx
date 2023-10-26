@@ -20,11 +20,7 @@ import {ErrorObject} from 'api/Errors'
 import {RouteStack} from 'navigators/routes'
 
 const mfaActivationSchema = yup.object().shape({
-  mfa_code: yup
-    .string()
-    .max(6, '2FA code Must 6 digits')
-    .min(6, '2FA code Must 6 digits')
-    .required('2FA code is required field'),
+  mfa_code: yup.string().max(6).min(6).required(),
   activation: yup.bool().default(true),
 })
 
