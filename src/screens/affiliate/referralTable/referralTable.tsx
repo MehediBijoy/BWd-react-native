@@ -107,7 +107,7 @@ const ReferralTable = () => {
 
       <TouchableWithoutFeedback onPress={onShare}>
         <View style={styles.shareBtnWrapper}>
-          <Text>Share link with social media</Text>
+          <Text>Share your referral Link</Text>
           <ShareImg height={20} width={20} />
         </View>
       </TouchableWithoutFeedback>

@@ -20,7 +20,7 @@ const OrderDetailsModal = ({data, isOpened, onClose}: OrderDetailsModalProps) =>
   const styles = useStyles()
 
   const onExplorerClicked = (txHash: string) => {
-    Linking.openURL(chain.blockExplorers?.default.url + 'tx/' + txHash)
+    Linking.openURL(chain.blockExplorers?.default.url + '/tx/' + txHash)
   }
 
   return (
