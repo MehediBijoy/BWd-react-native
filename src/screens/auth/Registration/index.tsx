@@ -4,7 +4,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack'
 
 import Logo from 'components/Logo'
 import {useProfile} from 'hooks/helper'
-import ZenDesk from 'components/ZenDesk'
+// import ZenDesk from 'components/ZenDesk'
 import {useOnUnauthorized} from 'hooks/api'
 import {RouteStack} from 'navigators/routes'
 
@@ -39,7 +39,7 @@ const RegistrationProgress = () => {
           )}
         </>
       </Stack.Navigator>
-      <ZenDesk floating />
+      {/* <ZenDesk floating /> */}
     </>
   )
 }

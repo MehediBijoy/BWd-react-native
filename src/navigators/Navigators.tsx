@@ -7,7 +7,7 @@ import MFA from 'screens/profile/MFA'
 import Login from 'screens/auth/Login'
 import {useProfile} from 'hooks/helper'
 import {useLocales} from 'hooks/states'
-import ZenDesk from 'components/ZenDesk'
+// import ZenDesk from 'components/ZenDesk'
 import {isUserConfirmed} from 'utils/response'
 import ChangeEmail from 'screens/profile/changeEmail'
 import ResetPassword from 'screens/auth/ResetPassword'
@@ -49,7 +49,7 @@ const Navigators = () => {
           </Stack.Group>
         </Stack.Group>
       </Stack.Navigator>
-      <ZenDesk floating />
+      {/* <ZenDesk floating /> */}
     </>
   ) : !isUserConfirmed(profile) ? (
     <Stack.Navigator>

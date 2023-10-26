@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Alert, View} from 'react-native'
+import {View} from 'react-native'
 import {useMutation} from '@tanstack/react-query'
 import {WebView, WebViewNavigation} from 'react-native-webview'
 import {useNavigation} from '@react-navigation/native'
@@ -44,7 +44,6 @@ const PaypalView = ({data, onClose}: PaypalViewProps) => {
   const paypalCapture = useMutation({
     mutationFn: api.paypalCapture,
     onSuccess: () => setIsSuccess(true),
-    // onError: error => Alert.alert((error as Error).message),
   })
 
   //Todo: we need to make both payment success and error page in landing site
