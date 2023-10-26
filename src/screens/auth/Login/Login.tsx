@@ -25,17 +25,12 @@ import {useStyles} from './Login.styles'
 import PlatformSelect from './PlatformSelect'
 
 const loginSchema = yup.object().shape({
-  email: yup.string().email().required('Email is required'),
-  password: yup.string().required('Password is required'),
+  email: yup.string().email().required(),
+  password: yup.string().required(),
   mfa_required: yup.boolean().default(false),
   mfa_code: yup.string().when('mfa_required', {
     is: true,
-    then: () =>
-      yup
-        .string()
-        .max(6, 'Is too long, max length is 6')
-        .min(6, 'Is too short, min length is 6')
-        .required('2FA code is required'),
+    then: () => yup.string().max(6).min(6).required(),
     otherwise: () => yup.string().transform(() => undefined),
   }),
 })

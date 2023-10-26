@@ -24,8 +24,7 @@ const registerSchema = yup.object().shape({
   password: yup.string().required().min(8).max(30),
   password_confirmation: yup
     .string()
-    .required('Confirm Password is required')
-    // eslint-disable-next-line quotes
+    .required()
     .oneOf([yup.ref('password')], "Passwords don't match"),
   agree_terms: yup.bool().default(false).oneOf([true], 'The terms and conditions must be accepted'),
   referral_checkbox: yup.bool().default(false),
@@ -34,8 +33,8 @@ const registerSchema = yup.object().shape({
     then: () => yup.string().transform(() => undefined),
     otherwise: () => yup.string().min(6).max(6).required(),
   }),
-  profession: yup.string().required('Profession is required'),
-  source_of_income: yup.string().required('Source of earning is required'),
+  profession: yup.string().required(),
+  source_of_income: yup.string().required(),
   earnings: yup.string(),
   trading_experience: yup.string(),
 })

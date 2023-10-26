@@ -17,12 +17,12 @@ import {ChangePasswordProps} from 'api/Request'
 import {isMfaRequired} from 'utils/response'
 
 const changePasswordSchema = yup.object().shape({
-  mfa_code: yup.string().max(6, '2FA code Must 6 digits').min(6, '2FA code Must 6 digits'),
-  current_password: yup.string().required('Current Password is required field'),
+  mfa_code: yup.string().max(6).min(6),
+  current_password: yup.string().required(),
   password: yup.string().required().min(8),
   password_confirmation: yup
     .string()
-    .required('Password confirmation is required field')
+    .required()
     .oneOf([yup.ref('password')], 'Password did not match '),
 })
 

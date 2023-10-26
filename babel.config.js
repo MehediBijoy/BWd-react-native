@@ -8,6 +8,7 @@ module.exports = {
         root: ['./src'],
         alias: {
           api: './src/api',
+          i18n: './src/i18n',
           utils: './src/utils',
           hooks: './src/hooks',
           images: './src/images',

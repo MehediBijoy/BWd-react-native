@@ -4,6 +4,7 @@ import {Controller, useFormContext} from 'react-hook-form'
 import Select, {SelectProps} from '@core/Select'
 
 import {ControllerProps} from 'types'
+import {useYupLocaleFormat} from 'hooks/helper'
 
 type FormSelectProps = {
   name: string
@@ -12,6 +13,7 @@ type FormSelectProps = {
 
 const FormSelect = ({name, defaultValue, shouldUnregister, rules, ...props}: FormSelectProps) => {
   const {control} = useFormContext()
+  const {t} = useYupLocaleFormat()
 
   return (
     <Controller
@@ -25,7 +27,7 @@ const FormSelect = ({name, defaultValue, shouldUnregister, rules, ...props}: For
           onBlur={onBlur}
           onChange={({value}) => onChange(value)}
           error={fieldState.invalid}
-          helperText={fieldState.error?.message}
+          helperText={t(fieldState.error?.message)}
           {...props}
         />
       )}

@@ -38,8 +38,10 @@ export function getMonth(month: number, lang = 'en') {
  * @returns {string} The formatted date string.
  * @see {@link https://day.js.org/docs/en/display/format Format Function Documentation}
  */
-export const formatDate = (date: string | Date, format: string = 'MMM DD, YYYY, hh:mm A'): string =>
-  dayjs(date).format(format)
+export const formatDate = (
+  date: string | Date = new Date(),
+  format: string = 'MMM DD, YYYY, hh:mm A'
+): string => dayjs(date).format(format)
 
 /**
  * Adjusts the opacity (alpha channel) of a color.

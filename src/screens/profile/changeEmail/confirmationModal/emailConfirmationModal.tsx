@@ -16,7 +16,7 @@ type EmailConfirmationModalProps = {
 }
 
 const emailConfirmSchema = yup.object().shape({
-  verification_code: yup.string().required('Code is required'),
+  verification_code: yup.string().required(),
 })
 
 type emailChangeFields = yup.InferType<typeof emailConfirmSchema>

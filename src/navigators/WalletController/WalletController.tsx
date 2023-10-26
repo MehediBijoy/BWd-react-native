@@ -24,14 +24,11 @@ import WalletDisconnect from 'components/modals/WalletDisconnect'
 import {useWallet, useSetToken, useChainId, useNetwork} from 'hooks/crypto'
 
 const mfaSchema = yup.object().shape({
-  mfa_code: yup
-    .string()
-    .max(6, 'Is too long, max length is 6')
-    .min(6, 'Is too short, min length is 6'),
+  mfa_code: yup.string().max(6).min(6),
 })
 
 const confirmSchema = yup.object().shape({
-  token: yup.string().required('Confirm code required'),
+  token: yup.string().required(),
 })
 
 type MfaTypes = yup.InferType<typeof mfaSchema>
