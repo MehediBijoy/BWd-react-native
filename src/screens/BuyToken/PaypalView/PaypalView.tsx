@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {View} from 'react-native'
+import {Alert, View} from 'react-native'
 import {useMutation} from '@tanstack/react-query'
 import {WebView, WebViewNavigation} from 'react-native-webview'
 import {useNavigation} from '@react-navigation/native'
@@ -27,6 +27,8 @@ const PaypalView = ({data, onClose}: PaypalViewProps) => {
 
   const [isSuccess, setIsSuccess] = useState(false)
   const [isCapture, setIsCapture] = useState(true)
+  const [isWebView, setIsWebView] = useState(true)
+
   const navigation = useNavigation<BottomTabNavigationProp<RouteStack, 'Purchase'>>()
 
   const paymentUri = React.useMemo<LinkProps | undefined>(
@@ -42,15 +44,18 @@ const PaypalView = ({data, onClose}: PaypalViewProps) => {
   const paypalCapture = useMutation({
     mutationFn: api.paypalCapture,
     onSuccess: () => setIsSuccess(true),
+    // onError: error => Alert.alert((error as Error).message),
   })
 
   //Todo: we need to make both payment success and error page in landing site
   const onNavigationStateChange = (webViewProgress: WebViewNavigation) => {
     if (webViewProgress.url.includes('https://www.brettonwoods.gold/') && isCapture) {
+      setIsWebView(false)
       setIsCapture(false)
       paypalCapture.mutate(data.id)
     }
     if (webViewProgress.url.includes('https://example.com')) {
+      setIsWebView(false)
       onClose()
     }
   }
@@ -61,7 +66,7 @@ const PaypalView = ({data, onClose}: PaypalViewProps) => {
         <Icon name='close' onPress={onClose} style={styles.icon} />
       </View>
 
-      {isSuccess && (
+      {isSuccess && !isWebView && (
         <View style={styles.successfulContainer}>
           <Icon name='check-circle' type='feather' size={80} color={styles.warnIcon.color} />
           <Text style={styles.successText}>Thanks! Your payment was successful.</Text>
@@ -75,7 +80,7 @@ const PaypalView = ({data, onClose}: PaypalViewProps) => {
         </View>
       )}
 
-      {!isSuccess && paymentUri && paymentUri.href && (
+      {!isSuccess && isWebView && paymentUri && paymentUri.href && (
         <WebView
           originWhitelist={['*']}
           style={{flex: 1}}
