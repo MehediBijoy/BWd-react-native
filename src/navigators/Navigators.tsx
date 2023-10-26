@@ -1,11 +1,12 @@
 import React from 'react'
-import {Button} from '@rneui/themed'
+import {Button, Text} from '@rneui/themed'
 import {createNativeStackNavigator, NativeStackScreenProps} from '@react-navigation/native-stack'
 
 import Logo from 'components/Logo'
 import MFA from 'screens/profile/MFA'
 import Login from 'screens/auth/Login'
 import {useProfile} from 'hooks/helper'
+import {useLocales} from 'hooks/states'
 import ZenDesk from 'components/ZenDesk'
 import {isUserConfirmed} from 'utils/response'
 import ChangeEmail from 'screens/profile/changeEmail'
@@ -22,6 +23,7 @@ const Stack = createNativeStackNavigator<RouteStack>()
 
 const Navigators = () => {
   const {profile} = useProfile()
+  const {currentLang} = useLocales()
 
   return !profile ? (
     <>
@@ -30,6 +32,7 @@ const Navigators = () => {
           screenOptions={{
             title: '',
             headerLeft: () => <Logo />,
+            headerRight: () => <Text>{new String(currentLang ?? '').toUpperCase()}</Text>,
           }}
         >
           <Stack.Screen name='Login' component={Login} />

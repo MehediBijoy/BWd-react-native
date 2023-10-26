@@ -20,13 +20,19 @@ const ZenDesk: React.FC<ZenDeskProps> = ({floating = false, style, textStyle, ic
     []
   )
 
+  const runner = async (fn: () => Promise<unknown>) => {
+    try {
+      await fn()
+    } catch (error) {
+      Alert.alert((error as Error)?.message ?? 'unknown error')
+    }
+  }
+
   React.useEffect(() => {
-    initialize({channelKey, skipOpenMessaging: true}).catch(error => {
-      Alert.alert('Zendesk Error', error?.message)
-    })
+    runner(() => initialize({channelKey, skipOpenMessaging: true}))
   }, [channelKey])
 
-  const handlePressOpenButton = () => openMessagingView()
+  const handlePressOpenButton = () => runner(() => openMessagingView())
 
   return floating ? (
     <TouchableOpacity onPress={handlePressOpenButton} style={styles.btn} activeOpacity={0.8}>
