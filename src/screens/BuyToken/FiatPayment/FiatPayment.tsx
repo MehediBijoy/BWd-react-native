@@ -93,7 +93,7 @@ const FiatPaymentModal = ({estimateFees, isOpened, onClose, in_base}: FiatPaymen
       {createOrder.data && (
         <NativeModal visible>
           <SafeAreaView>
-            <PaypalView data={createOrder.data.payment_data} onClose={onModalClose} />
+            <PaypalView data={createOrder.data} onClose={onModalClose} />
           </SafeAreaView>
         </NativeModal>
       )}

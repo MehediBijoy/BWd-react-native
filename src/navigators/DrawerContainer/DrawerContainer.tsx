@@ -19,7 +19,7 @@ import Logo from 'components/Logo'
 import {usePlatform, useProfile} from 'hooks/helper'
 import {cacheKey} from 'api/CacheKey'
 import {useApi, useOnUnauthorized} from 'hooks/api'
-import ZenDesk from 'components/ZenDesk'
+// import ZenDesk from 'components/ZenDesk'
 import {alpha} from 'utils'
 
 const DrawerContainer = (props: DrawerContentComponentProps) => {
@@ -88,11 +88,11 @@ const DrawerContainer = (props: DrawerContentComponentProps) => {
               enterIconColor='grey2'
             />
           </View>
-          <ZenDesk
+          {/* <ZenDesk
             textStyle={[styles.footerItemText, {color: theme.colors.tertiary}]}
             style={[styles.footerItem]}
             iconStyles={{color: theme.colors.tertiary}}
-          />
+          /> */}
           <TouchableOpacity
             style={[
               styles.footerItem,
