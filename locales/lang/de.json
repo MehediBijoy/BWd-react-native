@@ -1,3 +1,689 @@
 {
-  "name": "Mehedi - DE"
+  "buttons": {
+    "available": "Verfügbare Menge"
+  },
+  "common": {
+    "and": "und",
+    "edit": "Bearbeiten",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "activated": "Aktiviert",
+    "deactivated": "Deaktiviert",
+    "proceed": "Fortfahren",
+    "goToDashboard": "Zum Dashboard gehen",
+    "buyNow": "Jetzt kaufen",
+    "noRecordsFound": "Keine Einträge gefunden",
+    "value": "Value",
+    "submit": "Absenden",
+    "table-header-description": "Beschreibungen",
+    "table-header-status": "Status"
+  },
+  "confirmingEmail": {
+    "toHomePage": "Zur Hauptseite gehen"
+  },
+  "walletConnect": {
+    "copyWalletAddress": "Wallet-Adresse kopieren",
+    "trackInWallet": "BWG im Wallet verfolgen",
+    "disconnect": "Trennen",
+    "connectWallet": "Wallet verbinden",
+    "switchNetwork": "Netzwerk wechseln"
+  },
+  "createNewPassword": {
+    "title": "Neues Passwort erstellen",
+    "subtitle1": "Bitte geben Sie Ihr neues Passwort ein.",
+    "subtitle2": "Für bessere Sicherheit empfehlen wir:",
+    "list1": "Mindestens 12 Zeichen - je mehr Zeichen, desto besser",
+    "list2": "Eine Mischung aus Groß- und Kleinbuchstaben",
+    "list3": "Eine Mischung aus Buchstaben und Zahlen",
+    "list4": "Mindestens ein Sonderzeichen einschließen:"
+  },
+  "affiliate": {
+    "title": "Affiliateprogramm Übersicht",
+    "referralTitle": "Ihre Empfehlungen",
+    "termsAndConditions": "Affiliateprogramm Geschäftsbedingungen",
+    "refId": "Ihre Referral-ID",
+    "refLink": "Ihr Referrallink",
+    "lifeTimeCommission": "Gesamtprovision über die Lebensdauer",
+    "qrCode": "QR-Code",
+    "export": "Exportieren",
+    "download": "Herunterladen",
+    "payoutCommissionBtn": "Provision auszahlen",
+    "enabledBtn": "2FA aktivieren",
+    "closeBtn": "Schließen",
+    "showBtn": "Zeige alles",
+    "shareReferralLink": "Teilen Sie Ihren Empfehlungslink",
+    "payoutCommission": {
+      "amount": "Betrag",
+      "address": "Adresse",
+      "addressPlaceholder": "Gib deine Adresse ein",
+      "submitBtn": "Absenden",
+      "checkboxLabel": "Vorherige Adresse verwenden",
+      "title1": "Provision auszahlen",
+      "title2": "Ihre 2FA ist nicht aktiviert",
+      "2faInfo": "Um eine sichere Auszahlung zu gewährleisten, müssen Sie Ihre 2-Faktor-Authentifizierung (2FA) aktivieren."
+    },
+    "refTable": {
+      "name": "Name",
+      "amount": "Referralbetrag",
+      "accountType": "Kontotyp",
+      "email": "E-Mail",
+      "status": "Status",
+      "joiningDate": "Beitrittsdatum"
+    },
+    "referralModals": {
+      "modalTitle": "Referraldetails",
+      "name": "Name",
+      "email": "E-Mail",
+      "joiningDate": "Beitrittsdatum",
+      "friendsUserId": "Benutzer ID des Freundes",
+      "accountType": "Kontotyp",
+      "amount": "Betrag",
+      "regularUsers": "Normale Benutzer",
+      "affiliates": "Affiliates",
+      "usersSignedUp": "Angemeldete Benutzer"
+    },
+    "overview": {
+      "direct": "Gesamtprovision direkt",
+      "uniLevel": "Gesamtprovision Unilevel",
+      "payedOut": "Gesamte ausbezahlte Provision",
+      "available": "Verfügbare Kontoprovision",
+      "fiat": "Verfügbare Provision in Fiat"
+    }
+  },
+  "dashboard": {
+    "welcome": "Willkommen in Ihrem BWG Dashboard",
+    "availableBalance": {
+      "title": "Ihr Guthaben",
+      "portfolio": "Ihr Portfolio",
+      "price": "Preis",
+      "amount": "Menge",
+      "total": "Gesamt"
+    },
+    "buy": {
+      "amountLabel": "Menge",
+      "walletLabel": "Wallet",
+      "checkoutLabel": "Kasse",
+      "receiveLabel": "Erhalten",
+      "btnText": "{{tokenName}} kaufen",
+      "successText": "Sie haben erfolgreich {{receiveStr}} gekauft!",
+      "successTitle": "Erfolgreicher Austausch",
+      "title": "{{token}} kaufen",
+      "totalLabel": "Gesamt",
+      "enterAmount": "Geben Sie den Betrag ein",
+      "initPaymentErrorTitle": "Zahlung konnte nicht verarbeitet werden",
+      "wallet-connect": "Bitte verbinden Sie Ihre Kryptowallet",
+      "chain-connect": "Wechseln Sie zur Binance Smart Chain",
+      "initPaymentErrorDescription": "Bitte wählen Sie einen anderen Betrag an Tokens aus oder warten Sie bis {{time}}, bis die Zahlung Ihrer letzten Transaktion bestätigt ist, bevor Sie einen weiteren Kauf tätigen. Dies gewährleistet die reibungslose Bearbeitung Ihrer Bestellung.",
+      "tierSystem": {
+        "part1": "Mehr über das",
+        "part2": "Tiers-System",
+        "is": "ist",
+        "minimum": "die Mindestmenge",
+        "maximum": "die Höchstmenge",
+        "moreToNextTier": "Nur noch {{amount}} {{tokenName}} bis zur",
+        "nextTier": "nächsten Stufe"
+      },
+      "confirm": {
+        "title": "Kauf abschließen",
+        "method": "Zahlungsmethode:",
+        "message-1": "Sie zahlen im Voraus für {{duration}} Tage Speicherung Ihres Goldes, das die Token absichert. Die Kosten dafür betragen {{token}} {{symbol}}-Tokens.",
+        "message-2": "Sie zahlen {{token}} {{symbol}}-Tokens Gebühren.",
+        "message-3": "Kaufen Sie {{moreToken}} {{token}} mehr Tokens, um die nächste Stufe zu erreichen und nur noch {{moreFees}}% Gebühren zu zahlen.",
+        "message-4": "Nach Abschluss werden Sie"
+      },
+      "payment-warning": {
+        "title": "Bevor wir Ihren Kauf erfüllen",
+        "text-1": "Sie versuchen, eine Bestellung aufzugeben, während Sie bereits eine offene Bestellung haben. Wir erlauben nur eine Bestellung gleichzeitig.",
+        "text-2": "Bitte bestätigen Sie, dass Sie die folgende Bestellung stornieren möchten oder schließen Sie sie ab, indem Sie die Zahlung überweisen:"
+      }
+    },
+    "purchaseConfirmModal": {
+      "title": "Kauf erfolgreich abgeschlossen",
+      "completed": "Sie haben Ihren Kauf abgeschlossen",
+      "wallet": "Ihre neuen Mittel werden in Ihr verbundenes Wallet übertragen: {{wallet}}",
+      "received": "Erhalten:",
+      "ok": "OK"
+    },
+    "persistedWalletConfirmModal": {
+      "success": "Erfolg! Wallet wurde zu neuer Adresse geändert",
+      "expired1": "Der Wallet-Änderungslink ist abgelaufen.",
+      "expired2": "Bitte versuchen Sie es erneut."
+    },
+    "button": {
+      "buy": "Mehr BWG kaufen",
+      "trade": "Zur Tradingshistorie gehen"
+    }
+  },
+  "documents": {
+    "downloadButton": "Herunterladen",
+    "privacyPolicy": {
+      "title": "Datenschutzerklärung"
+    },
+    "termsAndConditions": {
+      "title": "Geschäftsbedingungen"
+    },
+    "title": "Dokumente",
+    "userAgreement": {
+      "title": "Benutzervereinbarung"
+    },
+    "whitepaper": {
+      "title": "Whitepaper"
+    },
+    "legalNotice": "Impressum"
+  },
+  "forgotPassword": {
+    "subtitle": "Bitte geben Sie die E-Mail-Adresse ein, die Sie für die Registrierung bei BWG verwendet haben, und wir senden Ihnen einen Wiederherstellungslink dafür.",
+    "title": "Passwort vergessen?"
+  },
+  "deleteUser": {
+    "title": "Ihren Account löschen?",
+    "label": "Passwort",
+    "submitBtn": "Löschen"
+  },
+  "forms": {
+    "buttons": {
+      "login": "Anmelden",
+      "nextStep": "Nächster Schritt",
+      "signUp": "Jetzt registrieren",
+      "submit": "Absenden",
+      "updatePassword": "Passwort aktualisieren"
+    },
+    "checkboxes": {
+      "agreeTerms": "Durch die Anmeldung stimmen Sie unseren \n"
+    },
+    "labels": {
+      "confirmPassword": "Passwort bestätigen",
+      "referralCode": "Referral Code",
+      "newPassword": "Neues Passwort",
+      "password": "Passwort"
+    },
+    "links": {
+      "forgetPassword": "Passwort vergessen?"
+    },
+    "placeholders": {
+      "confirmPassword": "Ihr Passwort bestätigen",
+      "email": "Ihre E-Mail eingeben",
+      "newPassword": "Neues Passwort eingeben",
+      "password": "Ihr Passwort eingeben"
+    }
+  },
+  "login": {
+    "errors": {
+      "logoutMessage": "Abgemeldet. Grund: {{reason}}",
+      "pageAccessDenied": "Zugriff verweigert. Bitte anmelden, um auf diese Seite zuzugreifen",
+      "roleNotAllowed": "Sie sind nicht berechtigt, diese Seite zu sehen"
+    }
+  },
+  "modal2fa": {
+    "inputLabel": "2FA-Code",
+    "submit": "Absenden",
+    "text": "Geben Sie zur Bestätigung Ihrer Identität den Zwei-Faktor-Authentifizierungscode ein",
+    "title": "Geben Sie den 2FA-Code ein"
+  },
+  "modals": {
+    "welcome": {
+      "welcome": "Willkommen bei",
+      "dear": "Liebe/r",
+      "line1": "Wir freuen uns, Sie hier zu haben, und schätzen Ihr Interesse an den Bretton Woods Gold Tokens. Während wir Ihre Begeisterung für diese einzigartige Investitionsmöglichkeit teilen, müssen wir Sie darüber informieren, dass wir derzeit nicht in der Lage sind, die Tokens zum Verkauf anzubieten.",
+      "line2": "Wir sind aufrichtig darauf bedacht, nur Tokens zu verkaufen, die vollständig mit Gold abgesichert sind und sicher in Schweizer Tresoren unserer Partner aufbewahrt werden. Leider stehen wir aufgrund von Verzögerungen beim Goldankauf derzeit nicht zum Verkauf von Tokens zur Verfügung.",
+      "line3": "Sobald BWG zum Kauf verfügbar ist, werden wir Sie per E-Mail und in der App benachrichtigen. Wir freuen uns darauf, Ihnen ein außergewöhnliches Investment-Erlebnis zu bieten, und danken Ihnen für Ihre Geduld und Ihr Interesse."
+    },
+    "confirmEmailResent": {
+      "description": "Wir haben Ihnen einen neuen Bestätigungslink an {{email}} gesendet. Beachten Sie, dass der Rücksetzlink 15 Minuten gültig ist.",
+      "title": "E-Mail erneut gesendet"
+    },
+    "passwordChanged": {
+      "description": "Ihr Passwort wurde erfolgreich aktualisiert.",
+      "title": "Passwort geändert"
+    },
+    "passwordReset": {
+      "description": "Wir haben Ihnen einen Link zum Zurücksetzen Ihres Passworts an {{email}} gesendet. Beachten Sie, dass der Rücksetzlink 15 Minuten gültig ist.",
+      "title": "Passwort zurücksetzen"
+    },
+    "acknowledge": {
+      "button": "Bestätigen",
+      "congratulations": "Herzlichen Glückwunsch",
+      "line1": "Ihr Kryptowallet wurde erfolgreich verbunden.",
+      "line2": "Ihre Seed-Phrase und Ihr Private Key gewähren vollen Zugriff auf Ihr Wallet. Bewahren Sie diese Informationen stets sicher auf. Teilen Sie diese Informationen niemals mit jemand anderem.",
+      "line3": "Beachten Sie bitte, dass weder wir noch Ihr Wallet-Anbieter jemals nach Ihrer Seed-Phrase oder Ihrem Private Key fragen werden. Seien Sie vorsichtig bei Betrügern, die versuchen, diese Informationen von Ihnen zu erhalten.",
+      "line4": "Geben Sie Ihre Seed-Phrase nur ein, wenn Sie ein Wallet auf einem neuen Gerät installieren. Vergessen Sie nicht, Ihre Seed-Phrase an einem sicheren Ort aufzubewahren, da Sie sie benötigen, um Ihr Wallet wiederherzustellen, falls Ihr Gerät verloren geht oder gestohlen wird.",
+      "line5": "Zur weiteren Steigerung Ihrer Sicherheit sollten Sie ein Hardware-Wallet in Betracht ziehen."
+    },
+    "wallets": {
+      "connect": "Wallet verbinden",
+      "browser": "Browser-Wallets",
+      "mobile": "Mobile und Desktop-Wallets"
+    }
+  },
+  "navigation": {
+    "items": {
+      "dashboard": "Dashboard",
+      "trade": "Transaktionen",
+      "wallet": "Wallet verbinden",
+      "settings": "Einstellungen",
+      "affiliate": "Affiliateprogramm",
+      "purchaseBWG": "BWG kaufen"
+    },
+    "logout": "Abmelden"
+  },
+  "notFound": {
+    "mainContactBtn": "Support kontaktieren",
+    "mainPageBtn": "Zur Hauptseite gehen",
+    "subTitle": "Es tut uns leid, wir konnten die von Ihnen gesuchte Seite nicht finden. Möglicherweise wurde diese Seite an eine andere Adresse verschoben.",
+    "title": "Seite nicht gefunden"
+  },
+  "notifications": {
+    "empty": "Hier gibt es nichts zu zeigen",
+    "filters": {
+      "all": "Alle",
+      "read": "Gelesen",
+      "unread": "Ungelesen"
+    },
+    "showLabel": "Anzeigen:",
+    "title": "Benachrichtigungen"
+  },
+  "profile": {
+    "appSettings": {
+      "title": "Einstellungen",
+      "fullName": "Vollständiger Name",
+      "customerID": "Kunden ID",
+      "languageSelector": "Sprache",
+      "currencySeletor": "Währung",
+      "themeMode": "Themenmodus",
+      "dashboard": "Dashboard",
+      "showBalance": "Kontostand anzeigen",
+      "savePaymentMethods": "Zahlungsmethoden speichern",
+      "email": "E-Mail",
+      "password": "Passwort",
+      "2FAAuthentication": "2FA-Authentifizierung",
+      "deleteAccount": "Account löschen",
+      "savedWalletAddress": "Gespeicherte Wallet-Adresse",
+      "referralInformation": "Referral Info",
+      "referralID": "Referral ID",
+      "referralLink": "Referrallink",
+      "qRCode": "QR-Code",
+      "becomeAffiliate": "Affiliate werden"
+    },
+    "changeEmail": {
+      "buttonSubmit": "E-Mail ändern",
+      "inputLabel": "Neue E-Mail",
+      "inputPlaceholder": "Neue E-Mail eingeben",
+      "modalSuccess": {
+        "text": "Wir haben Ihnen einen Link an Ihre E-Mail-Adresse gesendet. Klicken Sie darauf, um Ihre primäre E-Mail-Adresse zu aktualisieren.",
+        "title": "Neue E-Mail bestätigen"
+      },
+      "title": "E-Mail ändern"
+    },
+    "changePassword": {
+      "buttonSubmit": "Passwort aktualisieren",
+      "labels": {
+        "currentPassword": "Aktuelles Passwort",
+        "newPassword": "Neues Passwort"
+      },
+      "modalSuccess": {
+        "text": "Ihr Passwort wurde erfolgreich aktualisiert.",
+        "title": "Passwort aktualisiert"
+      },
+      "placeholder": {
+        "currentPassword": "Ihr aktuelles Passwort",
+        "newPassword": "Neues Passwort eingeben"
+      },
+      "title": "Passwort ändern"
+    },
+    "mailSubscription": {
+      "resubscribeButton": "Erneut abonnieren",
+      "unsubscribeButton": "Abbestellen",
+      "updateSuccessMessage": "E-Mail-Einstellungen aktualisiert"
+    },
+    "navigation": {
+      "logout": "Abmelden"
+    },
+    "security": {
+      "mfa": {
+        "activate": {
+          "button": "2FA aktivieren",
+          "label2faCode": "2FA-Code",
+          "qrCodeText": "Scannen Sie den QR-Code mit Ihrem Mobiltelefon oder kopieren Sie ihn unten",
+          "step1": "Installieren Sie die 2FA App auf Ihrem Telefon",
+          "step2": "Scannen Sie den QR-Code mit der Google Mobile App",
+          "step3": "Geben Sie den 2FA-Code ein und klicken Sie auf \"Aktivieren\"",
+          "successMessage": "Die Zwei-Faktor-Authentifizierung ist aktiviert.",
+          "title": "Zwei-Faktor-Authentifizierung einschalten"
+        },
+        "disable": {
+          "button": "2FA deaktivieren",
+          "label2faCode": "2FA-Code",
+          "successMessage": "Die Zwei-Faktor-Authentifizierung wurde deaktiviert.",
+          "title": "Zwei-Faktor-Authentifizierung ausschalten"
+        }
+      }
+    }
+  },
+  "register": {
+    "signup": {
+      "referral": {
+        "notFound": "Referral nicht gefunden",
+        "found": "Referral gefunden",
+        "checkboxTooltip": "Löschen Sie das Referralcode-Feld, um dieses Kontrollkästchen aktivieren zu können",
+        "checkboxText": "Registrieren Sie sich ohne Referralcode"
+      },
+      "restrictions": {
+        "password": {
+          "minLength": "Das Passwort muss mindestens 8 Zeichen haben",
+          "maxLength": "Das Passwort darf höchstens 30 Zeichen haben",
+          "notMatch": "Passwörter stimmen nicht überein",
+          "confirmRequired": "Passwort bestätigen ist erforderlich",
+          "required": "Passwort ist ein Pflichtfeld"
+        },
+        "email": {
+          "required": "E-Mail ist ein Pflichtfeld",
+          "valid": "Muss eine gültige E-Mail-Adresse sein"
+        },
+        "codeMinLength": "Der Code muss mindestens 6 Zeichen haben",
+        "codeMaxLength": "Der Code darf höchstens 6 Zeichen haben",
+        "sourceOfEarning": "Die Einkommensquelle ist erforderlich",
+        "profession": "Die Berufsausübung ist erforderlich",
+        "termsAndConditions": "Die Allgemeinen Geschäftsbedingungen müssen akzeptiert werden"
+      },
+      "select": {
+        "profession": "Was ist Ihr Beruf?",
+        "income": "Einkommensquelle",
+        "earn": "Wie viel verdienen Sie?",
+        "experience": "Wie viel Erfahrung haben Sie im Trading?",
+        "select": "Auswählen",
+        "optional": "Optional"
+      },
+      "earnConfig": {
+        "option1": "10.000€ pro Jahr oder weniger",
+        "option2": "Zwischen 20.000€ und 30.000€ pro Jahr",
+        "option3": "Zwischen 30.000€ und 40.000€ pro Jahr",
+        "option4": "Zwischen 40.000€ und 50.000€ pro Jahr",
+        "option5": "Zwischen 50.000€ und 60.000€ pro Jahr",
+        "option6": "Zwischen 60.000€ und 70.000€ pro Jahr",
+        "option7": "Zwischen 70.000€ und 80.000€ pro Jahr",
+        "option8": "Zwischen 80.000€ und 90.000€ pro Jahr",
+        "option9": "Zwischen 90.000€ und 100.000€ pro Jahr",
+        "option10": "100.000€ pro Jahr oder mehr"
+      },
+      "professionConfig": {
+        "option1": "Selbstständig",
+        "option2": "Geschäftsmann",
+        "option3": "Arbeit im Finanzwesen",
+        "option4": "Arbeit in der IT",
+        "option5": "Arbeit als Handwerker",
+        "option6": "Büroangestellter",
+        "option7": "Medizinischer Beruf",
+        "option8": "Forschung / Wissenschaft",
+        "option9": "Automobil",
+        "option10": "Andere"
+      },
+      "experienceConfig": {
+        "option1": "Keine Erfahrung",
+        "option2": "Einige Erfahrung im Trading / Investieren",
+        "option3": "Erfahrener Trader"
+      },
+      "sourceOfIncomeConfig": {
+        "option1": "Gehalt",
+        "option2": "Investition",
+        "option3": "Renten",
+        "option4": "Geschäft",
+        "option5": "Andere"
+      },
+      "text-1": "Das Passwort muss mindestens 8 Zeichen lang sein. \nEin zufälliges alphanumerisches Passwort mit mindestens 32 Zeichen wird empfohlen.",
+      "text-2": "Verwenden Sie niemals dasselbe Passwort für eine Börse, das Sie an anderer Stelle verwenden, insbesondere nicht für die E-Mail-Adresse, mit der Sie sich registriert haben."
+    },
+    "confirmEmail": {
+      "confirmTitle": "Bestätigen Sie Ihre E-Mail",
+      "description": "<0>Bevor Sie die Plattform nutzen können, müssen Sie Ihre Identität bestätigen.</0><1>Der erste Schritt ist die E-Mail-Bestätigung. Wir haben Ihnen eine E-Mail mit einem Aktivierungslink gesendet. Klicken Sie auf den Aktivierungslink, um Ihr Konto zu aktivieren.</1><2>Bitte beachten Sie, dass dieser Link nur 15 Minuten gültig ist.</2>",
+      "resendEmail": "E-Mail erneut senden",
+      "successTitle": "Erfolg!",
+      "successSubTitle": "Ihre E-Mail-Adresse ist bestätigt",
+      "successDescription": "<0>Herzlichen Glückwunsch!</0> <1>Sie sind nur noch wenige Schritte von der Nutzung von BWG entfernt. Bitte vervollständigen Sie den Identitätsverifizierungsprozess.</1> <2>Für den nächsten Schritt empfehlen wir, Ihren Ausweis und Ihr Smartphone bereitzuhalten.</2>",
+      "welcomeTitle": "Willkommen bei {{token}}"
+    },
+    "kyc": {
+      "rejectReason": "Ihre Identitätsverifizierunsanfrage wurde abgelehnt. Grund: {{reason}}"
+    },
+    "kycSuccess": {
+      "text": "Herzlichen Glückwunsch! Ihr Identitätsverifizierungsstatus wurde genehmigt, und Sie können jetzt mit dem Trading auf der Plattform für digitales Gold von Bretton Woods beginnen.",
+      "title": "Herzlichen Glückwunsch",
+      "subTitle": "Erfolgreich registriert",
+      "button": "Zu Ihrem Dashboard gehen"
+    },
+    "titles": {
+      "signup": "Registrierung"
+    }
+  },
+  "registerSteps": {
+    "confirmEmail": "E-Mail bestätigen",
+    "identityConfirmation": "Identitätsbestätigung",
+    "launch": "Starten der Plattform",
+    "personalData": "E-Mail & Passwort"
+  },
+  "tooltips": {
+    "copied": "Kopiert!",
+    "copy": "In die Zwischenablage kopieren"
+  },
+  "trade": {
+    "title": "Transaktionen",
+    "chart": {
+      "barchart": {
+        "title": "Ihre letzten Käufe"
+      }
+    },
+    "navigation": {
+      "orders": "Bestellungen",
+      "download": "Herunterladen als"
+    },
+    "orderStatuses": {
+      "rejected": "Abgelehnt",
+      "accepted": "Akzeptiert",
+      "confirmed": "Bestätigt",
+      "pending": "Ausstehend",
+      "completed": "Abgeschlossen",
+      "init": "Eingeleitet"
+    },
+    "table": {
+      "title": {
+        "orders": "Bestellverlauf"
+      },
+      "status": "Status",
+      "headers": {
+        "id": "ID",
+        "date": "Datum",
+        "paidAmount": "Bezahlter Betrag",
+        "receivedAmount": "Erhaltener Betrag",
+        "recipientAddress": "Empfängeradresse",
+        "paymentStatus": "Zahlungsstatus",
+        "paymentStatusReason": "Zahlungsstatusgrund",
+        "transferStatus": "Transferstatus",
+        "transferStatusReason": "Transferstatusgrund",
+        "statusReason": "Statusgrund",
+        "tradingPair": "Handelspaar",
+        "storageFeeAmount": "Lagerungsgebühr",
+        "sender": "Absender",
+        "recipient": "Empfänger",
+        "paymentType": "Zahlungsart",
+        "paid": "Bezahlt",
+        "received": "Erhalten",
+        "blockExplorer": "Block-Explorer",
+        "viewInExplorer": "Im Block-Explorer anzeigen",
+        "txHash": "Tx Hash",
+        "paymentRate": "Zahlungsrate"
+      }
+    },
+    "modal": {
+      "title": {
+        "orders": "Bestelldetails"
+      }
+    }
+  },
+  "wallet": {
+    "change": {
+      "title": "Walletdresse ändern",
+      "2faNeeded": "Um die Walletadresse zu ändern, müssen Sie die Zwei-Faktor-Authentifizierung in den Profil-Einstellungen aktivieren",
+      "goTo2faSettings": "2FA einrichten",
+      "2faLabel": "Geben Sie den 2-Faktor-Authentifizierungscode ein",
+      "2faPlaceholder": "Geben Sie 2FA ein",
+      "changeButton": "Adresse ändern",
+      "label": {
+        "address": "Neue Adresse:",
+        "type": "Wallet Art:"
+      },
+      "emailConfirm": {
+        "line1": "Ihre Anfrage wurde gesendet.",
+        "line2": "Bitte bestätigen Sie die Änderung Ihrer Wallet per E-Mail."
+      }
+    },
+    "assets": {
+      "title": "Meine Vermögenswerte"
+    }
+  },
+  "maintenance": {
+    "title": "Wartung",
+    "text1": "Wir entschuldigen uns für die Unannehmlichkeiten, aber unsere Website befindet sich derzeit in Wartung.",
+    "text2": "Wir arbeiten hart daran, Ihr Erlebnis zu verbessern, und werden so bald wie möglich wieder in Betrieb sein. Vielen Dank für Ihre Geduld und Ihr Verständnis.",
+    "text3": "Bitte beachten Sie, dass wir keine Ihrer Mittel auf unserer Plattform halten. Alle Ihre Mittel werden sicher in Ihrer eigenen nicht verwahrten Brieftasche aufbewahrt, und Sie haben die volle Kontrolle darüber. Sie können Ihre Mittel frei und jederzeit ohne unsere Beteiligung verwenden. Wir möchten sicherstellen, dass Sie in dem Wissen ruhig schlafen können, dass Ihre Vermögenswerte sicher und unter Ihrer Kontrolle sind."
+  },
+  "faq": {
+    "faq": "FAQ",
+    "login": {
+      "title1": "Was kann ich auf der Bretton Woods Gold-Plattform tun?",
+      "description1": "Die Bretton Woods Gold-Plattform dient in erster Linie als Hub für Goldinvestitionen. Hier können Sie goldgedeckte Token erwerben, die die Vorteile von physischem Gold mit den Vorteilen eines Blockchain-Tokens kombinieren. Mit unserem Bretton Woods Digital Gold Token (BWG) können Sie die Sicherheit und Stabilität von Goldinvestitionen genießen und gleichzeitig die Flexibilität haben, mit Ihrem Gold zu handeln oder Zahlungen über Ihr Telefon oder Ihren Computer zu tätigen. Schluss mit Sorgen über Lagerung, Zugänglichkeit oder die Liquidation selbst kleiner Beträge wie einem Dollar. Mit BWG haben Sie rund um die Uhr Zugriff auf Ihre Investition und erstklassige Sicherheit.",
+      "title2": "Was ist KYC und wie kann ich es abschließen?",
+      "description2": "KYC steht für \"Know Your Customer\" und ist ein Identifikationsprozess, den Finanzinstitute und andere regulierte Unternehmen verwenden, um die Identität ihrer Kunden zu überprüfen. Dies ist in der Regel erforderlich, bevor ein neues Konto eröffnet oder bestimmte Transaktionen durchgeführt werden können. Um KYC abzuschließen, müssen Sie persönliche Identifikationsdokumente wie einen Personalausweis oder einen Reisepass vorlegen. Sie benötigen auch entweder einen Computer mit Kamera oder Ihr Mobiltelefon, um die Live-Gesichtsidentifikation durchzuführen.",
+      "title3": "Bin ich zur Registrierung und zum Trading berechtigt?",
+      "description3": "Derzeit bieten wir unsere Dienstleistungen Kunden ab 18 Jahren in Europa und Amerika an. Wir führen eine Standard-KYC (Know Your Customer)-Prüfung durch, bei der Personen mit Vorstrafen, ungewöhnlichem politischem Status oder Personen aus Ländern, in denen wir nicht lizenziert sind, ausgeschlossen werden."
+    },
+    "dashboard": {
+      "title1": "Wie verbinde ich eine Wallet?",
+      "description1": {
+        "desktopTutorials": "Desktop-Tutorials",
+        "mobileTutorials": "Mobile Tutorials",
+        "text": "Es gibt mehrere Möglichkeiten, eine Wallet mit unserer Plattform zu verbinden. Je nachdem, ob Sie einen Desktop-Computer, ein Smartphone oder ein Tablet verwenden. Wir bieten auch eine Reihe kompatibler Wallets. Weitere Informationen finden Sie auf unserem YouTube-Kanal, wo hilfreiche Videos zur Verbindung Ihrer Wallet verfügbar sind:"
+      },
+      "title2": "Ich habe Schwierigkeiten, meine Wallet zu verbinden. Wie löse ich das?",
+      "description2": {
+        "text1": "Bitte stellen Sie zunächst sicher, dass Sie alle Adblocker-Software deaktiviert haben, da dies zu Verbindungsproblemen mit Ihrer Wallet führen kann. Wenn Sie den Brave-Browser verwenden, deaktivieren Sie die Schutzfunktionen (integriertes Adblocking), und Sie können eine Verbindung herstellen. Wenn Sie weiterhin Probleme bei der Verbindung einer gültigen Wallet haben, wie auf unserer",
+        "text2": "Landingpage",
+        "text3": "gezeigt, wenden Sie sich bitte an den Support."
+      },
+      "title3": "Was passiert, wenn ich einen Kauf tätige?",
+      "description3": "Um einen Kauf zu tätigen, benötigen Sie zunächst eine verbundene Wallet auf unserer Plattform, damit wir die gekauften Token dorthin senden können. Sobald Sie einen FIAT-Kauf abgeschlossen haben, warten wir auf die Bestätigung der Zahlung und übertragen die Token unverzüglich an Ihre verbundene Wallet. Sie erhalten eine Benachrichtigung auf der Plattform, dass wir Ihre Zahlung erhalten haben und die Token an Ihre Wallet übertragen haben. Abhängig von der Aktivität auf der Blockchain kann es einige Minuten dauern, bis die Mittel in Ihrer Wallet ankommen, da die Transaktionszeiten auf der Blockchain je nach Auslastung und Tageszeit variieren. Bitte warten Sie mindestens eine halbe Stunde, bevor Sie sich Sorgen über eine fehlgeschlagene Überweisung machen.",
+      "title4": "Was sind die Lagerungskosten für Gold und wie funktioniert die Abrechnung?",
+      "description4": "Das eingelagerte Gold des BWG-Tokens wird sicher in der Schweiz aufbewahrt. Diese Sicherheit und Garantie verursachen Kosten. Daher nimmt jeder Token mit dem eingelagerten Gold an den Kosten im Voraus teil, die alle drei Monate in einem automatisierten Prozess abgerechnet werden. Da der Goldpreis immer volatil ist und die Lagerungskosten im Laufe der Zeit variieren, behalten wir uns das Recht vor, die Preise entsprechend anzupassen. Kunden werden im Voraus über Preisanpassungen informiert. Wenn der Kunde danach zu viel berechnet hat, wird auf unserer Plattform eine Cashback-Aktion durchgeführt, bei der geladene Wallet registriert werden können und die überzahlten Kosten an die Kunden zurückerstattet werden.",
+      "title5": "Wie bezahle ich mit Kryptotoken?",
+      "description5": "Derzeit ist eine Zahlung mit Kryptowährungen nicht möglich. Sobald wir die behördliche Genehmigung erhalten, werden wir gängige Stablecoins akzeptieren. Um mit Kryptotoken zu bezahlen, benötigen Sie BNB in Ihrer Brieftasche, um die Blockchain-Transfergebühren für eine Transaktion sowie den Stablecoin, den Sie verwenden möchten, zu bezahlen."
+    },
+    "convertAffiliate": {
+      "howItWorks": {
+        "title1": "Einladung über Link oder Referralcode",
+        "description1": "Als Affiliate erhalten Sie einen eindeutigen Referrallink und Referralcode, den Sie mit potenziellen Benutzern teilen können. Indem Sie Ihren Link oder Code verwenden, werden diese neuen Benutzer mit Ihrem Affiliate-Konto verknüpft, um sicherzustellen, dass Sie Provisionen für ihre Aktionen erhalten.",
+        "title2": "20% Direkte Provision des CV",
+        "description2": "Wenn ein Benutzer, der über Ihren Link oder Code eingeladen wurde, BWG-Token kauft, verdienen Sie eine direkte Provision von 20% des CV, der aus ihrer Transaktion generiert wird. Diese Provision spiegelt den Wert wider, den Sie unserer Plattform bringen, indem Sie neue Benutzer einführen, die unsere Produkte nutzen.",
+        "title3": "36% Unilevel-Provision des CV",
+        "description3": "Die Vorteile unseres Affiliateprogramms erstrecken sich über Ihre direkten Empfehlungen hinaus. Wenn der von Ihnen eingeladene neue Benutzer auch Affiliate wird und weitere Benutzer einlädt, die BWG-Token kaufen, erhalten Sie eine Unilevel-Provision von 4% des CV. Diese Unilevel-Provision stellt sicher, dass Sie weiterhin ein passives Einkommen aus den Aktivitäten von Affiliates in Ihrem Empfehlungsnetzwerk verdienen."
+      },
+      "benefitsConfig": {
+        "title1": "Kostenlose Teilnahme, keine monatlichen Kosten",
+        "description1": "Bei Bretton Woods AG glauben wir daran, unsere Affiliates zu unterstützen. Deshalb bieten wir eine völlig kostenlose Mitgliedschaft ohne versteckte monatliche Kosten an. Sie können an unserem Affiliateprogramm teilnehmen und ohne finanzielle Verpflichtungen zu erkunden, welches Einkommenspotenzial sich bietet. Es ist eine risikofreie Gelegenheit, Ihr Verdienstpotenzial zu erkunden!",
+        "title2": "Flexibler Arbeitszeitplan und Freiheit",
+        "description2": "Sagen Sie den Einschränkungen eines traditionellen Jobs Adieu! Als unser Affiliate haben Sie die Freiheit, wann, wo und mit wem Sie möchten zu arbeiten. Egal, ob Sie eine Nachteule oder ein Frühaufsteher sind, Sie können Ihr Affiliategeschäft in Ihrem eigenen Tempo betreiben und nahtlos in Ihren Lebensstil integrieren. Genießen Sie die Freiheit, von zu Hause aus oder auf Reisen auf der ganzen Welt zu arbeiten. Die Wahl liegt bei Ihnen!",
+        "title3": "Gehören Sie zu den Ersten und sichern Sie sich Ihr passives Einkommen",
+        "description3": "Der richtige Zeitpunkt ist entscheidend, und die Teilnahme an unserem Affiliateprogramm frühzeitig bedeutet, dass Sie einer der ersten Affiliates sind, die von dieser unglaublichen Gelegenheit profitieren können. Wenn wir unser Programm starten, haben Sie die Möglichkeit, eine solide Grundlage für Ihr passives Einkommen zu schaffen. Indem Sie unsere goldgedeckten Produkte bewerben, erschließen Sie einen lukrativen Markt und bereiten den Weg für langfristigen Erfolg.",
+        "title4": "Ein einfaches Turnkey-Geschäft",
+        "description4": "Mit unserem Affiliateprogramm haben Sie ein sofort einsatzbereites Geschäft zur Hand. Sobald Sie Ihren eindeutigen Affiliatelink erhalten, können Sie sofort damit beginnen, ihn zu teilen. Selbst bevor Ihre Umwandlung in ein Affiliatekonto abgeschlossen ist, werden Sie die vollen Vorteile erhalten. Wir stellen Ihnen alle erforderlichen Tools und Unterstützung zur Verfügung, um Ihr Verdienstpotenzial zu maximieren. Es war noch nie einfacher, Einkommen zu generieren!",
+        "title5": "Fortlaufende Provisionsoptionen",
+        "description5": "Wenn Sie Ihren Affiliatelink teilen, endet Ihr Verdienstpotenzial nicht dort. Unser Affiliateprogramm ist darauf ausgelegt, Ihre Bemühungen im Laufe der Zeit zu belohnen. Ihr Affiliatelink wird weiterhin Provisionen generieren, wenn sich mehr Menschen registrieren und Käufe tätigen. Wenn Bretton Woods AG ihr Produktangebot erweitert und neue Initiativen einführt, haben Sie noch mehr Möglichkeiten, als Affiliate zu verdienen. Ihr Erfolg ist unser Erfolg!"
+      },
+      "poolConfig": {
+        "title1": "Pool-Auszahlungen",
+        "description1": "Die Pools werden monatlich ausgeschüttet. Wenn niemand im Pool ist, bleiben die gesammelten Mittel dort, und sie werden im nächsten Monat ausgezahlt, wenn sich jemand für den Pool qualifiziert hat. Poolanteile werden gleichmäßig auf die Anzahl der qualifizierten Benutzer aufgeteilt. Wenn also 2 Benutzer für eine Poolauszahlung vorgesehen sind, erhalten sie jeweils 50%, im Falle von 10 Benutzern erhalten sie jeweils 10%.",
+        "title2": "Pool-Beschreibungen",
+        "poolArray": {
+          "line1": "1. Dynamic Compression Pool - Erfordert 5 persönliche Tokenverkäufe in einem Kalendermonat, um sich zu qualifizieren",
+          "line2": "2. Infinity Bonus Pool - 10% des CV gesammelt",
+          "line3": "3. Performer Bonus Pool - 10% des CV gesammelt",
+          "line4": "4. Global Leaders Bonus Pool - 10% des CV gesammelt",
+          "line5": "5. Incentive Pool - 10% des CV gesammelt - Aus diesem speziellen Anreize und Preise gewonnen werden",
+          "line6": "6. Success Builder Bonus Pool - 3% des CV gesammelt",
+          "line7": "7. Charity Pool - 1% des CV gesammelt - Affiliates leisten einen Beitrag! Dies geht an eine Wohltätigkeitsorganisation zur Unterstützung einer guten Sache"
+        }
+      }
+    }
+  },
+  "convertAffiliate": {
+    "title1": "Treten Sie unserem Affiliateprogramm bei und entfesseln Sie Ihr Potenzial mit Bretton Woods AG",
+    "text1": "Suchen Sie nach einer aufregenden Gelegenheit, ein passives Einkommen zu verdienen und gleichzeitig die Freiheit zu genießen, nach Ihren eigenen Bedingungen zu arbeiten? Suchen Sie nicht weiter! Treten Sie noch heute dem Affiliateprogramm von Bretton Woods AG bei und begeben Sie sich auf den Weg zum finanziellen Erfolg. Als einer unserer geschätzten Affiliates erhalten Sie Zugang zu einer Vielzahl von Vorteilen, die Ihnen helfen, einen stabilen Einkommensstrom aufzubauen, gestützt von der Kraft des Goldes. Verpassen Sie nicht diese lebenslange Chance, einer unserer Pionieraffiliates zu sein!",
+    "title2": "Wie funktioniert es?",
+    "text2": "Bei Bretton Woods Digital AG glauben wir daran, unsere Affiliates für ihre Bemühungen bei der Förderung des Wachstums unserer Plattform zu belohnen. Unser Affiliateprogramm wurde entwickelt, um Ihnen die Möglichkeit zu bieten, durch die Einladung neuer Benutzer, die unsere BWG-Token kaufen und nutzen, erhebliche Provisionen zu verdienen. Lassen Sie uns sehen, wie unser Affiliateprogramm funktioniert und wie Sie davon profitieren können:",
+    "title3": "Provisionssystem",
+    "example": {
+      "title1": "Beispiel",
+      "line1": "Ein Verkauf von 1000€ mit 20% Gebühren = 200€ Gebühren",
+      "line2": "10% der Gebühren gehen an den CV* der Affiliate = 20€",
+      "title2": "Affiliate-CV",
+      "line3": "20% des CV sind Direktprovision = 4€",
+      "line4": "36% des CV sind Unilevel-Provision = 7,20€",
+      "line5": "44% des CV werden in die Pools aufgeteilt = 8,80€"
+    },
+    "benefits": "Vorteile",
+    "pools": "Pools",
+    "text3": "Im Affiliateprogramm gibt es mehrere Pools. Der Dynamic Compression Pool sammelt übrig gebliebene Unilevel- oder nicht beanspruchte Direktprovision und reguläre Pools erhalten zwischen 1 und 10% des CV (provisionierbares Volumen) pro Pool. Die endgültige Version des Marketingplans wird 2024 mit allen Anforderungen für die Qualifikation für die Pools veröffentlicht. Bis dahin werden die Top-Performer und globalen Führungskräfte manuell in die Pools aufgenommen von unserem Verkaufs- und Marketingpräsidenten. Bei Fragen wenden Sie sich bitte an pa-sales@brettonwoods.ch.",
+    "text4": "Werden Sie einer der ersten Affiliates, die Ihren Platz sichern, und begeben Sie sich auf den Weg zu einem soliden passiven Einkommen. Treten Sie uns heute bei, und lassen Sie uns gemeinsam Ihr Potenzial entfesseln!",
+    "termsAndConditions": "Affiliatebedingungen",
+    "agreeTermsAndConditions": "Mit den Affiliatebedingungen einverstanden",
+    "needDownload": "Sie müssen die Affiliatebedingungen herunterladen und lesen, bevor Sie zustimmen",
+    "convert": "Konto konvertieren"
+  },
+  "consentManager": {
+    "weUseCookies": "Wir verwenden Cookies (und andere ähnliche Technologien), um Daten zu sammeln und Ihr Erlebnis auf unserer Website zu verbessern.",
+    "segmentUses": "Segment verwendet von Cookies und JavaScript-Bibliotheken gesammelte Daten, um Ihr Surferlebnis zu verbessern, den Website-Verkehr zu analysieren, personalisierte Werbung bereitzustellen und die Gesamtleistung unserer Website zu steigern.",
+    "theTable": "Die folgende Tabelle erläutert, wie wir diese Daten nach Kategorien verwenden. Um die Datensammlung für eine Kategorie zu deaktivieren, wählen Sie „Nein“ und speichern Sie Ihre Einstellungen.",
+    "youCanManage": "Sie können Ihre Einstellungen hier verwalten!",
+    "websiteData": "Präferenzen zur Datenerfassung auf der Website",
+    "areYouSure": "Sind Sie sicher, dass Sie abbrechen möchten?",
+    "notSaved": "Ihre Einstellungen wurden nicht gespeichert.",
+    "alowAll": "Alle erlauben",
+    "allowOnlyEssential": "Nur das Notwendigste erlauben"
+  },
+  "timestampChart": {
+    "month": "Monat",
+    "monthShort": "M",
+    "yearShort": "J",
+    "currency": "Währung",
+    "change": "Ändern"
+  },
+  "legalNotice": {
+    "phoneNumber": "Telefonnummer",
+    "email": "E-Mail",
+    "cEO": "Geschäftsführer",
+    "supervisoryChairman": "Vorsitzender des Aufsichtsrats",
+    "dataProtectionOfficer": "Datenschutzbeauftragter"
+  },
+  "tierOverview": {
+    "title": "Gebührenstruktur",
+    "tier": "Level",
+    "level": "Level",
+    "amount": "Betrag",
+    "fee": "Gebühr",
+    "from": "von",
+    "upTo": "bis zu"
+  },
+  "restriction": {
+    "canNotBeEmpty": "Dieses Feld darf nicht leer sein",
+    "notValidEmail": "Ist keine gültige E-Mail"
+  },
+  "items": "Artikel",
+  "twoFA": {
+    "required": "2FA ist erforderlich",
+    "minLength": "2FA muss mindestens 6 Zeichen lang sein",
+    "maxLength": "2FA darf höchstens 6 Zeichen lang sein",
+    "amountIsRequired": "Betrag ist erforderlich",
+    "amountMustBePositive": "Der Betrag muss eine positive Zahl sein",
+    "invalidAddress": "Ungültige Adresse"
+  },
+  "schema": {
+    "invalid-address": "Ungültige Adresse"
+  }
 }

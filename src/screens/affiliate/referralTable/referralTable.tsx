@@ -1,4 +1,5 @@
 import React from 'react'
+import {useTranslation} from 'react-i18next'
 import {useQuery} from '@tanstack/react-query'
 import {Text, makeStyles, useTheme, Button} from '@rneui/themed'
 import {
@@ -25,6 +26,7 @@ import ReferralUserModal from './ReferralUserModal'
 const ReferralTable = () => {
   const api = useApi()
   const styles = useStyles()
+  const {t} = useTranslation()
   const {theme} = useTheme()
   const {profile} = useProfile()
   const {APP_URL} = usePlatform()
@@ -49,13 +51,13 @@ const ReferralTable = () => {
 
   return (
     <View>
-      <Text h4>Your Referrals</Text>
+      <Text h4>{t('affiliate.referralTitle')}</Text>
 
       <View style={[styles.container, styles.tableBorder]}>
         <View style={[styles.headerRow, styles.rowDivider]}>
-          <Text style={styles.cellDetails}>Description</Text>
-          <Text style={styles.cellStatus}>Status</Text>
-          <Text style={[styles.cellDate]}>Amount</Text>
+          <Text style={styles.cellDetails}>{t('common.table-header-description')}</Text>
+          <Text style={styles.cellStatus}>{t('common.table-header-status')}</Text>
+          <Text style={[styles.cellDate]}>{t('affiliate.payoutCommission.amount')}</Text>
         </View>
 
         {isLoading && (
@@ -67,7 +69,7 @@ const ReferralTable = () => {
         )}
         {referralStats?.referrals_stats.length == 0 ? (
           <View style={styles.emptyRow}>
-            <Text style={styles.emptyRowText}>No data found</Text>
+            <Text style={styles.emptyRowText}>{t('common.noRecordsFound')}</Text>
           </View>
         ) : (
           referralStats?.referrals_stats.map((item, index) => (
@@ -83,10 +85,14 @@ const ReferralTable = () => {
             >
               <View style={styles.cellDetails}>
                 <Text style={styles.titleText}>
-                  Account Type: {item.referral_account_type.toUpperCase()}
+                  {t('affiliate.refTable.amount')}: {item.referral_account_type.toUpperCase()}
                 </Text>
-                <Text style={styles.labelText}>Name: {item.referral_full_name}</Text>
-                <Text style={styles.labelText}>Email: {shorten(item.referral_email, 7)}</Text>
+                <Text style={styles.labelText}>
+                  {t('affiliate.refTable.name')}: {item.referral_full_name}
+                </Text>
+                <Text style={styles.labelText}>
+                  {t('affiliate.refTable.email')}: {shorten(item.referral_email, 7)}
+                </Text>
               </View>
               <View style={styles.cellStatus}>
                 <StatusBadge status={item.referral_status} label={item.referral_status} />
@@ -98,7 +104,7 @@ const ReferralTable = () => {
       </View>
 
       <Button
-        title='Affiliate Terms & Conditions'
+        title={t('affiliate.termsAndConditions')}
         onPress={() => Linking.openURL(LegalStuff.affiliateTerms)}
         containerStyle={{
           marginVertical: 10,
@@ -107,7 +113,7 @@ const ReferralTable = () => {
 
       <TouchableWithoutFeedback onPress={onShare}>
         <View style={styles.shareBtnWrapper}>
-          <Text>Share your referral Link</Text>
+          <Text>{t('affiliate.shareReferralLink')}</Text>
           <ShareImg height={20} width={20} />
         </View>
       </TouchableWithoutFeedback>
