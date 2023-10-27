@@ -16,7 +16,10 @@
     "value": "Value",
     "submit": "Absenden",
     "table-header-description": "Beschreibungen",
-    "table-header-status": "Status"
+    "table-header-status": "Status",
+    "server-region": "Wählen Sie Serverregion aus",
+    "usa": "USA",
+    "eu": "EU"
   },
   "confirmingEmail": {
     "toHomePage": "Zur Hauptseite gehen"
@@ -363,6 +366,7 @@
     "signup": {
       "referral": {
         "notFound": "Referral nicht gefunden",
+        "input-placeholder": "Geben Sie Ihren Empfehlungscode ein",
         "found": "Referral gefunden",
         "checkboxTooltip": "Löschen Sie das Referralcode-Feld, um dieses Kontrollkästchen aktivieren zu können",
         "checkboxText": "Registrieren Sie sich ohne Referralcode"
@@ -434,15 +438,19 @@
     },
     "confirmEmail": {
       "confirmTitle": "Bestätigen Sie Ihre E-Mail",
-      "description": "<0>Bevor Sie die Plattform nutzen können, müssen Sie Ihre Identität bestätigen.</0><1>Der erste Schritt ist die E-Mail-Bestätigung. Wir haben Ihnen eine E-Mail mit einem Aktivierungslink gesendet. Klicken Sie auf den Aktivierungslink, um Ihr Konto zu aktivieren.</1><2>Bitte beachten Sie, dass dieser Link nur 15 Minuten gültig ist.</2>",
+      "description": "Bevor Sie die Plattform nutzen können, müssen Sie Ihre Identität bestätigen.\n\nDer erste Schritt ist die E-Mail-Bestätigung. Wir haben Ihnen eine E-Mail mit einem Aktivierungslink gesendet. Klicken Sie auf den Aktivierungslink, um Ihr Konto zu aktivieren.\n\nBitte beachten Sie, dass dieser Link nur 15 Minuten gültig ist.",
       "resendEmail": "E-Mail erneut senden",
       "successTitle": "Erfolg!",
       "successSubTitle": "Ihre E-Mail-Adresse ist bestätigt",
       "successDescription": "<0>Herzlichen Glückwunsch!</0> <1>Sie sind nur noch wenige Schritte von der Nutzung von BWG entfernt. Bitte vervollständigen Sie den Identitätsverifizierungsprozess.</1> <2>Für den nächsten Schritt empfehlen wir, Ihren Ausweis und Ihr Smartphone bereitzuhalten.</2>",
-      "welcomeTitle": "Willkommen bei {{token}}"
+      "welcomeTitle": "Willkommen bei BWG"
     },
     "kyc": {
-      "rejectReason": "Ihre Identitätsverifizierunsanfrage wurde abgelehnt. Grund: {{reason}}"
+      "rejectReason": "Ihre Identitätsverifizierunsanfrage wurde abgelehnt. Grund: {{reason}}",
+      "startVerification": "Lassen Sie sich verifizieren",
+      "confirmYourIdentity": "Bevor Sie die Plattform nutzen, müssen Sie Ihre Identität bestätigen.",
+      "verificationText": "Klicken Sie auf die Schaltfläche unten, um Ihre Verifizierung zu starten.",
+      "kycBtn": "Verifizierung starten"
     },
     "kycSuccess": {
       "text": "Herzlichen Glückwunsch! Ihr Identitätsverifizierungsstatus wurde genehmigt, und Sie können jetzt mit dem Trading auf der Plattform für digitales Gold von Bretton Woods beginnen.",
@@ -455,6 +463,8 @@
     }
   },
   "registerSteps": {
+    "step": "Schritt",
+    "refister-of": "Registrierung von",
     "confirmEmail": "E-Mail bestätigen",
     "identityConfirmation": "Identitätsbestätigung",
     "launch": "Starten der Plattform",

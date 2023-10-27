@@ -1,123 +1,125 @@
-export const earnConfig = [
+import {TFunction} from 'i18next'
+
+export const earnConfig = (t: TFunction) => [
   {
     value: '10,000 per year or less',
-    label: '10,000 Per Year or Less',
+    label: t('register.signup.earnConfig.option1'),
   },
   {
     value: 'between 20,000 to 30,000 per year',
-    label: 'Between 20,000 to 30,000 Per Year',
+    label: t('register.signup.earnConfig.option2'),
   },
   {
     value: 'between 30,000 to 40,000 per year',
-    label: 'Between 30,000 to 40,000 Per Year',
+    label: t('register.signup.earnConfig.option3'),
   },
   {
     value: 'between 40,000 to 50,000 per year',
-    label: 'Between 40,000 to 50,000 Per Year',
+    label: t('register.signup.earnConfig.option4'),
   },
   {
     value: 'between 50,000 to 60,000 per year',
-    label: 'Between 50,000 to 60,000 Per Year',
+    label: t('register.signup.earnConfig.option5'),
   },
   {
     value: 'between 60,000 to 70,000 per year',
-    label: 'Between 60,000 to 70,000 Per Year',
+    label: t('register.signup.earnConfig.option6'),
   },
   {
     value: 'between 70,000 to 80,000 per year',
-    label: 'Between 70,000 to 80,000 Per Year',
+    label: t('register.signup.earnConfig.option7'),
   },
   {
     value: 'between 80,000 to 90,000 per year',
-    label: 'Between 80,000 to 90,000 Per Year',
+    label: t('register.signup.earnConfig.option8'),
   },
   {
     value: 'between 90,000 to 100,000 per year',
-    label: 'Between 90,000 to 100,000 Per Year',
+    label: t('register.signup.earnConfig.option9'),
   },
   {
     value: '100,000 per year or more',
-    label: '100,000 Per Year or More',
+    label: t('register.signup.earnConfig.option10'),
   },
 ]
 
-export const professionConfig = [
+export const professionConfig = (t: TFunction) => [
   {
     value: 'self employed',
-    label: 'Self Employed',
+    label: t('register.signup.professionConfig.option1'),
   },
   {
     value: 'businessman',
-    label: 'Businessman',
+    label: t('register.signup.professionConfig.option2'),
   },
   {
     value: 'working in finance',
-    label: 'Working in Finance',
+    label: t('register.signup.professionConfig.option3'),
   },
   {
     value: 'working in it',
-    label: 'Working in IT',
+    label: t('register.signup.professionConfig.option4'),
   },
   {
     value: 'working as a craftsman',
-    label: 'Working as a Craftsman',
+    label: t('register.signup.professionConfig.option5'),
   },
   {
     value: 'office worker',
-    label: 'Office Worker',
+    label: t('register.signup.professionConfig.option6'),
   },
   {
     value: 'medical profession',
-    label: 'Medical Profession',
+    label: t('register.signup.professionConfig.option7'),
   },
   {
     value: 'research / science',
-    label: 'Research / Science',
+    label: t('register.signup.professionConfig.option8'),
   },
   {
     value: 'automotive',
-    label: 'Automotive',
+    label: t('register.signup.professionConfig.option9'),
   },
   {
     value: 'other',
-    label: 'Other',
+    label: t('register.signup.professionConfig.option10'),
   },
 ]
 
-export const experienceConfig = [
+export const experienceConfig = (t: TFunction) => [
   {
     value: 'no experience',
-    label: 'No Experience',
+    label: t('register.signup.experienceConfig.option1'),
   },
   {
     value: 'some prior experience in trading / investing',
-    label: 'Some Prior Experience in Trading / Investing',
+    label: t('register.signup.experienceConfig.option2'),
   },
   {
     value: 'experienced trader',
-    label: 'Experienced Trader',
+    label: t('register.signup.experienceConfig.option3'),
   },
 ]
 
-export const sourceOfIncomeConfig = [
+export const sourceOfIncomeConfig = (t: TFunction) => [
   {
     value: 'salary',
-    label: 'Salary',
+    label: t('register.signup.sourceOfIncomeConfig.option1'),
   },
   {
     value: 'investment',
-    label: 'Investment',
+    label: t('register.signup.sourceOfIncomeConfig.option2'),
   },
   {
     value: 'pensions',
-    label: 'Pensions',
+    label: t('register.signup.sourceOfIncomeConfig.option3'),
   },
   {
     value: 'business',
-    label: 'Business',
+    label: t('register.signup.sourceOfIncomeConfig.option4'),
   },
   {
     value: 'Others',
-    label: 'Others',
+    label: t('register.signup.sourceOfIncomeConfig.option5'),
   },
 ]

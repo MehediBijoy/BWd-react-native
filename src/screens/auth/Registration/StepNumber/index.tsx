@@ -1,4 +1,5 @@
 import {Text} from '@rneui/themed'
+import {useTranslation} from 'react-i18next'
 import {View, StyleProp, ViewStyle, StyleSheet} from 'react-native'
 
 type StepNumberProps = {
@@ -7,13 +8,16 @@ type StepNumberProps = {
   containerStyle?: StyleProp<ViewStyle>
 }
 
-const StepNumber = ({current, total = 4, containerStyle}: StepNumberProps) => (
-  <View style={[styles.container, containerStyle]}>
-    <Text style={styles.title}>
-      Step {current} Registration of {total}
-    </Text>
-  </View>
-)
+const StepNumber = ({current, total = 4, containerStyle}: StepNumberProps) => {
+  const {t} = useTranslation()
+  return (
+    <View style={[styles.container, containerStyle]}>
+      <Text style={styles.title}>
+        {t('registerSteps.step')} {current} {t('registerSteps.register-of')} {total}
+      </Text>
+    </View>
+  )
+}
 
 const styles = StyleSheet.create({
   container: {

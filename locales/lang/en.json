@@ -18,7 +18,10 @@
     "of": "of",
     "submit": "Submit",
     "table-header-description": "Description",
-    "table-header-status": "Status"
+    "table-header-status": "Status",
+    "server-region": "Select Server Region",
+    "usa": "USA",
+    "eu": "EU"
   },
   "confirmingEmail": {
     "toHomePage": "Go to main page"
@@ -365,6 +368,7 @@
     "signup": {
       "referral": {
         "notFound": "Referral not found",
+        "input-placeholder": "Enter your referral code",
         "found": "Referral found",
         "checkboxTooltip": "Сlear the Referral code field to be able to activate this checkbox",
         "checkboxText": "Sign up without a referral code"
@@ -436,15 +440,19 @@
     },
     "confirmEmail": {
       "confirmTitle": "Confirm your email",
-      "description": "<0>Before using the platform you need to confirm your identity.</0><1>First step is the email confirmation. We have sent you an email with an activation link. Click on the activation link to activate your account.</1><2>Please note that this link is only valid for 15 Minutes.</2>",
+      "description": "Before using the platform you need to confirm your identity.\n\nFirst step is the email confirmation. We have sent you an email with an activation link. Click on the activation link to activate your account.\n\nPlease note that this link is only valid for 15 Minutes.",
       "resendEmail": "Resend email",
       "successTitle": "Success!",
       "successSubTitle": "Your email address is confirmed",
       "successDescription": "<0>Congratulations!</0> <1>You are just a few steps away from using BWG. Please complete the identification verification process.</1> <2>For the next step we recommend to have your ID and smartphone close at hand.</2>",
-      "welcomeTitle": "Welcome to {{token}}"
+      "welcomeTitle": "Welcome to BWG"
     },
     "kyc": {
-      "rejectReason": "Your KYC application was rejected. Reason: {{reason}}"
+      "rejectReason": "Your KYC application was rejected. Reason: {{reason}}",
+      "startVerification": "Lets get you verified",
+      "confirmYourIdentity": "Before using the platform, you need to confirm your identity.",
+      "verificationText": "Click the button below to start your verification.",
+      "kycBtn": "Start Verification"
     },
     "kycSuccess": {
       "text": "Congratulations! Your KYC status is approved, and you can now start trading on the Bretton Woods digital gold platform.",
@@ -452,11 +460,14 @@
       "subTitle": "Successfully registered",
       "button": "Go to your Dashboard"
     },
+
     "titles": {
       "signup": "Registration"
     }
   },
   "registerSteps": {
+    "step": "Step",
+    "register-of": "Registration of",
     "confirmEmail": "Confirm Email",
     "identityConfirmation": "Identity Confirmation",
     "launch": "Launch the Platform",
