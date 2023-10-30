@@ -4,7 +4,7 @@ import React from 'react'
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
 
 import {RouteStack} from 'navigators/routes'
-import EmailVerification from 'screens/auth/ResetPassword/EmailVerification'
+import EmailVerification from 'screens/auth/ResetPassword/ForgetPassword'
 import ChangePassword from 'screens/auth/ResetPassword/ChangePassword'
 import EmailConfirmation from 'screens/auth/ResetPassword/EmailConfirmation'
 

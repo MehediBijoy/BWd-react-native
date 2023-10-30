@@ -458,6 +458,12 @@
       "subTitle": "Erfolgreich registriert",
       "button": "Zu Ihrem Dashboard gehen"
     },
+    "emailConfirmation": {
+      "title": "Email Bestätigung",
+      "subTitle": "Wir haben eine E-Mail mit einem Bestätigungscode gesendet. Bitte geben Sie diesen Code ein, um fortzufahren und ein neues Passwort festzulegen.",
+      "inputLabel": "Bestätigungscode eingeben",
+      "code": "Code"
+    },
     "titles": {
       "signup": "Registrierung"
     }

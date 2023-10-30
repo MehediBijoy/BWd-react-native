@@ -1,4 +1,5 @@
 import {View} from 'react-native'
+import {useTranslation} from 'react-i18next'
 import {Text, makeStyles} from '@rneui/themed'
 
 import Logo from 'components/Logo'
@@ -9,17 +10,18 @@ import AvailableBalanceRow from './availableBalanceRow'
 
 const BalanceBox = () => {
   const styles = useStyles()
+  const {t} = useTranslation()
   const {balance: BnbBalance, isLoading} = useBalance()
   const {balance: BwgBalance, isLoading: bwgLoading} = useBalance({token: 'BWG', watch: true})
 
   return (
     <View style={styles.balanceBox}>
-      <Text h3>Your Balance</Text>
+      <Text h3>{t('dashboard.availableBalance.title')}</Text>
       <View style={styles.assetGrid}>
         <Text style={styles.gridItem} />
-        <Text style={styles.gridItem}>Price</Text>
-        <Text style={styles.gridItem}>Amount</Text>
-        <Text style={styles.gridItem}>Total</Text>
+        <Text style={styles.gridItem}>{t('dashboard.availableBalance.price')}</Text>
+        <Text style={styles.gridItem}>{t('dashboard.availableBalance.amount')}</Text>
+        <Text style={styles.gridItem}>{t('dashboard.availableBalance.total')}</Text>
       </View>
       <AvailableBalanceRow
         asset='BWG'

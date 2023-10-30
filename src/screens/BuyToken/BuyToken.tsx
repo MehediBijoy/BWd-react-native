@@ -1,5 +1,6 @@
 import {useMemo, useState} from 'react'
 import {useForm} from 'react-hook-form'
+import {useTranslation} from 'react-i18next'
 import {useMutation} from '@tanstack/react-query'
 import {Text, Button, Icon, makeStyles} from '@rneui/themed'
 import {ActivityIndicator, ScrollView, View} from 'react-native'
@@ -25,6 +26,7 @@ type BuyBoxFields = {
 const BuyToken = () => {
   const api = useApi()
   const styles = useStyles()
+  const {t} = useTranslation()
   const {data: bwgLimit} = useAssets('BWG')
   const methods = useForm<BuyBoxFields>()
   const {total} = methods.getValues()
@@ -91,15 +93,15 @@ const BuyToken = () => {
 
         <View style={{display: 'flex', rowGap: 20}}>
           <Text h3 h3Style={{marginTop: 20}}>
-            Purchase BWG
+            {t('dashboard.buy.title', {token: 'BWG'})}
           </Text>
 
           <Form methods={methods} style={{rowGap: 15}}>
             <FormInput
               name='amount'
-              label='Amount'
+              label={t('dashboard.availableBalance.amount')}
               keyboardType='numeric'
-              placeholder='Enter your amount'
+              placeholder={t('dashboard.buy.enterAmount')}
               onChangeText={value => onChange(value, true)}
               leftElement={
                 <Icon
@@ -115,19 +117,19 @@ const BuyToken = () => {
 
             <FormInput
               name='total'
-              label='Total'
+              label={t('dashboard.availableBalance.total')}
               keyboardType='numeric'
-              placeholder='Enter your amount'
+              placeholder={t('dashboard.buy.enterAmount')}
               onChangeText={value => onChange(value, false)}
               leftElement={<Logo height={30} width={30} style={{marginRight: 10}} />}
               rightElement={isLoading && inBase ? <ActivityIndicator /> : undefined}
             />
 
             <Text style={styles.tierLink} onPress={() => setIsOpened(true)}>
-              More about the Tier System
+              {t('dashboard.buy.tierSystem.part1')} {t('dashboard.buy.tierSystem.part2')}
             </Text>
             <Button
-              title='Buy BWG'
+              title={t('dashboard.buy.btnText', {tokenName: 'BWG'})}
               disabled={!isValid}
               onPress={() => {
                 setIsFiatModalOpened(true)

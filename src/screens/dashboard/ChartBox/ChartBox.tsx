@@ -1,5 +1,6 @@
 import {Dimensions, View} from 'react-native'
 import {useQuery} from '@tanstack/react-query'
+import {useTranslation} from 'react-i18next'
 import {LineChart} from 'react-native-chart-kit'
 import {Text, useTheme} from '@rneui/themed'
 
@@ -11,6 +12,7 @@ import {formatDate} from 'utils'
 
 const ChartBox = () => {
   const api = useApi()
+  const {t} = useTranslation()
   const {token} = useAuthToken()
   const {theme} = useTheme()
   const {data} = useQuery<AssetChartItem[]>({

@@ -1,25 +1,33 @@
 import React, {useMemo} from 'react'
+import {useTranslation} from 'react-i18next'
 import {ScrollView, View} from 'react-native'
 import {makeStyles, Text} from '@rneui/themed'
 
 import Modal from '@core/Modal'
 
 import useDynamicFees from 'hooks/helper/useDynamicFees'
-import {DynamicFee} from 'api/Response'
+import {DynamicFee, Asset} from 'api/Response'
 
 type TierOverviewModalProps = {
   isOpened: boolean
   onClose: () => void
-  bwgLimit: any
+  bwgLimit?: Asset
 }
+
+type ReduceData = {
+  id: number
+  min: string
+  max: string
+} & DynamicFee
 
 const TierOverviewModal = ({bwgLimit, isOpened, onClose}: TierOverviewModalProps) => {
   const styles = useStyles()
-  const {data}: any = useDynamicFees()
+  const {t} = useTranslation()
+  const {data} = useDynamicFees()
   const fees = useMemo(
     () =>
       data?.reduce(
-        (acc: DynamicFee[], curr: DynamicFee, index: number, arr: DynamicFee[]) => [
+        (acc: ReduceData[], curr: DynamicFee, index: number, arr: DynamicFee[]) => [
           ...acc,
           {...curr, id: index, min: curr?.minimum_value, max: arr[index + 1]?.minimum_value},
         ],
@@ -29,15 +37,15 @@ const TierOverviewModal = ({bwgLimit, isOpened, onClose}: TierOverviewModalProps
   )
 
   return (
-    <Modal title='FEE TIERS OVERVIEW' isOpened={isOpened} onClose={onClose}>
+    <Modal title={t('tierOverview.title')} isOpened={isOpened} onClose={onClose}>
       <ScrollView>
         <View style={[styles.container]}>
           <View style={[styles.tableRow, styles.headerRow]}>
-            <Text style={styles.tierItem}>Tier</Text>
-            <Text style={styles.tierDescription}>Amount</Text>
-            <Text style={styles.tierFee}>Fee</Text>
+            <Text style={styles.tierItem}>{t('tierOverview.tier')}</Text>
+            <Text style={styles.tierDescription}>{t('tierOverview.amount')}</Text>
+            <Text style={styles.tierFee}>{t('tierOverview.fee')}</Text>
           </View>
-          {fees?.map(({id, min, max, fee_percentage}: any, index: number) => (
+          {fees?.map(({id, min, max, fee_percentage}, index: number) => (
             <View
               key={id}
               style={[
@@ -45,9 +53,15 @@ const TierOverviewModal = ({bwgLimit, isOpened, onClose}: TierOverviewModalProps
                 index === fees?.length - 1 ? styles.bottomRow : styles.bodyRow,
               ]}
             >
-              <Text style={styles.tierItem}>Level {id + 1}</Text>
+              <Text style={styles.tierItem}>
+                {t('tierOverview.level')} {id + 1}
+              </Text>
               <Text style={styles.tierDescription}>
-                {id === 0 ? ` from ${bwgLimit?.min_payment_amount} up to ${max}` : `from ${min}`}
+                {id === 0
+                  ? ` ${t('tierOverview.from')} ${bwgLimit?.min_payment_amount} ${t(
+                      'tierOverview.upTo'
+                    )} ${max}`
+                  : `${t('tierOverview.from')} ${min}`}
               </Text>
               <Text style={styles.tierFee}>{fee_percentage}%</Text>
             </View>

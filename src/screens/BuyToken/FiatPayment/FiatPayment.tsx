@@ -1,5 +1,6 @@
 import React from 'react'
 import {useMutation} from '@tanstack/react-query'
+import {useTranslation} from 'react-i18next'
 import {View, Modal as NativeModal} from 'react-native'
 import {Button, Icon, makeStyles, Text} from '@rneui/themed'
 import {useWalletConnectModal} from '@walletconnect/modal-react-native'
@@ -23,6 +24,7 @@ type FiatPaymentModalProps = {
 
 const FiatPaymentModal = ({estimateFees, isOpened, onClose, in_base}: FiatPaymentModalProps) => {
   const api = useApi()
+  const {t} = useTranslation()
   const styles = useStyles()
 
   const {isConnected} = useWalletConnectModal()
@@ -52,37 +54,42 @@ const FiatPaymentModal = ({estimateFees, isOpened, onClose, in_base}: FiatPaymen
   }
 
   return (
-    <Modal title='ORDER DETAILS' isOpened={isOpened} onClose={onClose}>
+    <Modal title={t('trade.modal.title.orders')} isOpened={isOpened} onClose={onClose}>
       {!isConnected && (
         <View style={styles.alertContainer}>
           <Icon name='warning' color={styles.icon.color} />
-          <Text style={styles.alertText}>Please connect your crypto wallet</Text>
+          <Text style={styles.alertText}>{t('dashboard.buy.wallet-connect')}</Text>
         </View>
       )}
 
       <View style={styles.grid}>
-        <Text style={styles.gridLeftItem}>Amount</Text>
+        <Text style={styles.gridLeftItem}>{t('dashboard.buy.amountLabel')}</Text>
         <Text style={styles.gridRightItem}>${estimateFees?.total_amount}</Text>
       </View>
 
       <Text style={styles.grid}>
-        You are paying up front for {estimateFees?.storage_fee_remaining_days} days of storage for
-        your gold backing the token. The cost for this are{' '}
-        {parseFloat(estimateFees?.storage_fee_amount).toFixed(4)} BWG tokens.
+        {t('dashboard.buy.confirm.message-1', {
+          duration: estimateFees?.storage_fee_remaining_days,
+          token: parseFloat(estimateFees?.storage_fee_amount).toFixed(4),
+          symbol: 'BWG',
+        })}
       </Text>
 
       <Text style={styles.grid}>
-        You`re paying {parseFloat(estimateFees?.total_fee_amount).toFixed(4)} BWG tokens fees.
+        {t('dashboard.buy.confirm.message-2', {
+          token: parseFloat(estimateFees?.total_fee_amount).toFixed(4),
+          symbol: 'BWG',
+        })}
       </Text>
-      <Text style={styles.grid}>After completion you`re going to</Text>
+      <Text style={styles.grid}>{t('dashboard.buy.confirm.message-4')}</Text>
 
       <View style={[styles.grid, {marginBottom: 10}]}>
-        <Text style={styles.gridLeftItem}>Receive:</Text>
+        <Text style={styles.gridLeftItem}>{t('dashboard.purchaseConfirmModal.received')}</Text>
         <Text style={styles.gridLeftItem}>{parseFloat(estimateFees?.received_amount)} BWG</Text>
       </View>
 
       <Button
-        title='Buy BWG'
+        title={t('dashboard.buy.btnText', {tokenName: 'BWG'})}
         onPress={() => {
           createOrder.mutate({payment_type: 'paypal'})
         }}

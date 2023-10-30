@@ -11,4 +11,5 @@ export type ErrorObject<Tdata = ErrorFields> = {
 
 export type ApiErrorResponse<Tdata = ErrorFields> = {
   error: ErrorObject<Tdata>
+  errors?: Tdata
 }

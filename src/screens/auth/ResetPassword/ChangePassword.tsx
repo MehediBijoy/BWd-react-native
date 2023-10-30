@@ -1,5 +1,6 @@
 import * as yup from 'yup'
 import {useState} from 'react'
+import {useTranslation} from 'react-i18next'
 import {View, ScrollView} from 'react-native'
 import {useMutation} from '@tanstack/react-query'
 import {Button, Text, useTheme} from '@rneui/themed'
@@ -25,7 +26,7 @@ const emailConfirmationSchema = yup.object().shape({
   password_confirmation: yup
     .string()
     .required()
-    .oneOf([yup.ref('password')], 'Passwords did not match'),
+    .oneOf([yup.ref('password')], 'register.signup.restrictions.password.notMatch'),
 })
 
 type RootProps = {
@@ -44,6 +45,8 @@ const ChangePassword = ({
 
   const api = useApi()
   const {theme} = useTheme()
+  const {t} = useTranslation()
+
   const [isOpened, setOpened] = useState<boolean>(false)
 
   const styles = useStyles()
@@ -64,10 +67,10 @@ const ChangePassword = ({
   }
 
   const data = [
-    'At least 12 characters - the more characters, the better',
-    'A mixture of both uppercase and lowercase letters',
-    'A mixture of letters and numbers',
-    'Inclusion of at least one special character: , ! @ # ? ]',
+    t('createNewPassword.list1'),
+    t('createNewPassword.list2'),
+    t('createNewPassword.list3'),
+    `${t('createNewPassword.list4')} , ! @ # ? ]`,
   ]
 
   return (
@@ -76,14 +79,14 @@ const ChangePassword = ({
         <GradientBox style={{marginTop: 30}}>
           <View style={{rowGap: 20}}>
             <Text h3 h3Style={styles.headerTextStyles}>
-              Create New Password
+              {t('createNewPassword.title')}
             </Text>
 
             <MessageBox
               name='lock-reset'
               type='material-community'
               color={theme.colors.white}
-              message='Please fill in your new password. For better security we recommended following'
+              message={t('createNewPassword.subtitle1')}
             />
 
             <View style={{rowGap: 5}}>
@@ -99,33 +102,42 @@ const ChangePassword = ({
               <FormInput
                 name='password'
                 type='password'
-                placeholder='New Password'
-                label='Enter New Password'
+                placeholder={t('forms.labels.newPassword')}
+                label={t('forms.placeholders.newPassword')}
                 color='bgPaper'
               />
 
               <FormInput
                 name='password_confirmation'
                 type='password'
-                placeholder='Confirm New Password'
-                label='Confirm New Password'
+                placeholder={t('forms.labels.confirmPassword')}
+                label={t('forms.placeholders.confirmPassword')}
                 color='bgPaper'
               />
 
               {isError && <Text style={styles.error}> {error.message}</Text>}
 
               <Button
-                title='Submit'
+                title={t('modal2fa.submit')}
                 loading={isLoading}
                 onPress={methods.handleSubmit(data => mutate(data))}
               />
             </Form>
           </View>
 
-          <Modal title='Password Changed' isOpened={isOpened} onClose={afterSuccess}>
+          <Modal
+            title={t('modals.passwordChanged.title')}
+            isOpened={isOpened}
+            onClose={afterSuccess}
+          >
             <View style={{alignItems: 'flex-start', rowGap: 15}}>
-              <Text style={{fontSize: 16}}>Your password has been successfully updated.</Text>
-              <Button title='Ok' size='sm' containerStyle={{width: 100}} onPress={afterSuccess} />
+              <Text style={{fontSize: 16}}>{t('modals.passwordChanged.description')}</Text>
+              <Button
+                title={t('dashboard.purchaseConfirmModal.ok')}
+                size='sm'
+                containerStyle={{width: 100}}
+                onPress={afterSuccess}
+              />
             </View>
           </Modal>
         </GradientBox>

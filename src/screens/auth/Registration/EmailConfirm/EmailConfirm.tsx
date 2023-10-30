@@ -64,7 +64,7 @@ const EmailConfirm = () => {
           </Text>
           <Button
             loading={isLoading}
-            title='Resend email'
+            title={t('register.confirmEmail.resendEmail')}
             onPress={() => profile && mutate({email: profile.email})}
             containerStyle={{maxWidth: 150}}
           />
@@ -79,7 +79,7 @@ const EmailConfirm = () => {
               {t('modals.confirmEmailResent.description', {email: profile?.email})}
             </Text>
             <Button
-              title='Ok'
+              title={t('dashboard.purchaseConfirmModal.ok')}
               size='sm'
               containerStyle={{width: 100}}
               onPress={() => setOpened(!isOpened)}

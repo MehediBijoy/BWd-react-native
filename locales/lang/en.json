@@ -460,7 +460,12 @@
       "subTitle": "Successfully registered",
       "button": "Go to your Dashboard"
     },
-
+    "emailConfirmation": {
+      "title": "Email Confirmation",
+      "subTitle": "We have dispatched an email containing a verification code. Kindly input this code  to continue and establish a new password.",
+      "inputLabel": "Enter Verification Code",
+      "code": "Code"
+    },
     "titles": {
       "signup": "Registration"
     }

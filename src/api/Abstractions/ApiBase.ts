@@ -39,7 +39,7 @@ export default class ApiBas {
         }
 
         const {message} = error
-        const errorData = error.response?.data?.error
+        const errorData = error.response?.data?.error || error.response?.data?.errors
 
         if (!errorData) {
           throw new Error(message)
