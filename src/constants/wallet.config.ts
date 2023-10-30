@@ -4,7 +4,7 @@ import type {IProviderMetadata} from '@walletconnect/modal-react-native'
 
 import {CHAIN} from 'config/environments'
 
-export const projectId = '2e31eb755bf20ae6956c4f75bae3fc3b'
+export const projectId = '4b754960edefc26d7af94780e98c7089'
 export const chain = [bsc, bscTestnet].find(item => item.id === CHAIN) as Chain
 
 export const providerMetadata: IProviderMetadata = {
