@@ -1,4 +1,5 @@
 import {View} from 'react-native'
+import {useTranslation} from 'react-i18next'
 import {Button, Text, makeStyles} from '@rneui/themed'
 import {NativeStackScreenProps} from '@react-navigation/native-stack'
 
@@ -13,20 +14,21 @@ type ReferralInfoBoxProps = {
 
 const ReferralInfoBox = ({navigation}: ReferralInfoBoxProps) => {
   const styles = useStyle()
+  const {t} = useTranslation()
   const {APP_URL} = usePlatform()
   const {profile} = useProfile()
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Referral Information </Text>
+      <Text style={styles.title}>{t('profile.appSettings.referralInformation')}</Text>
 
       <View style={[styles.textWrapper, styles.container]}>
-        <Text>Referral ID:</Text>
+        <Text>{t('profile.appSettings.referralID')}:</Text>
         <Text style={{fontWeight: 'bold'}}>{profile?.referral_token}</Text>
       </View>
 
       <View style={[styles.textWrapper, styles.container]}>
-        <Text>Referral Link:</Text>
+        <Text>{t('profile.appSettings.referralLink')}:</Text>
         {profile?.referral_token && (
           <CopyButton toCopy={`${APP_URL}/invite?token=${profile.referral_token}`} />
         )}
@@ -34,7 +36,7 @@ const ReferralInfoBox = ({navigation}: ReferralInfoBoxProps) => {
 
       {profile?.user_type !== 'affiliate' && (
         <Button
-          title='Become An Affiliate'
+          title={t('profile.appSettings.becomeAffiliate')}
           onPress={() => navigation.navigate('ProfileBecomeAffiliate')}
           containerStyle={{minHeight: 40, marginTop: 20}}
         />

@@ -1,5 +1,6 @@
 import * as yup from 'yup'
 import {useState} from 'react'
+import {useTranslation} from 'react-i18next'
 import {useMutation} from '@tanstack/react-query'
 import {Button, makeStyles, Text} from '@rneui/themed'
 import {NativeStackScreenProps} from '@react-navigation/native-stack'
@@ -27,6 +28,7 @@ type emailChangeFields = yup.InferType<typeof emailChangeSchema>
 
 const ChangeEmail = ({navigation}: NativeStackScreenProps<RouteStack>) => {
   const api = useApi()
+  const {t} = useTranslation()
   const styles = useStyles()
   const {profile} = useProfile()
 
@@ -56,12 +58,22 @@ const ChangeEmail = ({navigation}: NativeStackScreenProps<RouteStack>) => {
   return (
     <ContainContainer>
       <Form methods={methods} style={styles.form}>
-        <FormInput name='email' placeholder='Enter new email' label='New Email' />
-        {isMfaActive && <FormInput name='mfa_code' placeholder='xxx xxx' label='2FA Code' />}
+        <FormInput
+          name='email'
+          placeholder={t('profile.changeEmail.inputPlaceholder')}
+          label={t('profile.changeEmail.inputLabel')}
+        />
+        {isMfaActive && (
+          <FormInput name='mfa_code' placeholder='xxx xxx' label={t('modal2fa.inputLabel')} />
+        )}
         {isMfaRequired(error) && error?.message !== '2FA code is not present' && (
           <Text style={styles.error}>{error?.message}</Text>
         )}
-        <Button title='Change Email' loading={isLoading} onPress={methods.handleSubmit(onSubmit)} />
+        <Button
+          title={t('profile.changeEmail.buttonSubmit')}
+          loading={isLoading}
+          onPress={methods.handleSubmit(onSubmit)}
+        />
       </Form>
 
       <EmailConfirmationModal isOpened={isModalOpened} onClose={onClose} />

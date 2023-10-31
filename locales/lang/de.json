@@ -347,9 +347,9 @@
           "button": "2FA aktivieren",
           "label2faCode": "2FA-Code",
           "qrCodeText": "Scannen Sie den QR-Code mit Ihrem Mobiltelefon oder kopieren Sie ihn unten",
-          "step1": "Installieren Sie die 2FA App auf Ihrem Telefon",
-          "step2": "Scannen Sie den QR-Code mit der Google Mobile App",
-          "step3": "Geben Sie den 2FA-Code ein und klicken Sie auf \"Aktivieren\"",
+          "step1": "1. Installieren Sie die 2FA App auf Ihrem Telefon",
+          "step2": "2. Kopieren Sie den Schlüssel und fügen Sie ihn in die Authentifizierungs-App ein",
+          "step3": "3. Geben Sie den 2FA-Code ein und klicken Sie auf \"Aktivieren\"",
           "successMessage": "Die Zwei-Faktor-Authentifizierung ist aktiviert.",
           "title": "Zwei-Faktor-Authentifizierung einschalten"
         },
@@ -589,7 +589,13 @@
       "title4": "Was sind die Lagerungskosten für Gold und wie funktioniert die Abrechnung?",
       "description4": "Das eingelagerte Gold des BWG-Tokens wird sicher in der Schweiz aufbewahrt. Diese Sicherheit und Garantie verursachen Kosten. Daher nimmt jeder Token mit dem eingelagerten Gold an den Kosten im Voraus teil, die alle drei Monate in einem automatisierten Prozess abgerechnet werden. Da der Goldpreis immer volatil ist und die Lagerungskosten im Laufe der Zeit variieren, behalten wir uns das Recht vor, die Preise entsprechend anzupassen. Kunden werden im Voraus über Preisanpassungen informiert. Wenn der Kunde danach zu viel berechnet hat, wird auf unserer Plattform eine Cashback-Aktion durchgeführt, bei der geladene Wallet registriert werden können und die überzahlten Kosten an die Kunden zurückerstattet werden.",
       "title5": "Wie bezahle ich mit Kryptotoken?",
-      "description5": "Derzeit ist eine Zahlung mit Kryptowährungen nicht möglich. Sobald wir die behördliche Genehmigung erhalten, werden wir gängige Stablecoins akzeptieren. Um mit Kryptotoken zu bezahlen, benötigen Sie BNB in Ihrer Brieftasche, um die Blockchain-Transfergebühren für eine Transaktion sowie den Stablecoin, den Sie verwenden möchten, zu bezahlen."
+      "description5": "Derzeit ist eine Zahlung mit Kryptowährungen nicht möglich. Sobald wir die behördliche Genehmigung erhalten, werden wir gängige Stablecoins akzeptieren. Um mit Kryptotoken zu bezahlen, benötigen Sie BNB in Ihrer Brieftasche, um die Blockchain-Transfergebühren für eine Transaktion sowie den Stablecoin, den Sie verwenden möchten, zu bezahlen.",
+      "description6": {
+        "text1": "Falls du Probleme hast dein Wallet zu verbinden, beispielsweise wegen fehlendem redirect von wallet zurück in unsere App, versuch bitte folgende Schritte um das Problem zu beheben. \n",
+        "text2": "1. Schließe die Bretton Woods Gold App komplett, öffne Sie erneut und versuch wieder dein Wallet zu verbinden. \n",
+        "text3": "2. Falls das auch nicht hilf versuch bitte auch deine Wallet App komplett zu schließen und dich dann erneut zu verbinden. \n",
+        "text4": "3. Falls du weiterhin auf Fehler beim Wallet verbinden triffst, kontaktiere bitte unseren Support mit einer Problembeschreibung um persönliche Hilfe zu erhalten."
+      }
     },
     "convertAffiliate": {
       "howItWorks": {
@@ -617,13 +623,13 @@
         "description1": "Die Pools werden monatlich ausgeschüttet. Wenn niemand im Pool ist, bleiben die gesammelten Mittel dort, und sie werden im nächsten Monat ausgezahlt, wenn sich jemand für den Pool qualifiziert hat. Poolanteile werden gleichmäßig auf die Anzahl der qualifizierten Benutzer aufgeteilt. Wenn also 2 Benutzer für eine Poolauszahlung vorgesehen sind, erhalten sie jeweils 50%, im Falle von 10 Benutzern erhalten sie jeweils 10%.",
         "title2": "Pool-Beschreibungen",
         "poolArray": {
-          "line1": "1. Dynamic Compression Pool - Erfordert 5 persönliche Tokenverkäufe in einem Kalendermonat, um sich zu qualifizieren",
-          "line2": "2. Infinity Bonus Pool - 10% des CV gesammelt",
-          "line3": "3. Performer Bonus Pool - 10% des CV gesammelt",
-          "line4": "4. Global Leaders Bonus Pool - 10% des CV gesammelt",
-          "line5": "5. Incentive Pool - 10% des CV gesammelt - Aus diesem speziellen Anreize und Preise gewonnen werden",
-          "line6": "6. Success Builder Bonus Pool - 3% des CV gesammelt",
-          "line7": "7. Charity Pool - 1% des CV gesammelt - Affiliates leisten einen Beitrag! Dies geht an eine Wohltätigkeitsorganisation zur Unterstützung einer guten Sache"
+          "line1": "1. Dynamic Compression Pool - Erfordert 5 persönliche Tokenverkäufe in einem Kalendermonat, um sich zu qualifizieren \n",
+          "line2": "2. Infinity Bonus Pool - 10% des CV gesammelt \n",
+          "line3": "3. Performer Bonus Pool - 10% des CV gesammelt \n",
+          "line4": "4. Global Leaders Bonus Pool - 10% des CV gesammelt \n",
+          "line5": "5. Incentive Pool - 10% des CV gesammelt - Aus diesem speziellen Anreize und Preise gewonnen werden \n",
+          "line6": "6. Success Builder Bonus Pool - 3% des CV gesammelt \n",
+          "line7": "7. Charity Pool - 1% des CV gesammelt - Affiliates leisten einen Beitrag! Dies geht an eine Wohltätigkeitsorganisation zur Unterstützung einer guten Sache \n"
         }
       }
     }
@@ -647,7 +653,7 @@
     "pools": "Pools",
     "text3": "Im Affiliateprogramm gibt es mehrere Pools. Der Dynamic Compression Pool sammelt übrig gebliebene Unilevel- oder nicht beanspruchte Direktprovision und reguläre Pools erhalten zwischen 1 und 10% des CV (provisionierbares Volumen) pro Pool. Die endgültige Version des Marketingplans wird 2024 mit allen Anforderungen für die Qualifikation für die Pools veröffentlicht. Bis dahin werden die Top-Performer und globalen Führungskräfte manuell in die Pools aufgenommen von unserem Verkaufs- und Marketingpräsidenten. Bei Fragen wenden Sie sich bitte an pa-sales@brettonwoods.ch.",
     "text4": "Werden Sie einer der ersten Affiliates, die Ihren Platz sichern, und begeben Sie sich auf den Weg zu einem soliden passiven Einkommen. Treten Sie uns heute bei, und lassen Sie uns gemeinsam Ihr Potenzial entfesseln!",
-    "termsAndConditions": "Affiliatebedingungen",
+    "termsAndConditions": "Laden Sie die Affiliate-Bedingungen herunter",
     "agreeTermsAndConditions": "Mit den Affiliatebedingungen einverstanden",
     "needDownload": "Sie müssen die Affiliatebedingungen herunterladen und lesen, bevor Sie zustimmen",
     "convert": "Konto konvertieren"

@@ -349,9 +349,9 @@
           "button": "Activate 2FA",
           "label2faCode": "2FA Code",
           "qrCodeText": "Scan the QR code using your mobile phone or copy it below",
-          "step1": "Install the 2FA application on your phone",
-          "step2": "Scan QR code using Google mobile app",
-          "step3": "Enter the 2FA code and click \"Activate\"",
+          "step1": "1. Install the 2FA application on your phone",
+          "step2": "2. Copy the key and paste it in the authentication app",
+          "step3": "3. Enter the 2FA code and click \"Activate\"",
           "successMessage": "Two-factor authentication is enabled.",
           "title": "Turn on two-factor authentication"
         },
@@ -591,7 +591,13 @@
       "title4": "What are the gold storage costs and how does the deduction work?",
       "description4": "The deposited gold of the BWG token is securely stored in Switzerland. This security and guarantee generate costs. Therefore, each token with the gold deposited will participate in the costs in advance every quarter in an automated process. Because the price of gold is always volatile and the cost of storage changes over time, we reserve the right to adjust prices accordingly. Customers will be notified of price adjustments in advance. If the customer has afterward charged too much, then a cashback event will be held on our platform, where loaded wallets can be registered and the overpaid costs will be refunded to the customers.",
       "title5": "How do I pay with Crypto tokens?",
-      "description5": "Currently, payment with cryptocurrencies is not possible. As soon as we receive regulatory permission, we will accept common stablecoins. To pay with crypto tokens, you need to have BNB in your wallet to pay blockchain transfer fees for a transaction as well as the stablecoin you mean to pay with."
+      "description5": "Currently, payment with cryptocurrencies is not possible. As soon as we receive regulatory permission, we will accept common stablecoins. To pay with crypto tokens, you need to have BNB in your wallet to pay blockchain transfer fees for a transaction as well as the stablecoin you mean to pay with.",
+      "description6": {
+        "text1": "If you are having trouble connecting your wallet, either not being redirected back from the wallet to our application or not getting the connection dialogue please try the following steps. \n",
+        "text2": "1. Close the Bretton Woods Gold app and open it again, then try to connect your wallet again. \n",
+        "text3": "2. If that did not resolve it please try closing the app and wallet and try to connect again. \n",
+        "text4": "3. If you are facing persistent issues and the steps above did not resolve it, please contact our support and supply the details of your error, wallet of choice and phone, to receive personalized support."
+      }
     },
     "convertAffiliate": {
       "howItWorks": {
@@ -619,20 +625,20 @@
         "description1": "The pools are paid out on a monthly basis. If no one is in the pool the collected funds stay there and will be paid out in the next month if anyone has qualified for the pool. Pool shares are divided evenly between the number of qualified users. So if 2 users are assigned to a payout for a pool they each get 50%, in case of 10 users they get 10% each.",
         "title2": "Pool Descriptions",
         "poolArray": {
-          "line1": "1. Dynamic Compression Pool - Requires 5 Personal Tokens sales in one calendar month to qualify",
-          "line2": "2. Infinity Bonus Pool - 10% of CV collected",
-          "line3": "3. Performer Bonus Pool - 10% of CV collected",
-          "line4": "4. Global Leaders Bonus Pool - 10% of CV collected",
-          "line5": "5. Incentive Pool - 10% of CV collected - From this special incentives and prizes can be won",
-          "line6": "6. Success builder Bonus Pool - 3% of CV collected",
-          "line7": "7. Charity Pool - 1% of CV collected - Affiliates give back! This goes to a charity to support a good cause"
+          "line1": "1. Dynamic Compression Pool - Requires 5 Personal Tokens sales in one calendar month to qualify \n",
+          "line2": "2. Infinity Bonus Pool - 10% of CV collected \n",
+          "line3": "3. Performer Bonus Pool - 10% of CV collected \n",
+          "line4": "4. Global Leaders Bonus Pool - 10% of CV collected \n",
+          "line5": "5. Incentive Pool - 10% of CV collected - From this special incentives and prizes can be won \n",
+          "line6": "6. Success builder Bonus Pool - 3% of CV collected \n",
+          "line7": "7. Charity Pool - 1% of CV collected - Affiliates give back! This goes to a charity to support a good cause \n"
         }
       }
     }
   },
   "convertAffiliate": {
     "title1": "Join Our Affiliate Program and Unlock Your Potential with Bretton Woods AG",
-    "text1": " Are you looking for an exciting opportunity to earn a passive income while enjoying the freedom to work on your own terms? Look no further! Join the Bretton Woods AG Affiliate Program today and embark on a journey towards financial success. As one of our valued affiliates, you'll gain access to a range of benefits that will help you build a rock-solid income stream, backed by the power of gold. Don't miss out on this chance of a lifetime to be one of our pioneering affiliates!",
+    "text1": "Are you looking for an exciting opportunity to earn a passive income while enjoying the freedom to work on your own terms? Look no further! Join the Bretton Woods AG Affiliate Program today and embark on a journey towards financial success. As one of our valued affiliates, you'll gain access to a range of benefits that will help you build a rock-solid income stream, backed by the power of gold. Don't miss out on this chance of a lifetime to be one of our pioneering affiliates!",
     "title2": "How does it work?",
     "text2": "At the Bretton Woods digital AG, we believe in rewarding our affiliates for their efforts in driving the growth of our platform. Our affiliate system is designed to provide you with a lucrative opportunity to earn substantial commissions by simply inviting new users to join and engage with our BWG Token. Let's dive into how our affiliate system works and how you can benefit:",
     "title3": "Commission System",
@@ -649,7 +655,7 @@
     "pools": "Pools",
     "text3": "In the affiliate system there are several pools. The dynamic compression pool that collects left over unilevel or unclaimed direct commission and regular pools that get between 1 - 10% of the CV (commissionable volume) each. The final version of the marketing plan will be published in 2024 with all requirements for pool qualification specified. Until then the top performers and global leaders are placed in the pools manually by our president of sales and marketing. For questions please inquire at pa-sales@brettonwoods.ch.",
     "text4": "Be one of the first affiliates to secure your place and embark on a journey towards a solid passive income. Join us today and let's unlock your potential together!",
-    "termsAndConditions": "Affiliate Terms & Conditions",
+    "termsAndConditions": "Download Affiliate Terms & Conditions",
     "agreeTermsAndConditions": "Agree with affiliate Terms & Conditions",
     "needDownload": "You need to download and read the affiliate Terms & Conditions before agreeing",
     "convert": "Convert your account"

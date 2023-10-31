@@ -1,4 +1,5 @@
 import {View} from 'react-native'
+import {useTranslation} from 'react-i18next'
 import {Text, makeStyles} from '@rneui/themed'
 
 import {UserInfo} from 'api/Response'
@@ -9,22 +10,23 @@ type PersonalInfoBoxProps = {
 
 const PersonalInfoBox = ({userInfo}: PersonalInfoBoxProps) => {
   const styles = useStyle()
+  const {t} = useTranslation()
 
   return (
     <View style={[styles.container]}>
       <Text h3 h3Style={{marginBottom: 20}}>
-        Settings
+        {t('navigation.items.settings')}
       </Text>
 
       <View style={[styles.textWrapper]}>
-        <Text>Full Name:</Text>
+        <Text>{t('profile.appSettings.fullName')}:</Text>
         <Text style={[styles.boldText]}>{`${userInfo?.user_detail?.first_name ?? ''} ${
           userInfo?.user_detail?.last_name ?? ''
         }`}</Text>
       </View>
 
       <View style={[styles.textWrapper]}>
-        <Text>Customer ID:</Text>
+        <Text>{t('profile.appSettings.customerID')}:</Text>
         <Text style={[styles.boldText]}>{userInfo?.id}</Text>
       </View>
     </View>
