@@ -1,13 +1,15 @@
-import {useMemo, useState} from 'react'
 import {useForm} from 'react-hook-form'
-import {useMutation} from '@tanstack/react-query'
+import React, {useMemo, useState} from 'react'
+import {useMutation, useQuery} from '@tanstack/react-query'
 import {Text, Button, Icon, makeStyles} from '@rneui/themed'
 import {ActivityIndicator, ScrollView, View} from 'react-native'
 
 import Form from '@core/Form'
 import FormInput from '@core/FormInput'
+import InfoMessage from '@core/InfoMessage'
 import ContainContainer from '@core/ContentContainer'
 
+import {cacheKey} from 'api'
 import Logo from 'components/Logo'
 import useApi from 'hooks/api/useApi'
 import {EstimateFee} from 'api/Response'
@@ -70,6 +72,18 @@ const BuyToken = () => {
     return value >= minPaymentAmount && value <= maxPaymentAmount
   }, [total, bwgLimit])
 
+  const {data: paymentService} = useQuery({
+    queryFn: api.checkPaymentService,
+    queryKey: [cacheKey.checkPaymentService],
+    initialData: () => ({status: 'enabled', success: false}),
+    refetchInterval: 3000,
+  })
+
+  const isActiveService = React.useMemo<boolean | undefined>(
+    () => paymentService && paymentService.status === 'enabled',
+    [paymentService]
+  )
+
   return (
     <ScrollView>
       <ContainContainer>
@@ -93,7 +107,13 @@ const BuyToken = () => {
           <Text h3 h3Style={{marginTop: 20}}>
             Purchase BWG
           </Text>
-
+          {!isActiveService && (
+            <InfoMessage
+              variant='warning'
+              title='Attention'
+              message='Payment service currently unavailable'
+            />
+          )}
           <Form methods={methods} style={{rowGap: 15}}>
             <FormInput
               name='amount'
@@ -111,6 +131,7 @@ const BuyToken = () => {
                 />
               }
               rightElement={isLoading && !inBase ? <ActivityIndicator /> : undefined}
+              editable={isActiveService}
             />
 
             <FormInput
@@ -121,6 +142,7 @@ const BuyToken = () => {
               onChangeText={value => onChange(value, false)}
               leftElement={<Logo height={30} width={30} style={{marginRight: 10}} />}
               rightElement={isLoading && inBase ? <ActivityIndicator /> : undefined}
+              editable={isActiveService}
             />
 
             <Text style={styles.tierLink} onPress={() => setIsOpened(true)}>
