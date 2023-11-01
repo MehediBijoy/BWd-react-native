@@ -1,4 +1,5 @@
 import {Icon, useTheme} from '@rneui/themed'
+import {useTranslation} from 'react-i18next'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 
@@ -15,6 +16,7 @@ const TabNavigator = () => {
   const {
     theme: {colors},
   } = useTheme()
+  const {t} = useTranslation()
   const {bottom: bottomOffset} = useSafeAreaInsets()
 
   return (
@@ -36,6 +38,7 @@ const TabNavigator = () => {
         name='Home'
         component={Dashboard}
         options={{
+          title: t('navigation.items.home'),
           tabBarIcon: props => <Icon name='dashboard' type='material-icons' {...props} />,
         }}
       />
@@ -43,6 +46,7 @@ const TabNavigator = () => {
         name='Purchase'
         component={BuyToken}
         options={{
+          title: t('navigation.items.purchaseBWG'),
           tabBarIcon: props => <Icon name='bag-add' type='ionicon' {...props} />,
         }}
       />
@@ -50,6 +54,7 @@ const TabNavigator = () => {
         name='Transactions'
         component={Transactions}
         options={{
+          title: t('navigation.items.trade'),
           tabBarIcon: props => (
             <Icon name='text-box-check-outline' type='material-community' {...props} />
           ),

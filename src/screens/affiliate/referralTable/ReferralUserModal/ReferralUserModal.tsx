@@ -1,6 +1,7 @@
 import {View} from 'react-native'
 import {Text} from '@rneui/themed'
 import {useTranslation} from 'react-i18next'
+
 import Modal from '@core/Modal'
 import StatusBadge from '@core/StatusBadge'
 

@@ -67,9 +67,9 @@ const TransactionsHistory = () => {
     <>
       <View style={[styles.container]}>
         <View style={[styles.tableRow, styles.headerRow]}>
-          <Text style={styles.cellDetails}>Description</Text>
-          <Text style={styles.cellStatus}>Status</Text>
-          <Text style={[styles.cellDate, styles.rowText]}>Date</Text>
+          <Text style={styles.cellDetails}>{t('common.table-header-description')}</Text>
+          <Text style={styles.cellStatus}>{t('trade.table.status')}</Text>
+          <Text style={[styles.cellDate, styles.rowText]}>{t('trade.table.headers.date')}</Text>
         </View>
 
         {isLoading && (
@@ -93,21 +93,27 @@ const TransactionsHistory = () => {
               onPress={() => setSelectedId(item.id)}
             >
               <View style={styles.cellDetails}>
-                <Text style={[styles.rowText, styles.titleText]}>#Order: {item.id}</Text>
+                <Text style={[styles.rowText, styles.titleText]}>
+                  #{t('trade.table.headers.order')}: {item.id}
+                </Text>
                 <Text style={styles.rowText}>
-                  <Text style={styles.labelText}>Paid Amount: </Text>
+                  <Text style={styles.labelText}>{t('trade.table.headers.paidAmount')}: </Text>
                   {item.paid_amount}
                 </Text>
                 <Text style={styles.rowText}>
-                  <Text style={styles.labelText}>Received Amount:</Text> {item.received_amount}
+                  <Text style={styles.labelText}>{t('trade.table.headers.receivedAmount')}:</Text>{' '}
+                  {item.received_amount}
                 </Text>
                 <Text style={styles.rowText}>
-                  <Text style={styles.labelText}>Payment Method:</Text> {item.payment_type}
+                  <Text style={styles.labelText}>{t('dashboard.buy.confirm.method')}:</Text>{' '}
+                  {item.payment_type}
                 </Text>
               </View>
               <View style={styles.cellStatus}>
                 <Text style={[styles.rowText, {marginBottom: 5}]}>
-                  {item.transfer?.status ? 'Transfer' : 'Payment'}
+                  {item.transfer?.status
+                    ? t('trade.table.headers.transfer')
+                    : t('trade.table.headers.payment')}
                 </Text>
                 <StatusBadge status={item.transfer?.status ?? item.status} />
               </View>
@@ -119,7 +125,7 @@ const TransactionsHistory = () => {
           ))}
         {orderHistory && orderHistory.payments && orderHistory.payments.length === 0 && (
           <View style={[styles.tableRow, styles.emptyRow]}>
-            <Text>No data found</Text>
+            <Text>{t('common.noRecordsFound')}</Text>
           </View>
         )}
       </View>

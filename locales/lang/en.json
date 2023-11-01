@@ -21,7 +21,8 @@
     "table-header-status": "Status",
     "server-region": "Select Server Region",
     "usa": "USA",
-    "eu": "EU"
+    "eu": "EU",
+    "options": "Options"
   },
   "confirmingEmail": {
     "toHomePage": "Go to main page"
@@ -30,8 +31,14 @@
     "copyWalletAddress": "Copy Wallet Address",
     "trackInWallet": "Track BWG in Wallet",
     "disconnect": "Disconnect",
+    "title": "Wallet Disconnect",
     "connectWallet": "Connect Wallet",
-    "switchNetwork": "Switch Network"
+    "switchNetwork": "Switch Network",
+    "walletConnect": "Wallet connect",
+    "walletChangeWithEmail": "We sent wallet changing code to your email, Please Enter your code for change wallet address",
+    "unsupportedChain": "Unsupported chain",
+    "unsupportedChainDescription": "We are not support connected chain, please switch to {{chainName}}",
+    "disconnectTitle": "Are you sure you want to disconnect your wallet? You will need to connect again to use this app"
   },
   "createNewPassword": {
     "title": "Create a new password",
@@ -130,7 +137,7 @@
       },
       "confirm": {
         "title": "Complete your Purchase",
-        "method": "Payment Method:",
+        "method": "Payment Method",
         "message-1": "You are paying up front for {{duration}} days of storage for your gold backing the token. The cost for this are {{token}} {{symbol}} tokens.",
         "message-2": "You're paying {{token}} {{symbol}} tokens fees.",
         "message-3": "Buy {{moreToken}} {{token}} more tokens to reach the next level and only pay {{moreFees}}% fees.",
@@ -267,7 +274,13 @@
       "wallet": "Connect Wallet",
       "settings": "Settings",
       "affiliate": "Affiliate",
-      "purchaseBWG": "Purchase BWG"
+      "purchaseBWG": "Purchase",
+      "home": "Home",
+      "referAFriend": "Refer a friend",
+      "emailChange": "Email Change",
+      "passwordChange": "Password Change",
+      "twoFactorAuthentication": "Two Factor Authentication",
+      "becomeAnAffiliate": "Become An Affiliate"
     },
     "logout": "Logout"
   },
@@ -509,9 +522,12 @@
       "headers": {
         "id": "ID",
         "date": "Date",
+        "order": "Order",
         "paidAmount": "Paid Amount",
         "receivedAmount": "Received Amount",
         "recipientAddress": "Recipient Address",
+        "transfer": "Transfer",
+        "payment": "Payment",
         "paymentStatus": "Payment Status",
         "paymentStatusReason": "Payment Status Reason",
         "transferStatus": "Transfer Status",

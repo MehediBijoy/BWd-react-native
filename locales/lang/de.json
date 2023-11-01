@@ -19,7 +19,8 @@
     "table-header-status": "Status",
     "server-region": "Wählen Sie Serverregion aus",
     "usa": "USA",
-    "eu": "EU"
+    "eu": "EU",
+    "options": "Optionen"
   },
   "confirmingEmail": {
     "toHomePage": "Zur Hauptseite gehen"
@@ -29,7 +30,12 @@
     "trackInWallet": "BWG im Wallet verfolgen",
     "disconnect": "Trennen",
     "connectWallet": "Wallet verbinden",
-    "switchNetwork": "Netzwerk wechseln"
+    "switchNetwork": "Netzwerk wechseln",
+    "walletConnect": "Wallet-Verbindung",
+    "walletChangeWithEmail": "Wir haben den Wallet-Änderungscode an Ihre E-Mail-Adresse gesendet. Bitte geben Sie Ihren Code ein, um die Wallet-Adresse zu ändern",
+    "unsupportedChain": "Nicht unterstützte Kette",
+    "unsupportedChainDescription": "Wir unterstützen keine verbundene Kette, bitte wechseln Sie zu {{chainName}}",
+    "disconnectTitle": "Sind Sie sicher, dass Sie Ihr Wallet trennen möchten? Sie müssen erneut eine Verbindung herstellen, um diese App verwenden zu können"
   },
   "createNewPassword": {
     "title": "Neues Passwort erstellen",
@@ -128,7 +134,7 @@
       },
       "confirm": {
         "title": "Kauf abschließen",
-        "method": "Zahlungsmethode:",
+        "method": "Zahlungsmethode",
         "message-1": "Sie zahlen im Voraus für {{duration}} Tage Speicherung Ihres Goldes, das die Token absichert. Die Kosten dafür betragen {{token}} {{symbol}}-Tokens.",
         "message-2": "Sie zahlen {{token}} {{symbol}}-Tokens Gebühren.",
         "message-3": "Kaufen Sie {{moreToken}} {{token}} mehr Tokens, um die nächste Stufe zu erreichen und nur noch {{moreFees}}% Gebühren zu zahlen.",
@@ -265,7 +271,13 @@
       "wallet": "Wallet verbinden",
       "settings": "Einstellungen",
       "affiliate": "Affiliateprogramm",
-      "purchaseBWG": "BWG kaufen"
+      "purchaseBWG": "kaufen",
+      "home": "Heim",
+      "referAFriend": "einen Freund empfehlen",
+      "emailChange": "E-Mail-Änderung",
+      "passwordChange": "Passwortänderung",
+      "twoFactorAuthentication": "Zwei-Faktor-Authentifizierung",
+      "becomeAnAffiliate": "Werden Sie Partner"
     },
     "logout": "Abmelden"
   },
@@ -507,9 +519,12 @@
       "headers": {
         "id": "ID",
         "date": "Datum",
+        "order": "Befehl",
         "paidAmount": "Bezahlter Betrag",
         "receivedAmount": "Erhaltener Betrag",
         "recipientAddress": "Empfängeradresse",
+        "transfer": "Transfer",
+        "payment": "Zahlungs",
         "paymentStatus": "Zahlungsstatus",
         "paymentStatusReason": "Zahlungsstatusgrund",
         "transferStatus": "Transferstatus",

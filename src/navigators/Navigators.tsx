@@ -1,4 +1,5 @@
 import React from 'react'
+import {useTranslation} from 'react-i18next'
 import {Button, Text} from '@rneui/themed'
 import {createNativeStackNavigator, NativeStackScreenProps} from '@react-navigation/native-stack'
 
@@ -22,6 +23,7 @@ import DrawerNavigator from './DrawerNavigator'
 const Stack = createNativeStackNavigator<RouteStack>()
 
 const Navigators = () => {
+  const {t} = useTranslation()
   const {profile} = useProfile()
   const {currentLang} = useLocales()
 
@@ -70,22 +72,28 @@ const Navigators = () => {
         <Stack.Screen
           name='ProfileEmailChange'
           component={ChangeEmail}
-          options={{title: 'Email Change', headerBackTitleVisible: false}}
+          options={{title: t('navigation.items.emailChange'), headerBackTitleVisible: false}}
         />
         <Stack.Screen
           name='ProfilePasswordChange'
           component={ChangePassword}
-          options={{title: 'Password Change', headerBackTitleVisible: false}}
+          options={{title: t('navigation.items.passwordChange'), headerBackTitleVisible: false}}
         />
         <Stack.Screen
           name='ProfileMFA'
           component={MFA}
-          options={{title: 'Two Factor Authentication', headerBackTitleVisible: false}}
+          options={{
+            title: t('navigation.items.twoFactorAuthentication'),
+            headerBackTitleVisible: false,
+          }}
         />
         <Stack.Screen
           name='ProfileBecomeAffiliate'
           component={BecomeAffiliate}
-          options={{title: 'Become An Affiliate', headerBackTitleVisible: false}}
+          options={{
+            title: t('navigation.items.becomeAnAffiliate'),
+            headerBackTitleVisible: false,
+          }}
         />
       </Stack.Group>
     </Stack.Navigator>
