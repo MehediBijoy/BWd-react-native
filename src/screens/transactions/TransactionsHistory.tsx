@@ -1,7 +1,8 @@
 import React from 'react'
-import {ActivityIndicator, TouchableOpacity, View} from 'react-native'
+import {useTranslation} from 'react-i18next'
 import {Text, makeStyles, useTheme} from '@rneui/themed'
 import {useQuery, useQueryClient} from '@tanstack/react-query'
+import {ActivityIndicator, TouchableOpacity, View} from 'react-native'
 
 import StatusBadge from '@core/StatusBadge'
 
@@ -15,6 +16,7 @@ import OrderDetailsModal from './OrderDetailsModal'
 
 const TransactionsHistory = () => {
   const api = useApi()
+  const {t} = useTranslation()
   const {theme} = useTheme()
   const styles = useStyles()
   const {subscribe} = useSocket()
