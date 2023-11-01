@@ -121,6 +121,10 @@ type EstimateFee = {
 
 type Status = 'init' | 'accepted' | 'rejected' | 'pending'
 
+type PaymentService = {
+  status: 'enabled' | 'disabled'
+} & Success
+
 type Payment<Tdata = null> = {
   id: number
   dynamic_fee_amount: string
