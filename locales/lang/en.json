@@ -35,9 +35,9 @@
     "connectWallet": "Connect Wallet",
     "switchNetwork": "Switch Network",
     "walletConnect": "Wallet connect",
-    "walletChangeWithEmail": "We sent wallet changing code to your email, Please Enter your code for change wallet address",
+    "walletChangeWithEmail": "We've sent a code to your email. Please enter the code to change the wallet address.",
     "unsupportedChain": "Unsupported chain",
-    "unsupportedChainDescription": "We are not support connected chain, please switch to {{chainName}}",
+    "unsupportedChainDescription": "We do not support the connected chain, please switch to {{chainName}}",
     "disconnectTitle": "Are you sure you want to disconnect your wallet? You will need to connect again to use this app"
   },
   "createNewPassword": {
@@ -47,7 +47,7 @@
     "list1": "At least 12 characters - the more characters, the better",
     "list2": "A mixture of both uppercase and lowercase letters",
     "list3": "A mixture of letters and numbers",
-    "list4": "Inclusion of at least one special character:"
+    "list4": "At least one special character:"
   },
   "affiliate": {
     "title": "Affiliate Overview",
@@ -158,7 +158,7 @@
     },
     "persistedWalletConfirmModal": {
       "success": "Success! Wallet changed to new address",
-      "expired1": "Wallet change link is expired.",
+      "expired1": "Wallet change link has expired.",
       "expired2": "Please try again."
     },
     "button": {
@@ -184,7 +184,7 @@
     "legalNotice": "Legal Notice"
   },
   "forgotPassword": {
-    "subtitle": "Please write down the email you used for registration with BWG and we will send a recovery link to it.",
+    "subtitle": "Please type in the email you used for registration with BWG and we will send a recovery link to it.",
     "title": "Forgot your password?"
   },
   "deleteUser": {
@@ -229,7 +229,7 @@
   "modal2fa": {
     "inputLabel": "2FA code",
     "submit": "Submit",
-    "text": "To confirm your identity enter the two-factor authorization code",
+    "text": "To confirm your identity enter the two-factor authentification code",
     "title": "Enter the 2FA code"
   },
   "modals": {
@@ -238,7 +238,7 @@
       "dear": "Dear",
       "line1": "We're delighted to have you here, and we truly appreciate your interest in the Bretton Woods Gold Tokens. While we share your enthusiasm for this unique investment opportunity, we must inform you that, at present, we are unable to offer the tokens for sale.",
       "line2": "We are sincerely committed to only selling tokens that are fully backed by gold, which is securely stored with our partners in Swiss vaults. Unfortunately we are facing some delays in the gold acquisition and are thus unable to sell tokens at this time.",
-      "line3": "As soon as BWG becomes available for purchase, we will notify you via email and in app notification. We look forward to providing you with an exceptional investment experience and thank you for your patience and interest"
+      "line3": "As soon as BWG becomes available for purchase, we will notify you via email and in app notification. We look forward to providing you with an exceptional investment experience and thank you for your patience and interest."
     },
     "confirmEmailResent": {
       "description": "We’ve sent you a new confirmation link to {{email}}. Note that the reset link is valid for 15 minutes.",
@@ -275,7 +275,7 @@
       "settings": "Settings",
       "affiliate": "Affiliate Dashboard",
       "purchaseBWG": "Purchase",
-      "home": "Home",
+      "home": "Dashboard",
       "referAFriend": "Refer a friend",
       "emailChange": "Email Change",
       "passwordChange": "Password Change",
@@ -557,7 +557,7 @@
   "wallet": {
     "change": {
       "title": "Change Wallet Address",
-      "2faNeeded": "To change wallet address you must enable Two-Factor Authentication in profile settings",
+      "2faNeeded": "To change the wallet address you must enable Two-Factor Authentication in the profile settings",
       "goTo2faSettings": "Setup 2FA",
       "2faLabel": "Enter 2 Factor Authenticator",
       "2faPlaceholder": "Enter 2FA",
@@ -607,12 +607,12 @@
       "title3": "What happens when I make a purchase?",
       "description3": "To make a purchase, you first need a connected wallet on our platform so that we have a place to send the purchased tokens. Once you complete a FIAT purchase, we wait for the payment to clear and immediately transfer the tokens to your connected wallet. You will receive a notification on the platform that we have received your payment and that we have transferred the tokens to your wallet. Depending on the activity on the blockchain, it may take a few minutes for the funds to arrive in your wallet, as blockchain transaction times vary depending on the workload and time of day. Please allow at least half an hour before worrying about a failed transfer.",
       "title4": "What are the gold storage costs and how does the deduction work?",
-      "description4": "The deposited gold of the BWG token is securely stored in Switzerland. This security and guarantee generate costs. Therefore, each token with the gold deposited will participate in the costs in advance every quarter in an automated process. Because the price of gold is always volatile and the cost of storage changes over time, we reserve the right to adjust prices accordingly. Customers will be notified of price adjustments in advance. If the customer has afterward charged too much, then a cashback event will be held on our platform, where loaded wallets can be registered and the overpaid costs will be refunded to the customers.",
+      "description4": "The deposited gold of the BWG token is securely stored in Switzerland. This security and guarantee generate costs. Therefore, each token with the gold deposited will participate in the costs in advance every quarter in an automated process. Because the price of gold as well as storage costs change over time, we reserve the right to adjust prices accordingly. Customers will be notified of price adjustments in advance. If the customer has been charged too much, then a cashback event will be held on our platform, where loaded wallets can be registered and the overpaid costs will be refunded to the customers.",
       "title5": "How do I pay with Crypto tokens?",
       "description5": "Currently, payment with cryptocurrencies is not possible. As soon as we receive regulatory permission, we will accept common stablecoins. To pay with crypto tokens, you need to have BNB in your wallet to pay blockchain transfer fees for a transaction as well as the stablecoin you mean to pay with.",
       "description6": {
         "text1": "If you are having trouble connecting your wallet, either not being redirected back from the wallet to our application or not getting the connection dialogue please try the following steps. \n",
-        "text2": "1. Close the Bretton Woods Gold app and open it again, then try to connect your wallet again. \n",
+        "text2": "1. Close the Bretton Woods Gold app and open it again, then try to connect your wallet. \n",
         "text3": "2. If that did not resolve it please try closing the app and wallet and try to connect again. \n",
         "text4": "3. If you are facing persistent issues and the steps above did not resolve it, please contact our support and supply the details of your error, wallet of choice and phone, to receive personalized support."
       }
@@ -622,7 +622,7 @@
         "title1": "Invitation via Link or Referral Code",
         "description1": "As an affiliate, you will receive a unique invitation link and referral code that you can share with potential users. By using your link or code, these new users will be associated with your affiliate account, ensuring that you receive commissions for their actions.",
         "title2": "20% Direct Commission of CV",
-        "description2": "When a user, invited through your link or code, purchases BWG Tokens, you will earn a  direct commission of 20% of the CV generated from their transaction. This commission is a reflection of the value you bring to our platform by introducing new users who engage with our products.",
+        "description2": "When a user, invited through your link or code, purchases BWG Tokens, you will earn a direct commission of 20% of the CV generated from their transaction. This commission is a reflection of the value you bring to our platform by introducing new users who engage with our products.",
         "title3": "36% Uni-Level Commission of CV",
         "description3": "The benefits of our affiliate system extend beyond just your direct referrals. If the new user you invited also becomes an affiliate and invites further users who purchase BWG Tokens, you will receive a Uni-Level commission of 4% of the CV. This Uni-Level commission ensures that you continue to earn passive income from the activities of affiliates within your referral network."
       },
