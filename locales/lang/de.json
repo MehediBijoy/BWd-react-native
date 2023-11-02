@@ -266,13 +266,13 @@
   },
   "navigation": {
     "items": {
-      "dashboard": "Heim",
+      "dashboard": "Dashboard",
       "trade": "Transaktionen",
       "wallet": "Wallet verbinden",
       "settings": "Einstellungen",
       "affiliate": "Affiliateprogramm Übersicht",
       "purchaseBWG": "kaufen",
-      "home": "Heim",
+      "home": "Dashboard",
       "referAFriend": "einen Freund empfehlen",
       "emailChange": "E-Mail Änderung",
       "passwordChange": "Passwortänderung",

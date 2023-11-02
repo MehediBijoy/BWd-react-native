@@ -7,6 +7,7 @@ import BuyToken from 'screens/BuyToken'
 import Dashboard from 'screens/dashboard'
 import Transactions from 'screens/transactions'
 import PurchaseIcon from 'images/purchase.svg'
+import HomeIcon from 'images/home.svg'
 // import Notifications from 'screens/Notifications'
 
 import type {RouteStack} from './routes'
@@ -40,7 +41,10 @@ const TabNavigator = () => {
         component={Dashboard}
         options={{
           title: t('navigation.items.home'),
-          tabBarIcon: props => <Icon name='dashboard' type='material-icons' {...props} />,
+          // tabBarIcon: props => <Icon name='dashboard' type='material-icons' {...props} />,
+          tabBarIcon: ({size, color, ...props}) => (
+            <HomeIcon height={size} width={size} fill={color} {...props} />
+          ),
         }}
       />
       <Tab.Screen
@@ -49,8 +53,8 @@ const TabNavigator = () => {
         options={{
           title: t('navigation.items.purchaseBWG'),
           // tabBarIcon: props => <Icon name='bag-add' type='ionicon' {...props} />,
-          tabBarIcon: props => (
-            <PurchaseIcon height={24} width={30} fill={props.color} {...props} />
+          tabBarIcon: ({size, color, ...props}) => (
+            <PurchaseIcon height={size} width={size} fill={color} {...props} />
           ),
         }}
       />
