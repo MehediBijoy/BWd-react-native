@@ -44,7 +44,9 @@ const ProfileSettings = ({userInfo}: ProfileSettingsProps) => {
         <View style={styles.textWrapper}>
           <Text>{t('profile.appSettings.2FAAuthentication')}:</Text>
           <Text style={styles.boldText}>
-            {profile?.google_mfa_activated === true ? 'Activated' : 'Deactivated'}
+            {profile?.google_mfa_activated === true
+              ? t('common.activated')
+              : t('common.deactivated')}
           </Text>
         </View>
 

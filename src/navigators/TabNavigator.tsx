@@ -6,6 +6,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import BuyToken from 'screens/BuyToken'
 import Dashboard from 'screens/dashboard'
 import Transactions from 'screens/transactions'
+import PurchaseIcon from 'images/purchase.svg'
 // import Notifications from 'screens/Notifications'
 
 import type {RouteStack} from './routes'
@@ -47,7 +48,10 @@ const TabNavigator = () => {
         component={BuyToken}
         options={{
           title: t('navigation.items.purchaseBWG'),
-          tabBarIcon: props => <Icon name='bag-add' type='ionicon' {...props} />,
+          // tabBarIcon: props => <Icon name='bag-add' type='ionicon' {...props} />,
+          tabBarIcon: props => (
+            <PurchaseIcon height={24} width={30} fill={props.color} {...props} />
+          ),
         }}
       />
       <Tab.Screen

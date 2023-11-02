@@ -37,6 +37,7 @@ import {
   Commission,
   CommissionPayout,
   ReferralAccount,
+  PaymentService,
 } from './Response'
 
 export default class ApiMethods extends ApiBase {
@@ -213,6 +214,10 @@ export default class ApiMethods extends ApiBase {
       vs_currency: currency,
       ...rest,
     })
+  }
+
+  async checkPaymentService(): Promise<PaymentService> {
+    return await this.get('/payments/status')
   }
 
   async getOrders(): Promise<OrderHistory> {
