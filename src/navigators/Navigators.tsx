@@ -42,7 +42,10 @@ const Navigators = () => {
             screenOptions={({navigation}: NativeStackScreenProps<RouteStack>) => ({
               headerBackVisible: false,
               headerRight: () => (
-                <Button title='Login' onPress={() => navigation.navigate('Login')} />
+                <Button
+                  title={t('forms.buttons.login')}
+                  onPress={() => navigation.navigate('Login')}
+                />
               ),
             })}
           >

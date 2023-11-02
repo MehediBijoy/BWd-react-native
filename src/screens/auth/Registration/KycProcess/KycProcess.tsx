@@ -71,17 +71,17 @@ const KycProcess = ({navigation}: NativeStackScreenProps<RouteStack>) => {
           <View style={[styles.titleWrapper]}>
             <Icon type='simple-line-icon' name='user' color={styles.textColor.color} />
             <Text h3 h3Style={styles.textColor}>
-              {t('register.signup.kyc.startVerification')}
+              {t('register.kyc.startVerification')}
             </Text>
           </View>
 
           <Text style={[styles.textColor, styles.paragraph]}>
-            {t('register.signup.kyc.confirmYourIdentity')}
+            {t('register.kyc.confirmYourIdentity')}
           </Text>
 
-          <Text style={[styles.textColor]}>{t('register.signup.kyc.verificationText')}</Text>
+          <Text style={[styles.textColor]}>{t('register.kyc.verificationText')}</Text>
           <Button
-            title={t('register.signup.kyc.kycBtn')}
+            title={t('register.kyc.kycBtn')}
             containerStyle={{marginTop: 20}}
             onPress={launchSNSMobileSDK}
           />

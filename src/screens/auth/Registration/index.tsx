@@ -1,5 +1,6 @@
 import React from 'react'
 import {Button} from '@rneui/themed'
+import {useTranslation} from 'react-i18next'
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
 
 import Logo from 'components/Logo'
@@ -16,6 +17,7 @@ const Stack = createNativeStackNavigator<RouteStack>()
 
 const RegistrationProgress = () => {
   const {profile} = useProfile()
+  const {t} = useTranslation()
   const unAuthorized = useOnUnauthorized()
 
   const isEmailConfirmed = React.useMemo(() => profile && profile.email_confirmed, [profile])
@@ -25,7 +27,7 @@ const RegistrationProgress = () => {
       <Stack.Navigator
         screenOptions={{
           headerTitle: Logo,
-          headerRight: () => <Button title='Login' onPress={unAuthorized} />,
+          headerRight: () => <Button title={t('forms.buttons.login')} onPress={unAuthorized} />,
         }}
       >
         <>

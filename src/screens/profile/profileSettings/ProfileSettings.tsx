@@ -3,6 +3,8 @@ import {useTranslation} from 'react-i18next'
 import {Link} from '@react-navigation/native'
 import {Text, makeStyles} from '@rneui/themed'
 
+import CopyButton from '@core/CopyButton'
+
 import {UserInfo} from 'api/Response'
 import {shortAddress} from 'utils'
 import {useProfile} from 'hooks/helper'
@@ -63,9 +65,10 @@ const ProfileSettings = ({userInfo}: ProfileSettingsProps) => {
 
       <View style={styles.wrapper}>
         <Text>{t('profile.appSettings.savePaymentMethods')}:</Text>
-        <Text style={{fontSize: 16, marginLeft: 5}}>
+        <Text style={{fontSize: 16, marginLeft: 5, marginRight: 10}}>
           {userInfo?.wallet_address ? shortAddress(userInfo.wallet_address) : '-'}
         </Text>
+        {userInfo?.wallet_address && <CopyButton toCopy={userInfo.wallet_address} />}
       </View>
     </View>
   )

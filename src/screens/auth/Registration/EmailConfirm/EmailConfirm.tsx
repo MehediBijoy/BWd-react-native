@@ -66,7 +66,6 @@ const EmailConfirm = () => {
             loading={isLoading}
             title={t('register.confirmEmail.resendEmail')}
             onPress={() => profile && mutate({email: profile.email})}
-            containerStyle={{maxWidth: 150}}
           />
         </GradientBox>
         <Modal

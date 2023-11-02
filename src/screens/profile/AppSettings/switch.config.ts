@@ -1,3 +1,5 @@
+import {TFunction} from 'i18next'
+
 export const switchConfig = [
   {
     id: 'USD',
@@ -9,13 +11,13 @@ export const switchConfig = [
   },
 ]
 
-export const languageConfig = [
+export const languageConfig = (t: TFunction) => [
   {
     id: 'en',
-    label: 'English',
+    label: t('profile.appSettings.english'),
   },
   {
     id: 'de',
-    label: 'German',
+    label: t('profile.appSettings.german'),
   },
 ]

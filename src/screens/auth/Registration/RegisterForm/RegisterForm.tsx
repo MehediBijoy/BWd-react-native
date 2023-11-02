@@ -191,7 +191,7 @@ const RegisterForm = () => {
             <Button
               type='solid'
               color='secondary'
-              title={t('forms.buttons.signUP')}
+              title={t('register.titles.signup')}
               onPress={methods.handleSubmit(data => mutate(data))}
             />
           </Form>

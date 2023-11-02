@@ -23,7 +23,7 @@ const AppSettings = () => {
       {/* <Text style={styles.title}>Currency </Text>
       <SwitchSelectors data={switchConfig} onChange={onChangeSwitch} active={currency} /> */}
       <Text style={styles.title}>{t('profile.appSettings.languageSelector')}</Text>
-      <SwitchSelectors data={languageConfig} onChange={onChangeLang} active={currentLang} />
+      <SwitchSelectors data={languageConfig(t)} onChange={onChangeLang} active={currentLang} />
     </View>
   )
 }

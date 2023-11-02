@@ -37,7 +37,7 @@ const RegistrationSuccess = () => {
             title={t('register.kycSuccess.button')}
             loading={isRefetching}
             onPress={() => refetch()}
-            containerStyle={{maxWidth: 150}}
+            // containerStyle={{maxWidth: 150}}
           />
         </GradientBox>
         <FAQ />
