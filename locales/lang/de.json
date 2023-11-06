@@ -542,7 +542,8 @@
         "blockExplorer": "Block Explorer",
         "viewInExplorer": "Im Block Explorer anzeigen",
         "txHash": "Tx Hash",
-        "paymentRate": "Zahlungsrate"
+        "paymentRate": "Zahlungsrate",
+        "tardePair": "Handelspaar"
       }
     },
     "modal": {

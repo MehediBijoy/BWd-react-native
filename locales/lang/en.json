@@ -545,7 +545,8 @@
         "blockExplorer": "Block Explorer",
         "viewInExplorer": "View in Block Explorer",
         "txHash": "Tx Hash",
-        "paymentRate": "Payment Rate'"
+        "paymentRate": "Payment Rate'",
+        "tardePair": "Trade Pair"
       }
     },
     "modal": {
