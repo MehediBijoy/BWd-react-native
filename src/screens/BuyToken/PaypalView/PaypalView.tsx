@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import {View} from 'react-native'
+import {useTranslation} from 'react-i18next'
 import {useMutation} from '@tanstack/react-query'
 import {WebView, WebViewNavigation} from 'react-native-webview'
 import {useNavigation} from '@react-navigation/native'
@@ -23,6 +24,7 @@ type PaypalViewProps = {
 
 const PaypalView = ({data, onClose}: PaypalViewProps) => {
   const api = useApi()
+  const {t} = useTranslation()
   const styles = useStyles()
 
   const [isSuccess, setIsSuccess] = useState(false)
@@ -68,9 +70,9 @@ const PaypalView = ({data, onClose}: PaypalViewProps) => {
       {isSuccess && !isWebView && (
         <View style={styles.successfulContainer}>
           <Icon name='check-circle' type='feather' size={80} color={styles.warnIcon.color} />
-          <Text style={styles.successText}>Thanks! Your payment was successful.</Text>
+          <Text style={styles.successText}>{t('dashboard.purchaseConfirmModal.completed')}</Text>
           <Button
-            title='OK'
+            title={t('dashboard.purchaseConfirmModal.ok')}
             onPress={() => {
               navigation.navigate('Transactions')
             }}

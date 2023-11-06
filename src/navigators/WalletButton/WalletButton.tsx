@@ -1,5 +1,6 @@
 import React from 'react'
 import {Button} from '@rneui/themed'
+import {useTranslation} from 'react-i18next'
 import {useMutation} from '@tanstack/react-query'
 import {useWalletConnectModal} from '@walletconnect/modal-react-native'
 
@@ -10,6 +11,7 @@ import {useWalletController} from 'hooks/states'
 
 const WalletButton = () => {
   const api = useApi()
+  const {t} = useTranslation()
   const {profile, setProfile} = useProfile()
   const {setIsOpened} = useWalletController()
   const {open, isOpen, address, isConnected} = useWalletConnectModal()
@@ -32,7 +34,7 @@ const WalletButton = () => {
       loading={isOpen}
       onPress={() => connect()}
       titleStyle={{fontSize: 14}}
-      title={isConnected && address ? shortAddress(address) : 'Connect Wallet'}
+      title={isConnected && address ? shortAddress(address) : t('walletConnect.connectWallet')}
       containerStyle={{minWidth: 120, borderRadius: 8}}
     />
   )

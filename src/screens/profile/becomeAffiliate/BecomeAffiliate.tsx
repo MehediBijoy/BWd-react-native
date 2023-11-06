@@ -1,7 +1,8 @@
 import React from 'react'
+import {useTranslation} from 'react-i18next'
+import {useMutation, useQueryClient} from '@tanstack/react-query'
 import {Image, Text, Button, Tooltip, makeStyles} from '@rneui/themed'
 import {ActivityIndicator, Linking, ScrollView, TouchableOpacity, View} from 'react-native'
-import {useMutation, useQueryClient} from '@tanstack/react-query'
 import {NativeStackScreenProps} from '@react-navigation/native-stack'
 
 import CheckBox from '@core/CheckBox'
@@ -23,8 +24,9 @@ import {LegalStuff} from 'constants/legalStuff.config'
 import {howItWorks, benefitsConfig, poolConfig} from './accordian.config'
 
 const BecomeAffiliate = ({navigation}: NativeStackScreenProps<RouteStack>) => {
-  const styles = useStyle()
   const api = useApi()
+  const {t} = useTranslation()
+  const styles = useStyle()
   const {profile, setProfile} = useProfile()
 
   const client = useQueryClient()
@@ -54,37 +56,22 @@ const BecomeAffiliate = ({navigation}: NativeStackScreenProps<RouteStack>) => {
     <SafeAreaView edges={['bottom']}>
       <ScrollView nestedScrollEnabled={true}>
         <View style={[styles.container]}>
-          <Text style={styles.title}>
-            Join Our Affiliate Program and Unlock Your Potential with Bretton Woods AG{' '}
-          </Text>
-          <Text style={styles.infoText}>
-            Are you looking for an exciting opportunity to earn a passive income while enjoying the
-            freedom to work on your own terms? Look no further! Join the Bretton Woods AG Affiliate
-            Program today and embark on a journey towards financial success. As one of our valued
-            affiliates, you`ll gain access to a range of benefits that will help you build a
-            rock-solid income stream, backed by the power of gold. Don`t miss out on this chance of
-            a lifetime to be one of our pioneering affiliates!
-          </Text>
+          <Text style={styles.title}>{t('convertAffiliate.title1')} </Text>
+          <Text style={styles.infoText}>{t('convertAffiliate.text1')}</Text>
           <Image
             source={affiliateNetworkImg}
             style={{width: '100%', height: 200}}
             resizeMode='contain'
             PlaceholderContent={<ActivityIndicator />}
           />
-          <Text style={styles.title}>How does it work?</Text>
-          <Text style={styles.infoText}>
-            At the Bretton Woods digital AG, we believe in rewarding our affiliates for their
-            efforts in driving the growth of our platform. Our affiliate system is designed to
-            provide you with a lucrative opportunity to earn substantial commissions by simply
-            inviting new users to join and engage with our BWG Token. Let`s dive into how our
-            affiliate system works and how you can benefit:
-          </Text>
+          <Text style={styles.title}>{t('convertAffiliate.title2')}</Text>
+          <Text style={styles.infoText}>{t('convertAffiliate.text2')}</Text>
 
           <View style={styles.accordionWrapper}>
-            <Accordion data={howItWorks} />
+            <Accordion data={howItWorks(t)} />
           </View>
 
-          <Text style={styles.title}>Commission System</Text>
+          <Text style={styles.title}>{t('convertAffiliate.title3')}</Text>
           <Image
             source={affiliateLevelImg}
             style={{width: '100%', height: 300, alignItems: 'center', margin: 0}}
@@ -99,31 +86,25 @@ const BecomeAffiliate = ({navigation}: NativeStackScreenProps<RouteStack>) => {
             PlaceholderContent={<ActivityIndicator />}
           />
 
-          <Text style={styles.subTitle}>Example :</Text>
-          <Text style={styles.infoText}>A Sale of 1000$ with 20% Fees = 200$ Fees</Text>
-          <Text style={styles.infoText}>10% of Fees goes to Affiliates CV* = 20$</Text>
+          <Text style={styles.subTitle}>{t('convertAffiliate.example.title1')} :</Text>
+          <Text style={styles.infoText}>{t('convertAffiliate.example.line1')}</Text>
+          <Text style={styles.infoText}>{t('convertAffiliate.example.line2')}</Text>
 
-          <Text style={[styles.subTitle, {marginTop: 10}]}>Affiliates CV :</Text>
-          <Text style={styles.infoText}>20% of CV is Direct-Commission = 4$</Text>
-          <Text style={styles.infoText}>36% of CV is Uni-Level Commission = 7,20$</Text>
-          <Text style={styles.infoText}>44% of CV is divided into the pools = 8,80$</Text>
+          <Text style={[styles.subTitle, {marginTop: 10}]}>
+            {t('convertAffiliate.example.title2')} :
+          </Text>
+          <Text style={styles.infoText}>{t('convertAffiliate.example.line3')}</Text>
+          <Text style={styles.infoText}>{t('convertAffiliate.example.line4')}</Text>
+          <Text style={styles.infoText}>{t('convertAffiliate.example.line5')}</Text>
 
-          <Text style={styles.title}>Benefits</Text>
+          <Text style={styles.title}>{t('convertAffiliate.benefits')}</Text>
 
           <View style={styles.accordionWrapper}>
-            <Accordion data={benefitsConfig} />
+            <Accordion data={benefitsConfig(t)} />
           </View>
 
-          <Text style={styles.title}>Pools</Text>
-          <Text style={styles.infoText}>
-            In the affiliate system there are several pools. The dynamic compression pool that
-            collects left over unilevel or unclaimed direct commission and regular pools that get
-            between 1 - 10% of the CV (commissionable volume) each. The final version of the
-            marketing plan will be published in 2024 with all requirements for pool qualification
-            specified. Until then the top performers and global leaders are placed in the pools
-            manually by our president of sales and marketing. For questions please inquire at
-            pa-sales@brettonwoods.ch.
-          </Text>
+          <Text style={styles.title}>{t('convertAffiliate.pools')}</Text>
+          <Text style={styles.infoText}>{t('convertAffiliate.text3')}</Text>
 
           <Image
             source={affiliatePoolsImg}
@@ -133,7 +114,7 @@ const BecomeAffiliate = ({navigation}: NativeStackScreenProps<RouteStack>) => {
           />
 
           <View style={styles.accordionWrapper}>
-            <Accordion data={poolConfig} />
+            <Accordion data={poolConfig(t)} />
           </View>
 
           <TouchableOpacity activeOpacity={0.8}>
@@ -144,14 +125,14 @@ const BecomeAffiliate = ({navigation}: NativeStackScreenProps<RouteStack>) => {
                 setIsDisabled(false)
               }}
             >
-              Download Affiliate Terms & Conditions
+              {t('convertAffiliate.termsAndConditions')}
             </Text>
           </TouchableOpacity>
 
           <View>
             <CheckBox
               checked={isChecked}
-              label='Agree with affiliate Terms & Conditions'
+              label={t('convertAffiliate.agreeTermsAndConditions')}
               onPress={() => handleCheckBox()}
             />
 
@@ -161,9 +142,7 @@ const BecomeAffiliate = ({navigation}: NativeStackScreenProps<RouteStack>) => {
                 height={60}
                 visible
                 popover={
-                  <Text style={[styles.tooltipText]}>
-                    You need to download and read the affiliate Terms & Conditions before agreeing
-                  </Text>
+                  <Text style={[styles.tooltipText]}>{t('convertAffiliate.needDownload')}</Text>
                 }
                 onClose={() => setTooltipVisible(false)}
               />
@@ -174,7 +153,7 @@ const BecomeAffiliate = ({navigation}: NativeStackScreenProps<RouteStack>) => {
             loading={isLoading}
             disabled={!isChecked}
             onPress={() => enableAffiliate(profile?.id as number)}
-            title='Convert your account'
+            title={t('convertAffiliate.convert')}
             color='success'
             containerStyle={{borderRadius: 8, marginTop: 10}}
           />

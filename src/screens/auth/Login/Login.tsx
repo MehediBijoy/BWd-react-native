@@ -2,6 +2,7 @@ import * as yup from 'yup'
 import React from 'react'
 import {Button, Text} from '@rneui/themed'
 import {useMutation} from '@tanstack/react-query'
+import {useTranslation} from 'react-i18next'
 import {NativeStackScreenProps} from '@react-navigation/native-stack'
 import {ScrollView, TouchableOpacity, View} from 'react-native'
 
@@ -40,6 +41,7 @@ type LoginFields = yup.InferType<typeof loginSchema>
 const Login = ({navigation}: NativeStackScreenProps<RouteStack, 'Login'>) => {
   const api = useApi()
   const styles = useStyles()
+  const {t} = useTranslation()
   const {setProfile} = useProfile()
   const {setToken} = useAuthToken()
   const {methods} = useYupHooks<LoginFields>({schema: loginSchema})
@@ -74,14 +76,14 @@ const Login = ({navigation}: NativeStackScreenProps<RouteStack, 'Login'>) => {
         <GradientBox style={{marginTop: 30}}>
           <View style={{rowGap: 10}}>
             <Text h3 h3Style={styles.headerTextStyles}>
-              Login
+              {t('forms.buttons.login')}
             </Text>
 
             <Form methods={methods} style={{rowGap: 10}}>
               <FormInput
                 name='email'
-                placeholder='Email'
-                label='Enter your Email'
+                placeholder={t('profile.appSettings.email')}
+                label={t('forms.placeholders.email')}
                 color='bgPaper'
                 onChange={() => {
                   if (!mfaRequired) return
@@ -93,8 +95,8 @@ const Login = ({navigation}: NativeStackScreenProps<RouteStack, 'Login'>) => {
               <FormInput
                 name='password'
                 type='password'
-                placeholder='Password'
-                label='Enter your Password'
+                placeholder={t('profile.appSettings.password')}
+                label={t('forms.placeholders.password')}
                 color='bgPaper'
               />
 
@@ -102,7 +104,7 @@ const Login = ({navigation}: NativeStackScreenProps<RouteStack, 'Login'>) => {
                 <FormInput
                   name='mfa_code'
                   placeholder='XXX XXX'
-                  label='Enter 2FA code'
+                  label={t('modal2fa.title')}
                   color='bgPaper'
                 />
               )}
@@ -112,14 +114,18 @@ const Login = ({navigation}: NativeStackScreenProps<RouteStack, 'Login'>) => {
               )}
 
               <TouchableOpacity onPress={() => navigation.navigate('ResetPassword')}>
-                <Text style={styles.forgotPasswordStyles}>Forgot Password?</Text>
+                <Text style={styles.forgotPasswordStyles}>{t('forms.links.forgetPassword')}</Text>
               </TouchableOpacity>
 
-              <Button title='Login' loading={isLoading} onPress={methods.handleSubmit(onSubmit)} />
+              <Button
+                title={t('forms.buttons.login')}
+                loading={isLoading}
+                onPress={methods.handleSubmit(onSubmit)}
+              />
 
               <Button
                 color={'secondary'}
-                title='Registration'
+                title={t('register.titles.signup')}
                 onPress={() => navigation.navigate('RegistrationForm')}
               />
             </Form>

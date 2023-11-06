@@ -1,6 +1,7 @@
 import React from 'react'
 import {View} from 'react-native'
 import {useQuery} from '@tanstack/react-query'
+import {useTranslation} from 'react-i18next'
 import {Button, Text, makeStyles} from '@rneui/themed'
 
 import Loader from '@core/Loader'
@@ -48,6 +49,7 @@ const Overview = () => {
   const api = useApi()
   const styles = useStyles()
   const {profile} = useProfile()
+  const {t} = useTranslation()
   const {data: bwgPrice, isLoading: bwgILoading} = useAssets('BWG')
   const [isShowAll, setIsShowAll] = React.useState(false)
 
@@ -63,7 +65,7 @@ const Overview = () => {
       <ReferralBox
         icon={<FiatImg height={20} width={20} />}
         bgColor='rgba(229, 80, 80, 0.20)'
-        label='Available commission in fiat'
+        label={t('affiliate.overview.fiat')}
         price={bwgPrice && (Number(data?.current_balance) * Number(bwgPrice?.price)).toFixed(4)}
         isLoading={isLoading || bwgILoading}
         fiat
@@ -72,7 +74,7 @@ const Overview = () => {
       <ReferralBox
         icon={<TotalCommissionImg height={20} width={20} />}
         bgColor='rgba(110, 255, 0, 0.20)'
-        label='Total commission over lifetime'
+        label={t('affiliate.lifeTimeCommission')}
         price={data?.total_income}
         isLoading={isLoading}
       />
@@ -82,7 +84,7 @@ const Overview = () => {
           <ReferralBox
             icon={<DirectImg height={20} width={20} />}
             bgColor='rgba(163, 198, 233, 0.2)'
-            label='Total direct commission'
+            label={t('affiliate.overview.direct')}
             price={data?.total_direct}
             isLoading={isLoading}
           />
@@ -90,7 +92,7 @@ const Overview = () => {
           <ReferralBox
             icon={<UnilevelImg height={20} width={20} />}
             bgColor='rgba(21, 193, 170, 0.20)'
-            label='Total unilevel commission'
+            label={t('affiliate.overview.uniLevel')}
             price={data?.total_unilevel}
             isLoading={isLoading}
           />
@@ -98,7 +100,7 @@ const Overview = () => {
           <ReferralBox
             icon={<PayedOutImg height={20} width={20} />}
             bgColor='rgba(216, 189, 124, 0.20)'
-            label='Total commission payed out'
+            label={t('affiliate.overview.payedOut')}
             price={data?.total_payout}
             isLoading={isLoading}
           />
@@ -106,7 +108,7 @@ const Overview = () => {
           <ReferralBox
             icon={<AvailableImg height={20} width={20} />}
             bgColor='rgba(169, 213, 108, 0.20)'
-            label='Available account commission'
+            label={t('affiliate.overview.available')}
             price={data?.current_balance}
             isLoading={isLoading}
           />
@@ -114,7 +116,7 @@ const Overview = () => {
       )}
 
       <Button
-        title={isShowAll ? 'Close' : 'Show all'}
+        title={isShowAll ? t('affiliate.closeBtn') : t('affiliate.showBtn')}
         onPress={() => setIsShowAll(!isShowAll)}
         containerStyle={{
           marginBottom: 20,
@@ -123,7 +125,7 @@ const Overview = () => {
       />
 
       <Button
-        title='Payout commission'
+        title={t('affiliate.payoutCommissionBtn')}
         disabled={Number(data?.current_balance) === 0}
         onPress={() => setIsOpened(true)}
         containerStyle={{

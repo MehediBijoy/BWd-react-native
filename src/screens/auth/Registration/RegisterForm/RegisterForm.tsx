@@ -2,6 +2,7 @@ import React from 'react'
 import * as yup from 'yup'
 import {ScrollView, Linking} from 'react-native'
 import {useMutation} from '@tanstack/react-query'
+import {useTranslation} from 'react-i18next'
 import {Text, Button, makeStyles} from '@rneui/themed'
 
 import Form from '@core/Form'
@@ -24,9 +25,9 @@ const registerSchema = yup.object().shape({
   password: yup.string().required().min(8).max(30),
   password_confirmation: yup
     .string()
-    .required()
-    .oneOf([yup.ref('password')], "Passwords don't match"),
-  agree_terms: yup.bool().default(false).oneOf([true], 'The terms and conditions must be accepted'),
+    .required('register.signup.restrictions.password.confirmRequired')
+    .oneOf([yup.ref('password')], 'register.signup.restrictions.password.notMatch'),
+  agree_terms: yup.bool().default(false).oneOf([true], 'register.signup.termsAndConditions'),
   referral_checkbox: yup.bool().default(false),
   token: yup.string().when('referral_checkbox', {
     is: true,
@@ -34,7 +35,7 @@ const registerSchema = yup.object().shape({
     otherwise: () => yup.string().min(6).max(6).required(),
   }),
   profession: yup.string().required(),
-  source_of_income: yup.string().required(),
+  source_of_income: yup.string().required('register.signup.restrictions.sourceOfEarning'),
   earnings: yup.string(),
   trading_experience: yup.string(),
 })
@@ -44,6 +45,7 @@ type RegisterFields = yup.InferType<typeof registerSchema>
 const RegisterForm = () => {
   const api = useApi()
   const styles = useStyles()
+  const {t} = useTranslation()
   const {setProfile} = useProfile()
   const {setToken} = useAuthToken()
   const {methods, setApiError} = useYupHooks<RegisterFields>({schema: registerSchema})
@@ -86,67 +88,72 @@ const RegisterForm = () => {
         <StepNumber current={1} />
         <GradientBox>
           <Text h4 h4Style={{color: 'white'}}>
-            Registration
+            {t('register.titles.signup')}
           </Text>
           <Form methods={methods} style={styles.form}>
-            <FormInput name='email' label='Email' placeholder='Enter your email' color='bgPaper' />
+            <FormInput
+              name='email'
+              label={t('profile.appSettings.email')}
+              placeholder={t('forms.placeholders.email')}
+              color='bgPaper'
+            />
 
             <FormInput
               name='password'
               type='password'
-              label='Password'
-              placeholder='Enter your password'
+              label={t('forms.placeholders.password')}
+              placeholder={t('profile.appSettings.password')}
               color='bgPaper'
             />
 
             <FormInput
               type='password'
               name='password_confirmation'
-              label='Confirm Password'
-              placeholder='Confirm your password'
+              label={t('forms.labels.confirmPassword')}
+              placeholder={t('forms.placeholders.confirmPassword')}
               color='bgPaper'
             />
 
             <FormSelect
               name='profession'
-              label='What is your profession?'
-              data={professionConfig}
+              label={t('register.signup.select.profession')}
+              data={professionConfig(t)}
               color='bgPaper'
             />
 
             <FormSelect
               name='source_of_income'
-              label='Source of income'
-              data={sourceOfIncomeConfig}
+              label={t('register.signup.select.income')}
+              data={sourceOfIncomeConfig(t)}
               color='bgPaper'
             />
 
             <FormSelect
               name='earnings'
-              label='How much do you earn?'
-              data={earnConfig}
+              label={t('register.signup.select.earn')}
+              data={earnConfig(t)}
               color='bgPaper'
             />
 
             <FormSelect
               name='trading_experience'
-              label='How much experience do you have with treading?'
-              data={experienceConfig}
+              label={t('register.signup.select.experience')}
+              data={experienceConfig(t)}
               color='bgPaper'
             />
 
             {!isChecked && (
               <FormInput
                 name='token'
-                label='Referral Code'
-                placeholder='Enter your referral code'
+                label={t('forms.labels.referralCode')}
+                placeholder={t('register.signup.referral.input-placeholder')}
                 color='bgPaper'
               />
             )}
 
             <FormCheckBox
               name='referral_checkbox'
-              label='Sign up without a referral code'
+              label={t('register.signup.referral.checkboxText')}
               labelColor='bgPaper'
             />
 
@@ -154,28 +161,28 @@ const RegisterForm = () => {
               name='agree_terms'
               label={
                 <Text style={styles.checkboxTitle}>
-                  By signing up you agree to our
+                  {t('forms.checkboxes.agreeTerms')}
                   <Text
                     style={styles.link}
                     onPress={() => Linking.openURL(LegalStuff.termAndConditions)}
                   >
                     {' '}
-                    Terms & Conditions
+                    {t('documents.termsAndConditions.title')}
                   </Text>
                   <Text
                     style={styles.link}
                     onPress={() => Linking.openURL(LegalStuff.privacyStatement)}
                   >
                     {' '}
-                    Privacy Statement
+                    {t('documents.privacyPolicy.title')}
                   </Text>{' '}
-                  and
+                  {t('common.and')}
                   <Text
                     style={styles.link}
                     onPress={() => Linking.openURL(LegalStuff.userAgreement)}
                   >
                     {' '}
-                    User Agreement
+                    {t('documents.userAgreement.title')}
                   </Text>
                 </Text>
               }
@@ -184,7 +191,7 @@ const RegisterForm = () => {
             <Button
               type='solid'
               color='secondary'
-              title='Register Now'
+              title={t('register.titles.signup')}
               onPress={methods.handleSubmit(data => mutate(data))}
             />
           </Form>

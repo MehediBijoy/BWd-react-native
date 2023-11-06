@@ -2,6 +2,7 @@ import React from 'react'
 import * as yup from 'yup'
 import {isAddress} from 'viem'
 import {View} from 'react-native'
+import {useTranslation} from 'react-i18next'
 import {useMutation} from '@tanstack/react-query'
 import {Button, Text, makeStyles} from '@rneui/themed'
 import {useNavigation} from '@react-navigation/native'
@@ -36,7 +37,7 @@ const payoutCommissionSchema = yup.object().shape({
           // .nullable()
           .notRequired()
           .transform(() => null),
-      otherwise: () => yup.string().required().test('_', 'Invalid address', isAddress),
+      otherwise: () => yup.string().required().test('_', 'schema.invalid-address', isAddress),
     }),
   mfa_code: yup.string().required().min(6).max(6),
 })
@@ -51,6 +52,7 @@ const PayoutModal = ({
 }: PayoutModalProps) => {
   const styles = useStyles()
   const api = useApi()
+  const {t} = useTranslation()
   const {profile} = useProfile()
   const navigation = useNavigation<DrawerNavigationProp<RouteStack, 'Purchase'>>()
   const {methods} = useYupHooks<payoutCommissionFields>({schema: payoutCommissionSchema})
@@ -81,7 +83,11 @@ const PayoutModal = ({
 
   return (
     <Modal
-      title={profile?.google_mfa_activated ? 'Payout Commissions' : 'Your 2FA is not Enabled'}
+      title={
+        profile?.google_mfa_activated
+          ? t('affiliate.payoutCommission.title1')
+          : t('affiliate.payoutCommission.title2')
+      }
       onClose={() => {
         onClose()
         methods.reset()
@@ -93,30 +99,35 @@ const PayoutModal = ({
           <Form methods={methods} style={styles.from}>
             <FormInput
               name='amount'
-              label='Amount'
+              label={t('affiliate.payoutCommission.amount')}
               keyboardType='numeric'
-              placeholder='Enter your amount'
+              placeholder={t('dashboard.buy.enterAmount')}
             />
             <FormInput
               name='address'
-              label='Address'
-              placeholder='Enter your address'
+              label={t('affiliate.payoutCommission.address')}
+              placeholder={t('affiliate.payoutCommission.addressPlaceholder')}
               editable={isSaveAddress ? false : true}
             />
             {profile?.payout_address && (
-              <FormCheckBox name='use_saved_address' label='Use previous address' />
+              <FormCheckBox
+                name='use_saved_address'
+                label={t('affiliate.payoutCommission.checkboxLabel')}
+              />
             )}
-            <FormInput name='mfa_code' label='2FA Code' placeholder='xxx xxx' />
-            <Button title='Submit' loading={isLoading} onPress={methods.handleSubmit(submit)} />
+            <FormInput name='mfa_code' label={t('modal2fa.inputLabel')} placeholder='xxx xxx' />
+            <Button
+              title={t('common.submit')}
+              loading={isLoading}
+              onPress={methods.handleSubmit(submit)}
+            />
           </Form>
         </View>
       ) : (
         <View>
-          <Text style={styles.label}>
-            To ensure a safe Payout. You must enable your 2-Factor Authentication (2FA)
-          </Text>
+          <Text style={styles.label}>{t('affiliate.payoutCommission.2faInfo')}</Text>
           <Button
-            title='Enable 2FA'
+            title={t('affiliate.enabledBtn')}
             containerStyle={{marginTop: 20}}
             onPress={() => {
               onClose()

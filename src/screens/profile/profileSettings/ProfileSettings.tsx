@@ -1,6 +1,9 @@
 import {View} from 'react-native'
+import {useTranslation} from 'react-i18next'
 import {Link} from '@react-navigation/native'
 import {Text, makeStyles} from '@rneui/themed'
+
+import CopyButton from '@core/CopyButton'
 
 import {UserInfo} from 'api/Response'
 import {shortAddress} from 'utils'
@@ -12,41 +15,44 @@ type ProfileSettingsProps = {
 
 const ProfileSettings = ({userInfo}: ProfileSettingsProps) => {
   const styles = useStyles()
+  const {t} = useTranslation()
   const {profile} = useProfile()
 
   return (
     <View>
       <View style={styles.wrapper}>
         <View style={styles.textWrapper}>
-          <Text>Email:</Text>
+          <Text>{t('profile.appSettings.email')}:</Text>
           <Text style={styles.boldText}>{userInfo?.email}</Text>
         </View>
         <Link to={{screen: 'ProfileEmailChange'}} style={styles.linkWrapper}>
-          Edit
+          {t('common.edit')}
         </Link>
       </View>
       <View style={styles.wrapper}>
         <View style={styles.textWrapper}>
-          <Text>Password:</Text>
+          <Text>{t('profile.appSettings.password')}:</Text>
           <Text style={styles.boldText}>********</Text>
         </View>
         <Link to={{screen: 'ProfilePasswordChange'}} style={styles.linkWrapper}>
-          Edit
+          {t('common.edit')}
         </Link>
       </View>
 
       {/*Note: This functionality will be add in future  */}
       <View style={styles.wrapper}>
         <View style={styles.textWrapper}>
-          <Text>2FA Authentication:</Text>
+          <Text>{t('profile.appSettings.2FAAuthentication')}:</Text>
           <Text style={styles.boldText}>
-            {profile?.google_mfa_activated === true ? 'Activated' : 'Deactivated'}
+            {profile?.google_mfa_activated === true
+              ? t('common.activated')
+              : t('common.deactivated')}
           </Text>
         </View>
 
         {/*Note: This functionality will be add in future  */}
         <Link to={{screen: 'ProfileMFA'}} style={[styles.linkWrapper]}>
-          Edit
+          {t('common.edit')}
         </Link>
       </View>
 
@@ -60,10 +66,11 @@ const ProfileSettings = ({userInfo}: ProfileSettingsProps) => {
        */}
 
       <View style={styles.wrapper}>
-        <Text>Saved Wallet Address:</Text>
-        <Text style={{fontSize: 16, marginLeft: 5}}>
+        <Text>{t('profile.appSettings.savePaymentMethods')}:</Text>
+        <Text style={{fontSize: 16, marginLeft: 5, marginRight: 10}}>
           {userInfo?.wallet_address ? shortAddress(userInfo.wallet_address) : '-'}
         </Text>
+        {userInfo?.wallet_address && <CopyButton toCopy={userInfo.wallet_address} />}
       </View>
     </View>
   )

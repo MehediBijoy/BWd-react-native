@@ -4,6 +4,7 @@ import {
   DrawerContentScrollView,
   DrawerContentComponentProps,
 } from '@react-navigation/drawer'
+import {useTranslation} from 'react-i18next'
 import {useQuery} from '@tanstack/react-query'
 import {TouchableOpacity, View} from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
@@ -25,6 +26,7 @@ import {alpha} from 'utils'
 const DrawerContainer = (props: DrawerContentComponentProps) => {
   const api = useApi()
   const {theme} = useTheme()
+  const {t} = useTranslation()
   const styles = useStyles()
   const {APP_URL} = usePlatform()
   const {profile} = useProfile()
@@ -78,7 +80,7 @@ const DrawerContainer = (props: DrawerContentComponentProps) => {
             <View style={{flexDirection: 'row', alignItems: 'center', columnGap: 10}}>
               <Icon name='share' color={theme.colors.tertiary} />
               <Text style={[styles.footerItemText, {color: theme.colors.tertiary}]}>
-                Refer a friend
+                {t('navigation.items.referAFriend')}
               </Text>
             </View>
             <CopyButton
@@ -106,7 +108,9 @@ const DrawerContainer = (props: DrawerContentComponentProps) => {
             activeOpacity={0.8}
           >
             <Icon name='logout' color={theme.colors.error} />
-            <Text style={[styles.footerItemText, {color: theme.colors.error}]}>Logout</Text>
+            <Text style={[styles.footerItemText, {color: theme.colors.error}]}>
+              {t('navigation.logout')}
+            </Text>
           </TouchableOpacity>
         </View>
       </View>

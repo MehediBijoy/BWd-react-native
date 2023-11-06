@@ -1,5 +1,6 @@
 import * as yup from 'yup'
 import React from 'react'
+import {useTranslation} from 'react-i18next'
 import {useMutation} from '@tanstack/react-query'
 import {Text, Button, makeStyles} from '@rneui/themed'
 import {NativeStackScreenProps} from '@react-navigation/native-stack'
@@ -23,15 +24,16 @@ const changePasswordSchema = yup.object().shape({
   password_confirmation: yup
     .string()
     .required()
-    .oneOf([yup.ref('password')], 'Password did not match '),
+    .oneOf([yup.ref('password')], 'register.signup.restrictions.password.notMatch'),
 })
 
 type changePasswordFields = yup.InferType<typeof changePasswordSchema>
 
 const ChangePassword = ({navigation}: NativeStackScreenProps<RouteStack>) => {
   const api = useApi()
-  const parent = navigation.getParent()
+  const {t} = useTranslation()
   const styles = useStyles()
+  const parent = navigation.getParent()
 
   const [isMfaActive, setIsMfaActive] = React.useState(false)
 
@@ -66,29 +68,33 @@ const ChangePassword = ({navigation}: NativeStackScreenProps<RouteStack>) => {
         <FormInput
           name='current_password'
           type='password'
-          label='Current Password'
-          placeholder='Enter current password'
+          label={t('profile.changePassword.labels.currentPassword')}
+          placeholder={t('profile.changePassword.placeholder.currentPassword')}
         />
         <FormInput
           name='password'
           type='password'
-          label='New Password'
-          placeholder='Enter new password'
+          label={t('profile.changePassword.labels.newPassword')}
+          placeholder={t('profile.changePassword.placeholder.newPassword')}
+          // label='New Password'
+          // placeholder='Enter new password'
         />
         <FormInput
           name='password_confirmation'
           type='password'
-          label='Confirm Password'
-          placeholder='Enter confirm password'
+          label={t('forms.labels.confirmPassword')}
+          placeholder={t('forms.placeholders.confirmPassword')}
         />
 
-        {isMfaActive && <FormInput name='mfa_code' placeholder='xxx xxx' label='2FA Code' />}
+        {isMfaActive && (
+          <FormInput name='mfa_code' placeholder='xxx xxx' label={t('modal2fa.inputLabel')} />
+        )}
         {isMfaRequired(error) && error?.message !== '2FA code is not present' && (
           <Text style={styles.error}>{error?.message}</Text>
         )}
 
         <Button
-          title='Update Password'
+          title={t('profile.changePassword.buttonSubmit')}
           loading={isLoading}
           onPress={methods.handleSubmit(handleSubmit)}
         />

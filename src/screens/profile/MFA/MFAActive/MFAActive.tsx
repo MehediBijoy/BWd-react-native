@@ -1,5 +1,6 @@
 import * as yup from 'yup'
 import React from 'react'
+import {useTranslation} from 'react-i18next'
 import {useQuery, useMutation} from '@tanstack/react-query'
 import {Text, makeStyles, Image, Button} from '@rneui/themed'
 import {View, Platform, TouchableOpacity, Linking} from 'react-native'
@@ -33,6 +34,7 @@ type MfaActiveProps = {
 const MFAActive = ({navigation}: MfaActiveProps) => {
   const api = useApi()
 
+  const {t} = useTranslation()
   const styles = useStyles()
   const {setProfile} = useProfile()
   const {methods} = useYupHooks<mfaActivationFields>({schema: mfaActivationSchema})
@@ -73,7 +75,7 @@ const MFAActive = ({navigation}: MfaActiveProps) => {
   return (
     <View style={styles.container}>
       <View>
-        <Text style={styles.title}>1. Install the 2FA application on your phone</Text>
+        <Text style={styles.title}>{t('profile.security.mfa.activate.step1')}</Text>
         <View style={styles.imageContainer}>
           <View style={styles.lefImgBox}>
             <Image source={authenticatorImg} style={styles.authImg} resizeMode='contain' />
@@ -97,7 +99,7 @@ const MFAActive = ({navigation}: MfaActiveProps) => {
         </View>
 
         <View style={styles.container}>
-          <Text style={styles.title}>2. Copy the key and paste it in the authentication app</Text>
+          <Text style={styles.title}>{t('profile.security.mfa.activate.step2')}</Text>
 
           {mfaInfo && (
             <View style={styles.mfaContainer}>
@@ -108,11 +110,14 @@ const MFAActive = ({navigation}: MfaActiveProps) => {
         </View>
 
         <View style={styles.container}>
-          <Text style={styles.title}>3. Enter the 2FA code and click &quot;Activate&quot;</Text>
+          <Text style={styles.title}>{t('profile.security.mfa.activate.step3')}</Text>
           <Form methods={methods} style={styles.form}>
-            <FormInput label='2FA Code' name='mfa_code' placeholder='xxx xxx' />
+            <FormInput label={t('modal2fa.inputLabel')} name='mfa_code' placeholder='xxx xxx' />
 
-            <Button title='Activate 2FA' onPress={methods.handleSubmit(onSubmit)} />
+            <Button
+              title={t('profile.security.mfa.activate.button')}
+              onPress={methods.handleSubmit(onSubmit)}
+            />
             {error && <Text style={styles.error}>{error.message}</Text>}
           </Form>
         </View>

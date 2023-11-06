@@ -1,4 +1,5 @@
 import {ScrollView} from 'react-native'
+import {useTranslation} from 'react-i18next'
 import {Text, Button, makeStyles} from '@rneui/themed'
 
 import ContainContainer from '@core/ContentContainer'
@@ -12,6 +13,7 @@ import StepNumber from '../StepNumber'
 
 const RegistrationSuccess = () => {
   const styles = useStyles()
+  const {t} = useTranslation()
   const {isRefetching, refetch} = useProfile()
 
   return (
@@ -20,25 +22,21 @@ const RegistrationSuccess = () => {
         <StepNumber current={4} />
         <GradientBox>
           <Text h3 h3Style={styles.textColor}>
-            Congratulations
+            {t('register.kycSuccess.title')}
           </Text>
           <MessageBox
             containerStyle={{marginTop: 20}}
             name='user-check'
             type='font-awesome-5'
-            message='Successfully registered'
+            message={t('register.kycSuccess.subTitle')}
             color={styles.textColor.color}
             size={25}
           />
-          <Text style={[styles.paragraph, styles.textColor]}>
-            Congratulations! Your KYC status is approved, and you can now start trading on the
-            Bretton Woods digital gold platform.
-          </Text>
+          <Text style={[styles.paragraph, styles.textColor]}>{t('register.kycSuccess.text')}</Text>
           <Button
-            title='Go To Dashboard'
+            title={t('register.kycSuccess.button')}
             loading={isRefetching}
             onPress={() => refetch()}
-            containerStyle={{maxWidth: 150}}
           />
         </GradientBox>
         <FAQ />

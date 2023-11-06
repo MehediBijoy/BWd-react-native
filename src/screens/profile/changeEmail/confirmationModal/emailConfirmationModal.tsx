@@ -1,4 +1,5 @@
 import * as yup from 'yup'
+import {useTranslation} from 'react-i18next'
 import {Button} from '@rneui/themed'
 import {useMutation, useQueryClient} from '@tanstack/react-query'
 
@@ -23,6 +24,7 @@ type emailChangeFields = yup.InferType<typeof emailConfirmSchema>
 
 const EmailConfirmationModal = ({isOpened, onClose}: EmailConfirmationModalProps) => {
   const api = useApi()
+  const {t} = useTranslation()
   const client = useQueryClient()
   const {setToken} = useAuthToken()
   const {setProfile, profile} = useProfile()
@@ -44,14 +46,14 @@ const EmailConfirmationModal = ({isOpened, onClose}: EmailConfirmationModalProps
   }
 
   return (
-    <Modal title='Email Confirmation' isOpened={isOpened} onClose={onClose}>
+    <Modal title={t('register.emailConfirmation.title')} isOpened={isOpened} onClose={onClose}>
       <Form methods={methods} style={{rowGap: 20}}>
         <FormInput
           name='verification_code'
-          label='Verification Code'
-          placeholder='Verification Code'
+          label={t('register.emailConfirmation.code')}
+          placeholder={t('register.emailConfirmation.inputLabel')}
         />
-        <Button title='Enter Code' onPress={methods.handleSubmit(onSubmit)} />
+        <Button title={t('common.submit')} onPress={methods.handleSubmit(onSubmit)} />
       </Form>
     </Modal>
   )

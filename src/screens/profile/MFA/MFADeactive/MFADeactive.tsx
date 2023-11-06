@@ -1,5 +1,6 @@
 import * as yup from 'yup'
 import {View} from 'react-native'
+import {useTranslation} from 'react-i18next'
 import {useQuery, useMutation} from '@tanstack/react-query'
 import {Text, Button, makeStyles} from '@rneui/themed'
 import {NativeStackScreenProps} from '@react-navigation/native-stack'
@@ -27,6 +28,7 @@ type MFADeactiveProps = {
 
 const MFADeactive = ({navigation}: MFADeactiveProps) => {
   const api = useApi()
+  const {t} = useTranslation()
   const styles = useStyles()
   const {setProfile} = useProfile()
 
@@ -57,11 +59,18 @@ const MFADeactive = ({navigation}: MFADeactiveProps) => {
 
   return (
     <View style={{marginTop: 20}}>
-      <Text h4>Deactivate 2FA</Text>
+      <Text h4>{t('profile.security.mfa.disable.button')}</Text>
       <Form methods={methods} style={styles.form}>
-        <FormInput label='2FA Code' name='mfa_code' placeholder='xxx xxx' />
+        <FormInput
+          label={t('profile.security.mfa.disable.label2faCode')}
+          name='mfa_code'
+          placeholder='xxx xxx'
+        />
 
-        <Button title='Activate 2FA' onPress={methods.handleSubmit(onSubmit)} />
+        <Button
+          title={t('profile.security.mfa.activate.button')}
+          onPress={methods.handleSubmit(onSubmit)}
+        />
         {error && <Text style={styles.error}>{error.message}</Text>}
       </Form>
     </View>

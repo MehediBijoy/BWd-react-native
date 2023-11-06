@@ -1,6 +1,7 @@
 import React from 'react'
-import {View, Linking, TouchableOpacity, ScrollView} from 'react-native'
+import {useTranslation} from 'react-i18next'
 import {Text, makeStyles} from '@rneui/themed'
+import {View, Linking, TouchableOpacity, ScrollView} from 'react-native'
 
 import Modal from '@core/Modal'
 import CopyButton from '@core/CopyButton'
@@ -17,6 +18,7 @@ export type OrderDetailsModalProps = {
 }
 
 const OrderDetailsModal = ({data, isOpened, onClose}: OrderDetailsModalProps) => {
+  const {t} = useTranslation()
   const styles = useStyles()
 
   const onExplorerClicked = (txHash: string) => {
@@ -24,15 +26,17 @@ const OrderDetailsModal = ({data, isOpened, onClose}: OrderDetailsModalProps) =>
   }
 
   return (
-    <Modal title='ORDER DETAILS' isOpened={isOpened} onClose={onClose}>
+    <Modal title={t('trade.modal.title.orders')} isOpened={isOpened} onClose={onClose}>
       <ScrollView>
         <View style={{marginBottom: 30}}>
           <View style={styles.row}>
-            <Text style={styles.label}>Date </Text>
+            <Text style={styles.label}>{t('trade.table.headers.date')}</Text>
             <Text>{formatDate(data.created_at)}</Text>
           </View>
           <View style={styles.row}>
-            <Text style={styles.label}>Order ID </Text>
+            <Text style={styles.label}>
+              {t('trade.table.headers.order') + ' ' + t('trade.table.headers.id')}
+            </Text>
             <Text>{data?.id}</Text>
           </View>
           <View style={styles.row}>
@@ -40,27 +44,27 @@ const OrderDetailsModal = ({data, isOpened, onClose}: OrderDetailsModalProps) =>
             <Text style={[styles.labelRight]}>{data.trade_pair}</Text>
           </View>
           <View style={styles.row}>
-            <Text style={styles.label}>Paid </Text>
+            <Text style={styles.label}>{t('trade.table.headers.paid')}</Text>
             <Text style={styles.labelRight}>{data.paid_amount}</Text>
           </View>
           <View style={styles.row}>
-            <Text style={styles.label}>Received</Text>
+            <Text style={styles.label}>{t('trade.table.headers.received')} </Text>
             <Text style={styles.labelRight}>{data.received_amount}</Text>
           </View>
           <View style={styles.row}>
-            <Text style={styles.label}>Payment Type</Text>
+            <Text style={styles.label}>{t('trade.table.headers.paymentType')} </Text>
             <Text style={[styles.labelRight]}>{data.payment_type}</Text>
           </View>
 
           {data.transfer && data.transfer.tx_hash && (
             <View style={styles.row}>
-              <Text style={styles.label}>Block Explorer</Text>
+              <Text style={styles.label}>{t('trade.table.headers.blockExplorer')} </Text>
               <TouchableOpacity activeOpacity={0.8}>
                 <Text
                   style={styles.explorer}
                   onPress={() => onExplorerClicked(data.transfer.tx_hash)}
                 >
-                  View in Block Explorer
+                  {t('trade.table.headers.viewInExplorer')}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -69,7 +73,7 @@ const OrderDetailsModal = ({data, isOpened, onClose}: OrderDetailsModalProps) =>
           {data.transfer && (
             <>
               <View style={styles.row}>
-                <Text style={styles.label}>Sender</Text>
+                <Text style={styles.label}>{t('trade.table.headers.sender')}</Text>
                 <Text style={[styles.labelRight]}>
                   {data.transfer.sender ? shortAddress(data.transfer.sender, 7) : '-'}
                 </Text>
@@ -81,7 +85,7 @@ const OrderDetailsModal = ({data, isOpened, onClose}: OrderDetailsModalProps) =>
               </View>
 
               <View style={styles.row}>
-                <Text style={styles.label}>Recipient</Text>
+                <Text style={styles.label}>{t('trade.table.headers.recipient')}</Text>
 
                 <Text style={[styles.labelRight]}>
                   {data.transfer.recipient ? shortAddress(data.transfer.recipient, 7) : '-'}
@@ -94,7 +98,7 @@ const OrderDetailsModal = ({data, isOpened, onClose}: OrderDetailsModalProps) =>
               </View>
 
               <View style={styles.row}>
-                <Text style={styles.label}>Tx Hash</Text>
+                <Text style={styles.label}>{t('trade.table.headers.txHash')}</Text>
                 <Text style={[styles.labelRight]}>
                   {data.transfer.tx_hash ? shortAddress(data.transfer.tx_hash, 7) : '-'}
                 </Text>
@@ -108,7 +112,7 @@ const OrderDetailsModal = ({data, isOpened, onClose}: OrderDetailsModalProps) =>
           )}
 
           <View style={styles.row}>
-            <Text style={styles.label}>Payment Status</Text>
+            <Text style={styles.label}>{t('trade.table.headers.paymentStatus')}</Text>
             <Text style={[styles.labelRight]}>
               <StatusBadge status={data.status ?? 'accepted'} label={data.status} />
             </Text>
@@ -116,7 +120,7 @@ const OrderDetailsModal = ({data, isOpened, onClose}: OrderDetailsModalProps) =>
 
           {data.status && data.status_reason && (
             <View style={styles.row}>
-              <Text style={styles.label}> Status Reason</Text>
+              <Text style={styles.label}>{t('trade.table.headers.paymentStatusReason')}</Text>
               <Text style={[styles.labelRight]}>{data.status_reason}</Text>
             </View>
           )}
@@ -124,7 +128,7 @@ const OrderDetailsModal = ({data, isOpened, onClose}: OrderDetailsModalProps) =>
           {data.transfer && (
             <>
               <View style={styles.row}>
-                <Text style={styles.label}>Transfer Status</Text>
+                <Text style={styles.label}>{t('trade.table.headers.transferStatus')}</Text>
                 <Text style={[styles.labelRight]}>
                   <StatusBadge
                     status={data.transfer.status ? data.transfer.status : 'accepted'}
@@ -135,7 +139,7 @@ const OrderDetailsModal = ({data, isOpened, onClose}: OrderDetailsModalProps) =>
 
               {data.transfer.status && data.transfer.status_reason && (
                 <View style={styles.row}>
-                  <Text style={styles.label}> Status Reason</Text>
+                  <Text style={styles.label}>{t('trade.table.headers.paymentStatusReason')}</Text>
                   <Text style={[styles.labelRight]}>{data.transfer.status_reason}</Text>
                 </View>
               )}

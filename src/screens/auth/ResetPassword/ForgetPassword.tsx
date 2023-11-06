@@ -1,5 +1,6 @@
 import React from 'react'
 import * as yup from 'yup'
+import {useTranslation} from 'react-i18next'
 import {ScrollView, View} from 'react-native'
 import {useMutation} from '@tanstack/react-query'
 import {Button, Text, useTheme} from '@rneui/themed'
@@ -13,7 +14,7 @@ import FAQ from 'screens/auth/FAQ'
 import useApi from 'hooks/api/useApi'
 import {Success} from 'api/Response'
 import {EmailProps} from 'api/Request'
-import {ErrorObject} from 'api/Errors'
+import {ErrorFields} from 'api/Errors'
 import {RouteStack} from 'navigators/routes'
 import MessageBox from 'screens/auth/MessageBox'
 import useYupHooks from 'hooks/helper/useYupHooks'
@@ -21,53 +22,55 @@ import useYupHooks from 'hooks/helper/useYupHooks'
 import GradientBox from '../GradientBox'
 import {useStyles} from './ResetPassword.styles'
 
-const emailVerificationSchema = yup.object().shape({
+const forgetPasswordSchema = yup.object().shape({
   email: yup.string().email().required(),
 })
 
-type FormFields = yup.InferType<typeof emailVerificationSchema>
+type FormFields = yup.InferType<typeof forgetPasswordSchema>
 
-const EmailVerification = ({
+const ForgetPassword = ({
   navigation,
 }: NativeStackScreenProps<RouteStack, 'ResetEmailVerification'>) => {
   const api = useApi()
+  const {t} = useTranslation()
   const {theme} = useTheme()
   const styles = useStyles()
-  const {methods} = useYupHooks<FormFields>({schema: emailVerificationSchema})
-  const {mutate, isLoading, isError, error} = useMutation<Success, ErrorObject, EmailProps>({
+  const {methods} = useYupHooks<FormFields>({schema: forgetPasswordSchema})
+  const {mutate, isLoading, error} = useMutation<Success, ErrorFields, EmailProps>({
     mutationFn: api.passwordResetRequest,
     onSuccess: () => {
       navigation.navigate('ResetEmailConfirmation')
     },
   })
+
   return (
     <ScrollView>
       <ContainContainer>
         <GradientBox style={{marginTop: 30}}>
           <View style={{rowGap: 20}}>
             <Text h3 h3Style={styles.headerTextStyles}>
-              Forgot Password
+              {t('forgotPassword.title')}
             </Text>
 
             <MessageBox
               name='email'
               type='entypo'
               color={theme.colors.white}
-              message='Please write down the email you used for registration with BWG and we will send a recovery link to it'
+              message={t('forgotPassword.subtitle')}
             />
 
             <Form methods={methods} style={styles.innerContainer}>
               <FormInput
                 name='email'
-                placeholder='Email'
-                label='Enter your Email'
+                placeholder={t('profile.appSettings.email')}
+                label={t('forms.placeholders.email')}
                 color='bgPaper'
               />
 
-              {isError && <Text style={styles.error}> {error.message}</Text>}
+              {error && <Text style={styles.error}> {error['email']?.[0] ?? ''}</Text>}
 
               <Button
-                title='Submit'
+                title={t('modal2fa.submit')}
                 loading={isLoading}
                 onPress={methods.handleSubmit((data: FormFields) => mutate(data))}
               />
@@ -80,4 +83,4 @@ const EmailVerification = ({
   )
 }
 
-export default EmailVerification
+export default ForgetPassword

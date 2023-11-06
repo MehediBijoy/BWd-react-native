@@ -1,6 +1,7 @@
 import * as yup from 'yup'
 import React from 'react'
 import {View} from 'react-native'
+import {useTranslation} from 'react-i18next'
 import {useMutation} from '@tanstack/react-query'
 import {Button, Icon, Text, makeStyles, useTheme} from '@rneui/themed'
 
@@ -37,6 +38,7 @@ type ConfirmTokenTypes = yup.InferType<typeof confirmSchema>
 const WalletController = () => {
   const api = useApi()
   const {theme} = useTheme()
+  const {t} = useTranslation()
   const styles = useStyles()
   const setToken = useSetToken()
   const {setNetwork, isSwitchLoading} = useNetwork()
@@ -89,7 +91,7 @@ const WalletController = () => {
     <>
       <BottomSheet
         style={{rowGap: 10}}
-        title='Options'
+        title={t('common.options')}
         isOpened={isOpened}
         onClose={() => setIsOpened(false)}
       >
@@ -106,7 +108,9 @@ const WalletController = () => {
 
         <Pressable style={styles.item} onPress={setToken}>
           <Icon name='add-chart' size={35} color={styles.item.color} />
-          <Text style={[styles.text, {color: styles.item.color}]}>Track BWG token</Text>
+          <Text style={[styles.text, {color: styles.item.color}]}>
+            {t('walletConnect.trackInWallet')}
+          </Text>
         </Pressable>
 
         <Pressable
@@ -114,16 +118,22 @@ const WalletController = () => {
           onPress={() => setIsDisconnectModal(true)}
         >
           <Icon name='exit-to-app' size={35} color={theme.colors.error} />
-          <Text style={[styles.text, {color: theme.colors.error}]}>Disconnect</Text>
+          <Text style={[styles.text, {color: theme.colors.error}]}>
+            {t('walletConnect.disconnect')}
+          </Text>
         </Pressable>
       </BottomSheet>
 
       {isConnected && !isChainConnected && (
-        <BottomSheet title='Unsupported chain' isOpened onClose={() => setIsDisconnectModal(true)}>
+        <BottomSheet
+          title={t('walletConnect.unsupportedChain')}
+          isOpened
+          onClose={() => setIsDisconnectModal(true)}
+        >
           <View style={[styles.alertContainer, {marginBottom: 15}]}>
             <Icon name='warning' color={styles.icon.color} size={30} />
             <Text style={styles.alertText}>
-              We are not support connected chain, please switch to {chain.name}
+              {t('walletConnect.unsupportedChainDescription', {chainName: chain.name})}
             </Text>
           </View>
           <Button
@@ -135,7 +145,7 @@ const WalletController = () => {
                 iconStyle={{marginRight: 10, color: theme.colors.textReverse}}
               />
             }
-            title='Switch Network'
+            title={t('walletConnect.switchNetwork')}
             onPress={() => setNetwork()}
             loading={isSwitchLoading}
           />
@@ -148,7 +158,7 @@ const WalletController = () => {
 
       {isEnabled && profile?.wallet_address && (
         <Modal
-          title='Change Wallet Address'
+          title={t('wallet.change.title')}
           isOpened={profile?.wallet_address !== address}
           onClose={() => setIsDisconnectModal(true)}
         >
@@ -156,26 +166,30 @@ const WalletController = () => {
             {!isSubmitEmail ? (
               <>
                 <View>
-                  <Text style={styles.text}>Wallet Type:</Text>
-                  <Text style={styles.subText}>Wallet connect</Text>
+                  <Text style={styles.text}>{t('wallet.change.label.address')}</Text>
+                  <Text style={styles.subText}>{t('walletConnect.walletConnect')}</Text>
                 </View>
                 <View>
-                  <Text style={styles.text}>New Address</Text>
+                  <Text style={styles.text}>{t('wallet.change.label.address')}</Text>
                   <Text style={styles.subText}>{shortAddress(address as string, 15)}</Text>
                 </View>
 
                 {profile && profile.google_mfa_activated ? (
                   <Form methods={mfaForm} style={{rowGap: 15}}>
-                    <FormInput name='mfa_code' label='2FA code' placeholder='Enter 2FA code' />
+                    <FormInput
+                      name='mfa_code'
+                      label={t('modal2fa.inputLabel')}
+                      placeholder={t('modal2fa.title')}
+                    />
                     <Button
-                      title='Change Address'
+                      title={t('wallet.change.changeButton')}
                       loading={mfaMutation.isLoading}
                       onPress={mfaForm.handleSubmit(({mfa_code}) => mfaMutation.mutate({mfa_code}))}
                     />
                   </Form>
                 ) : (
                   <Button
-                    title='Change Address'
+                    title={t('wallet.change.changeButton')}
                     onPress={() => mfaMutation.mutate({})}
                     loading={mfaMutation.isLoading}
                   />
@@ -185,19 +199,16 @@ const WalletController = () => {
               <>
                 <View style={styles.alertContainer}>
                   <Icon name='warning' color={styles.icon.color} size={30} />
-                  <Text style={styles.alertText}>
-                    We sent wallet changing code to your email, Please Enter your code for change
-                    wallet address
-                  </Text>
+                  <Text style={styles.alertText}>{t('walletConnect.walletChangeWithEmail')}</Text>
                 </View>
                 <Form methods={confirmForm} style={{rowGap: 15}}>
                   <FormInput
                     name='token'
-                    label='Confirm code'
-                    placeholder='Enter your confirm code'
+                    label={t('register.emailConfirmation.code')}
+                    placeholder={t('register.emailConfirmation.inputLabel')}
                   />
                   <Button
-                    title='Change Address'
+                    title={t('wallet.change.changeButton')}
                     onPress={confirmForm.handleSubmit(({token}) =>
                       confirmMutation.mutateAsync(token).then(() => profileRefetch())
                     )}

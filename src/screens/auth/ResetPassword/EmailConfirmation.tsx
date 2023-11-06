@@ -1,5 +1,6 @@
 import * as yup from 'yup'
 import {ScrollView, View} from 'react-native'
+import {useTranslation} from 'react-i18next'
 import {NativeStackScreenProps} from '@react-navigation/native-stack'
 import {Button, Text, useTheme} from '@rneui/themed'
 
@@ -25,6 +26,7 @@ const EmailConfirmation = ({
   navigation,
 }: NativeStackScreenProps<RouteStack, 'ResetEmailConfirmation'>) => {
   const {theme} = useTheme()
+  const {t} = useTranslation()
   const styles = useStyles()
   const {methods} = useYupHooks<FormFields>({schema: emailConfirmationSchema})
 
@@ -38,26 +40,25 @@ const EmailConfirmation = ({
         <GradientBox style={{marginTop: 30}}>
           <View style={{rowGap: 20}}>
             <Text h3 h3Style={styles.headerTextStyles}>
-              Email Confirmation
+              {t('register.emailConfirmation.title')}
             </Text>
 
             <MessageBox
               name='mail'
               type='entypo'
               color={theme.colors.white}
-              message=' We have dispatched an email containing a verification code. Kindly input this code
-                to continue and establish a new password.'
+              message={t('register.emailConfirmation.subTitle')}
             />
 
             <Form methods={methods} style={styles.innerContainer}>
               <FormInput
                 name='code'
-                placeholder='Code'
-                label='Enter Verification Code'
+                placeholder={t('register.emailConfirmation.code')}
+                label={t('register.emailConfirmation.inputLabel')}
                 color='bgPaper'
               />
 
-              <Button title='Submit' onPress={methods.handleSubmit(onSubmit)} />
+              <Button title={t('modal2fa.submit')} onPress={methods.handleSubmit(onSubmit)} />
             </Form>
           </View>
         </GradientBox>

@@ -1,5 +1,6 @@
 import {makeStyles, Text} from '@rneui/themed'
 import {View, TouchableOpacity, Image} from 'react-native'
+import {useTranslation} from 'react-i18next'
 
 import {usePlatform} from 'hooks/helper'
 import EUFlag from 'images/flags/eu-circle-flag.png'
@@ -9,12 +10,13 @@ import GradientBox from '../../GradientBox'
 
 const PlatformSelect = () => {
   const styles = useStyles()
+  const {t} = useTranslation()
   const {platform, switchPlatform} = usePlatform()
 
   return (
     <View style={styles.selectContainer}>
       <Text h4 h4Style={{textAlign: 'center'}}>
-        Select Server Region
+        {t('common.server-region')}
       </Text>
       <View
         style={{
@@ -34,7 +36,7 @@ const PlatformSelect = () => {
             onPress={() => switchPlatform('US')}
           >
             <Text style={[{fontSize: 16}, platform === 'US' && {color: styles.active.color}]}>
-              USA
+              {t('common.usa')}
             </Text>
             <Image source={USFlag} style={{height: 35, width: 35}} />
           </TouchableOpacity>
@@ -49,7 +51,7 @@ const PlatformSelect = () => {
             onPress={() => switchPlatform('EU')}
           >
             <Text style={[{fontSize: 16}, platform === 'EU' && {color: styles.active.color}]}>
-              EU
+              {t('common.eu')}
             </Text>
             <Image source={EUFlag} style={{height: 35, width: 35}} />
           </TouchableOpacity>

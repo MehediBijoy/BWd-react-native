@@ -44,7 +44,7 @@ const useSocket = () => {
         connected() {
           callback.connected && callback.connected()
         },
-        received(data) {
+        received<TData>(data: TData) {
           callback.received && callback.received(data)
         },
         disconnected() {

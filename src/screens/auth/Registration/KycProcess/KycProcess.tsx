@@ -1,6 +1,7 @@
 import React from 'react'
 import {ScrollView, View} from 'react-native'
 import {useQuery} from '@tanstack/react-query'
+import {useTranslation} from 'react-i18next'
 import {Button, Text, makeStyles, Icon} from '@rneui/themed'
 // eslint-disable-next-line import/default
 import SNSMobileSDK from '@sumsub/react-native-mobilesdk-module'
@@ -36,6 +37,7 @@ type StatusProps = {
 const KycProcess = ({navigation}: NativeStackScreenProps<RouteStack>) => {
   const api = useApi()
   const styles = useStyles()
+  const {t} = useTranslation()
   const {profile} = useProfile()
   const {data: accessToken, refetch} = useQuery({
     queryKey: ['sumsub_access_token'],
@@ -69,17 +71,17 @@ const KycProcess = ({navigation}: NativeStackScreenProps<RouteStack>) => {
           <View style={[styles.titleWrapper]}>
             <Icon type='simple-line-icon' name='user' color={styles.textColor.color} />
             <Text h3 h3Style={styles.textColor}>
-              Lets get you verified
+              {t('register.kyc.startVerification')}
             </Text>
           </View>
 
           <Text style={[styles.textColor, styles.paragraph]}>
-            Before using the platform, you need to confirm your identity.
+            {t('register.kyc.confirmYourIdentity')}
           </Text>
 
-          <Text style={[styles.textColor]}>Click the button below to start your verification.</Text>
+          <Text style={[styles.textColor]}>{t('register.kyc.verificationText')}</Text>
           <Button
-            title='Start Verification'
+            title={t('register.kyc.kycBtn')}
             containerStyle={{marginTop: 20}}
             onPress={launchSNSMobileSDK}
           />
