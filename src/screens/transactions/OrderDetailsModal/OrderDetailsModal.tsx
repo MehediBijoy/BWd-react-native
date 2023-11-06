@@ -40,7 +40,7 @@ const OrderDetailsModal = ({data, isOpened, onClose}: OrderDetailsModalProps) =>
             <Text>{data?.id}</Text>
           </View>
           <View style={styles.row}>
-            <Text style={styles.label}>{t('trade.table.headers.tardePair')}</Text>
+            <Text style={styles.label}>{t('trade.table.headers.tradePair')}</Text>
             <Text style={[styles.labelRight]}>{data.trade_pair}</Text>
           </View>
           <View style={styles.row}>
