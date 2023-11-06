@@ -40,7 +40,7 @@ const TabNavigator = () => {
         name='Home'
         component={Dashboard}
         options={{
-          title: t('navigation.items.home'),
+          title: t('navigation.items.dashboard'),
           // tabBarIcon: props => <Icon name='dashboard' type='material-icons' {...props} />,
           tabBarIcon: ({size, color, ...props}) => (
             <HomeIcon height={size} width={size} fill={color} {...props} />
