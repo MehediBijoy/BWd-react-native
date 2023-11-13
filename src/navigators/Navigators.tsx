@@ -1,13 +1,16 @@
-import React from 'react'
+import React, {useEffect, useMemo, useState} from 'react'
 import {useTranslation} from 'react-i18next'
 import {Button, Text} from '@rneui/themed'
+import SplashScreen from 'react-native-splash-screen'
 import {createNativeStackNavigator, NativeStackScreenProps} from '@react-navigation/native-stack'
 
 import Logo from 'components/Logo'
+import Splash from 'components/Splash'
 import MFA from 'screens/profile/MFA'
 import Login from 'screens/auth/Login'
-import {useProfile} from 'hooks/helper'
+import {usePlatform, useProfile} from 'hooks/helper'
 import {useLocales} from 'hooks/states'
+import {useAuthToken} from 'hooks/api'
 // import ZenDesk from 'components/ZenDesk'
 import {isUserConfirmed} from 'utils/response'
 import ChangeEmail from 'screens/profile/changeEmail'
@@ -17,15 +20,37 @@ import ChangePassword from 'screens/profile/changePassword'
 import BecomeAffiliate from 'screens/profile/becomeAffiliate'
 import RegistrationForm from 'screens/auth/Registration/RegisterForm'
 
-import type {RouteStack} from './routes'
 import DrawerNavigator from './DrawerNavigator'
+import type {RouteStack} from './routes'
 
 const Stack = createNativeStackNavigator<RouteStack>()
 
 const Navigators = () => {
   const {t} = useTranslation()
   const {profile} = useProfile()
-  const {currentLang} = useLocales()
+  const {currentLang, hasHydrate} = useLocales()
+
+  const {hasHydrate: isPlatform} = usePlatform()
+  const {hasHydrate: isAuthToken, token} = useAuthToken()
+
+  useEffect(() => {
+    SplashScreen.hide()
+  }, [])
+
+  const isSplashScreen = useMemo(() => {
+    if (!hasHydrate || !isPlatform || !isAuthToken) return true
+    return false
+  }, [hasHydrate, isPlatform, isAuthToken])
+
+  const isTokenVerfied = useMemo(() => {
+    if (token && !profile) return true
+    // console.log(token, profile)
+    return false
+  }, [token, profile])
+
+  if (isSplashScreen || isTokenVerfied) return <Splash />
+
+  console.log(isTokenVerfied)
 
   return !profile ? (
     <>
