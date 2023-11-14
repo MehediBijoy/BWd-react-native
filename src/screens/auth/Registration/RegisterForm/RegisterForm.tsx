@@ -74,8 +74,8 @@ const RegisterForm = () => {
         },
       }),
     onSuccess: ({token, user}) => {
-      setToken(token)
       setProfile(user)
+      user && setToken(token)
     },
     onError: setApiError,
   })

@@ -34,25 +34,25 @@ const Navigators = () => {
   const {hasHydrate: isAuthToken, token} = useAuthToken()
 
   useEffect(() => {
-    SplashScreen.hide()
-  }, [])
-
-  const isSplashScreen = useMemo(() => {
-    if (!hasHydrate || !isPlatform || !isAuthToken) return true
-    return false
+    if (hasHydrate && isPlatform && isAuthToken) {
+      SplashScreen.hide()
+    }
   }, [hasHydrate, isPlatform, isAuthToken])
 
-  const isTokenVerfied = useMemo(() => {
+  const isSplashScreen = useMemo(() => {
+    if (!token) return false
     if (token && !profile) return true
-    // console.log(token, profile)
     return false
   }, [token, profile])
 
-  if (isSplashScreen || isTokenVerfied) return <Splash />
+  // if (isSplashScreen) return <Splash />
 
-  console.log(isTokenVerfied)
+  // console.log(isSplashScreen)
 
-  return !profile ? (
+  return isSplashScreen ? (
+    // return true ? (
+    <Splash />
+  ) : !profile ? (
     <>
       <Stack.Navigator>
         <Stack.Group

@@ -49,8 +49,8 @@ const Login = ({navigation}: NativeStackScreenProps<RouteStack, 'Login'>) => {
   const {mutate, isLoading, isError, error} = useMutation<LoginResponse, ErrorObject, LoginProps>({
     mutationFn: api.login,
     onSuccess: ({token, user}: LoginResponse) => {
-      setToken(token)
       setProfile(user)
+      user && setToken(token)
     },
     onError: error => {
       if (isMfaRequired(error)) {
