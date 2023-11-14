@@ -27,7 +27,7 @@ const useStyles = makeStyles(({colors}) => ({
     // marginTop: 280,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F1F4F5 ',
+    backgroundColor: colors.textReverse,
   },
   linear: {
     marginTop: 20,
