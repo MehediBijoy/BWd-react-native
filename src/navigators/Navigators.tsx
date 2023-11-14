@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react'
+import React, {useEffect, useMemo} from 'react'
 import {useTranslation} from 'react-i18next'
 import {Button, Text} from '@rneui/themed'
 import SplashScreen from 'react-native-splash-screen'
@@ -45,12 +45,7 @@ const Navigators = () => {
     return false
   }, [token, profile])
 
-  // if (isSplashScreen) return <Splash />
-
-  // console.log(isSplashScreen)
-
   return isSplashScreen ? (
-    // return true ? (
     <Splash />
   ) : !profile ? (
     <>

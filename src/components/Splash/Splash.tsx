@@ -1,7 +1,6 @@
 import {View} from 'react-native'
 import {Text, LinearProgress, makeStyles} from '@rneui/themed'
 
-import SplashImg1 from 'images/Splash_Screen4.png'
 import LogoIcon from 'images/bwg-logo.svg'
 
 const Splash = () => {
@@ -14,7 +13,6 @@ const Splash = () => {
         <Text style={{fontSize: 37, fontStyle: 'italic'}}>digital</Text> Gold
       </Text>
       <LinearProgress style={styles.linear} color={styles.color.color} />
-      {/* <Image source={SplashImg1} style={{width: '100%', height: '100%'}} /> */}
     </View>
   )
 }
@@ -24,7 +22,6 @@ export default Splash
 const useStyles = makeStyles(({colors}) => ({
   container: {
     flex: 1,
-    // marginTop: 280,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: colors.textReverse,
