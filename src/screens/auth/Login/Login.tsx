@@ -85,6 +85,9 @@ const Login = ({navigation}: NativeStackScreenProps<RouteStack, 'Login'>) => {
                 placeholder={t('profile.appSettings.email')}
                 label={t('forms.placeholders.email')}
                 color='bgPaper'
+                autoCapitalize='none'
+                textContentType='username'
+                autoCorrect={false}
                 onChange={() => {
                   if (!mfaRequired) return
                   methods.resetField('mfa_code')
@@ -95,6 +98,9 @@ const Login = ({navigation}: NativeStackScreenProps<RouteStack, 'Login'>) => {
               <FormInput
                 name='password'
                 type='password'
+                textContentType='password'
+                autoCapitalize='none'
+                autoCorrect={false}
                 placeholder={t('profile.appSettings.password')}
                 label={t('forms.placeholders.password')}
                 color='bgPaper'

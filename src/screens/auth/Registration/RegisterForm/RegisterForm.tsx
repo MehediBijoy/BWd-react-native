@@ -93,6 +93,9 @@ const RegisterForm = () => {
           <Form methods={methods} style={styles.form}>
             <FormInput
               name='email'
+              autoCapitalize='none'
+              textContentType='username'
+              autoCorrect={false}
               label={t('profile.appSettings.email')}
               placeholder={t('forms.placeholders.email')}
               color='bgPaper'
@@ -101,6 +104,9 @@ const RegisterForm = () => {
             <FormInput
               name='password'
               type='password'
+              autoCapitalize='none'
+              textContentType='newPassword'
+              autoCorrect={false}
               label={t('forms.placeholders.password')}
               placeholder={t('profile.appSettings.password')}
               color='bgPaper'
