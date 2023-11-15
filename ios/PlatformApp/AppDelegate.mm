@@ -19,7 +19,7 @@
 
 
   // React native splash screen
-  // bool didFinish = [super application:application didFinishLaunchingWithOptions:launchOptions];
+  bool didFinish = [super application:application didFinishLaunchingWithOptions:launchOptions];
 
   [RNSplashScreen show];  
   
