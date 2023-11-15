@@ -15,7 +15,7 @@ const useProfile = (props?: ProfileOptions) => {
   const {hasHydrate} = usePlatform()
   const queryClient = useQueryClient()
 
-  const {data, isLoading, isRefetching, refetch} = useQuery<User>({
+  const {data, isLoading, isRefetching, refetch, fetchStatus} = useQuery<User>({
     queryKey: [cacheKey.profile],
     queryFn: api.getProfile,
     refetchOnMount: false,
@@ -28,7 +28,13 @@ const useProfile = (props?: ProfileOptions) => {
     [queryClient]
   )
 
-  return {profile: data, refetch, isRefetching, isLoading, setProfile}
+  return {
+    profile: data,
+    refetch,
+    isRefetching,
+    isLoading: isLoading && fetchStatus !== 'idle',
+    setProfile,
+  }
 }
 
 export default useProfile
