@@ -19,6 +19,7 @@ import RegistrationProgress from 'screens/auth/Registration'
 import ChangePassword from 'screens/profile/changePassword'
 import BecomeAffiliate from 'screens/profile/becomeAffiliate'
 import RegistrationForm from 'screens/auth/Registration/RegisterForm'
+import DeleteAccountConfirm from 'screens/profile/DeleteAccount/DeleteAccountConfirm'
 
 import DrawerNavigator from './DrawerNavigator'
 import type {RouteStack} from './routes'
@@ -115,6 +116,15 @@ const Navigators = () => {
           component={BecomeAffiliate}
           options={{
             title: t('navigation.items.becomeAnAffiliate'),
+            headerBackTitleVisible: false,
+          }}
+        />
+        <Stack.Screen
+          name='DeleteAccount'
+          component={DeleteAccountConfirm}
+          options={{
+            // Todo: will add i18n texts
+            title: 'Delete Account',
             headerBackTitleVisible: false,
           }}
         />

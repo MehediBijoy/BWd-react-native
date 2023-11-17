@@ -1,5 +1,6 @@
 export {default as useYupHooks} from './useYupHooks'
 export {default as useProfile} from './useProfile'
+export {default as useProfileDetails} from './useProfileDetails'
 export {default as useSocket} from './useSocket'
 export {default as useDebounce} from './useDebounce'
 export {default as useAssets} from './useAssets'

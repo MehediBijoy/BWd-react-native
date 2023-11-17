@@ -31,6 +31,11 @@ export type ChangePasswordProps = {
   } & ChangePasswordFormProps
 }
 
+export type UserDeleteProps = {
+  id: number
+  password: string
+}
+
 export type ReferralProps = {
   [token: string]: string
 }
