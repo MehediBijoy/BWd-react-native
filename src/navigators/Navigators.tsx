@@ -123,8 +123,7 @@ const Navigators = () => {
           name='DeleteAccount'
           component={DeleteAccountConfirm}
           options={{
-            // Todo: will add i18n texts
-            title: 'Delete Account',
+            title: t('profile.deleteAccount.title'),
             headerBackTitleVisible: false,
           }}
         />

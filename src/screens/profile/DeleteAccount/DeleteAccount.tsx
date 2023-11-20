@@ -1,5 +1,6 @@
 import React from 'react'
 import {View} from 'react-native'
+import {useTranslation} from 'react-i18next'
 import {NativeStackScreenProps} from '@react-navigation/native-stack'
 import {Button, Text, makeStyles} from '@rneui/themed'
 
@@ -11,13 +12,13 @@ type DeleteAccountProps = {
 
 const DeleteAccount: React.FC<DeleteAccountProps> = ({navigation}) => {
   const styles = useStyle()
+  const {t} = useTranslation()
 
   return (
     <View style={styles.container}>
-      {/* Todo: will add i18n text */}
-      <Text style={styles.title}>Delete account:</Text>
+      <Text style={styles.title}>{t('profile.deleteAccount.title')}:</Text>
       <Button
-        title='Delete'
+        title={t('common.delete')}
         size='sm'
         color='error'
         onPress={() => navigation.navigate('DeleteAccount')}
