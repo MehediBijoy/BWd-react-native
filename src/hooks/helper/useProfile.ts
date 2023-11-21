@@ -11,15 +11,15 @@ type ProfileOptions = Omit<UseQueryOptions<User>, 'queryFn' | 'queryKey'>
 
 const useProfile = (props?: ProfileOptions) => {
   const api = useApi()
-  const {token} = useAuthToken()
   const {hasHydrate} = usePlatform()
   const queryClient = useQueryClient()
+  const {hasHydrate: tokenHasHydrate} = useAuthToken()
 
   const {data, isLoading, isRefetching, refetch, fetchStatus} = useQuery<User>({
     queryKey: [cacheKey.profile],
     queryFn: api.getProfile,
     refetchOnMount: false,
-    enabled: Boolean(!!token && hasHydrate),
+    enabled: hasHydrate && tokenHasHydrate,
     ...props,
   })
 
