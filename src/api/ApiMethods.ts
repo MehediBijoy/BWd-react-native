@@ -17,6 +17,7 @@ import {
   EstimateFeeProps,
   ProceedMfaProps,
   PayoutCommissionProps,
+  UserDeleteProps,
 } from './Request'
 import ApiBase, {ApiBaseProps} from './Abstractions/ApiBase'
 import {
@@ -140,6 +141,10 @@ export default class ApiMethods extends ApiBase {
   async getUserInfo(id: number): Promise<UserInfo> {
     const {user} = await this.get<{user: UserInfo}>(`/users/${id}`)
     return user
+  }
+
+  async deleteUser({id, password}: UserDeleteProps): Promise<Success> {
+    return await this.post(`/users/${id}/request_deletion`, {password})
   }
 
   async checkReferral(params: ReferralProps) {

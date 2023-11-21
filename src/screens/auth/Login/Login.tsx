@@ -49,8 +49,8 @@ const Login = ({navigation}: NativeStackScreenProps<RouteStack, 'Login'>) => {
   const {mutate, isLoading, isError, error} = useMutation<LoginResponse, ErrorObject, LoginProps>({
     mutationFn: api.login,
     onSuccess: ({token, user}: LoginResponse) => {
-      setToken(token)
       setProfile(user)
+      user && setToken(token)
     },
     onError: error => {
       if (isMfaRequired(error)) {
@@ -85,6 +85,9 @@ const Login = ({navigation}: NativeStackScreenProps<RouteStack, 'Login'>) => {
                 placeholder={t('profile.appSettings.email')}
                 label={t('forms.placeholders.email')}
                 color='bgPaper'
+                autoCapitalize='none'
+                textContentType='username'
+                autoCorrect={false}
                 onChange={() => {
                   if (!mfaRequired) return
                   methods.resetField('mfa_code')
@@ -95,6 +98,9 @@ const Login = ({navigation}: NativeStackScreenProps<RouteStack, 'Login'>) => {
               <FormInput
                 name='password'
                 type='password'
+                textContentType='password'
+                autoCapitalize='none'
+                autoCorrect={false}
                 placeholder={t('profile.appSettings.password')}
                 label={t('forms.placeholders.password')}
                 color='bgPaper'

@@ -33,8 +33,8 @@ const EmailConfirmationModal = ({isOpened, onClose}: EmailConfirmationModalProps
   const {mutate} = useMutation({
     mutationFn: api.emailConfirm,
     onSuccess: ({user, token}) => {
-      setToken(token)
       setProfile(user)
+      user && setToken(token)
       client.invalidateQueries([cacheKey.userDetails, profile?.id])
       onClose()
     },

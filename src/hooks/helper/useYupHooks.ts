@@ -12,6 +12,12 @@ type YupHooksProps<T extends FieldValues> = {
 type UseYupHooksReturns<Tdata extends FieldValues> = {
   methods: UseFormReturn<Tdata>
   setApiError: (props: ErrorObject) => void
+  setFieldError: (props: SetFieldErrorProps<Tdata>) => void
+}
+
+type SetFieldErrorProps<Tdata extends FieldValues> = {
+  message: string
+  field: keyof Tdata
 }
 
 const useYupHooks = <Tdata extends FieldValues>({
@@ -38,7 +44,13 @@ const useYupHooks = <Tdata extends FieldValues>({
     }
   }
 
-  return {methods, setApiError}
+  const setFieldError = ({message, field}: SetFieldErrorProps<Tdata>) =>
+    methods.setError(field as SetErrorKey, {
+      type: 'validate',
+      message,
+    })
+
+  return {methods, setApiError, setFieldError}
 }
 
 export default useYupHooks

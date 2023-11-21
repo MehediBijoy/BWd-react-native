@@ -374,6 +374,15 @@
           "title": "Zwei-Faktor-Authentifizierung ausschalten"
         }
       }
+    },
+    "deleteAccount": {
+      "title": "Konto löschen",
+      "dear": "Liebe/r",
+      "text1": "Wir haben verstanden, dass Sie die Löschung Ihres Kontos angefordert haben. Bevor Sie fortfahren, nehmen Sie sich bitte einen Moment Zeit, um die folgenden Informationen zu überprüfen:",
+      "text2_title": "Datenentfernung: ",
+      "text2": "Die Löschung Ihres Kontos entfernt dauerhaft alle zugehörigen Daten, einschließlich Profilinformationen, gespeicherter Einstellungen und Transaktionshistorie.",
+      "text3_title": "Unumkehrbare Aktion: ",
+      "text3": "Die Kontolöschung ist irreversibel. Sobald Sie bestätigen, kann Ihr Konto nicht wiederhergestellt werden, und alle zugehörigen Inhalte gehen verloren."
     }
   },
   "register": {
