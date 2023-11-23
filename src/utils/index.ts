@@ -1,6 +1,9 @@
 import Color from 'color'
 import dayjs from 'dayjs'
 
+// ------------ Local imports ---------------
+import {NumberFormatOptions} from 'types'
+
 /**
  * Shortens a given string by preserving a specified number of characters at both ends,
  * while replacing the middle portion with ellipsis ('...').
@@ -60,3 +63,37 @@ export const alpha = (color: string, opacity: number): string =>
  * @returns {string} The input string with the first letter capitalized.
  */
 export const capitalize = (input: string): string => input.charAt(0).toUpperCase() + input.slice(1)
+
+/**
+ * Formats a number according to the specified options using the
+ * `toLocaleString` method.
+ *
+ * @param {number} num - The number to be formatted.
+ * @param {Object} options - The options for formatting the number.
+ * @param {string} [options.locales='en'] - A string with a BCP 47 language tag,
+ *     or an array of such strings representing the locale(s) to use.
+ * @param {NumberFormatOptions} [options.restOptions] - Additional options accepted
+ *     by the `toLocaleString` method.
+ * @returns {string} The formatted number as a string.
+ */
+export const formatNumber = (
+  num: number,
+  {locales = 'en', ...restOptions}: NumberFormatOptions = {}
+): string => Number(num).toLocaleString(locales, restOptions)
+
+/**
+ * Formats a number as currency using the `formatNumber` method with
+ * currency-specific options.
+ *
+ * @param {number} num - The number to be formatted as currency.
+ * @param {Object} options - The options for formatting the currency.
+ * @param {string} [options.currency='USD'] - A string representing the currency code
+ *     to use for formatting (e.g., 'USD' for US Dollars).
+ * @param {NumberFormatOptions} [options.restOptions] - Additional options accepted
+ *     by the `toLocaleString` method.
+ * @returns {string} The formatted currency as a string.
+ */
+export const formatCurrency = (
+  num: number,
+  {currency = 'USD', ...restOptions}: NumberFormatOptions
+): string => formatNumber(num, {currency, style: 'currency', ...restOptions})

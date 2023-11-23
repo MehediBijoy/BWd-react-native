@@ -17,11 +17,12 @@ type SwitchSelectorsProps = {
 
 const SwitchSelectors = ({data, onChange, active}: SwitchSelectorsProps) => {
   const styles = useStyles()
+  const DataLength = data.length
 
   return (
     <View>
-      {data.map(({id, label}) => (
-        <View key={id} style={styles.switchWrapper}>
+      {data.map(({id, label}, index) => (
+        <View key={id} style={index !== DataLength && styles.switchWrapper}>
           {React.isValidElement(label) ? label : <Text style={styles.label}>{label}</Text>}
           <Switch onChange={() => onChange(id)} active={active === id} />
         </View>
