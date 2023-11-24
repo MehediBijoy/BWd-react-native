@@ -39,6 +39,7 @@ import {
   CommissionPayout,
   ReferralAccount,
   PaymentService,
+  AssetLatestPrices,
 } from './Response'
 
 export default class ApiMethods extends ApiBase {
@@ -180,6 +181,10 @@ export default class ApiMethods extends ApiBase {
   async getAssetBySymbol(symbol: string): Promise<Asset> {
     const {asset} = await this.get<{asset: Asset}>(`/assets/${symbol}`)
     return asset
+  }
+
+  async getAssetLatestPrices(currency: string): Promise<AssetLatestPrices> {
+    return await this.get(`/assets/latest?vs_currency=${currency}`)
   }
 
   async getDynamicFees(): Promise<DynamicFee[]> {

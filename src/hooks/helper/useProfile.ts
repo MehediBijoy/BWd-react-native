@@ -13,13 +13,13 @@ const useProfile = (props?: ProfileOptions) => {
   const api = useApi()
   const {hasHydrate} = usePlatform()
   const queryClient = useQueryClient()
-  const {hasHydrate: tokenHasHydrate} = useAuthToken()
+  const {hasHydrate: tokenHasHydrate, token} = useAuthToken()
 
   const {data, isLoading, isRefetching, refetch, fetchStatus} = useQuery<User>({
     queryKey: [cacheKey.profile],
     queryFn: api.getProfile,
     refetchOnMount: false,
-    enabled: hasHydrate && tokenHasHydrate,
+    enabled: hasHydrate && tokenHasHydrate && !!token,
     ...props,
   })
 

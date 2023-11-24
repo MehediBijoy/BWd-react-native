@@ -68,7 +68,7 @@ export const capitalize = (input: string): string => input.charAt(0).toUpperCase
  * Formats a number according to the specified options using the
  * `toLocaleString` method.
  *
- * @param {number} num - The number to be formatted.
+ * @param {number | string} num - The number to be formatted.
  * @param {Object} options - The options for formatting the number.
  * @param {string} [options.locales='en'] - A string with a BCP 47 language tag,
  *     or an array of such strings representing the locale(s) to use.
@@ -77,7 +77,7 @@ export const capitalize = (input: string): string => input.charAt(0).toUpperCase
  * @returns {string} The formatted number as a string.
  */
 export const formatNumber = (
-  num: number,
+  num: number | string,
   {locales = 'en', ...restOptions}: NumberFormatOptions = {}
 ): string => Number(num).toLocaleString(locales, restOptions)
 
@@ -85,7 +85,7 @@ export const formatNumber = (
  * Formats a number as currency using the `formatNumber` method with
  * currency-specific options.
  *
- * @param {number} num - The number to be formatted as currency.
+ * @param {number | string} num - The number to be formatted as currency.
  * @param {Object} options - The options for formatting the currency.
  * @param {string} [options.currency='USD'] - A string representing the currency code
  *     to use for formatting (e.g., 'USD' for US Dollars).
@@ -94,6 +94,6 @@ export const formatNumber = (
  * @returns {string} The formatted currency as a string.
  */
 export const formatCurrency = (
-  num: number,
-  {currency = 'USD', ...restOptions}: NumberFormatOptions
+  num: number | string,
+  {currency = 'USD', ...restOptions}: NumberFormatOptions = {}
 ): string => formatNumber(num, {currency, style: 'currency', ...restOptions})

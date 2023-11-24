@@ -3,7 +3,7 @@ import type {Colors as RNColors} from '@rneui/themed'
 import type {ControllerProps as Controller} from 'react-hook-form'
 
 import {LanguageTypes} from 'i18n/i18n'
-import {CurrencyTypes} from 'hooks/states/useCurrency'
+import {CurrencyTypes} from 'constants/currency.config'
 
 export type Children = {
   children: ReactNode

@@ -1,6 +1,7 @@
 export const cacheKey = {
   profile: 'profile',
   asset: 'asset',
+  assetPrice: 'assetPrices',
   dynamicFees: 'dynamicFees',
   userDetails: 'userDetails',
   transactionChart: 'transactionChart',

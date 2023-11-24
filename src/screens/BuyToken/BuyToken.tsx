@@ -15,8 +15,10 @@ import Logo from 'components/Logo'
 import useApi from 'hooks/api/useApi'
 import {EstimateFee} from 'api/Response'
 import {PaymentProps} from 'api/Request'
+import {useCurrency} from 'hooks/states'
 import {useDebounce, useAssets} from 'hooks/helper'
 
+import CurrencySelect from './CurrencySelector'
 import TierOverviewModal from './TierFeesModal'
 import FiatPaymentModal from './FiatPayment/FiatPayment'
 
@@ -29,11 +31,13 @@ const BuyToken = () => {
   const api = useApi()
   const styles = useStyles()
   const {t} = useTranslation()
+  const {currency} = useCurrency()
   const {data: bwgLimit} = useAssets('BWG')
   const methods = useForm<BuyBoxFields>()
   const {total} = methods.getValues()
   const [inBase, setInBase] = useState<boolean>(false)
   const [isOpened, setIsOpened] = useState<boolean>(false)
+  const [isOpenedCurrency, setIsOpenedCurrency] = useState<boolean>(false)
   const [isFiatModalOpened, setIsFiatModalOpened] = useState<boolean>(false)
 
   const {
@@ -43,7 +47,7 @@ const BuyToken = () => {
   } = useMutation<EstimateFee, unknown, Partial<PaymentProps>>({
     mutationFn: ({amount, in_base}) =>
       api.getEstimateFee({
-        asset: 'USD',
+        asset: currency,
         target_asset: 'BWG',
         amount: amount as string,
         in_base: in_base as boolean,
@@ -96,16 +100,6 @@ const BuyToken = () => {
           onClose={() => setIsOpened(false)}
         />
 
-        <FiatPaymentModal
-          isOpened={isFiatModalOpened}
-          onClose={() => {
-            methods.reset()
-            setIsFiatModalOpened(false)
-          }}
-          estimateFees={estimateFees as EstimateFee}
-          in_base={inBase}
-        />
-
         <View style={{display: 'flex', rowGap: 20}}>
           <Text h3 h3Style={{marginTop: 20}}>
             {t('dashboard.buy.title', {token: 'BWG'})}
@@ -133,7 +127,9 @@ const BuyToken = () => {
                   style={styles.currency}
                 />
               }
-              rightElement={isLoading && !inBase ? <ActivityIndicator /> : undefined}
+              rightElement={
+                <Icon name='change-circle' size={40} onPress={() => setIsOpenedCurrency(true)} />
+              }
               editable={isActiveService}
             />
 
@@ -144,7 +140,7 @@ const BuyToken = () => {
               placeholder={t('dashboard.buy.enterAmount')}
               onChangeText={value => onChange(value, false)}
               leftElement={<Logo height={30} width={30} style={{marginRight: 10}} />}
-              rightElement={isLoading && inBase ? <ActivityIndicator /> : undefined}
+              rightElement={isLoading ? <ActivityIndicator /> : undefined}
               editable={isActiveService}
             />
 
@@ -154,13 +150,18 @@ const BuyToken = () => {
             <Button
               title={t('dashboard.buy.btnText', {tokenName: 'BWG'})}
               disabled={!isValid}
-              onPress={() => {
-                setIsFiatModalOpened(true)
-              }}
+              onPress={() => setIsFiatModalOpened(true)}
             />
           </Form>
         </View>
       </ContainContainer>
+      <CurrencySelect isOpened={isOpenedCurrency} onClose={() => setIsOpenedCurrency(false)} />
+      <FiatPaymentModal
+        isOpened={isFiatModalOpened}
+        onClose={() => setIsFiatModalOpened(false)}
+        estimateFees={estimateFees as EstimateFee}
+        in_base={inBase}
+      />
     </ScrollView>
   )
 }
