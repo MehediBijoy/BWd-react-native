@@ -15,6 +15,8 @@ export type RouteStack = {
   TabNavigation: undefined
   Home: undefined
   Purchase: undefined
+  OrderSummary: undefined
+  PaymentInformation: undefined
   Transactions: undefined
   Notifications: undefined
   Settings: undefined

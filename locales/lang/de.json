@@ -277,7 +277,9 @@
       "emailChange": "E-Mail Änderung",
       "passwordChange": "Passwortänderung",
       "twoFactorAuthentication": "Zwei-Faktor-Authentifizierung",
-      "becomeAnAffiliate": "Werden Sie Partner"
+      "becomeAnAffiliate": "Werden Sie Partner",
+      "orderSummary": "Bestellübersicht",
+      "paymentInformation": "Zahlungsinformationen"
     },
     "logout": "Abmelden"
   },

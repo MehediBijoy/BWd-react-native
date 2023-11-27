@@ -280,7 +280,9 @@
       "emailChange": "Email Change",
       "passwordChange": "Password Change",
       "twoFactorAuthentication": "Two Factor Authentication",
-      "becomeAnAffiliate": "Become An Affiliate"
+      "becomeAnAffiliate": "Become An Affiliate",
+      "orderSummary": "Order Summary",
+      "paymentInformation": "Payment Information"
     },
     "logout": "Logout"
   },

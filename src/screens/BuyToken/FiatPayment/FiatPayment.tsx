@@ -4,6 +4,7 @@ import {useTranslation} from 'react-i18next'
 import {View, Modal as NativeModal} from 'react-native'
 import {Button, Icon, makeStyles, Text} from '@rneui/themed'
 import {useWalletConnectModal} from '@walletconnect/modal-react-native'
+import {useNavigation, NavigationProp} from '@react-navigation/native'
 
 import Modal from '@core/Modal'
 import SafeAreaView from '@core/SafeAreaView'
@@ -14,6 +15,7 @@ import {PaymentProps} from 'api/Request'
 import {EstimateFee, Payment} from 'api/Response'
 
 import PaypalView from '../PaypalView'
+import {RouteStack} from 'navigators/routes'
 
 type FiatPaymentModalProps = {
   estimateFees: EstimateFee
@@ -26,6 +28,7 @@ const FiatPaymentModal = ({estimateFees, isOpened, onClose, in_base}: FiatPaymen
   const api = useApi()
   const {t} = useTranslation()
   const styles = useStyles()
+  const navigation = useNavigation<NavigationProp<RouteStack>>()
 
   const {isConnected} = useWalletConnectModal()
 
@@ -95,6 +98,12 @@ const FiatPaymentModal = ({estimateFees, isOpened, onClose, in_base}: FiatPaymen
         }}
         loading={createOrder.isLoading}
         disabled={!isConnected}
+      />
+
+      <Button
+        title='Bank transfer test'
+        containerStyle={{marginTop: 10}}
+        onPress={() => navigation.navigate('OrderSummary')}
       />
 
       {createOrder.data && (
