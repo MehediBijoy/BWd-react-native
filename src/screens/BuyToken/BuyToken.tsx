@@ -127,9 +127,9 @@ const BuyToken = () => {
                   style={styles.currency}
                 />
               }
-              rightElement={
-                <Icon name='change-circle' size={40} onPress={() => setIsOpenedCurrency(true)} />
-              }
+              // rightElement={
+              //   <Icon name='change-circle' size={40} onPress={() => setIsOpenedCurrency(true)} />
+              // }
               editable={isActiveService}
             />
 

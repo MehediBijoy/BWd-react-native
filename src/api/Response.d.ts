@@ -121,6 +121,12 @@ type DynamicFee = {
   updated_at: string
 }
 
+type AssetRates = {
+  fee_percentage: string
+  amount: string
+  rate: string
+}
+
 type EstimateFee = {
   dynamic_fee_amount: string
   dynamic_fee_percentage: string

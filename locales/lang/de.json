@@ -712,10 +712,10 @@
   },
   "tierOverview": {
     "title": "Gebührenstruktur",
-    "tier": "Level",
+    "tier": "Level:",
     "level": "Level",
-    "amount": "Betrag",
-    "fee": "Gebühr",
+    "amount": "Betrag(BWG):",
+    "fee": "Preis für 1 Token:",
     "from": "von",
     "upTo": "bis zu"
   },
