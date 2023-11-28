@@ -11,6 +11,7 @@ import Logo from 'components/Logo'
 import Profile from 'screens/profile'
 import {useProfile} from 'hooks/helper'
 import Affiliate from 'screens/affiliate'
+import HomeIcon from 'images/home.svg'
 import {sessionParams, providerMetadata, projectId} from 'constants/wallet.config'
 
 import TabNavigator from './TabNavigator'
@@ -66,7 +67,10 @@ const DrawerNavigator = () => {
           component={TabNavigator}
           options={{
             title: t('navigation.items.dashboard'),
-            drawerIcon: props => <Icon name='dashboard' {...props} />,
+            // drawerIcon: props => <Icon name='dashboard' {...props} />,
+            drawerIcon: ({size, color, ...props}) => (
+              <HomeIcon height={size} width={size} fill={color} {...props} />
+            ),
           }}
         />
 
