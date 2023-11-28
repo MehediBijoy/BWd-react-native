@@ -5,16 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## \[Unreleased v0.2.0\]
+## \[Unreleased v1.1.1\]
 
 ### Added
 
-<!-- Todo: will added in future -->
+- Enabled currency switching
 
-- Add language switching in login screen
-- Add currency switching in app settings
+### Changed
 
-## Platform Backend v0.1.0 - 2023-11-15
+- Modified tier system modal
+
+
+## Platform APP v0.1.0 - 2023-11-15
 
 ### Added
 

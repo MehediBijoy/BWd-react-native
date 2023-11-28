@@ -1,6 +1,6 @@
 import {useForm} from 'react-hook-form'
 import {useTranslation} from 'react-i18next'
-import React, {useMemo, useState} from 'react'
+import React, {useEffect, useMemo, useState} from 'react'
 import {useMutation, useQuery} from '@tanstack/react-query'
 import {Text, Button, Icon, makeStyles} from '@rneui/themed'
 import {ActivityIndicator, ScrollView, View} from 'react-native'
@@ -77,6 +77,10 @@ const BuyToken = () => {
 
     return value >= minPaymentAmount && value <= maxPaymentAmount
   }, [total, bwgLimit])
+
+  useEffect(() => {
+    methods.reset()
+  }, [currency, methods])
 
   const {data: paymentService} = useQuery({
     queryFn: api.checkPaymentService,
