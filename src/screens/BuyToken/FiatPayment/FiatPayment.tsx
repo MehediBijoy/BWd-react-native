@@ -12,6 +12,8 @@ import {useApi} from 'hooks/api'
 import {useDebounce} from 'hooks/helper'
 import {PaymentProps} from 'api/Request'
 import {EstimateFee, Payment} from 'api/Response'
+import {useCurrency, useLocales} from 'hooks/states'
+import {formatCurrency} from 'utils'
 
 import PaypalView from '../PaypalView'
 
@@ -24,6 +26,8 @@ type FiatPaymentModalProps = {
 
 const FiatPaymentModal = ({estimateFees, isOpened, onClose, in_base}: FiatPaymentModalProps) => {
   const api = useApi()
+  const {currentLang} = useLocales()
+  const {currency} = useCurrency()
   const {t} = useTranslation()
   const styles = useStyles()
 
@@ -32,7 +36,7 @@ const FiatPaymentModal = ({estimateFees, isOpened, onClose, in_base}: FiatPaymen
   const createOrder = useMutation<Payment, unknown, Pick<PaymentProps, 'payment_type'>>({
     mutationFn: ({payment_type}) =>
       api.createPayment({
-        asset: 'USD',
+        asset: currency,
         target_asset: 'BWG',
         amount: in_base ? estimateFees.total_amount : estimateFees.received_amount,
         in_base,
@@ -64,7 +68,13 @@ const FiatPaymentModal = ({estimateFees, isOpened, onClose, in_base}: FiatPaymen
 
       <View style={styles.grid}>
         <Text style={styles.gridLeftItem}>{t('dashboard.buy.amountLabel')}</Text>
-        <Text style={styles.gridRightItem}>${estimateFees?.total_amount}</Text>
+        <Text style={styles.gridRightItem}>
+          {estimateFees?.total_amount &&
+            formatCurrency(estimateFees?.total_amount, {
+              currency,
+              locales: currentLang,
+            })}
+        </Text>
       </View>
 
       <Text style={styles.grid}>

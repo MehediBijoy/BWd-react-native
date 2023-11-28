@@ -717,8 +717,8 @@
     "title": "Fee Tiers Overview",
     "tier": "Tier",
     "level": "Level",
-    "amount": "Amount",
-    "fee": "Fee",
+    "amount": "Amount(BWG)",
+    "fee": "1 BWG Price",
     "from": "from",
     "upTo": "up to"
   },

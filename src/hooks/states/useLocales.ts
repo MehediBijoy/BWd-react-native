@@ -3,13 +3,14 @@ import {persist, createJSONStorage} from 'zustand/middleware'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import i18n, {languages} from 'i18n'
+import {LanguageTypes} from 'i18n/i18n'
 
 interface IState {
-  currentLang: string
-  defaultLang: string
+  currentLang: LanguageTypes
+  defaultLang: LanguageTypes
   hasHydrate: boolean
   availableLang: readonly string[]
-  onChange: (lang: string) => void
+  onChange: (lang: LanguageTypes) => void
 }
 
 const useLocales = create<IState>()(

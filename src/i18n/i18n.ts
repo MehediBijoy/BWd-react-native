@@ -16,6 +16,7 @@ import yupEn from '../../locales/yup/en.json'
 import yupDe from '../../locales/yup/de.json'
 
 export const languages = ['en', 'de'] as const
+export type LanguageTypes = (typeof languages)[number]
 
 const defaultLang = languages[0]
 
@@ -30,7 +31,7 @@ i18next.use(initReactI18next).init({
 })
 
 setLocale(yupLocale())
-i18next.on('languageChanged', (lang: (typeof languages)[number]) => {
+i18next.on('languageChanged', (lang: LanguageTypes) => {
   dayjs.locale(lang)
 })
 

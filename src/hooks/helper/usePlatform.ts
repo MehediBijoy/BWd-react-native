@@ -2,9 +2,10 @@ import {create} from 'zustand'
 import {persist, createJSONStorage} from 'zustand/middleware'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
+import {useCurrency} from 'hooks/states'
 import {EU_API_URL, US_API_URL, EU_APP_URL, US_APP_URL} from 'config/environments'
 
-type PlatformType = 'EU' | 'US'
+export type PlatformType = 'EU' | 'US'
 
 interface IState {
   platform: PlatformType
@@ -21,18 +22,23 @@ const usePlatform = create<IState>()(
       API_URL: US_API_URL,
       APP_URL: US_APP_URL,
       hasHydrate: false,
-      switchPlatform: type =>
-        set(() => ({
+      switchPlatform: type => {
+        if (type === 'US') useCurrency.setState({currency: 'USD'})
+        return set(() => ({
           platform: type,
           API_URL: type === 'EU' ? EU_API_URL : US_API_URL,
           APP_URL: type === 'EU' ? EU_APP_URL : US_APP_URL,
-        })),
+        }))
+      },
     }),
     {
       name: 'platform',
       storage: createJSONStorage(() => AsyncStorage),
-      onRehydrateStorage: () => () => {
+      onRehydrateStorage: () => state => {
         usePlatform.setState({hasHydrate: true})
+        if (state?.platform === 'US') {
+          useCurrency.setState({currency: 'USD'})
+        }
       },
     }
   )

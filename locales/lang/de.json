@@ -714,8 +714,8 @@
     "title": "Gebührenstruktur",
     "tier": "Level",
     "level": "Level",
-    "amount": "Betrag",
-    "fee": "Gebühr",
+    "amount": "Betrag(BWG)",
+    "fee": "1 BWG Preis",
     "from": "von",
     "upTo": "bis zu"
   },

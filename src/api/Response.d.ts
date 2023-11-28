@@ -95,6 +95,23 @@ export type Asset = {
   created_at: Date
 }
 
+export type AssetLatestPrices = {
+  BCH: string
+  BNB: string
+  BTC: string
+  BUSD: string
+  BWG: string
+  EOS: string
+  ETH: string
+  EUR: string
+  LINK: string
+  LTC: string
+  OKB: string
+  USD: string
+  XLM: string
+  XRP: string
+}
+
 type DynamicFee = {
   asset_id: number
   fee_percentage: string
@@ -102,6 +119,12 @@ type DynamicFee = {
   minimum_value: string
   created_at: string
   updated_at: string
+}
+
+type AssetRates = {
+  fee_percentage: string
+  amount: string
+  rate: string
 }
 
 type EstimateFee = {
