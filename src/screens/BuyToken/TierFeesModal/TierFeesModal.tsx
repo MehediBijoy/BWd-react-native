@@ -119,17 +119,17 @@ const useStyles = makeStyles(({colors}) => ({
   },
   tierDescription: {
     color: colors.textPrimary,
-    width: '50%',
+    width: '52%',
     textAlign: 'left',
   },
   tierItem: {
     color: colors.textPrimary,
-    width: '25%',
+    width: '20%',
     textAlign: 'left',
   },
   tierFee: {
     color: colors.textPrimary,
-    width: '25%',
+    width: '28%',
     textAlign: 'right',
   },
 }))

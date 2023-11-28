@@ -715,10 +715,10 @@
   },
   "tierOverview": {
     "title": "Fee Tiers Overview",
-    "tier": "Tier:",
+    "tier": "Tier",
     "level": "Level",
-    "amount": "Amount(BWG):",
-    "fee": "Price for 1 BWG:",
+    "amount": "Amount(BWG)",
+    "fee": "1 BWG Price",
     "from": "from",
     "upTo": "up to"
   },
