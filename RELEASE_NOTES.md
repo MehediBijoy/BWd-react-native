@@ -4,5 +4,8 @@
 
 ### Added
 
-- Splash screen for ios and android
-- Enabled keychain support for ios
+- Enabled currency switching
+
+### Changed
+
+- Modified tier system modal
