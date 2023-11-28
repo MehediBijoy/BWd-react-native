@@ -12,6 +12,7 @@ import {useApi} from 'hooks/api'
 import {useDebounce} from 'hooks/helper'
 import {PaymentProps} from 'api/Request'
 import {EstimateFee, Payment} from 'api/Response'
+import {useCurrency} from 'hooks/states'
 
 import PaypalView from '../PaypalView'
 
@@ -24,6 +25,7 @@ type FiatPaymentModalProps = {
 
 const FiatPaymentModal = ({estimateFees, isOpened, onClose, in_base}: FiatPaymentModalProps) => {
   const api = useApi()
+  const {currency} = useCurrency()
   const {t} = useTranslation()
   const styles = useStyles()
 
@@ -32,7 +34,7 @@ const FiatPaymentModal = ({estimateFees, isOpened, onClose, in_base}: FiatPaymen
   const createOrder = useMutation<Payment, unknown, Pick<PaymentProps, 'payment_type'>>({
     mutationFn: ({payment_type}) =>
       api.createPayment({
-        asset: 'USD',
+        asset: currency,
         target_asset: 'BWG',
         amount: in_base ? estimateFees.total_amount : estimateFees.received_amount,
         in_base,
