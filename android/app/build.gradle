@@ -71,8 +71,6 @@ def enableProguardInReleaseBuilds = true
  */
 def jscFlavor = 'org.webkit:android-jsc:+'
 
-// added APP_VERSION_CODE from ~/.gradle/gradle.properties, it always integer
-def appVersionCode = Integer.valueOf(APP_VERSION_CODE ?: 1)
 
 android {
     ndkVersion rootProject.ext.ndkVersion
@@ -84,8 +82,8 @@ android {
         applicationId "com.platformapp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode appVersionCode 
-        versionName APP_VERSION_NAME
+        versionCode 13 
+        versionName "1.1.0"
     }
     signingConfigs {
         debug {

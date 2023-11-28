@@ -11,8 +11,8 @@ const useOnUnauthorized = () => {
   const {disconnect, isDisconnected} = useDisconnect()
 
   return useCallback(() => {
-    setToken(undefined)
     queryClient.clear()
+    setToken(undefined)
     if (!isDisconnected) disconnect()
   }, [setToken, queryClient, isDisconnected, disconnect])
 }

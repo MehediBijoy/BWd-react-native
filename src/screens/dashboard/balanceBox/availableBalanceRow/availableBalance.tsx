@@ -5,7 +5,9 @@ import {useWalletConnectModal} from '@walletconnect/modal-react-native'
 
 import Loader from '@core/Loader'
 
-import {useAssets} from 'hooks/helper'
+import {formatCurrency} from 'utils'
+import {useAssetsPrice} from 'hooks/helper'
+import {useCurrency, useLocales} from 'hooks/states'
 import {DataProps} from 'hooks/crypto/useBalance'
 
 export type AvailableBalanceRowProps = {
@@ -17,37 +19,32 @@ export type AvailableBalanceRowProps = {
 
 export type LoaderBoxProps = {
   isLoading?: boolean
-  price: number | undefined | null
-  isSymbol?: boolean
+  price?: number | string
 }
 
-const LoaderBox = ({isLoading, price, isSymbol}: LoaderBoxProps) => {
+const LoaderBox = ({isLoading, price}: LoaderBoxProps) => {
   if (isLoading) {
     return <Loader />
-  }
-  if (isSymbol && !isLoading) {
-    return <Text>{price ? `$${price}` : '-'}</Text>
   }
   return <Text>{price ?? '-'}</Text>
 }
 
 const AvailableBalanceRow = ({asset, logo, data, isLoading}: AvailableBalanceRowProps) => {
   const styles = useStyles()
+  const {currency} = useCurrency()
+  const {currentLang} = useLocales()
   const {isConnected} = useWalletConnectModal()
 
-  const {data: assetData} = useAssets(asset)
+  const {data: price} = useAssetsPrice(asset)
 
   //BNB two digit
   // BWG four digit
-  const balance = useMemo(() => {
-    if (data) return Number(data?.value.toFixed(4))
-    return null
-  }, [data])
+  const balance = useMemo(() => data && Number(data?.value.toFixed(4)), [data])
 
-  const totalPrice = useMemo(() => {
-    if (balance && assetData) return Number((balance * Number(assetData.price)).toFixed(4))
-    return null
-  }, [balance, assetData])
+  const totalPrice = useMemo(
+    () => balance && price && Number((balance * Number(price)).toFixed(4)),
+    [balance, price]
+  )
 
   return (
     <View style={styles.assetGrid}>
@@ -60,15 +57,26 @@ const AvailableBalanceRow = ({asset, logo, data, isLoading}: AvailableBalanceRow
       <View style={styles.gridItem}>
         <LoaderBox
           isLoading={isLoading}
-          price={isConnected ? Number(assetData?.price) : null}
-          isSymbol
+          price={
+            isConnected && price
+              ? formatCurrency(price, {
+                  currency,
+                  locales: currentLang,
+                })
+              : undefined
+          }
         />
       </View>
       <View style={styles.gridItem}>
         <LoaderBox isLoading={isLoading} price={balance} />
       </View>
       <View style={styles.gridItem}>
-        <LoaderBox isLoading={isLoading} price={totalPrice} isSymbol />
+        <LoaderBox
+          isLoading={isLoading}
+          price={
+            totalPrice ? formatCurrency(totalPrice, {currency, locales: currentLang}) : undefined
+          }
+        />
       </View>
     </View>
   )

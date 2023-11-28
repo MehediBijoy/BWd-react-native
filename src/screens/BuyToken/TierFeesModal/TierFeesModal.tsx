@@ -5,8 +5,10 @@ import {makeStyles, Text} from '@rneui/themed'
 
 import Modal from '@core/Modal'
 
-import useDynamicFees from 'hooks/helper/useDynamicFees'
-import {DynamicFee, Asset} from 'api/Response'
+import {formatNumber} from 'utils'
+import {Asset, AssetRates} from 'api/Response'
+import {useCurrency, useLocales} from 'hooks/states'
+import useAssetRates from 'hooks/helper/useAssetsRates'
 
 type TierOverviewModalProps = {
   isOpened: boolean
@@ -18,22 +20,30 @@ type ReduceData = {
   id: number
   min: string
   max: string
-} & DynamicFee
+} & AssetRates
 
-const TierOverviewModal = ({bwgLimit, isOpened, onClose}: TierOverviewModalProps) => {
+const TierOverviewModal = ({isOpened, onClose}: TierOverviewModalProps) => {
   const styles = useStyles()
   const {t} = useTranslation()
-  const {data} = useDynamicFees()
+  const {currency} = useCurrency()
+  const {currentLang} = useLocales()
+  const {data} = useAssetRates(currency, 'BWG')
+
   const fees = useMemo(
     () =>
       data?.reduce(
-        (acc: ReduceData[], curr: DynamicFee, index: number, arr: DynamicFee[]) => [
+        (acc: ReduceData[], curr: AssetRates, index: number, arr: AssetRates[]) => [
           ...acc,
-          {...curr, id: index, min: curr?.minimum_value, max: arr[index + 1]?.minimum_value},
+          {
+            ...curr,
+            id: index,
+            min: formatNumber(curr?.amount, {locales: currentLang}),
+            max: formatNumber(arr[index + 1]?.amount, {locales: currentLang}),
+          },
         ],
         []
       ),
-    [data]
+    [currentLang, data]
   )
 
   return (
@@ -45,7 +55,7 @@ const TierOverviewModal = ({bwgLimit, isOpened, onClose}: TierOverviewModalProps
             <Text style={styles.tierDescription}>{t('tierOverview.amount')}</Text>
             <Text style={styles.tierFee}>{t('tierOverview.fee')}</Text>
           </View>
-          {fees?.map(({id, min, max, fee_percentage}, index: number) => (
+          {fees?.map(({id, min, max, rate}, index: number) => (
             <View
               key={id}
               style={[
@@ -57,13 +67,19 @@ const TierOverviewModal = ({bwgLimit, isOpened, onClose}: TierOverviewModalProps
                 {t('tierOverview.level')} {id + 1}
               </Text>
               <Text style={styles.tierDescription}>
-                {id === 0
-                  ? ` ${t('tierOverview.from')} ${bwgLimit?.min_payment_amount} ${t(
-                      'tierOverview.upTo'
-                    )} ${max}`
+                {id !== fees.length - 1
+                  ? ` ${t('tierOverview.from')} ${min} ${t('tierOverview.upTo')} ${max}`
                   : `${t('tierOverview.from')} ${min}`}
               </Text>
-              <Text style={styles.tierFee}>{fee_percentage}%</Text>
+              <Text style={styles.tierFee}>
+                {rate &&
+                  formatNumber(rate, {
+                    locales: currentLang,
+                    maximumFractionDigits: 2,
+                    minimumFractionDigits: 2,
+                  })}{' '}
+                {currency}
+              </Text>
             </View>
           ))}
         </View>

@@ -18,6 +18,11 @@ const ThemeProvider = ({children}: {children: ReactNode}) => {
           Button: () => ({
             buttonStyle: {borderRadius: 8},
           }),
+          Divider: (props, theme) => ({
+            color: theme.colors.bgPaper,
+            width: 1,
+            ...props,
+          }),
         },
       }),
     []
