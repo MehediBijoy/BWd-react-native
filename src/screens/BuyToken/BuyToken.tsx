@@ -120,7 +120,7 @@ const BuyToken = () => {
               onChangeText={value => onChange(value, true)}
               leftElement={
                 <Icon
-                  name='dollar'
+                  name={currency === 'USD' ? 'dollar' : 'euro'}
                   type='font-awesome'
                   size={18}
                   color='white'
