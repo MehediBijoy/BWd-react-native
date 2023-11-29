@@ -7,15 +7,18 @@ import {AssetChartItem} from 'api/Response'
 import {cacheKey} from 'api/CacheKey'
 import {useAuthToken, useApi} from 'hooks/api'
 import Logo from 'components/Logo'
-import {formatDate} from 'utils'
+import {formatCurrency, formatDate} from 'utils'
+import {useCurrency, useLocales} from 'hooks/states'
 
 const ChartBox = () => {
   const api = useApi()
   const {token} = useAuthToken()
   const {theme} = useTheme()
+  const {currentLang} = useLocales()
+  const {currency} = useCurrency()
   const {data} = useQuery<AssetChartItem[]>({
-    queryKey: [cacheKey.dashboardChart],
-    queryFn: () => api.getChartSymbol({symbol: 'BWG', days: 30, currency: 'USD'}),
+    queryKey: [cacheKey.dashboardChart, currency],
+    queryFn: () => api.getChartSymbol({symbol: 'BWG', days: 30, currency}),
     enabled: !!token,
     initialData: [
       {
@@ -50,7 +53,7 @@ const ChartBox = () => {
         <Logo width={35} height={35} />
         <Text h4>
           Bretton Woods{' '}
-          <Text h4 h4Style={{fontStyle: 'italic', marginLeft: 5}}>
+          <Text h4 h4Style={{fontStyle: 'italic'}}>
             digital{' '}
           </Text>
           Gold
@@ -68,7 +71,7 @@ const ChartBox = () => {
         }}
         width={Dimensions.get('window').width - 18} // from react-native
         height={250}
-        yAxisLabel={'$'}
+        formatYLabel={item => formatCurrency(item, {currency, locales: currentLang})}
         chartConfig={{
           backgroundGradientFrom: theme.colors.primary,
           backgroundGradientTo: theme.colors.grey5,

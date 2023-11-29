@@ -100,3 +100,8 @@ type PayoutCommissionProps = {
   }
   mfa_code: string
 }
+
+type AssetsRateProps = {
+  asset: string
+  target_asset: string
+}

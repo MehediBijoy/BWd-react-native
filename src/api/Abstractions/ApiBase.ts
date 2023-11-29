@@ -7,6 +7,7 @@ export type ApiBaseProps = {
   baseURL: string
   commonHeaders: {
     Authorization?: string
+    lang: string
   }
   onAction?: () => void
   timeout?: number

@@ -18,6 +18,7 @@ import {
   ProceedMfaProps,
   PayoutCommissionProps,
   UserDeleteProps,
+  AssetsRateProps,
 } from './Request'
 import ApiBase, {ApiBaseProps} from './Abstractions/ApiBase'
 import {
@@ -39,6 +40,8 @@ import {
   CommissionPayout,
   ReferralAccount,
   PaymentService,
+  AssetLatestPrices,
+  AssetRates,
 } from './Response'
 
 export default class ApiMethods extends ApiBase {
@@ -182,9 +185,17 @@ export default class ApiMethods extends ApiBase {
     return asset
   }
 
+  async getAssetLatestPrices(currency: string): Promise<AssetLatestPrices> {
+    return await this.get(`/assets/latest?vs_currency=${currency}`)
+  }
+
   async getDynamicFees(): Promise<DynamicFee[]> {
     const {dynamic_fees} = await this.get<{dynamic_fees: DynamicFee[]}>('/dynamic_fees')
     return dynamic_fees
+  }
+
+  async getAssetRates(params: AssetsRateProps): Promise<AssetRates[]> {
+    return await this.get('/payments/rates', params)
   }
 
   // payments API
