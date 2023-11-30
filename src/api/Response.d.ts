@@ -153,7 +153,8 @@ type Payment<Tdata = null> = {
   dynamic_fee_amount: string
   dynamic_fee_percentage: string
   expires_at: string
-  paid_amount: string
+  paid_amount_number: string
+  paid_amount_currency: string
   payment_rate: string
   payment_type: string
   payment_data: {
@@ -166,7 +167,8 @@ type Payment<Tdata = null> = {
       method: 'GET' | 'POST'
     }[]
   }
-  received_amount: string
+  received_amount_number: string
+  received_amount_currency: string
   static_fee_amount: string
   status: Status | 'confirmed'
   status_reason: string
