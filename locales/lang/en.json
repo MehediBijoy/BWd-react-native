@@ -738,5 +738,35 @@
   },
   "schema": {
     "invalid-address": "Invalid address"
+  },
+  "bankTransfer": {
+    "orders": {
+      "title": "Your Order",
+      "totalPurchase": "Total Purchase",
+      "pricePerBWG": "Price per BWG",
+      "total": "Total",
+      "paymentBy": "Payment By",
+      "method": "Bank Transfer",
+      "deposit": "Deposit To",
+      "bwg": "BrettonWoods digital Gold",
+      "btn": "Confirm"
+    },
+    "paymentInfo": {
+      "title": "Your Order Summary",
+      "total": "Total Price",
+      "bankTransfer": "Bank Transfer Payment",
+      "btn": "Download bank transfer details",
+      "details": "Account details for Bank transfer",
+      "name": "Account Name",
+      "ibn": "IBAN",
+      "bic": "BIC",
+      "number": "Account No.",
+      "bankName": "Bank Name",
+      "address": "Bank Address",
+      "ref": "Reference :",
+      "orderID": "Order ID",
+      "noteTitle": "Note:",
+      "note": "Kindly deposit money within the next 14 days Otherwise we can reject your purchase."
+    }
   }
 }

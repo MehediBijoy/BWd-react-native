@@ -1,10 +1,165 @@
-import {Text} from '@rneui/themed'
-import {View} from 'react-native'
+import {ScrollView, View} from 'react-native'
+import {useTranslation} from 'react-i18next'
+import {Text, makeStyles, Divider} from '@rneui/themed'
 
-const PaymentInformation = () => (
-  <View>
-    <Text>This is the payment information page </Text>
-  </View>
-)
+import InfoMessage from '@core/InfoMessage'
+import ContentContainer from '@core/ContentContainer'
 
+import {useCurrency} from 'hooks/states'
+import PaymentIcon from 'images/icons/Payment.svg'
+
+const PaymentInformation = () => {
+  const styles = useStyles()
+  const {t} = useTranslation()
+  const {currency} = useCurrency()
+  return (
+    <ScrollView>
+      <ContentContainer>
+        <Text h4 h4Style={{marginTop: 20, fontWeight: '600'}}>
+          {t('bankTransfer.paymentInfo.title')}
+        </Text>
+        <View style={[styles.summary, styles.borderLeft]}>
+          <View style={styles.grid}>
+            <Text style={styles.subTittle}>{t('bankTransfer.orders.totalPurchase')}</Text>
+            <Text style={styles.valueText}>2 BWG</Text>
+          </View>
+          <View style={[styles.grid, styles.lineHeight]}>
+            <Text style={styles.subTittle}>{t('bankTransfer.paymentInfo.total')}</Text>
+            <Text style={styles.valueText}>70.72 {currency}</Text>
+          </View>
+        </View>
+        <View
+          style={[
+            styles.summary,
+            {marginTop: 40, flexDirection: 'row', alignItems: 'center', gap: 10},
+          ]}
+        >
+          <PaymentIcon height={30} width={30} />
+          <Text style={styles.title}>{t('bankTransfer.paymentInfo.bankTransfer')}</Text>
+        </View>
+
+        <View style={styles.details}>
+          <Text style={{marginTop: 30}}>{t('bankTransfer.paymentInfo.details')}</Text>
+
+          <View style={styles.detailsGrid}>
+            <Text style={styles.smallTittle}>{t('bankTransfer.paymentInfo.name')}</Text>
+            <Text style={styles.smallText}>{t('bankTransfer.orders.bwg')}</Text>
+          </View>
+          <Divider width={2} />
+
+          <View style={styles.detailsGrid}>
+            <Text style={styles.smallTittle}>{t('bankTransfer.paymentInfo.ibn')}</Text>
+            <Text style={styles.smallText}>CH93 0076 2011 6238 5295 7</Text>
+          </View>
+          <Divider width={2} />
+
+          <View style={styles.detailsGrid}>
+            <Text style={styles.smallTittle}>{t('bankTransfer.paymentInfo.bic')}</Text>
+            <Text style={styles.smallText}>BQBHCHGGXXX</Text>
+          </View>
+          <Divider width={2} />
+
+          <View style={styles.detailsGrid}>
+            <Text style={styles.smallTittle}>{t('bankTransfer.paymentInfo.number')}</Text>
+            <Text style={styles.smallText}>85520364</Text>
+          </View>
+          <Divider width={2} />
+
+          <View style={styles.detailsGrid}>
+            <Text style={styles.smallTittle}>{t('bankTransfer.paymentInfo.bankName')}</Text>
+            <Text style={styles.smallText}>Bank Frick</Text>
+          </View>
+          <Divider width={2} />
+
+          <View style={styles.detailsGrid}>
+            <Text style={[styles.smallTittle, {width: 150}]}>
+              {t('bankTransfer.paymentInfo.address')}
+            </Text>
+            <Text style={styles.smallText}>Landstrasse 14, 9496 Balzers, Liechtenstein </Text>
+          </View>
+          <Divider width={2} />
+
+          <Text style={(styles.valueText, {marginTop: 20})}>
+            {t('bankTransfer.paymentInfo.ref')}
+          </Text>
+          <View style={[styles.detailsGrid, {marginTop: 10}]}>
+            <Text style={styles.smallTittle}>{t('bankTransfer.paymentInfo.orderID')}</Text>
+            <Text style={styles.smallText}>#2256</Text>
+          </View>
+        </View>
+
+        <View style={styles.notificationBox}>
+          <Text>{t('bankTransfer.paymentInfo.noteTitle')}</Text>
+          <Text>{t('bankTransfer.paymentInfo.note')}</Text>
+        </View>
+
+        {/* <View style={{marginBottom: 20, marginTop: 20}}>
+          <InfoMessage message={t('bankTransfer.paymentInfo.note')} variant='info' />
+        </View> */}
+      </ContentContainer>
+    </ScrollView>
+  )
+}
 export default PaymentInformation
+
+const useStyles = makeStyles(({colors}) => ({
+  summary: {
+    marginTop: 20,
+    marginLeft: 20,
+  },
+  details: {
+    marginLeft: 30,
+    marginRight: 30,
+  },
+  lineHeight: {
+    marginTop: 10,
+  },
+  borderLeft: {
+    borderLeftColor: colors.primary,
+    borderLeftWidth: 4,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: '800',
+  },
+  grid: {
+    flexDirection: 'row',
+    flex: 1,
+    flexWrap: 'wrap',
+    columnGap: 50,
+    marginLeft: 15,
+  },
+  subTittle: {
+    color: colors.textGray,
+    fontSize: 16,
+    width: 110,
+  },
+  valueText: {
+    fontSize: 16,
+    fontWeight: '800',
+  },
+  detailsGrid: {
+    flexDirection: 'row',
+    columnGap: 10,
+    marginLeft: 5,
+    marginTop: 20,
+    marginBottom: 10,
+    alignItems: 'center',
+  },
+  smallTittle: {
+    color: colors.textGray,
+    fontSize: 12,
+    width: 100,
+  },
+  smallText: {
+    fontSize: 12,
+    fontWeight: '800',
+  },
+  notificationBox: {
+    borderRadius: 8,
+    marginTop: 60,
+    borderWidth: 1,
+    padding: 15,
+    borderColor: colors.warning,
+  },
+}))

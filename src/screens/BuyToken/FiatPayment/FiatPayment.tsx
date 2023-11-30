@@ -10,14 +10,14 @@ import Modal from '@core/Modal'
 import SafeAreaView from '@core/SafeAreaView'
 
 import {useApi} from 'hooks/api'
+import {formatCurrency} from 'utils'
 import {useDebounce} from 'hooks/helper'
 import {PaymentProps} from 'api/Request'
 import {EstimateFee, Payment} from 'api/Response'
 import {useCurrency, useLocales} from 'hooks/states'
-import {formatCurrency} from 'utils'
+import {RouteStack} from 'navigators/routes'
 
 import PaypalView from '../PaypalView'
-import {RouteStack} from 'navigators/routes'
 
 type FiatPaymentModalProps = {
   estimateFees: EstimateFee
@@ -28,10 +28,10 @@ type FiatPaymentModalProps = {
 
 const FiatPaymentModal = ({estimateFees, isOpened, onClose, in_base}: FiatPaymentModalProps) => {
   const api = useApi()
-  const {currentLang} = useLocales()
-  const {currency} = useCurrency()
-  const {t} = useTranslation()
   const styles = useStyles()
+  const {t} = useTranslation()
+  const {currency} = useCurrency()
+  const {currentLang} = useLocales()
   const navigation = useNavigation<NavigationProp<RouteStack>>()
 
   const {isConnected} = useWalletConnectModal()
@@ -113,7 +113,10 @@ const FiatPaymentModal = ({estimateFees, isOpened, onClose, in_base}: FiatPaymen
       <Button
         title='Bank transfer test'
         containerStyle={{marginTop: 10}}
-        onPress={() => navigation.navigate('OrderSummary')}
+        onPress={() => {
+          onClose()
+          navigation.navigate('OrderSummary')
+        }}
       />
 
       {createOrder.data && (

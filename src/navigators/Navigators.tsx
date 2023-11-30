@@ -142,6 +142,7 @@ const Navigators = () => {
           component={PaymentInformation}
           options={{
             title: t('navigation.items.paymentInformation'),
+            // headerBackVisible: false,
           }}
         />
       </Stack.Group>

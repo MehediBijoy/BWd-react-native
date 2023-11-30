@@ -67,10 +67,10 @@ const DrawerNavigator = () => {
           component={TabNavigator}
           options={{
             title: t('navigation.items.dashboard'),
-            drawerIcon: props => <Icon name='dashboard' {...props} />,
-            // drawerIcon: ({size, color, ...props}) => (
-            //   <HomeIcon height={size} width={size} fill={color} {...props} />
-            // ),
+            // drawerIcon: props => <Icon name='dashboard' {...props} />,
+            drawerIcon: ({size, color, ...props}) => (
+              <HomeIcon height={size} width={size} fill={color} {...props} />
+            ),
           }}
         />
 
