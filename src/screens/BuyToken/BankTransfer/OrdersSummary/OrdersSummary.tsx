@@ -2,14 +2,29 @@ import {useTranslation} from 'react-i18next'
 import {View, ScrollView} from 'react-native'
 import {Text, Button, makeStyles} from '@rneui/themed'
 import LinearGradient from 'react-native-linear-gradient'
-import {useNavigation, NavigationProp} from '@react-navigation/native'
+import {useNavigation, NavigationProp, useRoute, RouteProp} from '@react-navigation/native'
 
 import ContentContainer from '@core/ContentContainer'
 
-import {useCurrency} from 'hooks/states'
-import PaymentIcon from 'images/icons/Payment.svg'
+import {useCurrency, useLocales} from 'hooks/states'
+import PaymentIcon from 'images/icons/Bank.svg'
 import DepositIcon from 'images/icons/Deposit.svg'
-import {RouteStack} from 'navigators/routes'
+import {EstimateFee} from 'api/Response'
+import {formatCurrency} from 'utils'
+
+type RootStackParamList = {
+  OrderSummary: {
+    estimateFees: EstimateFee
+    inBase: boolean
+  }
+}
+
+type PaymentParamsList = {
+  PaymentInformation: {
+    estimateFees: EstimateFee
+    inBase: boolean
+  }
+}
 
 const LineDesign = () => {
   const styles = useStyles()
@@ -35,7 +50,13 @@ const OrderSummary = () => {
   const styles = useStyles()
   const {t} = useTranslation()
   const {currency} = useCurrency()
-  const navigation = useNavigation<NavigationProp<RouteStack>>()
+  const {currentLang} = useLocales()
+  const navigation = useNavigation<NavigationProp<PaymentParamsList, 'PaymentInformation'>>()
+  const route = useRoute<RouteProp<RootStackParamList, 'OrderSummary'>>()
+  const {estimateFees, inBase} = route.params
+
+  console.log('this is the estimate Fees-->', estimateFees)
+  console.log('this is inBase-->', inBase)
 
   return (
     <ScrollView>
@@ -47,11 +68,15 @@ const OrderSummary = () => {
         <View style={styles.orderContainer}>
           <View style={styles.grid}>
             <Text style={styles.subTittle}>{t('bankTransfer.orders.totalPurchase')}</Text>
-            <Text style={styles.valueText}>2 BWG</Text>
+            <Text style={styles.valueText}>
+              {parseFloat(estimateFees?.received_amount).toFixed(4)} BWG
+            </Text>
           </View>
           <View style={[styles.grid, styles.lineHeight]}>
             <Text style={styles.subTittle}>{t('bankTransfer.orders.pricePerBWG')}</Text>
-            <Text style={styles.valueText}>70.72 {currency}</Text>
+            <Text style={styles.valueText}>
+              {parseFloat(estimateFees?.total_rate).toFixed(4)} {currency}
+            </Text>
           </View>
           <LineDesign />
         </View>
@@ -59,7 +84,14 @@ const OrderSummary = () => {
         <View style={styles.orderContainer}>
           <View style={[styles.grid, styles.borderLeft]}>
             <Text style={styles.totalText}>{t('bankTransfer.orders.total')}</Text>
-            <Text style={styles.totalText}>3320.50 {currency}</Text>
+            <Text style={styles.totalText}>
+              {estimateFees?.total_amount &&
+                formatCurrency(estimateFees?.total_amount, {
+                  currency,
+                  locales: currentLang,
+                })}{' '}
+              {currency}
+            </Text>
           </View>
           <LineDesign />
         </View>
@@ -82,7 +114,10 @@ const OrderSummary = () => {
           title={t('bankTransfer.orders.btn')}
           containerStyle={{marginTop: 100}}
           onPress={() => {
-            navigation.navigate('PaymentInformation')
+            navigation.navigate('PaymentInformation', {
+              estimateFees: estimateFees,
+              inBase: inBase,
+            })
           }}
         />
       </ContentContainer>

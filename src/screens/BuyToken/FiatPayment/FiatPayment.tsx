@@ -15,7 +15,6 @@ import {useDebounce} from 'hooks/helper'
 import {PaymentProps} from 'api/Request'
 import {EstimateFee, Payment} from 'api/Response'
 import {useCurrency, useLocales} from 'hooks/states'
-import {RouteStack} from 'navigators/routes'
 
 import PaypalView from '../PaypalView'
 
@@ -25,6 +24,12 @@ type FiatPaymentModalProps = {
   onClose: () => void
   in_base: boolean
 }
+type RootStackParamList = {
+  OrderSummary: {
+    estimateFees: EstimateFee
+    inBase: boolean
+  }
+}
 
 const FiatPaymentModal = ({estimateFees, isOpened, onClose, in_base}: FiatPaymentModalProps) => {
   const api = useApi()
@@ -32,7 +37,7 @@ const FiatPaymentModal = ({estimateFees, isOpened, onClose, in_base}: FiatPaymen
   const {t} = useTranslation()
   const {currency} = useCurrency()
   const {currentLang} = useLocales()
-  const navigation = useNavigation<NavigationProp<RouteStack>>()
+  const navigation = useNavigation<NavigationProp<RootStackParamList, 'OrderSummary'>>()
 
   const {isConnected} = useWalletConnectModal()
 
@@ -115,7 +120,10 @@ const FiatPaymentModal = ({estimateFees, isOpened, onClose, in_base}: FiatPaymen
         containerStyle={{marginTop: 10}}
         onPress={() => {
           onClose()
-          navigation.navigate('OrderSummary')
+          navigation.navigate('OrderSummary', {
+            estimateFees: estimateFees,
+            inBase: in_base,
+          })
         }}
       />
 

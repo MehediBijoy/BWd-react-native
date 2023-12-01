@@ -134,6 +134,7 @@ type EstimateFee = {
   received_amount: string
   static_fee_amount: string
   total_amount: string
+  total_rate: string
   total_fee_amount: string
   usd_total_amount: string
   usd_total_fee: string
