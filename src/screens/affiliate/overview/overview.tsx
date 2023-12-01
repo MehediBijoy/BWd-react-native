@@ -8,7 +8,8 @@ import Loader from '@core/Loader'
 
 import {cacheKey} from 'api'
 import {useApi} from 'hooks/api'
-import {alpha} from 'utils'
+import {useLocales} from 'hooks/states'
+import {alpha, formatCurrency} from 'utils'
 import {useAssets, useProfile} from 'hooks/helper'
 import FiatImg from 'images/affiliates/fiat.svg'
 import TotalCommissionImg from 'images/affiliates/total_commission_lifetime.svg'
@@ -28,7 +29,7 @@ type ReferralBoxProps = {
   icon: React.ReactNode
 }
 
-const ReferralBox = ({label, price, isLoading, fiat, icon, bgColor}: ReferralBoxProps) => {
+const ReferralBox = ({label, price, isLoading, icon, bgColor}: ReferralBoxProps) => {
   const styles = useStyles()
   return (
     <View style={styles.grid}>
@@ -36,11 +37,7 @@ const ReferralBox = ({label, price, isLoading, fiat, icon, bgColor}: ReferralBox
         <Text style={styles.subTitle}>{label}</Text>
         <View style={[styles.imageWrapper, {backgroundColor: bgColor}]}>{icon}</View>
       </View>
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <Text style={styles.priceText}>{fiat ? `$${price}` : `${price} BWG`}</Text>
-      )}
+      {isLoading ? <Loader /> : <Text style={styles.priceText}>{price}</Text>}
     </View>
   )
 }
@@ -50,6 +47,7 @@ const Overview = () => {
   const styles = useStyles()
   const {profile} = useProfile()
   const {t} = useTranslation()
+  const {currentLang} = useLocales()
   const {data: bwgPrice, isLoading: bwgILoading} = useAssets('BWG')
   const [isShowAll, setIsShowAll] = React.useState(false)
 
@@ -66,16 +64,28 @@ const Overview = () => {
         icon={<FiatImg height={20} width={20} />}
         bgColor='rgba(229, 80, 80, 0.20)'
         label={t('affiliate.overview.fiat')}
-        price={bwgPrice && (Number(data?.current_balance) * Number(bwgPrice?.price)).toFixed(4)}
+        price={
+          bwgPrice &&
+          formatCurrency(Number(data?.current_balance) * Number(bwgPrice?.price), {
+            locales: currentLang,
+            maximumFractionDigits: 2,
+          })
+        }
         isLoading={isLoading || bwgILoading}
-        fiat
       />
 
       <ReferralBox
         icon={<TotalCommissionImg height={20} width={20} />}
         bgColor='rgba(110, 255, 0, 0.20)'
         label={t('affiliate.lifeTimeCommission')}
-        price={data?.total_income}
+        price={
+          data &&
+          formatCurrency(data.total_income, {
+            locales: currentLang,
+            currency: 'BWG',
+            maximumFractionDigits: 4,
+          })
+        }
         isLoading={isLoading}
       />
 
@@ -85,7 +95,14 @@ const Overview = () => {
             icon={<DirectImg height={20} width={20} />}
             bgColor='rgba(163, 198, 233, 0.2)'
             label={t('affiliate.overview.direct')}
-            price={data?.total_direct}
+            price={
+              data &&
+              formatCurrency(data.total_direct, {
+                locales: currentLang,
+                currency: 'BWG',
+                maximumFractionDigits: 4,
+              })
+            }
             isLoading={isLoading}
           />
 
@@ -93,7 +110,14 @@ const Overview = () => {
             icon={<UnilevelImg height={20} width={20} />}
             bgColor='rgba(21, 193, 170, 0.20)'
             label={t('affiliate.overview.uniLevel')}
-            price={data?.total_unilevel}
+            price={
+              data &&
+              formatCurrency(data.total_unilevel, {
+                locales: currentLang,
+                currency: 'BWG',
+                maximumFractionDigits: 4,
+              })
+            }
             isLoading={isLoading}
           />
 
@@ -101,7 +125,14 @@ const Overview = () => {
             icon={<PayedOutImg height={20} width={20} />}
             bgColor='rgba(216, 189, 124, 0.20)'
             label={t('affiliate.overview.payedOut')}
-            price={data?.total_payout}
+            price={
+              data &&
+              formatCurrency(data.total_payout, {
+                locales: currentLang,
+                currency: 'BWG',
+                maximumFractionDigits: 4,
+              })
+            }
             isLoading={isLoading}
           />
 
@@ -109,7 +140,14 @@ const Overview = () => {
             icon={<AvailableImg height={20} width={20} />}
             bgColor='rgba(169, 213, 108, 0.20)'
             label={t('affiliate.overview.available')}
-            price={data?.current_balance}
+            price={
+              data &&
+              formatCurrency(data.current_balance, {
+                locales: currentLang,
+                currency: 'BWG',
+                maximumFractionDigits: 4,
+              })
+            }
             isLoading={isLoading}
           />
         </>

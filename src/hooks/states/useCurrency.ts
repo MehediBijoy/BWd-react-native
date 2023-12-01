@@ -2,21 +2,21 @@ import {create} from 'zustand'
 import {persist, createJSONStorage} from 'zustand/middleware'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-import {CurrencyTypes, availableCurrency} from 'constants/currency.config'
+import {FiatCurrencyTypes, availableFiatCurrency} from 'constants/currency.config'
 
 interface IState {
-  default: CurrencyTypes
-  currency: CurrencyTypes
+  default: FiatCurrencyTypes
+  currency: FiatCurrencyTypes
   available: readonly string[]
-  onChange: (currency: CurrencyTypes) => void
+  onChange: (currency: FiatCurrencyTypes) => void
 }
 
 const useCurrency = create<IState>()(
   persist(
     set => ({
-      default: availableCurrency[0],
-      currency: availableCurrency[0],
-      available: availableCurrency,
+      default: availableFiatCurrency[0],
+      currency: availableFiatCurrency[0],
+      available: availableFiatCurrency,
       onChange: currency => set(states => ({...states, currency})),
     }),
     {
