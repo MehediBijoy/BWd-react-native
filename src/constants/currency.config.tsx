@@ -3,10 +3,14 @@ import {Icon} from '@rneui/themed'
 
 import type {PlatformType} from 'hooks/helper/usePlatform'
 
-export const availableCurrency = ['USD', 'EUR'] as const
-export type CurrencyTypes = (typeof availableCurrency)[number]
+export const availableFiatCurrency = ['USD', 'EUR'] as const
+export type FiatCurrencyTypes = (typeof availableFiatCurrency)[number]
+export const fiatCurrencySymbol: {[key in FiatCurrencyTypes]: string} = {
+  USD: '$',
+  EUR: '€',
+}
 
-export const regionalCurrencies: {[key in PlatformType]: CurrencyTypes[]} = {
+export const regionalCurrencies: {[key in PlatformType]: FiatCurrencyTypes[]} = {
   US: ['USD'],
   EU: ['USD', 'EUR'],
 }
@@ -35,8 +39,8 @@ const styles = StyleSheet.create({
 })
 
 export const currencyConfig: {
-  [key in CurrencyTypes]: {
-    id: CurrencyTypes
+  [key in FiatCurrencyTypes]: {
+    id: FiatCurrencyTypes
     label: string
     icon: JSX.Element
   }

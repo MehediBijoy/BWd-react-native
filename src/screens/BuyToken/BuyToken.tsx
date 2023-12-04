@@ -18,7 +18,6 @@ import {PaymentProps} from 'api/Request'
 import {useCurrency} from 'hooks/states'
 import {useDebounce, useAssets} from 'hooks/helper'
 
-import CurrencySelect from './CurrencySelector'
 import TierOverviewModal from './TierFeesModal'
 import FiatPaymentModal from './FiatPayment/FiatPayment'
 
@@ -37,7 +36,6 @@ const BuyToken = () => {
   const {total} = methods.getValues()
   const [inBase, setInBase] = useState<boolean>(false)
   const [isOpened, setIsOpened] = useState<boolean>(false)
-  const [isOpenedCurrency, setIsOpenedCurrency] = useState<boolean>(false)
   const [isFiatModalOpened, setIsFiatModalOpened] = useState<boolean>(false)
 
   const {
@@ -87,7 +85,6 @@ const BuyToken = () => {
     queryKey: [cacheKey.checkPaymentService],
     initialData: () => ({status: 'enabled', success: false}),
     refetchInterval: 3000,
-    enabled: false,
   })
 
   const isActiveService = React.useMemo<boolean | undefined>(
@@ -131,9 +128,6 @@ const BuyToken = () => {
                   style={styles.currency}
                 />
               }
-              // rightElement={
-              //   <Icon name='change-circle' size={40} onPress={() => setIsOpenedCurrency(true)} />
-              // }
               editable={isActiveService}
             />
 
@@ -159,7 +153,6 @@ const BuyToken = () => {
           </Form>
         </View>
       </ContainContainer>
-      <CurrencySelect isOpened={isOpenedCurrency} onClose={() => setIsOpenedCurrency(false)} />
       <FiatPaymentModal
         isOpened={isFiatModalOpened}
         onClose={() => setIsFiatModalOpened(false)}

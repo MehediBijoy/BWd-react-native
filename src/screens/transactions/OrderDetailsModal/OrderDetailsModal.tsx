@@ -7,9 +7,10 @@ import Modal from '@core/Modal'
 import CopyButton from '@core/CopyButton'
 import StatusBadge from '@core/StatusBadge'
 
+import {useLocales} from 'hooks/states'
 import {chain} from 'constants/wallet.config'
 import {Payment, Transfer} from 'api/Response'
-import {formatDate, shortAddress} from 'utils'
+import {formatDate, formatNumber, shortAddress} from 'utils'
 
 export type OrderDetailsModalProps = {
   isOpened: boolean
@@ -20,6 +21,7 @@ export type OrderDetailsModalProps = {
 const OrderDetailsModal = ({data, isOpened, onClose}: OrderDetailsModalProps) => {
   const {t} = useTranslation()
   const styles = useStyles()
+  const {currentLang} = useLocales()
 
   const onExplorerClicked = (txHash: string) => {
     Linking.openURL(chain.blockExplorers?.default.url + '/tx/' + txHash)
@@ -37,7 +39,7 @@ const OrderDetailsModal = ({data, isOpened, onClose}: OrderDetailsModalProps) =>
             <Text style={styles.label}>
               {t('trade.table.headers.order') + ' ' + t('trade.table.headers.id')}
             </Text>
-            <Text>{data?.id}</Text>
+            <Text>#{data?.id}</Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.label}>{t('trade.table.headers.tradePair')}</Text>
@@ -45,11 +47,17 @@ const OrderDetailsModal = ({data, isOpened, onClose}: OrderDetailsModalProps) =>
           </View>
           <View style={styles.row}>
             <Text style={styles.label}>{t('trade.table.headers.paid')}</Text>
-            <Text style={styles.labelRight}>{data.paid_amount}</Text>
+            <Text style={styles.labelRight}>
+              {formatNumber(data.paid_amount_number, {locales: currentLang})}{' '}
+              {data.paid_amount_currency}
+            </Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.label}>{t('trade.table.headers.received')} </Text>
-            <Text style={styles.labelRight}>{data.received_amount}</Text>
+            <Text style={styles.labelRight}>
+              {formatNumber(data.received_amount_number, {locales: currentLang})}{' '}
+              {data.received_amount_currency}
+            </Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.label}>{t('trade.table.headers.paymentType')} </Text>
@@ -114,7 +122,10 @@ const OrderDetailsModal = ({data, isOpened, onClose}: OrderDetailsModalProps) =>
           <View style={styles.row}>
             <Text style={styles.label}>{t('trade.table.headers.paymentStatus')}</Text>
             <Text style={[styles.labelRight]}>
-              <StatusBadge status={data.status ?? 'accepted'} label={data.status} />
+              <StatusBadge
+                status={data.status ?? 'accepted'}
+                label={t(`trade.orderStatuses.${data.status}`)}
+              />
             </Text>
           </View>
 
@@ -132,7 +143,9 @@ const OrderDetailsModal = ({data, isOpened, onClose}: OrderDetailsModalProps) =>
                 <Text style={[styles.labelRight]}>
                   <StatusBadge
                     status={data.transfer.status ? data.transfer.status : 'accepted'}
-                    label={data.transfer.status ?? '-'}
+                    label={
+                      data.transfer.status ? t(`trade.orderStatuses.${data.transfer.status}`) : '-'
+                    }
                   />
                 </Text>
               </View>

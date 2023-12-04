@@ -15,9 +15,10 @@ import StatusBadge from '@core/StatusBadge'
 
 import {useApi} from 'hooks/api'
 import {cacheKey} from 'api/CacheKey'
-import {useProfile, usePlatform} from 'hooks/helper'
-import {shorten} from 'utils'
+import {useLocales} from 'hooks/states'
+import {formatNumber, shorten} from 'utils'
 import {ReferralStats} from 'api/Response'
+import {useProfile, usePlatform} from 'hooks/helper'
 import {LegalStuff} from 'constants/legalStuff.config'
 import ShareImg from 'images/affiliates/share.svg'
 
@@ -30,6 +31,7 @@ const ReferralTable = () => {
   const {theme} = useTheme()
   const {profile} = useProfile()
   const {APP_URL} = usePlatform()
+  const {currentLang} = useLocales()
 
   const [selectedItem, setSelectedItem] = React.useState<ReferralStats>()
 
@@ -95,9 +97,14 @@ const ReferralTable = () => {
                 </Text>
               </View>
               <View style={styles.cellStatus}>
-                <StatusBadge status={item.referral_status} label={item.referral_status} />
+                <StatusBadge
+                  status={item.referral_status}
+                  label={t(`affiliate.statuses.${item.referral_status}`)}
+                />
               </View>
-              <Text style={styles.cellDate}>{item.total_amount}</Text>
+              <Text style={styles.cellDate}>
+                {formatNumber(item.total_amount, {minimumFractionDigits: 4, locales: currentLang})}
+              </Text>
             </TouchableOpacity>
           ))
         )}
