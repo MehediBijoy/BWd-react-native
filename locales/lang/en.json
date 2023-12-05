@@ -100,6 +100,13 @@
       "payedOut": "Total commission payed out",
       "available": "Available account commission",
       "fiat": "Available commission in fiat"
+    },
+    "statuses": {
+      "active": "active",
+      "inactive": "inactive",
+      "investigate": "investigate",
+      "blocked": "blocked",
+      "deleted": "deleted"
     }
   },
   "dashboard": {

@@ -97,6 +97,13 @@
       "payedOut": "Gesamte ausbezahlte Provision",
       "available": "Verfügbare Kontoprovision",
       "fiat": "Verfügbare Provision in Fiat"
+    },
+    "statuses": {
+      "active": "aktiv",
+      "inactive": "inaktiv",
+      "investigate": "untersuchen",
+      "blocked": "blockiert",
+      "deleted": "gelöscht"
     }
   },
   "dashboard": {

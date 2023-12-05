@@ -1,10 +1,10 @@
 import React from 'react'
-import {useMutation} from '@tanstack/react-query'
 import {useTranslation} from 'react-i18next'
-import {View, Modal as NativeModal, TouchableWithoutFeedback, ActivityIndicator} from 'react-native'
-import {Button, Icon, makeStyles, Text} from '@rneui/themed'
+import {useMutation} from '@tanstack/react-query'
+import {Icon, makeStyles, Text} from '@rneui/themed'
 import {useWalletConnectModal} from '@walletconnect/modal-react-native'
 import {useNavigation, NavigationProp} from '@react-navigation/native'
+import {View, Modal as NativeModal, TouchableWithoutFeedback, ActivityIndicator} from 'react-native'
 
 import Modal from '@core/Modal'
 import SafeAreaView from '@core/SafeAreaView'

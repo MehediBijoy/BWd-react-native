@@ -1,6 +1,6 @@
 import {useForm} from 'react-hook-form'
 import {useTranslation} from 'react-i18next'
-import React, {useEffect, useMemo, useState} from 'react'
+import React, {useMemo, useState} from 'react'
 import {useMutation, useQuery} from '@tanstack/react-query'
 import {Text, Button, Icon, makeStyles} from '@rneui/themed'
 import {ActivityIndicator, ScrollView, TouchableWithoutFeedback, View} from 'react-native'
@@ -10,21 +10,30 @@ import FormInput from '@core/FormInput'
 import InfoMessage from '@core/InfoMessage'
 import ContainContainer from '@core/ContentContainer'
 
+import {alpha} from 'utils'
 import {cacheKey} from 'api'
 import Logo from 'components/Logo'
 import useApi from 'hooks/api/useApi'
 import {EstimateFee} from 'api/Response'
 import {PaymentProps} from 'api/Request'
 import {useCurrency} from 'hooks/states'
-import {useDebounce, useAssets} from 'hooks/helper'
+import {AllCurrencyType} from 'constants/currency.config'
+import {useDebounce, useAssets, usePlatform} from 'hooks/helper'
 
-import CurrencySelect from './CurrencySelector'
 import TierOverviewModal from './TierFeesModal'
 import FiatPaymentModal from './FiatPayment/FiatPayment'
+import CurrencySelect from './CurrencySelector/CurrencySelector'
+import {getCurrencyConfig} from './currencySelector.config'
 
 type BuyBoxFields = {
   amount: string
   total: string
+}
+
+type currencyType = {
+  id: AllCurrencyType
+  label: string
+  icon: JSX.Element
 }
 
 const BuyToken = () => {
@@ -32,13 +41,22 @@ const BuyToken = () => {
   const styles = useStyles()
   const {t} = useTranslation()
   const {currency} = useCurrency()
+  const {platform} = usePlatform()
   const {data: bwgLimit} = useAssets('BWG')
   const methods = useForm<BuyBoxFields>()
   const {total} = methods.getValues()
   const [inBase, setInBase] = useState<boolean>(false)
   const [isOpened, setIsOpened] = useState<boolean>(false)
-  const [isOpenedCurrency, setIsOpenedCurrency] = useState<boolean>(false)
   const [isFiatModalOpened, setIsFiatModalOpened] = useState<boolean>(false)
+  const [isOpenedCurrency, setIsOpenedCurrency] = useState<boolean>(false)
+  const [defaultCurrency, setDefaultCurrency] = useState<AllCurrencyType>(currency)
+
+  const currencyConfig = getCurrencyConfig(platform)
+
+  const selectedCurrency: currencyType = useMemo(
+    () => currencyConfig.find(item => item.id === defaultCurrency),
+    [currencyConfig, defaultCurrency]
+  )
 
   const {
     mutate,
@@ -47,7 +65,7 @@ const BuyToken = () => {
   } = useMutation<EstimateFee, unknown, Partial<PaymentProps>>({
     mutationFn: ({amount, in_base}) =>
       api.getEstimateFee({
-        asset: currency,
+        asset: selectedCurrency.id,
         target_asset: 'BWG',
         amount: amount as string,
         in_base: in_base as boolean,
@@ -78,16 +96,11 @@ const BuyToken = () => {
     return value >= minPaymentAmount && value <= maxPaymentAmount
   }, [total, bwgLimit])
 
-  useEffect(() => {
-    methods.reset()
-  }, [currency, methods])
-
   const {data: paymentService} = useQuery({
     queryFn: api.checkPaymentService,
     queryKey: [cacheKey.checkPaymentService],
     initialData: () => ({status: 'enabled', success: false}),
     refetchInterval: 3000,
-    enabled: false,
   })
 
   const isActiveService = React.useMemo<boolean | undefined>(
@@ -116,9 +129,19 @@ const BuyToken = () => {
             />
           )}
 
-          <TouchableWithoutFeedback>
-            <View>
-              <Text>USDT</Text>
+          <TouchableWithoutFeedback onPress={() => setIsOpenedCurrency(true)}>
+            <View style={styles.selectContainer}>
+              <View style={styles.selectLeft}>
+                {selectedCurrency?.icon}
+                <Text style={styles.currencyText}>{selectedCurrency?.label}</Text>
+              </View>
+              <View>
+                {isOpenedCurrency ? (
+                  <Icon name='chevron-thin-up' type='entypo' size={20} color='#787878' />
+                ) : (
+                  <Icon name='chevron-thin-down' type='entypo' size={20} color='#787878' />
+                )}
+              </View>
             </View>
           </TouchableWithoutFeedback>
 
@@ -129,18 +152,7 @@ const BuyToken = () => {
               keyboardType='numeric'
               placeholder={t('dashboard.buy.enterAmount')}
               onChangeText={value => onChange(value, true)}
-              leftElement={
-                <Icon
-                  name={currency === 'USD' ? 'dollar' : 'euro'}
-                  type='font-awesome'
-                  size={18}
-                  color='white'
-                  style={styles.currency}
-                />
-              }
-              rightElement={
-                <Icon name='change-circle' size={40} onPress={() => setIsOpenedCurrency(true)} />
-              }
+              leftElement={selectedCurrency?.icon}
               editable={isActiveService}
             />
 
@@ -166,7 +178,11 @@ const BuyToken = () => {
           </Form>
         </View>
       </ContainContainer>
-      <CurrencySelect isOpened={isOpenedCurrency} onClose={() => setIsOpenedCurrency(false)} />
+      <CurrencySelect
+        isOpened={isOpenedCurrency}
+        onClose={() => setIsOpenedCurrency(false)}
+        onPress={setDefaultCurrency}
+      />
       <FiatPaymentModal
         isOpened={isFiatModalOpened}
         onClose={() => setIsFiatModalOpened(false)}
@@ -184,7 +200,7 @@ const useStyles = makeStyles(({colors}) => ({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 15,
-    backgroundColor: '#399fff',
+    backgroundColor: '#389FFF',
     marginRight: 10,
   },
   tierLink: {
@@ -192,6 +208,26 @@ const useStyles = makeStyles(({colors}) => ({
     color: colors.tertiary,
     marginRight: 5,
     width: 'auto',
+  },
+  selectContainer: {
+    height: 45,
+    borderColor: alpha(colors.divider, 0.5),
+    borderWidth: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 8,
+  },
+  selectLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    rowGap: 10,
+  },
+  currencyText: {
+    fontSize: 14,
+    fontWeight: '800',
   },
 }))
 

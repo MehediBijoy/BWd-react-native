@@ -9,8 +9,9 @@ import StatusBadge from '@core/StatusBadge'
 import {useApi} from 'hooks/api'
 import {OrderHistory} from 'api/Response'
 import {cacheKey} from 'api/CacheKey'
-import {formatDate} from 'utils'
 import {useSocket} from 'hooks/helper'
+import {useLocales} from 'hooks/states'
+import {formatDate, formatNumber} from 'utils'
 
 import OrderDetailsModal from './OrderDetailsModal'
 
@@ -20,6 +21,7 @@ const TransactionsHistory = () => {
   const {theme} = useTheme()
   const styles = useStyles()
   const {subscribe} = useSocket()
+  const {currentLang} = useLocales()
   const queryClient = useQueryClient()
   const [selectedId, setSelectedId] = React.useState<number>()
 
@@ -94,18 +96,20 @@ const TransactionsHistory = () => {
             >
               <View style={styles.cellDetails}>
                 <Text style={[styles.rowText, styles.titleText]}>
-                  #{t('trade.table.headers.order')}: {item.id}
+                  {t('trade.table.headers.order')}: #{item.id}
                 </Text>
                 <Text style={styles.rowText}>
                   <Text style={styles.labelText}>{t('trade.table.headers.paidAmount')}: </Text>
-                  {item.paid_amount}
+                  {formatNumber(item.paid_amount_number, {locales: currentLang})}{' '}
+                  {item.paid_amount_currency}
                 </Text>
                 <Text style={styles.rowText}>
-                  <Text style={styles.labelText}>{t('trade.table.headers.receivedAmount')}:</Text>{' '}
-                  {item.received_amount}
+                  <Text style={styles.labelText}>{t('trade.table.headers.receivedAmount')}: </Text>
+                  {formatNumber(item.received_amount_number, {locales: currentLang})}{' '}
+                  {item.received_amount_currency}
                 </Text>
                 <Text style={styles.rowText}>
-                  <Text style={styles.labelText}>{t('dashboard.buy.confirm.method')}:</Text>{' '}
+                  <Text style={styles.labelText}>{t('dashboard.buy.confirm.method')}: </Text>
                   {item.payment_type}
                 </Text>
               </View>
@@ -115,7 +119,10 @@ const TransactionsHistory = () => {
                     ? t('trade.table.headers.transfer')
                     : t('trade.table.headers.payment')}
                 </Text>
-                <StatusBadge status={item.transfer?.status ?? item.status} />
+                <StatusBadge
+                  status={item.transfer?.status ?? item.status}
+                  label={t(`trade.orderStatuses.${item.transfer?.status ?? item.status}`)}
+                />
               </View>
               <View style={styles.cellDate}>
                 <Text style={styles.rowText}>{formatDate(item.created_at, 'hh:mm A')}</Text>
@@ -165,12 +172,12 @@ const useStyles = makeStyles(({colors}) => ({
     borderBottomRightRadius: 8,
   },
   bodyRow: {
-    height: 90,
+    height: 'auto',
     borderBottomWidth: 1,
     borderColor: colors.divider,
   },
   bottomRow: {
-    height: 90,
+    height: 'auto',
     borderBottomLeftRadius: 8,
     borderBottomRightRadius: 8,
   },

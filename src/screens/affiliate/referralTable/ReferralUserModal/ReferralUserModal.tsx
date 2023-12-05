@@ -5,8 +5,9 @@ import {useTranslation} from 'react-i18next'
 import Modal from '@core/Modal'
 import StatusBadge from '@core/StatusBadge'
 
+import {useLocales} from 'hooks/states'
 import {ReferralStats} from 'api/Response'
-import {formatDate, capitalize} from 'utils'
+import {formatDate, capitalize, formatNumber} from 'utils'
 
 type ReferralModalProps = {
   isOpened: boolean
@@ -31,6 +32,8 @@ const Column = ({label, text, ...rest}: ColumnProps) => (
 
 const ReferralModal = ({isOpened, data, onClose}: ReferralModalProps) => {
   const {t} = useTranslation()
+  const {currentLang} = useLocales()
+
   return (
     <Modal title={t('affiliate.referralModals.modalTitle')} isOpened={isOpened} onClose={onClose}>
       <Column label={t('affiliate.referralModals.name')} text={data.referral_full_name} />
@@ -44,7 +47,10 @@ const ReferralModal = ({isOpened, data, onClose}: ReferralModalProps) => {
         label={t('affiliate.referralModals.accountType')}
         text={capitalize(data.referral_account_type)}
       />
-      <Column label={t('affiliate.referralModals.amount')} text={data.total_amount} />
+      <Column
+        label={t('affiliate.referralModals.amount')}
+        text={formatNumber(data.total_amount, {locales: currentLang, minimumFractionDigits: 4})}
+      />
       <Column
         label={t('affiliate.referralModals.regularUsers')}
         text={data.referral_total_regulars}
@@ -59,7 +65,12 @@ const ReferralModal = ({isOpened, data, onClose}: ReferralModalProps) => {
       />
       <Column
         label={t('affiliate.refTable.status')}
-        text={<StatusBadge status={data.referral_status} label={data.referral_status} />}
+        text={
+          <StatusBadge
+            status={data.referral_status}
+            label={t(`affiliate.statuses.${data.referral_status}`)}
+          />
+        }
       />
     </Modal>
   )

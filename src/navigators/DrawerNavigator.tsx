@@ -1,7 +1,7 @@
 import React from 'react'
 import {View} from 'react-native'
 import {useTranslation} from 'react-i18next'
-import { makeStyles, useTheme} from '@rneui/themed'
+import {makeStyles, useTheme} from '@rneui/themed'
 import {createDrawerNavigator, DrawerScreenProps} from '@react-navigation/drawer'
 import {WalletConnectModal, useWalletConnectModal} from '@walletconnect/modal-react-native'
 
@@ -40,6 +40,7 @@ const DrawerNavigator = () => {
         drawerContent={DrawerContainer}
         screenOptions={({navigation, route}: DrawerScreenProps<RouteStack>) => ({
           headerTitle: '',
+          unmountOnBlur: true,
           headerStyle: styles.shadow,
           drawerLabelStyle: {marginLeft: -25},
           drawerActiveTintColor: colors.tertiary,

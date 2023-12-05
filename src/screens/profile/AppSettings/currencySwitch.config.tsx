@@ -2,14 +2,7 @@ import {StyleSheet} from 'react-native'
 import {Icon} from '@rneui/themed'
 
 import type {PlatformType} from 'hooks/helper/usePlatform'
-
-export const availableCurrency = ['USD', 'EUR'] as const
-export type CurrencyTypes = (typeof availableCurrency)[number]
-
-export const regionalCurrencies: {[key in PlatformType]: CurrencyTypes[]} = {
-  US: ['USD'],
-  EU: ['USD', 'EUR'],
-}
+import {regionalCurrencies, FiatCurrencyTypes} from 'constants/currency.config'
 
 const SIZE = 45
 
@@ -35,8 +28,8 @@ const styles = StyleSheet.create({
 })
 
 export const currencyConfig: {
-  [key in CurrencyTypes]: {
-    id: CurrencyTypes
+  [key in FiatCurrencyTypes]: {
+    id: FiatCurrencyTypes
     label: string
     icon: JSX.Element
   }

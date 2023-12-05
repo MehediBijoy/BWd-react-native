@@ -55,9 +55,6 @@ const OrderSummary = () => {
   const route = useRoute<RouteProp<RootStackParamList, 'OrderSummary'>>()
   const {estimateFees, inBase} = route.params
 
-  console.log('this is the estimate Fees-->', estimateFees)
-  console.log('this is inBase-->', inBase)
-
   return (
     <ScrollView>
       <ContentContainer>

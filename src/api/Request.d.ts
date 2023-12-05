@@ -1,3 +1,5 @@
+import {AllCurrencyType} from 'constants/currency.config'
+
 export type LoginProps = {mfa_code?: string; email: string; password: string}
 export type RegistrationProp = {
   email: string
@@ -41,7 +43,7 @@ export type ReferralProps = {
 }
 
 export type EstimateFeeProps = {
-  asset: string
+  asset: AllCurrencyType
   target_asset: string
   amount: number | string
   in_base?: boolean
