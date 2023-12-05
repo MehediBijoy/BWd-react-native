@@ -3,7 +3,7 @@ import {useTranslation} from 'react-i18next'
 import React, {useEffect, useMemo, useState} from 'react'
 import {useMutation, useQuery} from '@tanstack/react-query'
 import {Text, Button, Icon, makeStyles} from '@rneui/themed'
-import {ActivityIndicator, ScrollView, View} from 'react-native'
+import {ActivityIndicator, ScrollView, TouchableWithoutFeedback, View} from 'react-native'
 
 import Form from '@core/Form'
 import FormInput from '@core/FormInput'
@@ -115,6 +115,13 @@ const BuyToken = () => {
               message='Payment service currently unavailable'
             />
           )}
+
+          <TouchableWithoutFeedback>
+            <View>
+              <Text>USDT</Text>
+            </View>
+          </TouchableWithoutFeedback>
+
           <Form methods={methods} style={{rowGap: 15}}>
             <FormInput
               name='amount'
@@ -131,9 +138,9 @@ const BuyToken = () => {
                   style={styles.currency}
                 />
               }
-              // rightElement={
-              //   <Icon name='change-circle' size={40} onPress={() => setIsOpenedCurrency(true)} />
-              // }
+              rightElement={
+                <Icon name='change-circle' size={40} onPress={() => setIsOpenedCurrency(true)} />
+              }
               editable={isActiveService}
             />
 

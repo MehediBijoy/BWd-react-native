@@ -16,6 +16,7 @@ const CurrencySelect: React.FC<Omit<BottomSheetProps, 'children' | 'title'>> = (
   const {platform} = usePlatform()
   const currencyConfig = getCurrencyConfig(platform)
 
+
   return (
     <BottomSheet
       title='Select Currency'

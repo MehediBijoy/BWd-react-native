@@ -736,5 +736,37 @@
   },
   "schema": {
     "invalid-address": "Ungültige Adresse"
+  },
+  "bankTransfer": {
+    "orders": {
+      "title": "Ihre Bestellung",
+      "totalPurchase": "Gesamteinkauf",
+      "pricePerBWG": "Preis pro BWG",
+      "total": "Gesamt",
+      "paymentBy": "Zahlung per",
+      "method": "Überweisung",
+      "deposit": "Einzahlung auf",
+      "bwg": "BrettonWoods digitales Gold",
+      "btn": "Bestätigen"
+    },
+    "paymentInfo": {
+      "title": "Ihre Bestellübersicht",
+      "total": "Gesamtpreis",
+      "bankTransfer": "Überweisungszahlung",
+      "btn": "Banküberweisungsdetails herunterladen",
+      "details": "Kontodaten für die Banküberweisung",
+      "name": "Kontoinhaber",
+      "ibn": "IBAN",
+      "bic": "BIC",
+      "number": "Kontonummer",
+      "bankName": "Bankname",
+      "address": "Bankadresse",
+      "ref": "Referenz:",
+      "orderID": "Bestellnummer",
+      "noteTitle": "Hinweis:",
+      "note": " Bitte überweisen Sie das Geld innerhalb der nächsten 14 Tage, ansonsten können wir Ihren Kauf ablehnen.",
+      "backToDashboard": "Zurück zum Dashboard",
+      "transferBtn": "Banküberweisung"
+    }
   }
 }

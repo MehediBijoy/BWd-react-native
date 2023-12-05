@@ -1,7 +1,7 @@
 import React from 'react'
 import {View} from 'react-native'
 import {useTranslation} from 'react-i18next'
-import {Icon, makeStyles, useTheme} from '@rneui/themed'
+import { makeStyles, useTheme} from '@rneui/themed'
 import {createDrawerNavigator, DrawerScreenProps} from '@react-navigation/drawer'
 import {WalletConnectModal, useWalletConnectModal} from '@walletconnect/modal-react-native'
 
@@ -12,6 +12,8 @@ import Profile from 'screens/profile'
 import {useProfile} from 'hooks/helper'
 import Affiliate from 'screens/affiliate'
 import HomeIcon from 'images/home.svg'
+import SettingIcon from 'images/icons/Setting.svg'
+import AffiliateIcon from 'images/icons/affiliate.svg'
 import {sessionParams, providerMetadata, projectId} from 'constants/wallet.config'
 
 import TabNavigator from './TabNavigator'
@@ -80,7 +82,10 @@ const DrawerNavigator = () => {
             component={Affiliate}
             options={{
               title: t('navigation.items.affiliate'),
-              drawerIcon: props => <Icon name='supervised-user-circle' {...props} />,
+              // drawerIcon: props => <Icon name='supervised-user-circle' {...props} />,
+              drawerIcon: ({size, color, ...props}) => (
+                <AffiliateIcon height={size} width={size} fill={color} {...props} />
+              ),
             }}
           />
         )}
@@ -90,7 +95,10 @@ const DrawerNavigator = () => {
           component={Profile}
           options={{
             title: t('navigation.items.settings'),
-            drawerIcon: props => <Icon name='settings' {...props} />,
+            // drawerIcon: props => <Icon name='settings' {...props} />,
+            drawerIcon: ({size, color, ...props}) => (
+              <SettingIcon height={size} width={size} fill={color} {...props} />
+            ),
           }}
         />
       </Drawer.Navigator>

@@ -1,7 +1,7 @@
 import {ScrollView, View} from 'react-native'
 import {useTranslation} from 'react-i18next'
 import {Text, makeStyles, Divider, Button} from '@rneui/themed'
-import {useRoute, RouteProp} from '@react-navigation/native'
+import {useRoute, RouteProp, useNavigation, NavigationProp} from '@react-navigation/native'
 
 import ContentContainer from '@core/ContentContainer'
 import SafeAreaView from '@core/SafeAreaView'
@@ -11,6 +11,7 @@ import PaymentIcon from 'images/icons/Bank.svg'
 import InfoIcon from 'images/icons/Info.svg'
 import DownloadIcon from 'images/icons/PDF.svg'
 import {EstimateFee} from 'api/Response'
+import {RouteStack} from 'navigators/routes'
 
 type PaymentParamsList = {
   PaymentInformation: {
@@ -24,6 +25,7 @@ const PaymentInformation = () => {
   const {t} = useTranslation()
   const {currency} = useCurrency()
   const route = useRoute<RouteProp<PaymentParamsList, 'PaymentInformation'>>()
+  const navigation = useNavigation<NavigationProp<RouteStack>>()
   const {estimateFees, inBase} = route.params
 
   console.log('estimateFees in payment info', estimateFees, inBase)
@@ -119,6 +121,14 @@ const PaymentInformation = () => {
             titleStyle={{marginLeft: 10}}
             color='#7C7C7B'
             containerStyle={{marginTop: 35, marginBottom: 20}}
+          />
+
+          <Button
+            title={t('bankTransfer.paymentInfo.backToDashboard')}
+            containerStyle={{marginBottom: 20}}
+            onPress={() => {
+              navigation.navigate('Transactions')
+            }}
           />
 
           {/* <View style={{marginBottom: 20, marginTop: 20}}>

@@ -67,13 +67,17 @@ const OrderSummary = () => {
 
         <View style={styles.orderContainer}>
           <View style={styles.grid}>
-            <Text style={styles.subTittle}>{t('bankTransfer.orders.totalPurchase')}</Text>
+            <Text style={[styles.subTittle, {width: 115}]}>
+              {t('bankTransfer.orders.totalPurchase')}
+            </Text>
             <Text style={styles.valueText}>
-              {parseFloat(estimateFees?.received_amount).toFixed(4)} BWG
+              {parseFloat(estimateFees?.received_amount).toFixed(2)} BWG
             </Text>
           </View>
           <View style={[styles.grid, styles.lineHeight]}>
-            <Text style={styles.subTittle}>{t('bankTransfer.orders.pricePerBWG')}</Text>
+            <Text style={[styles.subTittle, {width: 115}]}>
+              {t('bankTransfer.orders.pricePerBWG')}
+            </Text>
             <Text style={styles.valueText}>
               {parseFloat(estimateFees?.total_rate).toFixed(4)} {currency}
             </Text>
@@ -141,8 +145,6 @@ const useStyles = makeStyles(({colors}) => ({
   },
   grid: {
     flexDirection: 'row',
-    flex: 1,
-    flexWrap: 'wrap',
     columnGap: 50,
   },
   bottomGrid: {

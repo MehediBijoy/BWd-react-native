@@ -141,7 +141,7 @@
         "message-1": "You are paying up front for {{duration}} days of storage for your gold backing the token. The cost for this are {{token}} {{symbol}} tokens.",
         "message-2": "You're paying {{token}} {{symbol}} tokens fees.",
         "message-3": "Buy {{moreToken}} {{token}} more tokens to reach the next level and only pay {{moreFees}}% fees.",
-        "message-4": "After completion you're going to"
+        "message-4": "After the completion you are going to be"
       },
       "payment-warning": {
         "title": "Before we fulfill your purchase",
@@ -153,7 +153,7 @@
       "title": "Purchase Successful",
       "completed": "You’ve completed your purchase",
       "wallet": "Your new funds will be transferred into your connected wallet : {{wallet}}",
-      "received": "Received:",
+      "received": "Receiving:",
       "ok": "OK"
     },
     "persistedWalletConfirmModal": {
@@ -766,7 +766,9 @@
       "ref": "Reference :",
       "orderID": "Order ID",
       "noteTitle": "Note:",
-      "note": "  Kindly deposit money within the next 14 days Otherwise we can reject your purchase."
+      "note": "  Kindly deposit money within the next 14 days Otherwise we can reject your purchase.",
+      "backToDashboard": "Back to Dashboard",
+      "transferBtn": "Bank Transfer"
     }
   }
 }
