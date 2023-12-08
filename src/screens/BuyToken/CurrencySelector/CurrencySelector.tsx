@@ -26,12 +26,7 @@ const CurrencySelect: React.FC<
     >
       {currencyConfig.map((item, index, array) => (
         <View key={item.id}>
-          <TouchableOpacity
-            onPress={() => {
-              onClose()
-              onPress(item.id)
-            }}
-          >
+          <TouchableOpacity onPress={() => onPress(item.id)}>
             <View style={{flexDirection: 'row', alignItems: 'center', columnGap: 10}}>
               {item.icon}
               <Text style={{fontSize: 16, fontWeight: '700'}}>{item.label}</Text>

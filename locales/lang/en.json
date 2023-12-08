@@ -146,7 +146,7 @@
         "title": "Complete your Purchase",
         "method": "Payment Method",
         "message-1": "You are paying up front for {{duration}} days of storage for your gold backing the token. The cost for this are {{token}} {{symbol}} tokens.",
-        "message-2": "You're paying {{token}} {{symbol}} tokens fees.",
+        "message-2": "You are paying a total of {{token}} {{symbol}} tokens fees.",
         "message-3": "Buy {{moreToken}} {{token}} more tokens to reach the next level and only pay {{moreFees}}% fees.",
         "message-4": "After the completion you are going to be"
       },
@@ -289,7 +289,8 @@
       "twoFactorAuthentication": "Two Factor Authentication",
       "becomeAnAffiliate": "Become An Affiliate",
       "orderSummary": "Order Summary",
-      "paymentInformation": "Payment Information"
+      "paymentInformation": "Payment Information",
+      "cryptoPayment": "Crypto Payment"
     },
     "logout": "Logout"
   },
@@ -777,5 +778,12 @@
       "backToDashboard": "Back to Dashboard",
       "transferBtn": "Bank Transfer"
     }
+  },
+  "cryptoTransfer": {
+    "title": "Your Order Details",
+    "amount": "Total Amount:",
+    "paymentMethod": "Payment method",
+    "cryptoMethod": "Crypto Payment",
+    "connectedWallet": "Connected Wallet"
   }
 }

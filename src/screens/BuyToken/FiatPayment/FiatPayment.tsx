@@ -10,7 +10,7 @@ import Modal from '@core/Modal'
 import SafeAreaView from '@core/SafeAreaView'
 
 import {useApi} from 'hooks/api'
-import {formatCurrency} from 'utils'
+import {alpha, formatCurrency} from 'utils'
 import {useDebounce} from 'hooks/helper'
 import {PaymentProps} from 'api/Request'
 import {EstimateFee, Payment} from 'api/Response'
@@ -71,7 +71,7 @@ const FiatPaymentModal = ({estimateFees, isOpened, onClose, in_base}: FiatPaymen
     <Modal title={t('trade.modal.title.orders')} isOpened={isOpened} onClose={onClose}>
       {!isConnected && (
         <View style={styles.alertContainer}>
-          <Icon name='warning' color={styles.icon.color} />
+          <Icon name='warning' type='antdesign' color={styles.icon.color} />
           <Text style={styles.alertText}>{t('dashboard.buy.wallet-connect')}</Text>
         </View>
       )}
@@ -172,11 +172,13 @@ const useStyles = makeStyles(({colors}) => ({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    backgroundColor: colors.bgPaper,
+    backgroundColor: alpha(colors.secondaryLight, 0.09),
     columnGap: 10,
     height: 40,
     paddingStart: 15,
     borderRadius: 5,
+    borderColor: colors.warning,
+    borderWidth: 0.5,
   },
   alertText: {
     fontSize: 16,

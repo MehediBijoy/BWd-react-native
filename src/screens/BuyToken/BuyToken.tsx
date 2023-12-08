@@ -3,6 +3,8 @@ import {useTranslation} from 'react-i18next'
 import React, {useMemo, useState} from 'react'
 import {useMutation, useQuery} from '@tanstack/react-query'
 import {Text, Button, Icon, makeStyles} from '@rneui/themed'
+import {useWalletConnectModal} from '@walletconnect/modal-react-native'
+import {useNavigation, NavigationProp} from '@react-navigation/native'
 import {ActivityIndicator, ScrollView, TouchableWithoutFeedback, View} from 'react-native'
 
 import Form from '@core/Form'
@@ -17,8 +19,8 @@ import useApi from 'hooks/api/useApi'
 import {EstimateFee} from 'api/Response'
 import {PaymentProps} from 'api/Request'
 import {useCurrency} from 'hooks/states'
-import {AllCurrencyType} from 'constants/currency.config'
 import {useDebounce, useAssets, usePlatform} from 'hooks/helper'
+import {AllCurrencyType, CryptoCurrencyTypes} from 'constants/currency.config'
 
 import TierOverviewModal from './TierFeesModal'
 import FiatPaymentModal from './FiatPayment/FiatPayment'
@@ -36,6 +38,14 @@ type currencyType = {
   icon: JSX.Element
 }
 
+type CryptoStackParamList = {
+  CryptoPayment: {
+    estimateFees: EstimateFee
+    inBase: boolean
+    currency: CryptoCurrencyTypes
+  }
+}
+
 const BuyToken = () => {
   const api = useApi()
   const styles = useStyles()
@@ -44,16 +54,20 @@ const BuyToken = () => {
   const {platform} = usePlatform()
   const {data: bwgLimit} = useAssets('BWG')
   const methods = useForm<BuyBoxFields>()
-  const {total} = methods.getValues()
+  const {total, amount} = methods.getValues()
   const [inBase, setInBase] = useState<boolean>(false)
   const [isOpened, setIsOpened] = useState<boolean>(false)
   const [isFiatModalOpened, setIsFiatModalOpened] = useState<boolean>(false)
   const [isOpenedCurrency, setIsOpenedCurrency] = useState<boolean>(false)
+  const [isWalletConnected, setIsWalletConnected] = useState<boolean>(false)
   const [defaultCurrency, setDefaultCurrency] = useState<AllCurrencyType>(currency)
+
+  const {isConnected} = useWalletConnectModal()
+  const navigation = useNavigation<NavigationProp<CryptoStackParamList, 'CryptoPayment'>>()
 
   const currencyConfig = getCurrencyConfig(platform)
 
-  const selectedCurrency: currencyType = useMemo(
+  const selectedCurrency: currencyType | undefined = useMemo(
     () => currencyConfig.find(item => item.id === defaultCurrency),
     [currencyConfig, defaultCurrency]
   )
@@ -65,7 +79,7 @@ const BuyToken = () => {
   } = useMutation<EstimateFee, unknown, Partial<PaymentProps>>({
     mutationFn: ({amount, in_base}) =>
       api.getEstimateFee({
-        asset: selectedCurrency.id,
+        asset: selectedCurrency?.id ?? '',
         target_asset: 'BWG',
         amount: amount as string,
         in_base: in_base as boolean,
@@ -108,6 +122,36 @@ const BuyToken = () => {
     [paymentService]
   )
 
+  useMemo(() => isConnected && setIsWalletConnected(false), [isConnected])
+
+  const changeCurrency = (id: AllCurrencyType) => {
+    setIsOpenedCurrency(false)
+    setIsWalletConnected(false)
+    setDefaultCurrency(id)
+    if (inBase) {
+      feesRefetch({amount: amount, in_base: inBase})
+    } else {
+      feesRefetch({amount: total, in_base: inBase})
+    }
+  }
+
+  const buyBwg = () => {
+    if (selectedCurrency?.id === 'USDC' || selectedCurrency?.id === 'USDT') {
+      if (!isConnected) {
+        setIsWalletConnected(true)
+      } else {
+        navigation.navigate('CryptoPayment', {
+          estimateFees: estimateFees as EstimateFee,
+          inBase: inBase,
+          currency: selectedCurrency?.id as CryptoCurrencyTypes,
+        })
+      }
+    } else {
+      setIsWalletConnected(false)
+      setIsFiatModalOpened(true)
+    }
+  }
+
   return (
     <ScrollView>
       <ContainContainer>
@@ -129,6 +173,13 @@ const BuyToken = () => {
             />
           )}
 
+          {isWalletConnected && (
+            <View style={styles.alertContainer}>
+              <Icon name='warning' type='antdesign' color={styles.icon.color} />
+              <Text style={styles.alertText}>{t('dashboard.buy.wallet-connect')}</Text>
+            </View>
+          )}
+
           <TouchableWithoutFeedback onPress={() => setIsOpenedCurrency(true)}>
             <View style={styles.selectContainer}>
               <View style={styles.selectLeft}>
@@ -137,9 +188,9 @@ const BuyToken = () => {
               </View>
               <View>
                 {isOpenedCurrency ? (
-                  <Icon name='chevron-thin-up' type='entypo' size={20} color='#787878' />
+                  <Icon name='chevron-thin-up' type='entypo' size={20} color='#918d8d' />
                 ) : (
-                  <Icon name='chevron-thin-down' type='entypo' size={20} color='#787878' />
+                  <Icon name='chevron-thin-down' type='entypo' size={20} color='#918d8d' />
                 )}
               </View>
             </View>
@@ -173,7 +224,15 @@ const BuyToken = () => {
             <Button
               title={t('dashboard.buy.btnText', {tokenName: 'BWG'})}
               disabled={!isValid}
-              onPress={() => setIsFiatModalOpened(true)}
+              onPress={buyBwg}
+              // onPress={() => setIsFiatModalOpened(true)}
+              // onPress={() =>
+              //   navigation.navigate('CryptoPayment', {
+              //     estimateFees: estimateFees as EstimateFee,
+              //     inBase: inBase,
+              //     currency: selectedCurrency?.id as CryptoCurrencyTypes,
+              //   })
+              // }
             />
           </Form>
         </View>
@@ -181,7 +240,7 @@ const BuyToken = () => {
       <CurrencySelect
         isOpened={isOpenedCurrency}
         onClose={() => setIsOpenedCurrency(false)}
-        onPress={setDefaultCurrency}
+        onPress={changeCurrency}
       />
       <FiatPaymentModal
         isOpened={isFiatModalOpened}
@@ -194,6 +253,24 @@ const BuyToken = () => {
 }
 
 const useStyles = makeStyles(({colors}) => ({
+  alertContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    backgroundColor: alpha(colors.secondaryLight, 0.09),
+    columnGap: 10,
+    height: 40,
+    paddingStart: 15,
+    borderRadius: 5,
+    borderColor: colors.warning,
+    borderWidth: 0.5,
+  },
+  alertText: {
+    fontSize: 16,
+  },
+  icon: {
+    color: colors.warning,
+  },
   currency: {
     height: 30,
     width: 30,
@@ -211,7 +288,7 @@ const useStyles = makeStyles(({colors}) => ({
   },
   selectContainer: {
     height: 45,
-    borderColor: alpha(colors.divider, 0.5),
+    borderColor: alpha(colors.divider, 0.2),
     borderWidth: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',

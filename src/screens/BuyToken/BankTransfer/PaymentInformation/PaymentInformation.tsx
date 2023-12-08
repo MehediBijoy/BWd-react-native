@@ -91,9 +91,7 @@ const PaymentInformation = () => {
             <Divider width={2} />
 
             <View style={styles.detailsGrid}>
-              <Text style={[styles.smallTittle, {width: 120}]}>
-                {t('bankTransfer.paymentInfo.address')}
-              </Text>
+              <Text style={styles.smallTittle}>{t('bankTransfer.paymentInfo.address')}</Text>
               <Text style={styles.smallText}>Landstrasse 14, 9496 Balzers, Liechtenstein </Text>
             </View>
             <Divider width={2} />
@@ -101,7 +99,7 @@ const PaymentInformation = () => {
             <Text style={(styles.valueText, {marginTop: 20})}>
               {t('bankTransfer.paymentInfo.ref')}
             </Text>
-            <View style={[styles.detailsGrid, {marginTop: 10}]}>
+            <View style={[styles.detailsGrid, {marginTop: 20}]}>
               <Text style={styles.smallTittle}>{t('bankTransfer.paymentInfo.orderID')}</Text>
               <Text style={styles.smallText}>#2256</Text>
             </View>
@@ -130,10 +128,6 @@ const PaymentInformation = () => {
               navigation.navigate('Transactions')
             }}
           />
-
-          {/* <View style={{marginBottom: 20, marginTop: 20}}>
-          <InfoMessage message={t('bankTransfer.paymentInfo.note')} variant='info' />
-        </View> */}
         </ContentContainer>
       </ScrollView>
     </SafeAreaView>
@@ -171,7 +165,7 @@ const useStyles = makeStyles(({colors}) => ({
   subTittle: {
     color: colors.textGray,
     fontSize: 16,
-    width: 110,
+    width: 130,
   },
   valueText: {
     fontSize: 16,
@@ -188,18 +182,19 @@ const useStyles = makeStyles(({colors}) => ({
   smallTittle: {
     color: colors.textGray,
     fontSize: 12,
-    width: 100,
+    width: 115,
   },
   smallText: {
     fontSize: 12,
     fontWeight: '800',
+    flex: 1,
   },
   notificationBox: {
     borderRadius: 8,
     marginTop: 60,
     borderWidth: 1,
     padding: 15,
-    borderColor: colors.warning,
+    borderColor: colors.info,
     flexDirection: 'row',
     columnGap: 10,
     alignItems: 'flex-start',

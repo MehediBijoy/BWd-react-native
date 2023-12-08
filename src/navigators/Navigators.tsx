@@ -22,6 +22,7 @@ import RegistrationForm from 'screens/auth/Registration/RegisterForm'
 import DeleteAccountConfirm from 'screens/profile/DeleteAccount/DeleteAccountConfirm'
 import OrderSummary from 'screens/BuyToken/BankTransfer/OrdersSummary'
 import PaymentInformation from 'screens/BuyToken/BankTransfer/PaymentInformation'
+import CryptoPayment from 'screens/BuyToken/CryptoTransfer'
 
 import DrawerNavigator from './DrawerNavigator'
 import type {RouteStack} from './routes'
@@ -143,6 +144,14 @@ const Navigators = () => {
           options={{
             title: t('navigation.items.paymentInformation'),
             headerBackVisible: false,
+          }}
+        />
+        <Stack.Screen
+          name='CryptoPayment'
+          component={CryptoPayment}
+          options={{
+            title: t('navigation.items.cryptoPayment'),
+            headerBackTitleVisible: false,
           }}
         />
       </Stack.Group>

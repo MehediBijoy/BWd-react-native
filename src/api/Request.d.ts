@@ -43,7 +43,7 @@ export type ReferralProps = {
 }
 
 export type EstimateFeeProps = {
-  asset: AllCurrencyType
+  asset: string
   target_asset: string
   amount: number | string
   in_base?: boolean
