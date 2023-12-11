@@ -10,12 +10,12 @@ import {useCurrency} from 'hooks/states'
 import PaymentIcon from 'images/icons/Bank.svg'
 import InfoIcon from 'images/icons/Info.svg'
 import DownloadIcon from 'images/icons/PDF.svg'
-import {EstimateFee} from 'api/Response'
+import {Payment} from 'api/Response'
 import {RouteStack} from 'navigators/routes'
 
 type PaymentParamsList = {
   PaymentInformation: {
-    estimateFees: EstimateFee
+    paymentData: Payment
     inBase: boolean
   }
 }
@@ -26,9 +26,9 @@ const PaymentInformation = () => {
   const {currency} = useCurrency()
   const route = useRoute<RouteProp<PaymentParamsList, 'PaymentInformation'>>()
   const navigation = useNavigation<NavigationProp<RouteStack>>()
-  const {estimateFees, inBase} = route.params
+  const {paymentData, inBase} = route.params
 
-  console.log('estimateFees in payment info', estimateFees, inBase)
+  console.log('estimateFees in payment info', paymentData, inBase)
 
   return (
     <SafeAreaView edges={['bottom']}>

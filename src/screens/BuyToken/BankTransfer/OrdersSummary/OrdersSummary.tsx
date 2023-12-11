@@ -24,7 +24,7 @@ type RootStackParamList = {
 
 type PaymentParamsList = {
   PaymentInformation: {
-    estimateFees: EstimateFee
+    paymentData: Payment
     inBase: boolean
   }
 }
@@ -70,6 +70,13 @@ const OrderSummary = () => {
         success_url: 'https://www.brettonwoods.gold/',
         error_url: 'https://example.com',
       }),
+    onSuccess: data => {
+      console.log(data, 'bank Payment ')
+      navigation.navigate('PaymentInformation', {
+        paymentData: data,
+        inBase: inBase,
+      })
+    },
   })
 
   return (
@@ -78,7 +85,6 @@ const OrderSummary = () => {
         <Text h4 h4Style={{marginTop: 20}}>
           {t('bankTransfer.orders.title')}
         </Text>
-
         <View style={styles.orderContainer}>
           <View style={styles.grid}>
             <Text style={[styles.subTittle, {width: 125}]}>
@@ -106,7 +112,6 @@ const OrderSummary = () => {
           </View>
           <LineDesign />
         </View>
-
         <View style={styles.orderContainer}>
           <View style={[styles.grid, styles.borderLeft]}>
             <Text style={[styles.totalText, {width: 60}]}>{t('bankTransfer.orders.total')}</Text>
@@ -138,12 +143,7 @@ const OrderSummary = () => {
         <Button
           title={t('bankTransfer.orders.btn')}
           containerStyle={{marginTop: 100}}
-          onPress={() => {
-            navigation.navigate('PaymentInformation', {
-              estimateFees: estimateFees,
-              inBase: inBase,
-            })
-          }}
+          onPress={() => createOrder.mutate({payment_type: 'bank_transfer'})}
         />
       </ContentContainer>
     </ScrollView>
