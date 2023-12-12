@@ -49,6 +49,7 @@ const Select: React.FC<SelectProps> = ({
         style={[styles.dropdown, styleState]}
         placeholderStyle={styles.placeholderStyle}
         selectedTextStyle={styles.selectedTextStyle}
+        itemTextStyle={styles.selectedTextStyle}
         iconStyle={styles.iconStyle}
         data={data}
         value={value}
@@ -93,10 +94,12 @@ const useStyles = makeStyles(({colors}, {color: defaultColor}: StyledTypes) => (
 
   placeholderStyle: {
     fontSize: 15,
+    color: colors.textPrimary,
   },
 
   selectedTextStyle: {
     fontSize: 16,
+    color: colors.textPrimary,
   },
 
   iconStyle: {

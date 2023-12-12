@@ -745,6 +745,6 @@
   },
   "schema": {
     "invalid-address": "Ungültige Adresse",
-    "beneficial": "Antwort ist erforderlich"
+    "beneficial": "Antwort erforderlich"
   }
 }

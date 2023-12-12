@@ -397,8 +397,8 @@
   },
   "register": {
     "signup": {
-      "beneficialText": "Are you the beneficial owner of the assets you have invested?",
-      "beneficialError": "If you’re not the beneficial owner, you cannot complete the registration and therefore won’t be able to make any purchases.",
+      "beneficialText": "Are you the beneficial owner of the invested assets?",
+      "beneficialError": "If you're not the beneficial owner, you cannot complete the registration and therefore won't be able to make any purchases.",
       "ownerLabel1": "YES",
       "ownerLabel2": "NO",
       "referral": {
@@ -747,6 +747,6 @@
   },
   "schema": {
     "invalid-address": "Invalid address",
-    "beneficial": "Answer is required"
+    "beneficial": "Answer required"
   }
 }
