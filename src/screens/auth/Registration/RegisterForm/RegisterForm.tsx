@@ -18,7 +18,13 @@ import {LegalStuff} from 'constants/legalStuff.config'
 
 import StepNumber from '../StepNumber'
 import GradientBox from '../../GradientBox'
-import {earnConfig, experienceConfig, professionConfig, sourceOfIncomeConfig} from './select.config'
+import {
+  earnConfig,
+  experienceConfig,
+  professionConfig,
+  sourceOfIncomeConfig,
+  beneficialOwnerConfig,
+} from './select.config'
 
 const registerSchema = yup.object().shape({
   email: yup.string().email().required(),
@@ -34,6 +40,10 @@ const registerSchema = yup.object().shape({
     then: () => yup.string().transform(() => undefined),
     otherwise: () => yup.string().min(6).max(6).required(),
   }),
+  beneficial: yup
+    .string()
+    .required('schema.beneficial')
+    .oneOf(['yes'], 'register.signup.beneficialError'),
   profession: yup.string().required(),
   source_of_income: yup.string().required('register.signup.restrictions.sourceOfEarning'),
   earnings: yup.string(),
@@ -145,6 +155,13 @@ const RegisterForm = () => {
               name='trading_experience'
               label={t('register.signup.select.experience')}
               data={experienceConfig(t)}
+              color='bgPaper'
+            />
+
+            <FormSelect
+              name='beneficial'
+              label={t('register.signup.beneficialText')}
+              data={beneficialOwnerConfig(t)}
               color='bgPaper'
             />
 

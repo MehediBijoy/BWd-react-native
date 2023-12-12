@@ -123,3 +123,14 @@ export const sourceOfIncomeConfig = (t: TFunction) => [
     label: t('register.signup.sourceOfIncomeConfig.option5'),
   },
 ]
+
+export const beneficialOwnerConfig = (t: TFunction) => [
+  {
+    value: 'yes',
+    label: t('register.signup.ownerLabel1'),
+  },
+  {
+    value: 'no',
+    label: t('register.signup.ownerLabel2'),
+  },
+]

@@ -22,8 +22,9 @@ const FormSelect = ({name, defaultValue, shouldUnregister, rules, ...props}: For
       control={control}
       defaultValue={defaultValue}
       shouldUnregister={shouldUnregister}
-      render={({field: {onChange, onBlur}, fieldState}) => (
+      render={({field: {onChange, onBlur, value}, fieldState}) => (
         <Select
+          value={value}
           onBlur={onBlur}
           onChange={({value}) => onChange(value)}
           error={fieldState.invalid}

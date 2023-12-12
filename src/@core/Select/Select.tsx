@@ -18,6 +18,7 @@ export type SelectProps = {
   onBlur?: () => void
   onChange?: (props: DataTypes) => void
   selectRef?: React.RefObject<IDropdownRef> | null
+  value?: string
 }
 
 type StyledTypes = {
@@ -34,6 +35,7 @@ const Select: React.FC<SelectProps> = ({
   placeholder = 'Select an item',
   data,
   selectRef,
+  value,
 }) => {
   const styles = useStyles({color})
   const [isFocused, setIsFocused] = useState(false)
@@ -49,6 +51,7 @@ const Select: React.FC<SelectProps> = ({
         selectedTextStyle={styles.selectedTextStyle}
         iconStyle={styles.iconStyle}
         data={data}
+        value={value}
         labelField='label'
         valueField='value'
         placeholder={placeholder}
