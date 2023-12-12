@@ -4,8 +4,12 @@
 
 ### Added
 
-- Beneficial owner of the assets in registration page
+- Added option for asset beneficial ownership on the registration page.
 
 ### Changed
 
-- Modified language text
+- Revised language throughout the text for clarity
+
+### Fixed
+
+- Resolved issue with drop-down color for improved user experience

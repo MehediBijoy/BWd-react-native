@@ -4,17 +4,17 @@
 
 ### Added
 
-- Beneficial owner of the assets in registration page
+- Added option for asset beneficial ownership on the registration page.
 
 ### Changed
 
-- Modified language text
+- Revised language throughout the text for clarity
 
 ### Fixed
 
-- Drop-down color
+- Resolved issue with drop-down color for improved user experience
 
-## Platform APP v0.2.0 - 2023-11-29
+## Platform APP v0.2.0 - 2023-11-28
 
 ### Added
 
