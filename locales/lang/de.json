@@ -395,7 +395,7 @@
   "register": {
     "signup": {
       "beneficialText": "Sind Sie der wirtschaftliche Eigentümer der von Ihnen investierten Vermögenswerte?",
-      "beneficialError": "Bist du sicher? Denn wenn Sie nicht der wirtschaftliche Eigentümer sind, können Sie den KYC-Prozess nicht durchlaufen und daher keinen Kauf tätigen.",
+      "beneficialError": "Wenn Sie nicht der wirtschaftliche Eigentümer sind, können Sie die Registrierung nicht abschließen und somit auch keine Käufe tätigen.",
       "ownerLabel1": "YES",
       "ownerLabel2": "NO",
       "referral": {
@@ -745,6 +745,6 @@
   },
   "schema": {
     "invalid-address": "Ungültige Adresse",
-    "beneficial": "Beneficial owners ist ein Pflichtfeld"
+    "beneficial": "Antwort ist erforderlich"
   }
 }
