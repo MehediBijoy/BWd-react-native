@@ -1,21 +1,11 @@
 # RELEASE NOTES
 
-## Released APP v0.1.1
+## Released APP v0.1.2
 
 ### Added
 
-- Enabled currency switching
+- Beneficial owner of the assets in registration page
 
 ### Changed
 
-- Modified tier system modal
-
-## Platform APP v0.1.0 - 2023-11-15
-
-### Added
-
-- Enabled currency switching
-
-### Changed
-
-- Modified tier system modal
+- Modified language text
