@@ -1,34 +1,61 @@
-import {ScrollView, View} from 'react-native'
+import RNPrint from 'react-native-print'
 import {useTranslation} from 'react-i18next'
+import {ScrollView, View} from 'react-native'
+import {useQuery} from '@tanstack/react-query'
 import {Text, makeStyles, Divider, Button} from '@rneui/themed'
 import {useRoute, RouteProp, useNavigation, NavigationProp} from '@react-navigation/native'
 
 import ContentContainer from '@core/ContentContainer'
 import SafeAreaView from '@core/SafeAreaView'
 
-import {useCurrency} from 'hooks/states'
+import {cacheKey} from 'api'
+import {formatDate, formatNumber} from 'utils'
+import {Payment} from 'api/Response'
+import {useLocales} from 'hooks/states'
+import {RouteStack} from 'navigators/routes'
+import {useApi} from 'hooks/api'
+import {usePlatform} from 'hooks/helper'
 import PaymentIcon from 'images/icons/Bank.svg'
 import InfoIcon from 'images/icons/Info.svg'
 import DownloadIcon from 'images/icons/PDF.svg'
-import {Payment} from 'api/Response'
-import {RouteStack} from 'navigators/routes'
+import {AllCurrencyType} from 'constants/currency.config'
+
+import {html} from '../PaymentInformation/PdfTemplate'
 
 type PaymentParamsList = {
   PaymentInformation: {
     paymentData: Payment
-    inBase: boolean
+    currency: AllCurrencyType
   }
 }
 
 const PaymentInformation = () => {
   const styles = useStyles()
-  const {t} = useTranslation()
-  const {currency} = useCurrency()
-  const route = useRoute<RouteProp<PaymentParamsList, 'PaymentInformation'>>()
-  const navigation = useNavigation<NavigationProp<RouteStack>>()
-  const {paymentData, inBase} = route.params
 
-  console.log('estimateFees in payment info', paymentData, inBase)
+  const api = useApi()
+  const {t} = useTranslation()
+  const {currentLang} = useLocales()
+  const {platform} = usePlatform()
+  const navigation = useNavigation<NavigationProp<RouteStack>>()
+  const route = useRoute<RouteProp<PaymentParamsList, 'PaymentInformation'>>()
+
+  const {paymentData, currency} = route.params
+
+  const {data, isLoading} = useQuery({
+    queryKey: [cacheKey.bankDetails, paymentData.id, platform],
+    queryFn: () => api.getBankDetails(paymentData.id, platform.toLowerCase()),
+    enabled: !!paymentData,
+  })
+
+  const printHTML = async () => {
+    data &&
+      (await RNPrint.print({
+        html: html({paymentData, bankDetails: data, currency}),
+        jobName: `${formatDate(paymentData.created_at, 'YYYY_mm_DD')}_brettonwoods_digital_${
+          paymentData.id
+        }`,
+      }))
+  }
 
   return (
     <SafeAreaView edges={['bottom']}>
@@ -40,11 +67,23 @@ const PaymentInformation = () => {
           <View style={[styles.summary, styles.borderLeft]}>
             <View style={styles.grid}>
               <Text style={styles.subTittle}>{t('bankTransfer.orders.totalPurchase')}</Text>
-              <Text style={styles.valueText}>2 BWG</Text>
+              <Text style={styles.valueText}>
+                {formatNumber(paymentData.received_amount_number, {
+                  locales: currentLang,
+                  maximumFractionDigits: 4,
+                })}{' '}
+                BWG
+              </Text>
             </View>
             <View style={[styles.grid, styles.lineHeight]}>
               <Text style={styles.subTittle}>{t('bankTransfer.paymentInfo.total')}</Text>
-              <Text style={styles.valueText}>70.72 {currency}</Text>
+              <Text style={styles.valueText}>
+                {paymentData?.total_amount &&
+                  formatNumber(paymentData?.total_amount, {
+                    locales: currentLang,
+                  })}{' '}
+                {currency}
+              </Text>
             </View>
           </View>
           <View
@@ -66,33 +105,33 @@ const PaymentInformation = () => {
             </View>
             <Divider width={2} />
 
-            <View style={styles.detailsGrid}>
+            {/* <View style={styles.detailsGrid}>
               <Text style={styles.smallTittle}>{t('bankTransfer.paymentInfo.ibn')}</Text>
-              <Text style={styles.smallText}>CH93 0076 2011 6238 5295 7</Text>
+              <Text style={styles.smallText}>{data?.beneficiary_account_number}</Text>
             </View>
-            <Divider width={2} />
+            <Divider width={2} /> */}
 
             <View style={styles.detailsGrid}>
               <Text style={styles.smallTittle}>{t('bankTransfer.paymentInfo.bic')}</Text>
-              <Text style={styles.smallText}>BQBHCHGGXXX</Text>
+              <Text style={styles.smallText}>{data?.bank_swift_code}</Text>
             </View>
             <Divider width={2} />
 
             <View style={styles.detailsGrid}>
               <Text style={styles.smallTittle}>{t('bankTransfer.paymentInfo.number')}</Text>
-              <Text style={styles.smallText}>85520364</Text>
+              <Text style={styles.smallText}>{data?.beneficiary_account_number}</Text>
             </View>
             <Divider width={2} />
 
             <View style={styles.detailsGrid}>
               <Text style={styles.smallTittle}>{t('bankTransfer.paymentInfo.bankName')}</Text>
-              <Text style={styles.smallText}>Bank Frick</Text>
+              <Text style={styles.smallText}>{data?.bank_name}</Text>
             </View>
             <Divider width={2} />
 
             <View style={styles.detailsGrid}>
               <Text style={styles.smallTittle}>{t('bankTransfer.paymentInfo.address')}</Text>
-              <Text style={styles.smallText}>Landstrasse 14, 9496 Balzers, Liechtenstein </Text>
+              <Text style={styles.smallText}>{data?.beneficiary_address}</Text>
             </View>
             <Divider width={2} />
 
@@ -101,7 +140,7 @@ const PaymentInformation = () => {
             </Text>
             <View style={[styles.detailsGrid, {marginTop: 20}]}>
               <Text style={styles.smallTittle}>{t('bankTransfer.paymentInfo.orderID')}</Text>
-              <Text style={styles.smallText}>#2256</Text>
+              <Text style={styles.smallText}>#{paymentData.id}</Text>
             </View>
           </View>
 
@@ -119,6 +158,7 @@ const PaymentInformation = () => {
             titleStyle={{marginLeft: 10}}
             color='#7C7C7B'
             containerStyle={{marginTop: 35, marginBottom: 20}}
+            onPress={printHTML}
           />
 
           <Button

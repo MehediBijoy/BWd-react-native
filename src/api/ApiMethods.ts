@@ -42,6 +42,7 @@ import {
   PaymentService,
   AssetLatestPrices,
   AssetRates,
+  BankTransfer,
 } from './Response'
 
 export default class ApiMethods extends ApiBase {
@@ -211,6 +212,10 @@ export default class ApiMethods extends ApiBase {
 
   async paypalCapture(id: number): Promise<Success> {
     return await this.post(`/payments/${id}/capture`)
+  }
+
+  async getBankDetails(id: number, region: string): Promise<BankTransfer> {
+    return await this.get(`/payments/${id}/bank_details`, {region})
   }
 
   async getTransferChart(params: TransactionChartProps): Promise<TransactionChart[]> {

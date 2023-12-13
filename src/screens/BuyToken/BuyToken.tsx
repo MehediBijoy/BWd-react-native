@@ -247,6 +247,7 @@ const BuyToken = () => {
         onClose={() => setIsFiatModalOpened(false)}
         estimateFees={estimateFees as EstimateFee}
         in_base={inBase}
+        currency={selectedCurrency?.id as AllCurrencyType}
       />
     </ScrollView>
   )

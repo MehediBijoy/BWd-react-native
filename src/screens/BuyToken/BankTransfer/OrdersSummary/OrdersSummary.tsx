@@ -7,25 +7,27 @@ import {useNavigation, NavigationProp, useRoute, RouteProp} from '@react-navigat
 
 import ContentContainer from '@core/ContentContainer'
 
-import {formatNumber} from 'utils'
 import {useApi} from 'hooks/api'
-import {useCurrency, useLocales} from 'hooks/states'
+import {formatNumber} from 'utils'
+import {PaymentProps} from 'api/Request'
+import {useLocales} from 'hooks/states'
 import {EstimateFee, Payment} from 'api/Response'
 import PaymentIcon from 'images/icons/Bank.svg'
 import DepositIcon from 'images/icons/Deposit.svg'
-import {PaymentProps} from 'api/Request'
+import {AllCurrencyType} from 'constants/currency.config'
 
 type RootStackParamList = {
   OrderSummary: {
     estimateFees: EstimateFee
     inBase: boolean
+    currency: AllCurrencyType
   }
 }
 
 type PaymentParamsList = {
   PaymentInformation: {
     paymentData: Payment
-    inBase: boolean
+    currency: AllCurrencyType
   }
 }
 
@@ -53,11 +55,10 @@ const OrderSummary = () => {
   const api = useApi()
   const styles = useStyles()
   const {t} = useTranslation()
-  const {currency} = useCurrency()
   const {currentLang} = useLocales()
   const navigation = useNavigation<NavigationProp<PaymentParamsList, 'PaymentInformation'>>()
   const route = useRoute<RouteProp<RootStackParamList, 'OrderSummary'>>()
-  const {estimateFees, inBase} = route.params
+  const {estimateFees, inBase, currency} = route.params
 
   const createOrder = useMutation<Payment, unknown, Pick<PaymentProps, 'payment_type'>>({
     mutationFn: ({payment_type}) =>
@@ -71,10 +72,9 @@ const OrderSummary = () => {
         error_url: 'https://example.com',
       }),
     onSuccess: data => {
-      console.log(data, 'bank Payment ')
       navigation.navigate('PaymentInformation', {
         paymentData: data,
-        inBase: inBase,
+        currency: currency,
       })
     },
   })

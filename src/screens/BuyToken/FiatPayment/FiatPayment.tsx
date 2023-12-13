@@ -14,7 +14,8 @@ import {alpha, formatCurrency} from 'utils'
 import {useDebounce} from 'hooks/helper'
 import {PaymentProps} from 'api/Request'
 import {EstimateFee, Payment} from 'api/Response'
-import {useCurrency, useLocales} from 'hooks/states'
+import {useLocales} from 'hooks/states'
+import {AllCurrencyType} from 'constants/currency.config'
 import PaypalImg from 'images/icons/paypal.svg'
 import BankPayment from 'images/icons/bankPayment.svg'
 
@@ -25,19 +26,26 @@ type FiatPaymentModalProps = {
   isOpened: boolean
   onClose: () => void
   in_base: boolean
+  currency: AllCurrencyType
 }
 type RootStackParamList = {
   OrderSummary: {
     estimateFees: EstimateFee
     inBase: boolean
+    currency: AllCurrencyType
   }
 }
 
-const FiatPaymentModal = ({estimateFees, isOpened, onClose, in_base}: FiatPaymentModalProps) => {
+const FiatPaymentModal = ({
+  estimateFees,
+  isOpened,
+  onClose,
+  in_base,
+  currency,
+}: FiatPaymentModalProps) => {
   const api = useApi()
   const styles = useStyles()
   const {t} = useTranslation()
-  const {currency} = useCurrency()
   const {currentLang} = useLocales()
   const navigation = useNavigation<NavigationProp<RootStackParamList, 'OrderSummary'>>()
 
@@ -116,6 +124,7 @@ const FiatPaymentModal = ({estimateFees, isOpened, onClose, in_base}: FiatPaymen
               navigation.navigate('OrderSummary', {
                 estimateFees: estimateFees,
                 inBase: in_base,
+                currency,
               })
             }
           }}

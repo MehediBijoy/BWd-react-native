@@ -5,9 +5,11 @@ export const availableCryptoCurrency = ['USDT', 'USDC'] as const
 export type FiatCurrencyTypes = (typeof availableFiatCurrency)[number]
 export type CryptoCurrencyTypes = (typeof availableCryptoCurrency)[number]
 export type AllCurrencyType = FiatCurrencyTypes | CryptoCurrencyTypes
-export const fiatCurrencySymbol: {[key in FiatCurrencyTypes]: string} = {
+export const fiatCurrencySymbol: {[key in AllCurrencyType]: string} = {
   USD: '$',
   EUR: '€',
+  USDC: 'USDC',
+  USDT: 'USDT',
 }
 
 export const regionalCurrencies: {[key in PlatformType]: FiatCurrencyTypes[]} = {

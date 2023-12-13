@@ -168,6 +168,8 @@ type Payment<Tdata = null> = {
       method: 'GET' | 'POST'
     }[]
   }
+  received_amount: string
+  total_rate: string
   received_amount_number: string
   received_amount_currency: string
   static_fee_amount: string
@@ -187,6 +189,17 @@ type Payment<Tdata = null> = {
   created_at: string
   updated_at: string
   transfer: Tdata
+}
+
+type BankTransfer = {
+  beneficiary_name: 'Company name'
+  beneficiary_account_number: '123456789'
+  beneficiary_address: 'City, Country'
+  bank_aba_routing_number: '123456789'
+  bank_name: '123456789'
+  bank_address: 'City, Country'
+  bank_swift_code: 'BJX123ASD56'
+  payment_reference: 'Payment for the Order #12345'
 }
 
 export type Transfer = {
