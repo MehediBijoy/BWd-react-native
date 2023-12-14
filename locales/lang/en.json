@@ -400,6 +400,10 @@
   },
   "register": {
     "signup": {
+      "beneficialText": "Are you the beneficial owner of the invested assets?",
+      "beneficialError": "If you're not the beneficial owner, you cannot complete the registration and therefore won't be able to make any purchases.",
+      "ownerLabel1": "YES",
+      "ownerLabel2": "NO",
       "referral": {
         "notFound": "Referral not found",
         "input-placeholder": "Enter your referral code",

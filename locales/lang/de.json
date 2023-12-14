@@ -396,6 +396,10 @@
   },
   "register": {
     "signup": {
+      "beneficialText": "Sind Sie der wirtschaftliche Eigentümer der von Ihnen investierten Vermögenswerte?",
+      "beneficialError": "Wenn Sie nicht der wirtschaftliche Eigentümer sind, können Sie die Registrierung nicht abschließen und somit auch keine Käufe tätigen.",
+      "ownerLabel1": "YES",
+      "ownerLabel2": "NO",
       "referral": {
         "notFound": "Referral nicht gefunden",
         "input-placeholder": "Geben Sie Ihren Referralcode ein",
