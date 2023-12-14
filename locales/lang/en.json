@@ -749,7 +749,8 @@
     "invalidAddress": "Invalid address"
   },
   "schema": {
-    "invalid-address": "Invalid address"
+    "invalid-address": "Invalid address",
+    "beneficial": "Answer required"
   },
   "bankTransfer": {
     "orders": {

@@ -33,10 +33,13 @@ const PaypalView = ({data, onClose}: PaypalViewProps) => {
 
   const navigation = useNavigation<BottomTabNavigationProp<RouteStack, 'Purchase'>>()
 
+  console.log('payment data -->', data.payment_data)
+
   const paymentUri = React.useMemo<LinkProps | undefined>(
     () =>
       data &&
-      data.payment_data.links &&
+      data.payment_data &&
+      data.payment_data?.links &&
       data.payment_data.links.find(
         item => item['rel'] === 'payer-action' && item['method'] === 'GET'
       ),
