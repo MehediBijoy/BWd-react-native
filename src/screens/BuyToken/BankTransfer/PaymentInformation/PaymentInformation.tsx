@@ -101,7 +101,7 @@ const PaymentInformation = () => {
 
             <View style={styles.detailsGrid}>
               <Text style={styles.smallTittle}>{t('bankTransfer.paymentInfo.name')}</Text>
-              <Text style={styles.smallText}>{t('bankTransfer.orders.bwg')}</Text>
+              <Text style={styles.smallText}>{data?.beneficiary_name}</Text>
             </View>
             <Divider width={2} />
 

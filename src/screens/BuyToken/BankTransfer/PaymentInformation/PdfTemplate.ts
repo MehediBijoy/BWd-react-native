@@ -25,7 +25,7 @@ export const html = ({
       
               h1 {
                   text-align: center;
-                  font-size: 20px;
+                  font-size: 24px;
                   font-weight: 500;
               }
       
@@ -49,7 +49,7 @@ export const html = ({
               }
       
               .order-title {
-                  font-size: 10px;
+                  font-size: 12px;
                   margin-bottom: 20px;
               }
       
@@ -106,7 +106,6 @@ export const html = ({
               }
               
               .divider {
-                magin-top: 10px;
                 margin-left: 12px;
                 border-bottom: 0.3px solid #d9d9d9;
               }
