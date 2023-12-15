@@ -11,7 +11,6 @@ import Logo from 'components/Logo'
 import Profile from 'screens/profile'
 import {useProfile} from 'hooks/helper'
 import Affiliate from 'screens/affiliate'
-import HomeIcon from 'images/home.svg'
 import {sessionParams, providerMetadata, projectId} from 'constants/wallet.config'
 
 import TabNavigator from './TabNavigator'

@@ -1,11 +1,15 @@
 # RELEASE NOTES
 
-## Platform APP v0.1.0 - 2023-11-15
+## Released APP v0.1.2
 
 ### Added
 
-- Enabled currency switching
+- Added option for asset beneficial ownership on the registration page.
 
 ### Changed
 
-- Modified tier system modal
+- Revised language throughout the text for clarity
+
+### Fixed
+
+- Resolved issue with drop-down color for improved user experience

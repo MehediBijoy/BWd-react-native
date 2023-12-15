@@ -3,6 +3,7 @@ import dayjs from 'dayjs'
 
 // ------------ Local imports ---------------
 import {NumberFormatOptions} from 'types'
+import {fiatCurrencySymbol} from 'constants/currency.config'
 
 /**
  * Shortens a given string by preserving a specified number of characters at both ends,
@@ -96,4 +97,12 @@ export const formatNumber = (
 export const formatCurrency = (
   num: number | string,
   {currency = 'USD', ...restOptions}: NumberFormatOptions = {}
-): string => formatNumber(num, {currency, style: 'currency', ...restOptions})
+): string => {
+  let symbol = currency as string
+
+  if (currency !== 'BWG') {
+    symbol = fiatCurrencySymbol[currency]
+  }
+
+  return `${formatNumber(num, restOptions)} ${symbol}`
+}

@@ -97,6 +97,13 @@
       "payedOut": "Gesamte ausbezahlte Provision",
       "available": "Verfügbare Kontoprovision",
       "fiat": "Verfügbare Provision in Fiat"
+    },
+    "statuses": {
+      "active": "aktiv",
+      "inactive": "inaktiv",
+      "investigate": "untersuchen",
+      "blocked": "blockiert",
+      "deleted": "gelöscht"
     }
   },
   "dashboard": {
@@ -387,6 +394,10 @@
   },
   "register": {
     "signup": {
+      "beneficialText": "Sind Sie der wirtschaftliche Eigentümer der von Ihnen investierten Vermögenswerte?",
+      "beneficialError": "Wenn Sie nicht der wirtschaftliche Eigentümer sind, können Sie die Registrierung nicht abschließen und somit auch keine Käufe tätigen.",
+      "ownerLabel1": "YES",
+      "ownerLabel2": "NO",
       "referral": {
         "notFound": "Referral nicht gefunden",
         "input-placeholder": "Geben Sie Ihren Referralcode ein",
@@ -733,6 +744,7 @@
     "invalidAddress": "Ungültige Adresse"
   },
   "schema": {
-    "invalid-address": "Ungültige Adresse"
+    "invalid-address": "Ungültige Adresse",
+    "beneficial": "Antwort erforderlich"
   }
 }
