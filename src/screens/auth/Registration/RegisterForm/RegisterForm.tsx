@@ -132,6 +132,7 @@ const RegisterForm = () => {
 
             <FormSelect
               name='profession'
+              placeholder={t('register.signup.select.placeholder')}
               label={t('register.signup.select.profession')}
               data={professionConfig(t)}
               color='bgPaper'
@@ -139,6 +140,7 @@ const RegisterForm = () => {
 
             <FormSelect
               name='source_of_income'
+              placeholder={t('register.signup.select.placeholder')}
               label={t('register.signup.select.income')}
               data={sourceOfIncomeConfig(t)}
               color='bgPaper'
@@ -146,6 +148,7 @@ const RegisterForm = () => {
 
             <FormSelect
               name='earnings'
+              placeholder={t('register.signup.select.placeholder')}
               label={t('register.signup.select.earn')}
               data={earnConfig(t)}
               color='bgPaper'
@@ -153,6 +156,7 @@ const RegisterForm = () => {
 
             <FormSelect
               name='trading_experience'
+              placeholder={t('register.signup.select.placeholder')}
               label={t('register.signup.select.experience')}
               data={experienceConfig(t)}
               color='bgPaper'
@@ -160,6 +164,7 @@ const RegisterForm = () => {
 
             <FormSelect
               name='beneficial'
+              placeholder={t('register.signup.select.placeholder')}
               label={t('register.signup.beneficialText')}
               data={beneficialOwnerConfig(t)}
               color='bgPaper'

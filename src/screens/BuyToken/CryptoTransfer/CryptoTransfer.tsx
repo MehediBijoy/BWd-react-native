@@ -1,22 +1,23 @@
 import {View} from 'react-native'
 import {useTranslation} from 'react-i18next'
+import {useMutation} from '@tanstack/react-query'
 import {Button, Text, makeStyles} from '@rneui/themed'
 import LinearGradient from 'react-native-linear-gradient'
-import {RouteProp, useRoute} from '@react-navigation/native'
+import {NavigationProp, RouteProp, useNavigation, useRoute} from '@react-navigation/native'
 
 import ContainContainer from '@core/ContentContainer'
 
+import {useApi} from 'hooks/api'
 import {formatNumber} from 'utils'
 import {useWallet} from 'hooks/crypto'
 import {useLocales} from 'hooks/states'
-import {EstimateFee, Payment} from 'api/Response'
 import {PaymentProps} from 'api/Request'
+import {RouteStack} from 'navigators/routes'
+import {EstimateFee, Payment} from 'api/Response'
 import InfoIcon from 'images/icons/Info.svg'
 import WalletIcon from 'images/icons/Wallet.svg'
 import PaymentIcon from 'images/icons/CryptoPayment.svg'
 import {CryptoCurrencyTypes} from 'constants/currency.config'
-import {useMutation} from '@tanstack/react-query'
-import {useApi} from 'hooks/api'
 
 type CryptoStackParamList = {
   CryptoPayment: {
@@ -52,6 +53,7 @@ const CryptoTransfer = () => {
   const {t} = useTranslation()
   const {address} = useWallet()
   const {currentLang} = useLocales()
+  const navigation = useNavigation<NavigationProp<RouteStack>>()
   const route = useRoute<RouteProp<CryptoStackParamList, 'CryptoPayment'>>()
   const {estimateFees, inBase, currency} = route.params
 
@@ -66,14 +68,9 @@ const CryptoTransfer = () => {
         success_url: 'https://www.brettonwoods.gold/',
         error_url: 'https://example.com',
       }),
-    onSuccess: data => {
-      // navigation.navigate('PaymentInformation', {
-      //   paymentData: data,
-      //   currency: currency,
-      // })
-      console.log(data)
+    onSuccess: () => {
+      navigation.navigate('Transactions')
     },
-    onError: console.log,
   })
 
   return (

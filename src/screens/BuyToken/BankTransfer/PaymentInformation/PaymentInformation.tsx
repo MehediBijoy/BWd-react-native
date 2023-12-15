@@ -165,7 +165,7 @@ const PaymentInformation = () => {
             title={t('bankTransfer.paymentInfo.backToDashboard')}
             containerStyle={{marginBottom: 20}}
             onPress={() => {
-              navigation.navigate('Transactions')
+              navigation.navigate('Home')
             }}
           />
         </ContentContainer>

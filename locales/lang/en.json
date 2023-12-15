@@ -435,7 +435,8 @@
         "earn": "How much do you earn?",
         "experience": "How much experience do you have with trading?",
         "select": "Select",
-        "optional": "Optional"
+        "optional": "Optional",
+        "placeholder": "Select an item"
       },
       "earnConfig": {
         "option1": "10,000$ Per Year or Less",
