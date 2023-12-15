@@ -181,7 +181,7 @@ const useStyles = makeStyles(({colors}) => ({
     marginLeft: 20,
   },
   details: {
-    marginLeft: 30,
+    marginLeft: 20,
     marginRight: 30,
   },
   lineHeight: {

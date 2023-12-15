@@ -7,12 +7,16 @@ import {RouteProp, useRoute} from '@react-navigation/native'
 import ContainContainer from '@core/ContentContainer'
 
 import {formatNumber} from 'utils'
-import {EstimateFee} from 'api/Response'
+import {useWallet} from 'hooks/crypto'
 import {useLocales} from 'hooks/states'
+import {EstimateFee, Payment} from 'api/Response'
+import {PaymentProps} from 'api/Request'
 import InfoIcon from 'images/icons/Info.svg'
 import WalletIcon from 'images/icons/Wallet.svg'
 import PaymentIcon from 'images/icons/CryptoPayment.svg'
 import {CryptoCurrencyTypes} from 'constants/currency.config'
+import {useMutation} from '@tanstack/react-query'
+import {useApi} from 'hooks/api'
 
 type CryptoStackParamList = {
   CryptoPayment: {
@@ -43,11 +47,34 @@ const LineDesign = () => {
 }
 
 const CryptoTransfer = () => {
+  const api = useApi()
   const styles = useStyles()
   const {t} = useTranslation()
+  const {address} = useWallet()
   const {currentLang} = useLocales()
   const route = useRoute<RouteProp<CryptoStackParamList, 'CryptoPayment'>>()
   const {estimateFees, inBase, currency} = route.params
+
+  const createOrder = useMutation<Payment, unknown, Pick<PaymentProps, 'payment_type'>>({
+    mutationFn: ({payment_type}) =>
+      api.createPayment({
+        asset: currency,
+        target_asset: 'BWG',
+        amount: inBase ? estimateFees.total_amount : estimateFees.received_amount,
+        in_base: inBase,
+        payment_type,
+        success_url: 'https://www.brettonwoods.gold/',
+        error_url: 'https://example.com',
+      }),
+    onSuccess: data => {
+      // navigation.navigate('PaymentInformation', {
+      //   paymentData: data,
+      //   currency: currency,
+      // })
+      console.log(data)
+    },
+    onError: console.log,
+  })
 
   return (
     <ContainContainer>
@@ -127,10 +154,14 @@ const CryptoTransfer = () => {
           <WalletIcon height={20} width={20} />
           <Text style={[styles.subTittle]}>{t('cryptoTransfer.connectedWallet')}</Text>
         </View>
-        <Text style={styles.valueText}>0xA2959D3F95eAe5dC7D70144Ce1b73b403b7EB6E0</Text>
+        <Text style={styles.valueText}>{address}</Text>
       </View>
 
-      <Button title={t('bankTransfer.orders.btn')} containerStyle={{marginTop: 50}} />
+      <Button
+        title={t('bankTransfer.orders.btn')}
+        containerStyle={{marginTop: 50}}
+        onPress={() => createOrder.mutate({payment_type: 'crypto'})}
+      />
     </ContainContainer>
   )
 }

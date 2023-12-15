@@ -114,7 +114,7 @@ const OrderSummary = () => {
         </View>
         <View style={styles.orderContainer}>
           <View style={[styles.grid, styles.borderLeft]}>
-            <Text style={[styles.totalText, {width: 60}]}>{t('bankTransfer.orders.total')}</Text>
+            <Text style={[styles.totalText, {width: 80}]}>{t('bankTransfer.orders.total')}</Text>
             <Text style={styles.totalText}>
               {estimateFees?.total_amount &&
                 formatNumber(estimateFees?.total_amount, {
@@ -126,14 +126,14 @@ const OrderSummary = () => {
           <LineDesign />
         </View>
         <View style={[styles.bottomGrid, {marginTop: 30, marginLeft: 15}]}>
-          <View style={{flexDirection: 'row', gap: 10, width: 120}}>
+          <View style={{flexDirection: 'row', gap: 10, width: 130}}>
             <PaymentIcon height={20} width={20} />
             <Text style={styles.subTittle}>{t('bankTransfer.orders.paymentBy')}</Text>
           </View>
           <Text style={styles.valueText}>{t('bankTransfer.orders.method')}</Text>
         </View>
         <View style={[styles.bottomGrid, {marginTop: 20, marginLeft: 15}]}>
-          <View style={{flexDirection: 'row', gap: 10, width: 120}}>
+          <View style={{flexDirection: 'row', gap: 10, width: 130}}>
             <DepositIcon height={20} width={20} />
             <Text style={styles.subTittle}>{t('bankTransfer.orders.deposit')}</Text>
           </View>
@@ -143,6 +143,7 @@ const OrderSummary = () => {
         <Button
           title={t('bankTransfer.orders.btn')}
           containerStyle={{marginTop: 100}}
+          loading={createOrder.isLoading}
           onPress={() => createOrder.mutate({payment_type: 'bank_transfer'})}
         />
       </ContentContainer>
@@ -174,14 +175,14 @@ const useStyles = makeStyles(({colors}) => ({
   },
   subTittle: {
     color: colors.textGray,
-    fontSize: 16,
+    fontSize: 14,
   },
   valueText: {
     fontSize: 16,
     fontWeight: '800',
   },
   totalText: {
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: '800',
     marginLeft: 15,
   },
