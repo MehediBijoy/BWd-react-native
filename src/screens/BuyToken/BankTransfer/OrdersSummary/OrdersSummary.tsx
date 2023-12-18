@@ -79,6 +79,8 @@ const OrderSummary = () => {
     },
   })
 
+  console.log(estimateFees, 'recevied ')
+
   return (
     <ScrollView>
       <ContentContainer>

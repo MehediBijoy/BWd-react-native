@@ -1,3 +1,5 @@
+import React from 'react'
+import {Address} from 'viem'
 import {View} from 'react-native'
 import {useTranslation} from 'react-i18next'
 import {useMutation} from '@tanstack/react-query'
@@ -18,6 +20,9 @@ import InfoIcon from 'images/icons/Info.svg'
 import WalletIcon from 'images/icons/Wallet.svg'
 import PaymentIcon from 'images/icons/CryptoPayment.svg'
 import {CryptoCurrencyTypes} from 'constants/currency.config'
+import useSendTransaction from 'hooks/crypto/useSendTransaction'
+
+import CryptoPayment from './CryptoPayment'
 
 type CryptoStackParamList = {
   CryptoPayment: {
@@ -56,6 +61,8 @@ const CryptoTransfer = () => {
   const navigation = useNavigation<NavigationProp<RouteStack>>()
   const route = useRoute<RouteProp<CryptoStackParamList, 'CryptoPayment'>>()
   const {estimateFees, inBase, currency} = route.params
+  const {isLoading, mutateAsync} = useSendTransaction(currency)
+  const [isCryptoPayment, setIsCryptoPayment] = React.useState(false)
 
   const createOrder = useMutation<Payment, unknown, Pick<PaymentProps, 'payment_type'>>({
     mutationFn: ({payment_type}) =>
@@ -68,10 +75,29 @@ const CryptoTransfer = () => {
         success_url: 'https://www.brettonwoods.gold/',
         error_url: 'https://example.com',
       }),
-    onSuccess: () => {
-      navigation.navigate('Transactions')
+    onSuccess: data => {
+      // navigation.navigate('Transactions')
+      mutateAsync({
+        recipient: data.payment_data.payment_address as Address,
+        value: data.total_amount,
+      }).then(() => {
+        navigation.navigate('Transactions')
+      })
     },
   })
+
+  const {mutate: getCurrentPayment} = useMutation({
+    mutationFn: () => api.getCurrentPayment(),
+    onSuccess: () => setIsCryptoPayment(true),
+    onError: () => {
+      createOrder.mutate({payment_type: 'crypto'})
+    },
+  })
+
+  const isPaymentLoading = React.useMemo(
+    () => isLoading || createOrder.isLoading,
+    [isLoading, createOrder.isLoading]
+  )
 
   return (
     <ContainContainer>
@@ -157,7 +183,15 @@ const CryptoTransfer = () => {
       <Button
         title={t('bankTransfer.orders.btn')}
         containerStyle={{marginTop: 50}}
+        loading={isPaymentLoading}
+        onPress={() => getCurrentPayment()}
+      />
+
+      <CryptoPayment
+        onClose={() => setIsCryptoPayment(false)}
+        isOpened={isCryptoPayment}
         onPress={() => createOrder.mutate({payment_type: 'crypto'})}
+        isLoading={isPaymentLoading}
       />
     </ContainContainer>
   )

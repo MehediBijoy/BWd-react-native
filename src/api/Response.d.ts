@@ -149,6 +149,25 @@ type PaymentService = {
   status: 'enabled' | 'disabled'
 } & Success
 
+type CryptoPaymentData = {
+  confirmations: number
+  payment_address: string
+  recipient: string
+  sender: string
+  tx_hash: string
+  updated_at: string
+}
+type PaypalPaymentData = {
+  id: number
+  external_id: string
+  status: string
+  links: {
+    href: string
+    rel: 'self' | 'payer-action'
+    method: 'GET' | 'POST'
+  }[]
+}
+
 type Payment<Tdata = null> = {
   id: number
   dynamic_fee_amount: string
@@ -158,16 +177,7 @@ type Payment<Tdata = null> = {
   paid_amount_currency: string
   payment_rate: string
   payment_type: string
-  payment_data: {
-    id: number
-    external_id: string
-    status: string
-    links: {
-      href: string
-      rel: 'self' | 'payer-action'
-      method: 'GET' | 'POST'
-    }[]
-  }
+  payment_data: CryptoPaymentData & PaypalPaymentData
   received_amount: string
   total_rate: string
   received_amount_number: string

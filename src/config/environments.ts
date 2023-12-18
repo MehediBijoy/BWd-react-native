@@ -6,4 +6,4 @@ export const US_API_URL = process.env.REACT_APP_US_API_URL || 'https://api.brett
 export const US_APP_URL = process.env.REACT_APP_US_APP_URL || 'https://app.brettonwoods.us.com'
 export const EU_APP_URL = process.env.REACT_APP_EU_APP_URL || 'https://app.brettonwoods.gold'
 
-export const CHAIN = parseInt(process.env.REACT_APP_CHAIN || '56')
+export const CHAIN = parseInt(process.env.REACT_APP_CHAIN || '97')

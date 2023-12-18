@@ -210,6 +210,10 @@ export default class ApiMethods extends ApiBase {
     return payment
   }
 
+  async getCurrentPayment(): Promise<Payment> {
+    return await this.get('/payments/current')
+  }
+
   async paypalCapture(id: number): Promise<Success> {
     return await this.post(`/payments/${id}/capture`)
   }

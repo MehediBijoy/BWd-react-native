@@ -779,7 +779,11 @@
       "noteTitle": "Hinweis:",
       "note": " Bitte überweisen Sie das Geld innerhalb der nächsten 14 Tage, ansonsten können wir Ihren Kauf ablehnen.",
       "backToDashboard": "Zurück zum Dashboard",
-      "transferBtn": "Banküberweisung"
+      "transferBtn": "Banküberweisung",
+      "messages": "Bitte bestätigen Sie, dass Sie die folgende Bestellung stornieren möchten, oder schließen Sie diese zunächst mit der Überweisung der Zahlung ab.",
+      "proceed": "Fortfahren",
+      "cancel": "Stornieren",
+      "modalTitle": "Kaufbestätigung"
     }
   }
 }

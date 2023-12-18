@@ -790,6 +790,10 @@
     "amount": "Total Amount:",
     "paymentMethod": "Payment method",
     "cryptoMethod": "Crypto Payment",
-    "connectedWallet": "Connected Wallet"
+    "connectedWallet": "Connected Wallet",
+    "messages": "  Please confirm that you wish to cancel the following order, or complete it first by the transferring payment.",
+    "proceed": "Proceed",
+    "cancel": "Cancel",
+    "modalTitle": "Purchase confirmation"
   }
 }
