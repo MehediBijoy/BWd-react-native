@@ -38,7 +38,8 @@
     "walletChangeWithEmail": "We've sent a code to your email. Please enter the code to change the wallet address.",
     "unsupportedChain": "Unsupported chain",
     "unsupportedChainDescription": "We do not support the connected chain, please switch to {{chainName}}",
-    "disconnectTitle": "Are you sure you want to disconnect your wallet? You will need to connect again to use this app"
+    "disconnectTitle": "Are you sure you want to disconnect your wallet? You will need to connect again to use this app",
+    "alertMessage": "Dear users, if connecting the wallet is slow, please retry a few times. We're working hard to enhance your experience. Thanks for your understanding!"
   },
   "createNewPassword": {
     "title": "Create a new password",

@@ -35,7 +35,8 @@
     "walletChangeWithEmail": "Wir haben den Wallet Änderungscode an Ihre E-Mail-Adresse gesendet. Bitte geben Sie Ihren Code ein, um die Wallet-Adresse zu ändern",
     "unsupportedChain": "Nicht unterstützte Chain",
     "unsupportedChainDescription": "Wir unterstützen nicht die verbundene Chain, bitte wechseln Sie zu {{chainName}}",
-    "disconnectTitle": "Sind Sie sicher, dass Sie Ihre Wallet trennen möchten? Sie müssen sie erneut verbinden, um die App verwenden zu können."
+    "disconnectTitle": "Sind Sie sicher, dass Sie Ihre Wallet trennen möchten? Sie müssen sie erneut verbinden, um die App verwenden zu können.",
+    "alertMessage": "Liebe Nutzer, wenn die Verbindung zur Wallet langsam ist, versuchen Sie es bitte ein paar Mal. Wir arbeiten hart daran, Ihr Nutzererlebnis zu verbessern. Vielen Dank für Ihr Verständnis!"
   },
   "createNewPassword": {
     "title": "Neues Passwort erstellen",
