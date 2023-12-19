@@ -1,6 +1,14 @@
 # Changelog
 
-## \[Unreleased v0.2.1\] - 2023-12-12
+## Platform APP v1.2.0 - 2023-12-12
+
+### Added
+
+- Bank Transfer
+- Bank Transfer PDF generate
+- Crypto Payment for `USDT` and `USDC`
+
+## Platform APP v1.1.2 - 2023-12-12
 
 ### Added
 
@@ -14,7 +22,7 @@
 
 - Resolved issue with drop-down color for improved user experience
 
-## Platform APP v0.2.0 - 2023-11-28
+## Platform APP v1.1.0 - 2023-11-28
 
 ### Added
 
