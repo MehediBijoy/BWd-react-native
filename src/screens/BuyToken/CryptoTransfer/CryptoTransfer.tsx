@@ -211,9 +211,8 @@ const useStyles = makeStyles(({colors}) => ({
     alignItems: 'flex-start',
   },
   noteDescriptions: {
-    fontSize: 10,
+    fontSize: 14,
     color: colors.textGray,
-    lineHeight: 15,
   },
   bottomGrid: {
     flexDirection: 'row',

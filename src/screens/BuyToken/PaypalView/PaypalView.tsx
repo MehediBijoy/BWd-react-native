@@ -33,8 +33,6 @@ const PaypalView = ({data, onClose}: PaypalViewProps) => {
 
   const navigation = useNavigation<BottomTabNavigationProp<RouteStack, 'Purchase'>>()
 
-  console.log('payment data -->', data.payment_data)
-
   const paymentUri = React.useMemo<LinkProps | undefined>(
     () =>
       data &&
