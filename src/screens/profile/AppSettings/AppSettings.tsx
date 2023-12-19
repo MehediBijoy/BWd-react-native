@@ -5,9 +5,9 @@ import {Divider, Text, makeStyles} from '@rneui/themed'
 import {usePlatform} from 'hooks/helper'
 import {useLocales, useCurrency} from 'hooks/states'
 import SwitchSelectors from 'components/SwitchSelectors'
-import {getCurrencyConfig} from 'constants/currency.config'
 
 import {languageConfig} from './switch.config'
+import {getCurrencyConfig} from './currencySwitch.config'
 
 const AppSettings = () => {
   const styles = useStyles()

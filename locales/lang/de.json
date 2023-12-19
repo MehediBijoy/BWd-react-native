@@ -35,7 +35,8 @@
     "walletChangeWithEmail": "Wir haben den Wallet Änderungscode an Ihre E-Mail-Adresse gesendet. Bitte geben Sie Ihren Code ein, um die Wallet-Adresse zu ändern",
     "unsupportedChain": "Nicht unterstützte Chain",
     "unsupportedChainDescription": "Wir unterstützen nicht die verbundene Chain, bitte wechseln Sie zu {{chainName}}",
-    "disconnectTitle": "Sind Sie sicher, dass Sie Ihre Wallet trennen möchten? Sie müssen sie erneut verbinden, um die App verwenden zu können."
+    "disconnectTitle": "Sind Sie sicher, dass Sie Ihre Wallet trennen möchten? Sie müssen sie erneut verbinden, um die App verwenden zu können.",
+    "alertMessage": "Liebe Nutzer, wenn die Verbindung zur Wallet langsam ist, versuchen Sie es bitte ein paar Mal. Wir arbeiten hart daran, Ihr Nutzererlebnis zu verbessern. Vielen Dank für Ihr Verständnis!"
   },
   "createNewPassword": {
     "title": "Neues Passwort erstellen",
@@ -284,7 +285,9 @@
       "emailChange": "E-Mail Änderung",
       "passwordChange": "Passwortänderung",
       "twoFactorAuthentication": "Zwei-Faktor-Authentifizierung",
-      "becomeAnAffiliate": "Werden Sie Partner"
+      "becomeAnAffiliate": "Werden Sie Partner",
+      "orderSummary": "Bestellübersicht",
+      "paymentInformation": "Zahlungsinformationen"
     },
     "logout": "Abmelden"
   },
@@ -429,7 +432,8 @@
         "earn": "Wie viel verdienen Sie?",
         "experience": "Wie viel Erfahrung haben Sie im Trading?",
         "select": "Auswählen",
-        "optional": "Optional"
+        "optional": "Optional",
+        "placeholder": "Auswahl treffen"
       },
       "earnConfig": {
         "option1": "10.000€ pro Jahr oder weniger",
@@ -746,5 +750,41 @@
   "schema": {
     "invalid-address": "Ungültige Adresse",
     "beneficial": "Antwort erforderlich"
+  },
+  "bankTransfer": {
+    "orders": {
+      "title": "Ihre Bestellung",
+      "totalPurchase": "Gesamteinkauf",
+      "pricePerBWG": "Preis pro BWG",
+      "total": "Gesamt",
+      "paymentBy": "Zahlung per",
+      "method": "Überweisung",
+      "deposit": "Einzahlung auf",
+      "bwg": "BrettonWoods digitales Gold",
+      "btn": "Bestätigen"
+    },
+    "paymentInfo": {
+      "title": "Ihre Bestellübersicht",
+      "total": "Gesamtpreis",
+      "bankTransfer": "Überweisungszahlung",
+      "btn": "Banküberweisungsdetails herunterladen",
+      "details": "Kontodaten für die Banküberweisung",
+      "name": "Kontoinhaber",
+      "ibn": "IBAN",
+      "bic": "BIC",
+      "number": "Kontonummer",
+      "bankName": "Bankname",
+      "address": "Bankadresse",
+      "ref": "Referenz:",
+      "orderID": "Bestellnummer",
+      "noteTitle": "Hinweis:",
+      "note": " Bitte überweisen Sie das Geld innerhalb der nächsten 14 Tage, ansonsten können wir Ihren Kauf ablehnen.",
+      "backToDashboard": "Zurück zum Dashboard",
+      "transferBtn": "Banküberweisung",
+      "messages": "Bitte bestätigen Sie, dass Sie die folgende Bestellung stornieren möchten, oder schließen Sie diese zunächst mit der Überweisung der Zahlung ab.",
+      "proceed": "Fortfahren",
+      "cancel": "Stornieren",
+      "modalTitle": "Kaufbestätigung"
+    }
   }
 }

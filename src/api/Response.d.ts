@@ -134,6 +134,7 @@ type EstimateFee = {
   received_amount: string
   static_fee_amount: string
   total_amount: string
+  total_rate: string
   total_fee_amount: string
   usd_total_amount: string
   usd_total_fee: string
@@ -148,6 +149,25 @@ type PaymentService = {
   status: 'enabled' | 'disabled'
 } & Success
 
+type CryptoPaymentData = {
+  confirmations: number
+  payment_address: string
+  recipient: string
+  sender: string
+  tx_hash: string
+  updated_at: string
+}
+type PaypalPaymentData = {
+  id: number
+  external_id: string
+  status: string
+  links: {
+    href: string
+    rel: 'self' | 'payer-action'
+    method: 'GET' | 'POST'
+  }[]
+}
+
 type Payment<Tdata = null> = {
   id: number
   dynamic_fee_amount: string
@@ -157,16 +177,9 @@ type Payment<Tdata = null> = {
   paid_amount_currency: string
   payment_rate: string
   payment_type: string
-  payment_data: {
-    id: number
-    external_id: string
-    status: string
-    links: {
-      href: string
-      rel: 'self' | 'payer-action'
-      method: 'GET' | 'POST'
-    }[]
-  }
+  payment_data: CryptoPaymentData & PaypalPaymentData
+  received_amount: string
+  total_rate: string
   received_amount_number: string
   received_amount_currency: string
   static_fee_amount: string
@@ -186,6 +199,17 @@ type Payment<Tdata = null> = {
   created_at: string
   updated_at: string
   transfer: Tdata
+}
+
+type BankTransfer = {
+  beneficiary_name: 'Company name'
+  beneficiary_account_number: '123456789'
+  beneficiary_address: 'City, Country'
+  bank_aba_routing_number: '123456789'
+  bank_name: '123456789'
+  bank_address: 'City, Country'
+  bank_swift_code: 'BJX123ASD56'
+  payment_reference: 'Payment for the Order #12345'
 }
 
 export type Transfer = {

@@ -2,7 +2,7 @@ import {bsc} from 'viem/chains'
 import {formatEther, Address} from 'viem'
 import {UseQueryOptions, useQuery} from '@tanstack/react-query'
 
-import {abi, getContractInfo, ContractInfo} from 'constants/wallet.config'
+import {abi, getContractInfo, ContractType} from 'constants/wallet.config'
 
 import useClient from './useClient'
 import useWallet from './useWallet'
@@ -21,7 +21,7 @@ type UseBalanceReturn = {
 }
 
 type UseBalanceOptions = Omit<UseQueryOptions<DataProps>, 'queryKey' | 'queryFn' | 'enabled'> & {
-  token?: ContractInfo
+  token?: ContractType
   watch?: boolean
 }
 
@@ -43,7 +43,7 @@ const useBalance = ({
     }
   }
 
-  const getContractBalance = async (tt: ContractInfo): Promise<DataProps> => {
+  const getContractBalance = async (tt: ContractType): Promise<DataProps> => {
     const {address: contract} = getContractInfo(tt)
     const params = {
       address: contract,

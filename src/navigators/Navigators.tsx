@@ -20,6 +20,9 @@ import ChangePassword from 'screens/profile/changePassword'
 import BecomeAffiliate from 'screens/profile/becomeAffiliate'
 import RegistrationForm from 'screens/auth/Registration/RegisterForm'
 import DeleteAccountConfirm from 'screens/profile/DeleteAccount/DeleteAccountConfirm'
+import OrderSummary from 'screens/BuyToken/BankTransfer/OrdersSummary'
+import PaymentInformation from 'screens/BuyToken/BankTransfer/PaymentInformation'
+import CryptoPayment from 'screens/BuyToken/CryptoTransfer'
 
 import DrawerNavigator from './DrawerNavigator'
 import type {RouteStack} from './routes'
@@ -124,6 +127,30 @@ const Navigators = () => {
           component={DeleteAccountConfirm}
           options={{
             title: t('profile.deleteAccount.title'),
+            headerBackTitleVisible: false,
+          }}
+        />
+        <Stack.Screen
+          name='OrderSummary'
+          component={OrderSummary}
+          options={{
+            title: t('navigation.items.orderSummary'),
+            headerBackTitleVisible: false,
+          }}
+        />
+        <Stack.Screen
+          name='PaymentInformation'
+          component={PaymentInformation}
+          options={{
+            title: t('navigation.items.paymentInformation'),
+            headerBackVisible: false,
+          }}
+        />
+        <Stack.Screen
+          name='CryptoPayment'
+          component={CryptoPayment}
+          options={{
+            title: t('navigation.items.cryptoPayment'),
             headerBackTitleVisible: false,
           }}
         />

@@ -3,7 +3,7 @@ import type {Colors as RNColors} from '@rneui/themed'
 import type {ControllerProps as Controller} from 'react-hook-form'
 
 import {LanguageTypes} from 'i18n/i18n'
-import {FiatCurrencyTypes} from 'constants/currency.config'
+import {AllCurrencyType} from 'constants/currency.config'
 
 export type Children = {
   children: ReactNode
@@ -20,7 +20,7 @@ interface NumberFormatOptions {
   locales?: LanguageTypes
   localeMatcher?: string | undefined
   style?: 'currency' | 'decimal' | 'percent'
-  currency?: FiatCurrencyTypes | 'BWG'
+  currency?: AllCurrencyType | 'BWG'
   currencySign?: string | undefined
   useGrouping?: boolean | undefined
   minimumIntegerDigits?: number | undefined

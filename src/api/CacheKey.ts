@@ -12,4 +12,5 @@ export const cacheKey = {
   affiliateCommission: 'affiliateCommission',
   affiliateStats: 'affiliateStats',
   checkPaymentService: 'checkPaymentService',
+  bankDetails: 'bankDetails',
 }

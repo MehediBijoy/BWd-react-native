@@ -38,7 +38,8 @@
     "walletChangeWithEmail": "We've sent a code to your email. Please enter the code to change the wallet address.",
     "unsupportedChain": "Unsupported chain",
     "unsupportedChainDescription": "We do not support the connected chain, please switch to {{chainName}}",
-    "disconnectTitle": "Are you sure you want to disconnect your wallet? You will need to connect again to use this app"
+    "disconnectTitle": "Are you sure you want to disconnect your wallet? You will need to connect again to use this app",
+    "alertMessage": "Dear users, if connecting the wallet is slow, please retry a few times. We're working hard to enhance your experience. Thanks for your understanding!"
   },
   "createNewPassword": {
     "title": "Create a new password",
@@ -146,9 +147,9 @@
         "title": "Complete your Purchase",
         "method": "Payment Method",
         "message-1": "You are paying up front for {{duration}} days of storage for your gold backing the token. The cost for this are {{token}} {{symbol}} tokens.",
-        "message-2": "You're paying {{token}} {{symbol}} tokens fees.",
+        "message-2": "You are paying a total of {{token}} {{symbol}} tokens fees.",
         "message-3": "Buy {{moreToken}} {{token}} more tokens to reach the next level and only pay {{moreFees}}% fees.",
-        "message-4": "After completion you're going to"
+        "message-4": "After the completion you are going to be"
       },
       "payment-warning": {
         "title": "Before we fulfill your purchase",
@@ -160,7 +161,7 @@
       "title": "Purchase Successful",
       "completed": "You’ve completed your purchase",
       "wallet": "Your new funds will be transferred into your connected wallet : {{wallet}}",
-      "received": "Received:",
+      "received": "Receiving:",
       "ok": "OK"
     },
     "persistedWalletConfirmModal": {
@@ -287,7 +288,10 @@
       "emailChange": "Email Change",
       "passwordChange": "Password Change",
       "twoFactorAuthentication": "Two Factor Authentication",
-      "becomeAnAffiliate": "Become An Affiliate"
+      "becomeAnAffiliate": "Become An Affiliate",
+      "orderSummary": "Order Summary",
+      "paymentInformation": "Payment Information",
+      "cryptoPayment": "Crypto Payment"
     },
     "logout": "Logout"
   },
@@ -432,7 +436,8 @@
         "earn": "How much do you earn?",
         "experience": "How much experience do you have with trading?",
         "select": "Select",
-        "optional": "Optional"
+        "optional": "Optional",
+        "placeholder": "Select an item"
       },
       "earnConfig": {
         "option1": "10,000$ Per Year or Less",
@@ -748,5 +753,48 @@
   "schema": {
     "invalid-address": "Invalid address",
     "beneficial": "Answer required"
+  },
+  "bankTransfer": {
+    "orders": {
+      "title": "Your Order",
+      "totalPurchase": "Total Purchase",
+      "pricePerBWG": "Price per BWG",
+      "total": "Total",
+      "paymentBy": "Payment By",
+      "method": "Bank Transfer",
+      "deposit": "Deposit To",
+      "bwg": "BrettonWoods digital Gold",
+      "btn": "Confirm"
+    },
+    "paymentInfo": {
+      "title": "Your Order Summary",
+      "total": "Total Price",
+      "bankTransfer": "Bank Transfer Payment",
+      "btn": "Download bank transfer details",
+      "details": "Account details for Bank transfer",
+      "name": "Account Name",
+      "ibn": "IBAN",
+      "bic": "BIC",
+      "number": "Account No.",
+      "bankName": "Bank Name",
+      "address": "Bank Address",
+      "ref": "Reference :",
+      "orderID": "Order ID",
+      "noteTitle": "Note:",
+      "note": "  Kindly deposit money within the next 14 days Otherwise we can reject your purchase.",
+      "backToDashboard": "Back to Dashboard",
+      "transferBtn": "Bank Transfer"
+    }
+  },
+  "cryptoTransfer": {
+    "title": "Your Order Details",
+    "amount": "Total Amount:",
+    "paymentMethod": "Payment method",
+    "cryptoMethod": "Crypto Payment",
+    "connectedWallet": "Connected Wallet",
+    "messages": "  Please confirm that you wish to cancel the following order, or complete it first by the transferring payment.",
+    "proceed": "Proceed",
+    "cancel": "Cancel",
+    "modalTitle": "Purchase confirmation"
   }
 }

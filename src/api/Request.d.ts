@@ -1,3 +1,5 @@
+import {AllCurrencyType} from 'constants/currency.config'
+
 export type LoginProps = {mfa_code?: string; email: string; password: string}
 export type RegistrationProp = {
   email: string
@@ -45,7 +47,7 @@ export type EstimateFeeProps = {
   target_asset: string
   amount: number | string
   in_base?: boolean
-  payment_type?: string
+  payment_type?: 'paypal' | 'bank_transfer' | 'crypto'
 }
 
 export type PaymentProps = {
