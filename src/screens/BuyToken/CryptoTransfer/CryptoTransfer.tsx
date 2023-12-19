@@ -170,7 +170,7 @@ const CryptoTransfer = () => {
           <PaymentIcon height={20} width={20} />
           <Text style={styles.subTittle}>{t('bankTransfer.orders.paymentBy')}</Text>
         </View>
-        <Text style={styles.valueText}>{t('bankTransfer.orders.method')}</Text>
+        <Text style={styles.valueText}>{t('cryptoTransfer.cryptoMethod')}</Text>
       </View>
       <View style={[styles.bottomGrid, {marginTop: 20, marginLeft: 15}]}>
         <View style={{flexDirection: 'row', gap: 10}}>
