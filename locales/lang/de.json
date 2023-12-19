@@ -754,13 +754,13 @@
   "bankTransfer": {
     "orders": {
       "title": "Ihre Bestellung",
-      "totalPurchase": "Gesamteinkauf",
+      "totalPurchase": "Gesamter Einkauf",
       "pricePerBWG": "Preis pro BWG",
       "total": "Gesamt",
       "paymentBy": "Zahlung per",
       "method": "Überweisung",
       "deposit": "Einzahlung auf",
-      "bwg": "BrettonWoods digitales Gold",
+      "bwg": "BrettonWoods digital Gold",
       "btn": "Bestätigen"
     },
     "paymentInfo": {
@@ -771,7 +771,7 @@
       "details": "Kontodaten für die Banküberweisung",
       "name": "Kontoinhaber",
       "ibn": "IBAN",
-      "bic": "BIC",
+      "bic": "BLZ",
       "number": "Kontonummer",
       "bankName": "Bankname",
       "address": "Bankadresse",
