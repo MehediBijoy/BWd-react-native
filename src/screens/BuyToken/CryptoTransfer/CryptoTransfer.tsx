@@ -1,6 +1,6 @@
 import React from 'react'
 import {Address} from 'viem'
-import {View} from 'react-native'
+import {Alert, View} from 'react-native'
 import {useTranslation} from 'react-i18next'
 import {useMutation} from '@tanstack/react-query'
 import {Button, Text, makeStyles} from '@rneui/themed'
@@ -80,9 +80,15 @@ const CryptoTransfer = () => {
       mutateAsync({
         recipient: data.payment_data.payment_address as Address,
         value: data.total_amount,
-      }).then(() => {
-        navigation.navigate('Transactions')
       })
+        .then(() => {
+          navigation.navigate('Transactions')
+        })
+        .catch(err => {
+          Alert.alert(err?.name ?? 'Error', err?.shortMessage ?? 'Blockchain unhandled Error!', [
+            {text: 'OK'},
+          ])
+        })
     },
   })
 

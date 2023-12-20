@@ -19,7 +19,7 @@ const AlertModal = ({isVisible, onClose, onPress}: AlertModalProps) => {
   const {t} = useTranslation()
   return (
     <Dialog isVisible={isVisible} onBackdropPress={onClose}>
-      <Text style={{fontSize: 16}}>{t('walletConnect.alertMessage')}</Text>
+      <Text style={{fontSize: 16, lineHeight: 20}}>{t('walletConnect.alertMessage')}</Text>
       <Dialog.Actions>
         <Dialog.Button title='OK' onPress={onPress} />
       </Dialog.Actions>
