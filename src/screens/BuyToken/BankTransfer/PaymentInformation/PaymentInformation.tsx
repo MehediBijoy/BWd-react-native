@@ -117,11 +117,27 @@ const PaymentInformation = () => {
             </View>
             <Divider width={2} />
 
-            <View style={styles.detailsGrid}>
-              <Text style={styles.smallTittle}>{t('bankTransfer.paymentInfo.number')}</Text>
-              <Text style={styles.smallText}>{data?.beneficiary_account_number}</Text>
-            </View>
-            <Divider width={2} />
+            {data?.beneficiary_iban_usd && (
+              <>
+                <View style={styles.detailsGrid}>
+                  <Text style={styles.smallTittle}>{t('bankTransfer.paymentInfo.ibn')}</Text>
+                  <Text style={styles.smallText}>
+                    {currency === 'USD' ? data.beneficiary_iban_usd : data.beneficiary_iban_eur}
+                  </Text>
+                </View>
+                <Divider width={2} />
+              </>
+            )}
+
+            {data?.beneficiary_account_number && (
+              <>
+                <View style={styles.detailsGrid}>
+                  <Text style={styles.smallTittle}>{t('bankTransfer.paymentInfo.number')}</Text>
+                  <Text style={styles.smallText}>{data?.beneficiary_account_number}</Text>
+                </View>
+                <Divider width={2} />
+              </>
+            )}
 
             <View style={styles.detailsGrid}>
               <Text style={styles.smallTittle}>{t('bankTransfer.paymentInfo.bankName')}</Text>
@@ -129,11 +145,11 @@ const PaymentInformation = () => {
             </View>
             <Divider width={2} />
 
-            <View style={styles.detailsGrid}>
+            {/* <View style={styles.detailsGrid}>
               <Text style={styles.smallTittle}>{t('bankTransfer.paymentInfo.address')}</Text>
-              <Text style={styles.smallText}>{data?.beneficiary_address}</Text>
+              <Text style={styles.smallText}>{data?.bank_address}</Text>
             </View>
-            <Divider width={2} />
+            <Divider width={2} /> */}
 
             <Text style={(styles.valueText, {marginTop: 20})}>
               {t('bankTransfer.paymentInfo.ref')}

@@ -217,14 +217,32 @@ export const html = ({
                 <div class='divider'/>
             </div>
             
-            <div>
+
+            ${
+              bankDetails.beneficiary_iban_usd &&
+              ` <div>
+                 <div class='box-with-divider'>
+                   <div class='left-element'>IBAN</div>
+                   <div class='right-element'>${
+                     currency === 'USD'
+                       ? bankDetails.beneficiary_iban_usd
+                       : bankDetails.beneficiary_iban_eur
+                   }</div>
+                  </div>
+                   <div class='divider'/>
+               </div>`
+            }
+
+           ${
+             bankDetails.beneficiary_account_number &&
+             ` <div>
               <div class='box-with-divider'>
                 <div class='left-element'>Account No.</div>
                 <div class='right-element'>${bankDetails.beneficiary_account_number}</div>
                </div>
                 <div class='divider'/>
-            </div>
-            
+            </div>`
+           }
             
             
              <div>
@@ -235,12 +253,15 @@ export const html = ({
                 <div class='divider'/>
             </div>
             
-            <div>
+           ${
+             bankDetails.bank_address &&
+             `<div>
               <div class='box-with-divider'>
                 <div class='left-element'>Bank Address</div>
                 <div class='right-element'>${bankDetails.bank_address}</div>
                </div>
-            </div> 
+            </div> `
+           }
 
             <div class='order-title top-gap'>Reference</div>
             <div>
