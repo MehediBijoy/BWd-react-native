@@ -2,6 +2,9 @@ import {formatDate} from 'utils'
 import {AllCurrencyType} from 'constants/currency.config'
 import {BankTransfer, Payment} from 'api/Response'
 
+const formatNumber = (number: string | number, toFixed = 2) =>
+  Number(Number(number).toFixed(toFixed))
+
 export const html = ({
   paymentData,
   bankDetails,
@@ -156,15 +159,19 @@ export const html = ({
             </div>
             <div class='box'>
                 <div class='top-left-element'>Total Purchase</div>
-                <div class='right-element'>${paymentData.received_amount}</div>
+                <div class='right-element'>${formatNumber(paymentData.received_amount_number, 4)} ${
+  paymentData.received_amount_currency
+}</div>
             </div>
                <div class='box'>
                 <div class='top-left-element'>Price per BWG</div>
-                <div class='right-element'>${paymentData.total_rate} ${currency}</div>
+                <div class='right-element'>${formatNumber(paymentData.total_rate)} ${currency}</div>
             </div>
             <div class='box'>
                 <div class='top-left-element'>Total Price</div>
-                <div class='right-element'>${paymentData.total_amount} ${currency}</div>
+                <div class='right-element'>${formatNumber(
+                  paymentData.total_amount
+                )} ${currency}</div>
             </div>
         </div>
         
