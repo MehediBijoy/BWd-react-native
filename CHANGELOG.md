@@ -1,6 +1,6 @@
 # Changelog
 
-## Platform APP v1.2.0 - 2023-12-12
+## Platform APP v1.2.0 - 2023-12-20
 
 ### Added
 

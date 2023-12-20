@@ -41,7 +41,7 @@ const PaymentInformation = () => {
 
   const {paymentData, currency} = route.params
 
-  const {data, isLoading} = useQuery({
+  const {data} = useQuery({
     queryKey: [cacheKey.bankDetails, paymentData.id, platform],
     queryFn: () => api.getBankDetails(paymentData.id, platform.toLowerCase()),
     enabled: !!paymentData,
