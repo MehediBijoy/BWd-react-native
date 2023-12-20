@@ -90,6 +90,10 @@ export const html = ({
               .gap {
                 margin-bottom: 25px;
               }
+
+              .top-gap{
+                margin-top: 20px; 
+              }
               
               .bank-title {
                 margin-top: 14px;
@@ -229,8 +233,15 @@ export const html = ({
                 <div class='left-element'>Bank Address</div>
                 <div class='right-element'>${bankDetails.bank_address}</div>
                </div>
-                <div class='divider'/>
             </div> 
+
+            <div class='order-title top-gap'>Reference</div>
+            <div>
+             <div class='box-with-divider'>
+               <div class='left-element'>Order ID:</div>
+               <div class='right-element'>Payment for the Order #${paymentData.id}</div>
+              </div>
+           </div> 
         </div>
         
     </div>

@@ -781,10 +781,18 @@
       "note": " Bitte überweisen Sie das Geld innerhalb der nächsten 14 Tage, ansonsten können wir Ihren Kauf ablehnen.",
       "backToDashboard": "Zurück zum Dashboard",
       "transferBtn": "Banküberweisung",
-      "messages": "Bitte bestätigen Sie, dass Sie die folgende Bestellung stornieren möchten, oder schließen Sie diese zunächst mit der Überweisung der Zahlung ab.",
-      "proceed": "Fortfahren",
-      "cancel": "Stornieren",
-      "modalTitle": "Kaufbestätigung"
+      "orderInfo": "Zahlung für die Bestellung"
     }
+  },
+  "cryptoTransfer": {
+    "title": "Ihre Bestelldetails",
+    "amount": "Gesamtbetrag:",
+    "paymentMethod": "Zahlungsmethode",
+    "cryptoMethod": "Kryptozahlung",
+    "connectedWallet": "Verbundene Brieftasche",
+    "messages": "Bitte bestätigen Sie, dass Sie die folgende Bestellung stornieren möchten oder sie zuerst durch die Zahlung abschließen.",
+    "proceed": "Fortfahren",
+    "cancel": "Abbrechen",
+    "modalTitle": "Kaufbestätigung"
   }
 }
