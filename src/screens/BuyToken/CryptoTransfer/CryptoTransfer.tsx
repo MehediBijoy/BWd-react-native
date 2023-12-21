@@ -8,6 +8,7 @@ import LinearGradient from 'react-native-linear-gradient'
 import {NavigationProp, RouteProp, useNavigation, useRoute} from '@react-navigation/native'
 
 import ContainContainer from '@core/ContentContainer'
+import SafeAreaView from '@core/SafeAreaView'
 
 import {useApi} from 'hooks/api'
 import {formatNumber} from 'utils'
@@ -107,100 +108,102 @@ const CryptoTransfer = () => {
 
   return (
     <ScrollView>
-      <ContainContainer>
-        <View style={styles.notificationBox}>
-          <InfoIcon height={20} width={20} />
+      <SafeAreaView edges={['bottom']}>
+        <ContainContainer>
+          <View style={styles.notificationBox}>
+            <InfoIcon height={20} width={20} />
 
-          <View style={{marginLeft: 10, paddingRight: 12, marginTop: -3}}>
-            <Text style={[styles.noteDescriptions]}>
-              {t('dashboard.buy.confirm.message-1', {
-                duration: estimateFees?.storage_fee_remaining_days,
-                token: formatNumber(estimateFees?.storage_fee_amount, {
+            <View style={{marginLeft: 10, paddingRight: 12, marginTop: -3}}>
+              <Text style={[styles.noteDescriptions]}>
+                {t('dashboard.buy.confirm.message-1', {
+                  duration: estimateFees?.storage_fee_remaining_days,
+                  token: formatNumber(estimateFees?.storage_fee_amount, {
+                    locales: currentLang,
+                    maximumFractionDigits: 4,
+                  }),
+                  symbol: 'BWG',
+                })}
+              </Text>
+              <Text style={[styles.noteDescriptions]}>
+                {t('dashboard.buy.confirm.message-2', {
+                  token: formatNumber(estimateFees?.total_fee_amount, {
+                    locales: currentLang,
+                    maximumFractionDigits: 4,
+                  }),
+                  symbol: 'BWG',
+                })}
+              </Text>
+            </View>
+          </View>
+
+          <Text h4 h4Style={{marginTop: 20, fontWeight: '600'}}>
+            {t('cryptoTransfer.title')}
+          </Text>
+
+          <View style={styles.orderContainer}>
+            <View style={styles.grid}>
+              <Text style={styles.subTittle}>{t('bankTransfer.orders.totalPurchase')}</Text>
+              <Text style={styles.valueText}>
+                {formatNumber(estimateFees?.received_amount, {
                   locales: currentLang,
                   maximumFractionDigits: 4,
-                }),
-                symbol: 'BWG',
-              })}
-            </Text>
-            <Text style={[styles.noteDescriptions]}>
-              {t('dashboard.buy.confirm.message-2', {
-                token: formatNumber(estimateFees?.total_fee_amount, {
+                })}{' '}
+                BWG
+              </Text>
+            </View>
+            <View style={[styles.grid, styles.lineHeight]}>
+              <Text style={styles.subTittle}>{t('bankTransfer.orders.pricePerBWG')}</Text>
+              <Text style={styles.valueText}>
+                {formatNumber(estimateFees?.total_rate, {
                   locales: currentLang,
-                  maximumFractionDigits: 4,
-                }),
-                symbol: 'BWG',
-              })}
-            </Text>
+                  maximumFractionDigits: 2,
+                })}{' '}
+                {currency}
+              </Text>
+            </View>
+            <LineDesign />
           </View>
-        </View>
 
-        <Text h4 h4Style={{marginTop: 20, fontWeight: '600'}}>
-          {t('cryptoTransfer.title')}
-        </Text>
-
-        <View style={styles.orderContainer}>
-          <View style={styles.grid}>
-            <Text style={styles.subTittle}>{t('bankTransfer.orders.totalPurchase')}</Text>
-            <Text style={styles.valueText}>
-              {formatNumber(estimateFees?.received_amount, {
-                locales: currentLang,
-                maximumFractionDigits: 4,
-              })}{' '}
-              BWG
-            </Text>
+          <View style={styles.orderContainer}>
+            <View style={[styles.grid, styles.borderLeft]}>
+              <Text style={[styles.totalText, {width: 80}]}>{t('bankTransfer.orders.total')}</Text>
+              <Text style={styles.totalText}>
+                {estimateFees?.total_amount && estimateFees?.total_amount} {currency}
+              </Text>
+            </View>
+            <LineDesign />
           </View>
-          <View style={[styles.grid, styles.lineHeight]}>
-            <Text style={styles.subTittle}>{t('bankTransfer.orders.pricePerBWG')}</Text>
-            <Text style={styles.valueText}>
-              {formatNumber(estimateFees?.total_rate, {
-                locales: currentLang,
-                maximumFractionDigits: 2,
-              })}{' '}
-              {currency}
-            </Text>
-          </View>
-          <LineDesign />
-        </View>
 
-        <View style={styles.orderContainer}>
-          <View style={[styles.grid, styles.borderLeft]}>
-            <Text style={[styles.totalText, {width: 80}]}>{t('bankTransfer.orders.total')}</Text>
-            <Text style={styles.totalText}>
-              {estimateFees?.total_amount && estimateFees?.total_amount} {currency}
-            </Text>
+          <View style={[styles.bottomGrid, {marginTop: 30, marginLeft: 15}]}>
+            <View style={{flexDirection: 'row', gap: 10}}>
+              <PaymentIcon height={20} width={20} />
+              <Text style={styles.subTittle}>{t('bankTransfer.orders.paymentBy')}</Text>
+            </View>
+            <Text style={styles.valueText}>{t('cryptoTransfer.cryptoMethod')}</Text>
           </View>
-          <LineDesign />
-        </View>
-
-        <View style={[styles.bottomGrid, {marginTop: 30, marginLeft: 15}]}>
-          <View style={{flexDirection: 'row', gap: 10}}>
-            <PaymentIcon height={20} width={20} />
-            <Text style={styles.subTittle}>{t('bankTransfer.orders.paymentBy')}</Text>
+          <View style={[styles.bottomGrid, {marginTop: 20, marginLeft: 15}]}>
+            <View style={{flexDirection: 'row', gap: 10}}>
+              <WalletIcon height={20} width={20} />
+              <Text style={[styles.subTittle]}>{t('cryptoTransfer.connectedWallet')}</Text>
+            </View>
+            <Text style={styles.valueText}>{address}</Text>
           </View>
-          <Text style={styles.valueText}>{t('cryptoTransfer.cryptoMethod')}</Text>
-        </View>
-        <View style={[styles.bottomGrid, {marginTop: 20, marginLeft: 15}]}>
-          <View style={{flexDirection: 'row', gap: 10}}>
-            <WalletIcon height={20} width={20} />
-            <Text style={[styles.subTittle]}>{t('cryptoTransfer.connectedWallet')}</Text>
-          </View>
-          <Text style={styles.valueText}>{address}</Text>
-        </View>
 
-        <Button
-          title={t('bankTransfer.orders.btn')}
-          containerStyle={{marginTop: 50}}
-          loading={isPaymentLoading}
-          onPress={() => getCurrentPayment()}
-        />
+          <Button
+            title={t('bankTransfer.orders.btn')}
+            containerStyle={{marginTop: 50}}
+            loading={isPaymentLoading}
+            onPress={() => getCurrentPayment()}
+          />
 
-        <CryptoPayment
-          onClose={() => setIsCryptoPayment(false)}
-          isOpened={isCryptoPayment}
-          onPress={() => createOrder.mutate({payment_type: 'crypto'})}
-          isLoading={isPaymentLoading}
-        />
-      </ContainContainer>
+          <CryptoPayment
+            onClose={() => setIsCryptoPayment(false)}
+            isOpened={isCryptoPayment}
+            onPress={() => createOrder.mutate({payment_type: 'crypto'})}
+            isLoading={isPaymentLoading}
+          />
+        </ContainContainer>
+      </SafeAreaView>
     </ScrollView>
   )
 }
