@@ -250,7 +250,7 @@ export const html = ({
                 <div class='left-element'>Bank Name</div>
                 <div class='right-element'>${bankDetails.bank_name}</div>
                </div>
-                <div class='divider'/>
+              <div class='divider'/>
             </div>
             
            ${
@@ -260,14 +260,14 @@ export const html = ({
                 <div class='left-element'>Bank Address</div>
                 <div class='right-element'>${bankDetails.bank_address}</div>
                </div>
+              <div class='divider'/>
             </div> `
            }
 
-            <div class='order-title top-gap'>Reference</div>
             <div>
              <div class='box-with-divider'>
-               <div class='left-element'>Order ID:</div>
-               <div class='right-element'>Payment for the Order #${paymentData.id}</div>
+               <div class='left-element'>Reference:</div>
+               <div class='right-element'>${bankDetails.payment_reference}</div>
               </div>
            </div> 
         </div>

@@ -212,6 +212,7 @@ type BankTransfer = {
   payment_reference: string
   beneficiary_iban_usd: string
   beneficiary_iban_eur: string
+  payment_reference: string
 }
 
 export type Transfer = {
