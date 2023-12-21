@@ -195,7 +195,7 @@ export const html = ({
                     </div>
                     <div>Deposit To</div>
                 </div>
-                <div class='right-element'>${bankDetails.beneficiary_name}</div>
+                <div class='right-element'>${bankDetails?.beneficiary_name}</div>
             </div> 
         </div>
         
@@ -204,7 +204,7 @@ export const html = ({
             <div>
               <div class='box-with-divider'>
                 <div class='left-element'>Account Name</div>
-                <div class='right-element'>${bankDetails.beneficiary_name}</div>
+                <div class='right-element'>${bankDetails?.beneficiary_name}</div>
                </div>
                 <div class='divider'/>
             </div>
@@ -212,62 +212,65 @@ export const html = ({
              <div>
               <div class='box-with-divider'>
                 <div class='left-element'>BIC</div>
-                <div class='right-element'>${bankDetails.bank_swift_code}</div>
+                <div class='right-element'>${bankDetails?.bank_swift_code}</div>
                </div>
                 <div class='divider'/>
             </div>
             
 
             ${
-              bankDetails.beneficiary_iban_usd &&
-              ` <div>
+              bankDetails?.beneficiary_iban_usd
+                ? ` <div>
                  <div class='box-with-divider'>
                    <div class='left-element'>IBAN</div>
                    <div class='right-element'>${
                      currency === 'USD'
-                       ? bankDetails.beneficiary_iban_usd
-                       : bankDetails.beneficiary_iban_eur
+                       ? bankDetails?.beneficiary_iban_usd
+                       : bankDetails?.beneficiary_iban_eur
                    }</div>
                   </div>
                    <div class='divider'/>
                </div>`
+                : ''
             }
 
            ${
-             bankDetails.beneficiary_account_number &&
-             ` <div>
+             bankDetails?.beneficiary_account_number
+               ? ` <div>
               <div class='box-with-divider'>
                 <div class='left-element'>Account No.</div>
-                <div class='right-element'>${bankDetails.beneficiary_account_number}</div>
+                <div class='right-element'>${bankDetails?.beneficiary_account_number}</div>
                </div>
                 <div class='divider'/>
             </div>`
+               : ''
            }
             
             
              <div>
               <div class='box-with-divider'>
                 <div class='left-element'>Bank Name</div>
-                <div class='right-element'>${bankDetails.bank_name}</div>
+                <div class='right-element'>${bankDetails?.bank_name}</div>
                </div>
               <div class='divider'/>
             </div>
             
            ${
-             bankDetails.bank_address &&
-             `<div>
+             bankDetails?.bank_address
+               ? `<div>
               <div class='box-with-divider'>
                 <div class='left-element'>Bank Address</div>
-                <div class='right-element'>${bankDetails.bank_address}</div>
+                <div class='right-element'>${bankDetails?.bank_address}</div>
                </div>
               <div class='divider'/>
             </div> `
+               : ''
            }
 
             <div>
              <div class='box-with-divider'>
                <div class='left-element'>Reference:</div>
-               <div class='right-element'>${bankDetails.payment_reference}</div>
+               <div class='right-element'>${bankDetails?.payment_reference}</div>
               </div>
            </div> 
         </div>
