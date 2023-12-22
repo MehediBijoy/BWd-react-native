@@ -191,7 +191,7 @@ const CryptoTransfer = () => {
 
           <Button
             title={t('bankTransfer.orders.btn')}
-            containerStyle={{marginTop: 50}}
+            containerStyle={{marginTop: 50, marginBottom: 20}}
             loading={isPaymentLoading}
             onPress={() => getCurrentPayment()}
           />

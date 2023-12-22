@@ -142,7 +142,7 @@ const OrderSummary = () => {
 
         <Button
           title={t('bankTransfer.orders.btn')}
-          containerStyle={{marginTop: 100}}
+          containerStyle={{marginTop: 100, marginBottom: 20}}
           loading={createOrder.isLoading}
           onPress={() => createOrder.mutate({payment_type: 'bank_transfer'})}
         />

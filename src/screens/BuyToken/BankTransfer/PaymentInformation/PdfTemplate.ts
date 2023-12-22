@@ -69,7 +69,7 @@ export const html = ({
               }
       
               .left-element {
-                  width: 130px; 
+                  width: 140px; 
               }
               
               .payment-container{
@@ -106,10 +106,10 @@ export const html = ({
               
               .box-with-divider{
                   display: flex;
-                  margin-top: 15px;
+                  margin-top: 12px;
                   font-size: 16px;
                   margin-left: 12px;
-                  padding-bottom: 15px;
+                  padding-bottom: 12px;
               }
               
               .divider {
@@ -200,7 +200,7 @@ export const html = ({
         </div>
         
         <div class='bank-transfer-details'>
-           <div class='order-title gap'>Bank Transfer account details</div>
+           <div class='order-title gap'>Account details for Bank transfer</div>
             <div>
               <div class='box-with-divider'>
                 <div class='left-element'>Account Name</div>
@@ -220,9 +220,9 @@ export const html = ({
 
             ${
               bankDetails?.beneficiary_iban_usd
-                ? ` <div>
+                ? `<div>
                  <div class='box-with-divider'>
-                   <div class='left-element'>IBAN</div>
+                   <div class='left-element'>Account No/IBAN</div>
                    <div class='right-element'>${
                      currency === 'USD'
                        ? bankDetails?.beneficiary_iban_usd
@@ -238,7 +238,7 @@ export const html = ({
              bankDetails?.beneficiary_account_number
                ? ` <div>
               <div class='box-with-divider'>
-                <div class='left-element'>Account No.</div>
+                <div class='left-element'>Account No/IBAN</div>
                 <div class='right-element'>${bankDetails?.beneficiary_account_number}</div>
                </div>
                 <div class='divider'/>
@@ -269,7 +269,7 @@ export const html = ({
 
             <div>
              <div class='box-with-divider'>
-               <div class='left-element'>Reference:</div>
+               <div class='left-element'>Reference</div>
                <div class='right-element'>${bankDetails?.payment_reference}</div>
               </div>
            </div> 

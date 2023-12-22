@@ -287,7 +287,8 @@
       "twoFactorAuthentication": "Zwei-Faktor-Authentifizierung",
       "becomeAnAffiliate": "Werden Sie Partner",
       "orderSummary": "Bestellübersicht",
-      "paymentInformation": "Zahlungsinformationen"
+      "paymentInformation": "Zahlungsinformationen",
+      "cryptoPayment": "Krypto-Zahlungen"
     },
     "logout": "Abmelden"
   },
