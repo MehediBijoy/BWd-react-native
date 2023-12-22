@@ -51,7 +51,7 @@ const PaymentInformation = () => {
     data &&
       (await RNPrint.print({
         html: html({paymentData, bankDetails: data, currency}),
-        jobName: `${formatDate(paymentData.created_at, 'YYYY_mm_DD')}_brettonwoods_digital_${
+        jobName: `${formatDate(paymentData.created_at, 'YYYY_MM_DD')}_brettonwoods_digital_${
           paymentData.id
         }`,
       }))
