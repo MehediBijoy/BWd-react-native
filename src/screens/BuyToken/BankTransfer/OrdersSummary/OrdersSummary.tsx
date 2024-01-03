@@ -132,13 +132,14 @@ const OrderSummary = () => {
           </View>
           <Text style={styles.valueText}>{t('bankTransfer.orders.method')}</Text>
         </View>
-        <View style={[styles.bottomGrid, {marginTop: 20, marginLeft: 15}]}>
+
+        {/* <View style={[styles.bottomGrid, {marginTop: 20, marginLeft: 15}]}>
           <View style={{flexDirection: 'row', gap: 10, width: 130}}>
             <DepositIcon height={20} width={20} />
             <Text style={styles.subTittle}>{t('bankTransfer.orders.deposit')}</Text>
           </View>
           <Text style={styles.valueText}>{t('bankTransfer.orders.bwg')}</Text>
-        </View>
+        </View> */}
 
         <Button
           title={t('bankTransfer.orders.btn')}

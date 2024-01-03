@@ -5,6 +5,7 @@ import {useQuery} from '@tanstack/react-query'
 import {Text, makeStyles, Divider, Button} from '@rneui/themed'
 import {useRoute, RouteProp, useNavigation, NavigationProp} from '@react-navigation/native'
 
+import Loader from '@core/Loader'
 import ContentContainer from '@core/ContentContainer'
 import SafeAreaView from '@core/SafeAreaView'
 
@@ -41,7 +42,7 @@ const PaymentInformation = () => {
 
   const {paymentData, currency} = route.params
 
-  const {data} = useQuery({
+  const {data, isLoading} = useQuery({
     queryKey: [cacheKey.bankDetails, paymentData.id, platform],
     queryFn: () => api.getBankDetails(paymentData.id, platform.toLowerCase()),
     enabled: !!paymentData,
@@ -50,11 +51,26 @@ const PaymentInformation = () => {
   const printHTML = async () => {
     data &&
       (await RNPrint.print({
-        html: html({paymentData, bankDetails: data, currency}),
+        html: html({paymentData, bankDetails: data, currency, t}),
         jobName: `${formatDate(paymentData.created_at, 'YYYY_MM_DD')}_brettonwoods_digital_${
           paymentData.id
         }`,
       }))
+  }
+
+  if (isLoading) {
+    return (
+      <View
+        style={{
+          minHeight: '100%',
+          minWidth: '100%',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Loader />
+      </View>
+    )
   }
 
   return (

@@ -760,7 +760,7 @@
       "total": "Gesamt",
       "paymentBy": "Zahlung per",
       "method": "Überweisung",
-      "deposit": "Einzahlung auf",
+      "deposit": "Empfänger",
       "bwg": "BrettonWoods digital Gold",
       "btn": "Bestätigen"
     },
@@ -772,7 +772,7 @@
       "details": "Kontodaten für die Banküberweisung",
       "name": "Kontoinhaber",
       "ibn": "IBAN",
-      "bic": "BLZ",
+      "bic": "BIC",
       "number": "Kontonummer",
       "bankName": "Bankname",
       "address": "Bankadresse",
@@ -795,5 +795,25 @@
     "proceed": "Fortfahren",
     "cancel": "Abbrechen",
     "modalTitle": "Kaufbestätigung"
+  },
+  "pdf": {
+    "title": "Rechnung",
+    "orderDetails": "Bestelldetails",
+    "orderId": "Bestellnummer",
+    "orderDate": "Bestelldatum",
+    "totalPurchase": "Gesamteinkauf",
+    "pricePerBWG": "Preis pro BWG",
+    "totalPrice": "Gesamtpreis",
+    "paymentDetails": "Zahlungsdetails",
+    "paymentBy": "Zahlung durch",
+    "bankTransfer": "Banküberweisung",
+    "depositTo": "Empfänger",
+    "subTitle": "Kontodaten für Banküberweisung",
+    "accountName": "Kontoname",
+    "bic": "BIC",
+    "iban": "Kontonummer/IBAN",
+    "bankName": "Bankname",
+    "bankAddress": "Bankadresse",
+    "reference": "Referenz"
   }
 }
