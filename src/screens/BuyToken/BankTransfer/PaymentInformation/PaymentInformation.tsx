@@ -5,6 +5,7 @@ import {useQuery} from '@tanstack/react-query'
 import {Text, makeStyles, Divider, Button} from '@rneui/themed'
 import {useRoute, RouteProp, useNavigation, NavigationProp} from '@react-navigation/native'
 
+import Loader from '@core/Loader'
 import ContentContainer from '@core/ContentContainer'
 import SafeAreaView from '@core/SafeAreaView'
 
@@ -41,7 +42,7 @@ const PaymentInformation = () => {
 
   const {paymentData, currency} = route.params
 
-  const {data} = useQuery({
+  const {data, isLoading} = useQuery({
     queryKey: [cacheKey.bankDetails, paymentData.id, platform],
     queryFn: () => api.getBankDetails(paymentData.id, platform.toLowerCase()),
     enabled: !!paymentData,
@@ -50,11 +51,26 @@ const PaymentInformation = () => {
   const printHTML = async () => {
     data &&
       (await RNPrint.print({
-        html: html({paymentData, bankDetails: data, currency}),
-        jobName: `${formatDate(paymentData.created_at, 'YYYY_mm_DD')}_brettonwoods_digital_${
+        html: html({paymentData, bankDetails: data, currency, t}),
+        jobName: `${formatDate(paymentData.created_at, 'YYYY_MM_DD')}_brettonwoods_digital_${
           paymentData.id
         }`,
       }))
+  }
+
+  if (isLoading) {
+    return (
+      <View
+        style={{
+          minHeight: '100%',
+          minWidth: '100%',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Loader />
+      </View>
+    )
   }
 
   return (
@@ -117,11 +133,27 @@ const PaymentInformation = () => {
             </View>
             <Divider width={2} />
 
-            <View style={styles.detailsGrid}>
-              <Text style={styles.smallTittle}>{t('bankTransfer.paymentInfo.number')}</Text>
-              <Text style={styles.smallText}>{data?.beneficiary_account_number}</Text>
-            </View>
-            <Divider width={2} />
+            {data?.beneficiary_iban_usd && (
+              <>
+                <View style={styles.detailsGrid}>
+                  <Text style={styles.smallTittle}>{t('bankTransfer.paymentInfo.ibn')}</Text>
+                  <Text style={styles.smallText}>
+                    {currency === 'USD' ? data.beneficiary_iban_usd : data.beneficiary_iban_eur}
+                  </Text>
+                </View>
+                <Divider width={2} />
+              </>
+            )}
+
+            {data?.beneficiary_account_number && (
+              <>
+                <View style={styles.detailsGrid}>
+                  <Text style={styles.smallTittle}>{t('bankTransfer.paymentInfo.number')}</Text>
+                  <Text style={styles.smallText}>{data?.beneficiary_account_number}</Text>
+                </View>
+                <Divider width={2} />
+              </>
+            )}
 
             <View style={styles.detailsGrid}>
               <Text style={styles.smallTittle}>{t('bankTransfer.paymentInfo.bankName')}</Text>
@@ -129,20 +161,18 @@ const PaymentInformation = () => {
             </View>
             <Divider width={2} />
 
-            <View style={styles.detailsGrid}>
+            {/* <View style={styles.detailsGrid}>
               <Text style={styles.smallTittle}>{t('bankTransfer.paymentInfo.address')}</Text>
-              <Text style={styles.smallText}>{data?.beneficiary_address}</Text>
+              <Text style={styles.smallText}>{data?.bank_address}</Text>
             </View>
-            <Divider width={2} />
+            <Divider width={2} /> */}
 
             <Text style={(styles.valueText, {marginTop: 20})}>
               {t('bankTransfer.paymentInfo.ref')}
             </Text>
             <View style={[styles.detailsGrid, {marginTop: 20}]}>
               <Text style={styles.smallTittle}>{t('bankTransfer.paymentInfo.orderID')}</Text>
-              <Text style={styles.smallText}>
-                {t('bankTransfer.paymentInfo.orderInfo')} #{paymentData.id}
-              </Text>
+              <Text style={styles.smallText}>{data?.payment_reference}</Text>
             </View>
           </View>
 

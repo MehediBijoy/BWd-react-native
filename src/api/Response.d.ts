@@ -202,14 +202,17 @@ type Payment<Tdata = null> = {
 }
 
 type BankTransfer = {
-  beneficiary_name: 'Company name'
-  beneficiary_account_number: '123456789'
-  beneficiary_address: 'City, Country'
-  bank_aba_routing_number: '123456789'
-  bank_name: '123456789'
-  bank_address: 'City, Country'
-  bank_swift_code: 'BJX123ASD56'
-  payment_reference: 'Payment for the Order #12345'
+  beneficiary_name: string
+  beneficiary_account_number: string
+  beneficiary_address: string
+  bank_aba_routing_number: string
+  bank_name: string
+  bank_address: string
+  bank_swift_code: string
+  payment_reference: string
+  beneficiary_iban_usd: string
+  beneficiary_iban_eur: string
+  payment_reference: string
 }
 
 export type Transfer = {

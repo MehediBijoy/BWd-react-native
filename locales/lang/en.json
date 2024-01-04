@@ -797,5 +797,25 @@
     "proceed": "Proceed",
     "cancel": "Cancel",
     "modalTitle": "Purchase confirmation"
+  },
+  "pdf": {
+    "title": "Invoice",
+    "orderDetails": "Order Details",
+    "orderId": "Order ID",
+    "orderDate": "Order Date",
+    "totalPurchase": "Total Purchase",
+    "pricePerBWG": "Price per BWG",
+    "totalPrice": "Total Price",
+    "paymentDetails": "Payment details",
+    "paymentBy": "Payment By",
+    "bankTransfer": "Bank Transfer",
+    "depositTo": "Deposit To",
+    "subTitle": "Account details for Bank transfer",
+    "accountName": "Account Name",
+    "bic": "BIC",
+    "iban": "Account No/IBAN",
+    "bankName": "Bank Name",
+    "bankAddress": "Bank Address",
+    "reference": "Reference"
   }
 }
