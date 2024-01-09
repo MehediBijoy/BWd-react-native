@@ -291,6 +291,8 @@ type ReferralStats = {
 }
 
 type ReferralAccount = {
+  referrer_name: string
+  previous_referrer_id: number
   referrals_stats: ReferralStats[]
   meta: Meta
 }

@@ -53,6 +53,7 @@
   "affiliate": {
     "title": "Affiliate Overview",
     "referralTitle": "Your Referrals",
+    "yourDownLine": "View all your downline",
     "termsAndConditions": "Affiliate Terms & Conditions",
     "refId": "Your Referral ID",
     "refLink": "Your referral Link",
@@ -60,11 +61,15 @@
     "qrCode": "QR Code",
     "export": "Export",
     "download": "Download",
+    "referrals": "Referrals",
     "payoutCommissionBtn": "Payout commission",
     "enabledBtn": "Enable 2FA",
     "closeBtn": "Close",
     "showBtn": "Show all",
     "shareReferralLink": "Share your referral Link",
+    "downline": "Downline",
+    "overViewBtn": "Back to Affiliate Overview",
+    "backToUserBtn": "Back to previous user",
     "payoutCommission": {
       "amount": "Amount",
       "address": "Address",
@@ -291,7 +296,8 @@
       "becomeAnAffiliate": "Become An Affiliate",
       "orderSummary": "Order Summary",
       "paymentInformation": "Payment Information",
-      "cryptoPayment": "Crypto Payment"
+      "cryptoPayment": "Crypto Payment",
+      "yourReferral": "Your referrals"
     },
     "logout": "Logout"
   },

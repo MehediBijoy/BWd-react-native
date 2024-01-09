@@ -57,11 +57,15 @@
     "qrCode": "QR-Code",
     "export": "Exportieren",
     "download": "Herunterladen",
+    "referrals": "Empfehlungen",
     "payoutCommissionBtn": "Provision auszahlen",
     "enabledBtn": "2FA aktivieren",
     "closeBtn": "Schließen",
     "showBtn": "Zeige alles",
     "shareReferralLink": "Teilen Sie Ihren Referrallink",
+    "downline": "Downline",
+    "overViewBtn": "Zurück zur Affiliate-Übersicht",
+    "backToUserBtn": "Zurück zum vorherigen Benutzer",
     "payoutCommission": {
       "amount": "Betrag",
       "address": "Adresse",
@@ -288,7 +292,8 @@
       "becomeAnAffiliate": "Werden Sie Partner",
       "orderSummary": "Bestellübersicht",
       "paymentInformation": "Zahlungsinformationen",
-      "cryptoPayment": "Krypto-Zahlungen"
+      "cryptoPayment": "Krypto-Zahlungen",
+      "yourReferral": "Ihre Empfehlungen"
     },
     "logout": "Abmelden"
   },

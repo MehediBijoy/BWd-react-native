@@ -1,6 +1,8 @@
 import React from 'react'
 import {useTranslation} from 'react-i18next'
 import {useQuery} from '@tanstack/react-query'
+import {useNavigation} from '@react-navigation/native'
+import {DrawerNavigationProp} from '@react-navigation/drawer'
 import {Text, makeStyles, useTheme, Button} from '@rneui/themed'
 import {
   ActivityIndicator,
@@ -16,8 +18,9 @@ import StatusBadge from '@core/StatusBadge'
 import {useApi} from 'hooks/api'
 import {cacheKey} from 'api/CacheKey'
 import {useLocales} from 'hooks/states'
-import {formatNumber, shorten} from 'utils'
 import {ReferralStats} from 'api/Response'
+import {formatNumber, shorten} from 'utils'
+import {RouteStack} from 'navigators/routes'
 import {useProfile, usePlatform} from 'hooks/helper'
 import {LegalStuff} from 'constants/legalStuff.config'
 import ShareImg from 'images/affiliates/share.svg'
@@ -27,11 +30,12 @@ import ReferralUserModal from './ReferralUserModal'
 const ReferralTable = () => {
   const api = useApi()
   const styles = useStyles()
-  const {t} = useTranslation()
   const {theme} = useTheme()
+  const {t} = useTranslation()
   const {profile} = useProfile()
   const {APP_URL} = usePlatform()
   const {currentLang} = useLocales()
+  const navigation = useNavigation<DrawerNavigationProp<RouteStack, 'DownLine'>>()
 
   const [selectedItem, setSelectedItem] = React.useState<ReferralStats>()
 
@@ -53,7 +57,17 @@ const ReferralTable = () => {
 
   return (
     <View>
-      <Text h4>{t('affiliate.referralTitle')}</Text>
+      <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
+        <Text h4>{t('affiliate.referralTitle')}</Text>
+        <Button
+          color='secondary'
+          title={t('affiliate.yourDownLine')}
+          onPress={() => navigation.navigate('DownLine')}
+          containerStyle={{
+            marginVertical: 10,
+          }}
+        />
+      </View>
 
       <View style={[styles.container, styles.tableBorder]}>
         <View style={[styles.headerRow, styles.rowDivider]}>
