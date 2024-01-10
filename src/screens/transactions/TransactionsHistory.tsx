@@ -1,24 +1,22 @@
 import React from 'react'
 import {useTranslation} from 'react-i18next'
-import {Text, makeStyles, useTheme} from '@rneui/themed'
+import {makeStyles} from '@rneui/themed'
 import {useQuery, useQueryClient} from '@tanstack/react-query'
-import {ActivityIndicator, TouchableOpacity, View} from 'react-native'
 
-import StatusBadge from '@core/StatusBadge'
+import {Table} from '@core/Table'
 
 import {useApi} from 'hooks/api'
 import {OrderHistory} from 'api/Response'
 import {cacheKey} from 'api/CacheKey'
 import {useSocket} from 'hooks/helper'
 import {useLocales} from 'hooks/states'
-import {formatDate, formatNumber} from 'utils'
+import {formatOrders} from 'utils/response'
 
 import OrderDetailsModal from './OrderDetailsModal'
 
 const TransactionsHistory = () => {
   const api = useApi()
   const {t} = useTranslation()
-  const {theme} = useTheme()
   const styles = useStyles()
   const {subscribe} = useSocket()
   const {currentLang} = useLocales()
@@ -27,7 +25,7 @@ const TransactionsHistory = () => {
 
   const {data: orderHistory, isLoading} = useQuery<OrderHistory>({
     queryKey: [cacheKey.orderHistory],
-    queryFn: api.getOrders,
+    queryFn: () => api.getOrders().then(result => formatOrders(result, currentLang, t)),
   })
 
   const selectedRow = React.useMemo(
@@ -65,81 +63,50 @@ const TransactionsHistory = () => {
     })
   }, [queryClient, subscribe])
 
+  const config = [
+    {
+      header: 'common.table-header-description',
+      fields: ['orderId', 'paidAmount', 'receivedAmount', 'payment_type'],
+      localKeys: [
+        'trade.table.headers.order',
+        'trade.table.headers.paidAmount',
+        'trade.table.headers.receivedAmount',
+        'dashboard.buy.confirm.method',
+      ],
+      types: ['keypair', 'keypair', 'keypair', 'keypair'],
+      cellStyle: styles.cellDetails,
+      textStyle: [styles.titleText, {}, {}, {}],
+    },
+    {
+      header: 'trade.table.status',
+      fields: ['stage', 'orderStatus'],
+      localKeys: ['', 'trade.orderStatuses.##orderStatus##'],
+      types: ['text', 'badge'],
+      cellStyle: styles.cellStatus,
+      textStyle: [{marginBottom: 5}, {}],
+    },
+    {
+      header: 'trade.table.headers.date',
+      fields: ['createdTime', 'createdDate'],
+      types: ['text', 'text'],
+      cellStyle: styles.cellDate,
+    },
+  ]
+
   return (
     <>
-      <View style={[styles.container]}>
-        <View style={[styles.tableRow, styles.headerRow]}>
-          <Text style={styles.cellDetails}>{t('common.table-header-description')}</Text>
-          <Text style={styles.cellStatus}>{t('trade.table.status')}</Text>
-          <Text style={[styles.cellDate, styles.rowText]}>{t('trade.table.headers.date')}</Text>
-        </View>
-
-        {isLoading && (
-          <ActivityIndicator
-            style={{marginVertical: 20}}
-            size='large'
-            color={theme.colors.primary}
-          />
-        )}
-        {!isLoading &&
-          orderHistory &&
-          orderHistory.payments &&
-          orderHistory.payments.map((item, index) => (
-            <TouchableOpacity
-              activeOpacity={0.8}
-              key={index}
-              style={[
-                styles.tableRow,
-                index === orderHistory.payments.length - 1 ? styles.bottomRow : styles.bodyRow,
-              ]}
-              onPress={() => setSelectedId(item.id)}
-            >
-              <View style={styles.cellDetails}>
-                <Text style={[styles.rowText, styles.titleText]}>
-                  {t('trade.table.headers.order')}: #{item.id}
-                </Text>
-                <Text style={styles.rowText}>
-                  <Text style={styles.labelText}>{t('trade.table.headers.paidAmount')}: </Text>
-                  {formatNumber(item.paid_amount_number, {locales: currentLang})}{' '}
-                  {item.paid_amount_currency}
-                </Text>
-                <Text style={styles.rowText}>
-                  <Text style={styles.labelText}>{t('trade.table.headers.receivedAmount')}: </Text>
-                  {formatNumber(item.received_amount_number, {locales: currentLang})}{' '}
-                  {item.received_amount_currency}
-                </Text>
-                <Text style={styles.rowText}>
-                  <Text style={styles.labelText}>{t('dashboard.buy.confirm.method')}: </Text>
-                  {item.payment_type}
-                </Text>
-              </View>
-              <View style={styles.cellStatus}>
-                <Text style={[styles.rowText, {marginBottom: 5}]}>
-                  {item.transfer?.status
-                    ? t('trade.table.headers.transfer')
-                    : t('trade.table.headers.payment')}
-                </Text>
-                <StatusBadge
-                  status={item.transfer?.status ?? item.status}
-                  label={t(`trade.orderStatuses.${item.transfer?.status ?? item.status}`)}
-                />
-              </View>
-              <View style={styles.cellDate}>
-                <Text style={styles.rowText}>{formatDate(item.created_at, 'hh:mm A')}</Text>
-                <Text style={styles.rowText}>{formatDate(item.created_at, 'MMM DD,YYYY')}</Text>
-              </View>
-            </TouchableOpacity>
-          ))}
-        {orderHistory && orderHistory.payments && orderHistory.payments.length === 0 && (
-          <View style={[styles.tableRow, styles.emptyRow]}>
-            <Text>{t('common.noRecordsFound')}</Text>
-          </View>
-        )}
-      </View>
-
       {selectedRow && (
         <OrderDetailsModal isOpened data={selectedRow} onClose={() => setSelectedId(undefined)} />
       )}
+      {
+        <Table
+          containerStyle={styles.container}
+          config={config}
+          data={orderHistory?.payments}
+          isLoading={isLoading}
+          onPress={param => setSelectedId(param)}
+        />
+      }
     </>
   )
 }
@@ -181,23 +148,20 @@ const useStyles = makeStyles(({colors}) => ({
     borderBottomLeftRadius: 8,
     borderBottomRightRadius: 8,
   },
-  rowText: {
-    fontSize: 11,
-    color: colors.textPrimary,
-  },
   cellDate: {
     alignItems: 'flex-end',
-    textAlign: 'right',
     width: '22%',
+    fontSize: 11,
   },
   cellDetails: {
-    textAlign: 'left',
+    alignItems: 'flex-start',
     width: '53%',
+    fontSize: 11,
   },
   cellStatus: {
-    textAlign: 'center',
     alignItems: 'center',
     width: '25%',
+    fontSize: 11,
   },
   titleText: {
     fontSize: 14,

@@ -1,9 +1,10 @@
 import React, {useMemo} from 'react'
 import {useTranslation} from 'react-i18next'
-import {ScrollView, View} from 'react-native'
-import {makeStyles, Text} from '@rneui/themed'
+import {ScrollView} from 'react-native'
+import {makeStyles} from '@rneui/themed'
 
 import Modal from '@core/Modal'
+import {Table} from '@core/Table'
 
 import {formatNumber} from 'utils'
 import {Asset, AssetRates} from 'api/Response'
@@ -18,8 +19,6 @@ type TierOverviewModalProps = {
 
 type ReduceData = {
   id: number
-  min: string
-  max: string
 } & AssetRates
 
 const TierOverviewModal = ({isOpened, onClose}: TierOverviewModalProps) => {
@@ -37,8 +36,23 @@ const TierOverviewModal = ({isOpened, onClose}: TierOverviewModalProps) => {
           {
             ...curr,
             id: index,
-            min: formatNumber(curr?.amount, {locales: currentLang}),
-            max: formatNumber(arr[index + 1]?.amount, {locales: currentLang}),
+            tierId: `${t('tierOverview.level')} ${index + 1}`,
+            description:
+              index !== arr.length - 1
+                ? ` ${t('tierOverview.from')} ${formatNumber(curr?.amount, {
+                    locales: currentLang,
+                  })} ${t('tierOverview.upTo')} ${formatNumber(arr[index + 1]?.amount, {
+                    locales: currentLang,
+                  })}`
+                : `${t('tierOverview.from')} ${formatNumber(curr?.amount, {locales: currentLang})}`,
+            tierFee: `${
+              curr?.rate &&
+              formatNumber(curr?.rate, {
+                locales: currentLang,
+                maximumFractionDigits: 2,
+                minimumFractionDigits: 2,
+              })
+            } ${currency}`,
           },
         ],
         []
@@ -46,43 +60,28 @@ const TierOverviewModal = ({isOpened, onClose}: TierOverviewModalProps) => {
     [currentLang, data]
   )
 
+  const config = [
+    {
+      header: 'tierOverview.tier',
+      fields: ['tierId'],
+      cellStyle: styles.tierItem,
+    },
+    {
+      header: 'tierOverview.amount',
+      fields: ['description'],
+      cellStyle: styles.tierDescription,
+    },
+    {
+      header: 'tierOverview.fee',
+      fields: ['tierFee'],
+      cellStyle: styles.tierFee,
+    },
+  ]
+
   return (
     <Modal title={t('tierOverview.title')} isOpened={isOpened} onClose={onClose}>
       <ScrollView>
-        <View style={[styles.container]}>
-          <View style={[styles.tableRow, styles.headerRow]}>
-            <Text style={styles.tierItem}>{t('tierOverview.tier')}</Text>
-            <Text style={styles.tierDescription}>{t('tierOverview.amount')}</Text>
-            <Text style={styles.tierFee}>{t('tierOverview.fee')}</Text>
-          </View>
-          {fees?.map(({id, min, max, rate}, index: number) => (
-            <View
-              key={id}
-              style={[
-                styles.tableRow,
-                index === fees?.length - 1 ? styles.bottomRow : styles.bodyRow,
-              ]}
-            >
-              <Text style={styles.tierItem}>
-                {t('tierOverview.level')} {id + 1}
-              </Text>
-              <Text style={styles.tierDescription}>
-                {id !== fees.length - 1
-                  ? ` ${t('tierOverview.from')} ${min} ${t('tierOverview.upTo')} ${max}`
-                  : `${t('tierOverview.from')} ${min}`}
-              </Text>
-              <Text style={styles.tierFee}>
-                {rate &&
-                  formatNumber(rate, {
-                    locales: currentLang,
-                    maximumFractionDigits: 2,
-                    minimumFractionDigits: 2,
-                  })}{' '}
-                {currency}
-              </Text>
-            </View>
-          ))}
-        </View>
+        {<Table containerStyle={styles.container} config={config} data={fees} />}
       </ScrollView>
     </Modal>
   )
@@ -131,5 +130,6 @@ const useStyles = makeStyles(({colors}) => ({
     color: colors.textPrimary,
     width: '28%',
     textAlign: 'right',
+    alignItems: 'flex-end',
   },
 }))

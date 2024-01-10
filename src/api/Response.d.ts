@@ -198,6 +198,13 @@ type Payment<Tdata = null> = {
   user_input_amount: string
   created_at: string
   updated_at: string
+  createdTime: string
+  createdDate: string
+  orderId: string
+  paidAmount: string
+  receivedAmount: string
+  stage: string
+  orderStatus: string
   transfer: Tdata
 }
 
