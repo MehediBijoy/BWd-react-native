@@ -3,13 +3,14 @@ import {View} from 'react-native'
 import {Text, makeStyles} from '@rneui/themed'
 import {useTranslation} from 'react-i18next'
 
-import {TableDataType} from './table'
+import {TableDataType} from './Table'
 
 interface HeaderProps {
   config: TableDataType[]
+  localKeyPrefix: string
 }
 
-export const Header: React.FC<HeaderProps> = ({config}) => {
+export const Header: React.FC<HeaderProps> = ({config, localKeyPrefix}) => {
   const styles = useStyles()
   const {t} = useTranslation()
 
@@ -17,7 +18,7 @@ export const Header: React.FC<HeaderProps> = ({config}) => {
     <View style={[styles.header]}>
       {config.map((item: TableDataType, index: number) => (
         <View key={index.toString()} style={[item.cellStyle]}>
-          <Text>{t(item.header)} </Text>
+          <Text>{t(`${localKeyPrefix}.headers.header${index + 1}`)} </Text>
         </View>
       ))}
     </View>

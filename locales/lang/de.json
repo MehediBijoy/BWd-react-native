@@ -72,6 +72,20 @@
       "title2": "Ihre 2FA ist nicht aktiviert",
       "2faInfo": "Um eine sichere Auszahlung zu gewährleisten, müssen Sie Ihre 2-Faktor-Authentifizierung (2FA) aktivieren."
     },
+    "table": {
+      "referral_status": {
+        "active": "aktiv",
+        "inactive": "inaktiv",
+        "investigate": "untersuchen",
+        "blocked": "blockiert",
+        "deleted": "gelöscht"
+      },
+      "headers": {
+        "header1": "Beschreibung",
+        "header2": "Status",
+        "header3": "Betrag"
+      }
+    },
     "refTable": {
       "name": "Name",
       "amount": "Referralbetrag",
@@ -542,7 +556,22 @@
         "orders": "Kaufhistorie"
       },
       "status": "Status",
+      "orderId": "Kauf",
+      "paidAmount": "Bezahlter Betrag",
+      "receivedAmount": "Erhaltener Betrag",
+      "payment_type": "Zahlungsmethode",
+      "orderStatus": {
+        "rejected": "Abgelehnt",
+        "accepted": "Akzeptiert",
+        "confirmed": "Bestätigt",
+        "pending": "Ausstehend",
+        "completed": "Abgeschlossen",
+        "init": "Eingeleitet"
+      },
       "headers": {
+        "header1": "Beschreibung",
+        "header2": "Status",
+        "header3": "Datum",
         "id": "ID",
         "date": "Datum",
         "order": "Kauf",
@@ -732,7 +761,14 @@
     "amount": "Betrag(BWG)",
     "fee": "1 BWG Preis",
     "from": "von",
-    "upTo": "bis zu"
+    "upTo": "bis zu",
+    "table": {
+      "headers": {
+        "header1": "TiLeveler",
+        "header2": "Betrag(BWG)",
+        "header3": "1 BWG Preis"
+      }
+    }
   },
   "restriction": {
     "canNotBeEmpty": "Dieses Feld darf nicht leer sein",

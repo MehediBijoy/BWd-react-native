@@ -1,8 +1,8 @@
 import {TFunction} from 'i18next'
 
-import {User, EstimateFee, OrderHistory} from 'api/Response'
+import {User, EstimateFee, OrderHistory, ReferralAccount} from 'api/Response'
 import {ErrorObject} from 'api/Errors'
-import {formatDate, formatNumber} from 'utils'
+import {formatDate, formatNumber, shorten} from 'utils'
 import {LanguageTypes} from 'i18n/i18n'
 
 export function isUserConfirmed(user: User) {
@@ -39,6 +39,23 @@ export const formatOrders = (
     orderStatus: payment.transfer?.status ?? payment.status,
     createdTime: formatDate(payment.created_at, 'hh:mm A'),
     createdDate: formatDate(payment.created_at, 'MMM DD,YYYY'),
+  })),
+  meta: object?.meta,
+})
+
+export const formatReferralStats = (
+  object: ReferralAccount,
+  currentLang: LanguageTypes,
+  t: TFunction
+): ReferralAccount => ({
+  referrals_stats: object?.referrals_stats.map(item => ({
+    ...item,
+    referralAccount: `${t(
+      'affiliate.refTable.amount'
+    )}: ${item.referral_account_type.toUpperCase()}`,
+    referralName: `${t('affiliate.refTable.name')}: ${item.referral_full_name}`,
+    referralEmail: `${t('affiliate.refTable.email')}: ${shorten(item.referral_email, 7)}`,
+    totalAmount: formatNumber(item.total_amount, {minimumFractionDigits: 4, locales: currentLang}),
   })),
   meta: object?.meta,
 })

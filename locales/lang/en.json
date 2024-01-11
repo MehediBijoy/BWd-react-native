@@ -75,6 +75,20 @@
       "title2": "Your 2FA is not Enabled",
       "2faInfo": "To ensure a safe Payout. You must enable your 2-Factor Authentication (2FA)"
     },
+    "table": {
+      "referral_status": {
+        "active": "active",
+        "inactive": "inactive",
+        "investigate": "investigate",
+        "blocked": "blocked",
+        "deleted": "deleted"
+      },
+      "headers": {
+        "header1": "Description",
+        "header2": "Status",
+        "header3": "Amount"
+      }
+    },
     "refTable": {
       "name": "Name",
       "amount": "Referral Amount",
@@ -546,7 +560,22 @@
         "orders": "Orders History"
       },
       "status": "Status",
+      "orderId": "Order",
+      "paidAmount": "Paid Amount",
+      "receivedAmount": "Received Amount",
+      "payment_type": "Payment Method",
+      "orderStatus": {
+        "rejected": "Rejected",
+        "accepted": "Accepted",
+        "confirmed": "Confirmed",
+        "pending": "Pending",
+        "completed": "Completed",
+        "init": "Init"
+      },
       "headers": {
+        "header1": "Description",
+        "header2": "Status",
+        "header3": "Date",
         "id": "ID",
         "date": "Date",
         "order": "Order",
@@ -736,7 +765,14 @@
     "amount": "Amount(BWG)",
     "fee": "1 BWG Price",
     "from": "from",
-    "upTo": "up to"
+    "upTo": "up to",
+    "table": {
+      "headers": {
+        "header1": "Tier",
+        "header2": "Amount(BWG)",
+        "header3": "1 BWG Price"
+      }
+    }
   },
   "restriction": {
     "canNotBeEmpty": "This field can not be empty",

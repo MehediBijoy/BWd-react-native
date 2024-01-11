@@ -2,16 +2,14 @@ import React from 'react'
 import {View, ViewStyle, TextStyle, ActivityIndicator} from 'react-native'
 import {makeStyles, useTheme} from '@rneui/themed'
 
-import {Header} from './header'
-import {Body} from './body'
+import {Header} from './Header'
+import {Body} from './Body'
 
 export type TableDataType = {
   fields: string[]
-  localKeys?: string[]
   types?: string[]
   cellStyle?: TextStyle
   textStyle?: TextStyle[]
-  header: string
 }
 
 interface TableProps<T> {
@@ -19,17 +17,30 @@ interface TableProps<T> {
   config: TableDataType[]
   isLoading?: boolean
   data?: T[]
-  onPress?: (param: number) => void
+  localKeyPrefix: string
+  onPress?: (param: T) => void
 }
 
-export const Table = <T,>({containerStyle, config, isLoading, data, onPress}: TableProps<T>) => {
+export const Table = <T,>({
+  containerStyle,
+  config,
+  isLoading,
+  data,
+  localKeyPrefix,
+  onPress,
+}: TableProps<T>) => {
   const styles = useStyles()
   const {theme} = useTheme()
   return (
     <View style={[styles.container, containerStyle]}>
-      <Header config={config} />
+      <Header config={config} localKeyPrefix={localKeyPrefix} />
       {!isLoading && data && (
-        <Body data={data} config={config} onPress={param => onPress && onPress(param)} />
+        <Body
+          data={data}
+          config={config}
+          onPress={param => onPress && onPress(param)}
+          localKeyPrefix={localKeyPrefix}
+        />
       )}
       {isLoading && (
         <ActivityIndicator style={{marginVertical: 20}} size='large' color={theme.colors.primary} />

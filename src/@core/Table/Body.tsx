@@ -5,15 +5,16 @@ import {useTranslation} from 'react-i18next'
 
 import StatusBadge from '@core/StatusBadge'
 
-import {TableDataType} from './table'
+import {TableDataType} from './Table'
 
 interface DataProps<T> {
   config: TableDataType[]
   data: T[]
-  onPress?: (param: number) => void
+  localKeyPrefix: string
+  onPress?: (param: T) => void
 }
 
-export const Body = <T,>({data, config, onPress}: DataProps<T>) => {
+export const Body = <T,>({data, config, localKeyPrefix, onPress}: DataProps<T>) => {
   const styles = useStyles()
   const {t} = useTranslation()
 
@@ -23,28 +24,20 @@ export const Body = <T,>({data, config, onPress}: DataProps<T>) => {
     field: string,
     fIndex: number,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    row: any
+    row: any,
+    localKeyPrefix: string
   ) => {
     const itemStyle = item.textStyle?.[fIndex]
 
     switch (item.types?.[fIndex]) {
-      case 'text':
-        return (
-          <Text key={`${cIndex}-${fIndex}`} style={[styles.rowText, itemStyle]}>
-            {' '}
-            {row[field]}{' '}
-          </Text>
-        )
       case 'badge': {
-        const localKey = item.localKeys?.[fIndex]?.replace(`##${field}##`, row[field]) ?? ''
-        return <StatusBadge key={`${cIndex}-${fIndex}`} label={t(localKey)} status={row[field]} />
+        const label = t(`${localKeyPrefix}.${field}.${row[field]}`)
+        return <StatusBadge key={`${cIndex}-${fIndex}`} label={label} status={row[field]} />
       }
       case 'keypair':
         return (
           <Text key={`${cIndex}-${fIndex}`} style={[styles.rowText, itemStyle]}>
-            {item.localKeys?.[fIndex] && (
-              <Text style={styles.labelText}>{t(item.localKeys[fIndex])}: </Text>
-            )}
+            {<Text style={styles.labelText}>{t(`${localKeyPrefix}.${field}`)}: </Text>}
             {row[field]}
           </Text>
         )
@@ -60,28 +53,25 @@ export const Body = <T,>({data, config, onPress}: DataProps<T>) => {
 
   return (
     <>
-      {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        data.map((row: any, rowIndex: number) => (
-          <TouchableOpacity
-            activeOpacity={0.8}
-            key={rowIndex.toString()}
-            style={[
-              styles.tableRow,
-              rowIndex === data.length - 1 ? styles.bottomRow : styles.bodyRow,
-            ]}
-            onPress={() => onPress && onPress(row['id'])}
-          >
-            {config.map((item: TableDataType, cIndex: number) => (
-              <View key={cIndex} style={[item.cellStyle]}>
-                {item.fields.map((field: string, fIndex: number) =>
-                  renderCellContent(item, cIndex, field, fIndex, row)
-                )}
-              </View>
-            ))}
-          </TouchableOpacity>
-        ))
-      }
+      {data.map((row: T, rowIndex: number) => (
+        <TouchableOpacity
+          activeOpacity={0.8}
+          key={rowIndex.toString()}
+          style={[
+            styles.tableRow,
+            rowIndex === data.length - 1 ? styles.bottomRow : styles.bodyRow,
+          ]}
+          onPress={() => onPress && onPress(row)}
+        >
+          {config.map((item: TableDataType, cIndex: number) => (
+            <View key={cIndex} style={[item.cellStyle]}>
+              {item.fields.map((field: string, fIndex: number) =>
+                renderCellContent(item, cIndex, field, fIndex, row, localKeyPrefix)
+              )}
+            </View>
+          ))}
+        </TouchableOpacity>
+      ))}
       {data.length === 0 && (
         <View style={[styles.tableRow, styles.emptyRow]}>
           <Text>{t('common.noRecordsFound')}</Text>
@@ -115,6 +105,7 @@ const useStyles = makeStyles(({colors}) => ({
     borderBottomRightRadius: 8,
   },
   rowText: {
+    fontSize: 12,
     color: colors.textPrimary,
   },
   labelText: {

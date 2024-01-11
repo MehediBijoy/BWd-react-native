@@ -62,17 +62,14 @@ const TierOverviewModal = ({isOpened, onClose}: TierOverviewModalProps) => {
 
   const config = [
     {
-      header: 'tierOverview.tier',
       fields: ['tierId'],
       cellStyle: styles.tierItem,
     },
     {
-      header: 'tierOverview.amount',
       fields: ['description'],
       cellStyle: styles.tierDescription,
     },
     {
-      header: 'tierOverview.fee',
       fields: ['tierFee'],
       cellStyle: styles.tierFee,
     },
@@ -81,7 +78,7 @@ const TierOverviewModal = ({isOpened, onClose}: TierOverviewModalProps) => {
   return (
     <Modal title={t('tierOverview.title')} isOpened={isOpened} onClose={onClose}>
       <ScrollView>
-        {<Table containerStyle={styles.container} config={config} data={fees} />}
+        {<Table config={config} data={fees} localKeyPrefix={'tierOverview.table'} />}
       </ScrollView>
     </Modal>
   )
@@ -89,33 +86,6 @@ const TierOverviewModal = ({isOpened, onClose}: TierOverviewModalProps) => {
 
 export default TierOverviewModal
 const useStyles = makeStyles(({colors}) => ({
-  container: {
-    backgroundColor: colors.background,
-    marginVertical: 10,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: colors.border,
-  },
-  tableRow: {
-    padding: 10,
-    height: 40,
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: colors.background,
-  },
-  headerRow: {
-    backgroundColor: colors.bgPaper,
-    borderTopLeftRadius: 8,
-    borderTopRightRadius: 8,
-  },
-  bodyRow: {
-    borderBottomWidth: 1,
-    borderColor: colors.divider,
-  },
-  bottomRow: {
-    borderBottomLeftRadius: 8,
-    borderBottomRightRadius: 8,
-  },
   tierDescription: {
     color: colors.textPrimary,
     width: '52%',
