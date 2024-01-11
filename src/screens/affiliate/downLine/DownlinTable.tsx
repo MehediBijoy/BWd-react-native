@@ -33,18 +33,13 @@ const DownLineTable = () => {
   const [affiliateID, setAffiliateID] = React.useState(profile?.id)
   const [selectedItem, setSelectedItem] = React.useState<ReferralStats>()
 
-  const {
-    data: referralStats,
-    isLoading,
-    refetch,
-  } = useQuery({
+  const {data: referralStats, isLoading} = useQuery({
     queryKey: [cacheKey.affiliateStats, affiliateID],
     queryFn: () => api.getReferralStats(affiliateID as number),
   })
 
-  const handleNextAndPrevious = async (id: number) => {
-    await setAffiliateID(id)
-    refetch()
+  const handleNextAndPrevious = (id: number) => {
+    setAffiliateID(id)
   }
 
   return (
@@ -118,7 +113,7 @@ const DownLineTable = () => {
                   <View>
                     {item.referral_total_invites !== 0 && (
                       <Button
-                        title='View'
+                        title={t('affiliate.view')}
                         color='tertiary'
                         onPress={() => handleNextAndPrevious(item.referral_id as number)}
                         containerStyle={{height: 30, width: 60}}

@@ -50,6 +50,7 @@
   "affiliate": {
     "title": "Affiliate Dashboard",
     "referralTitle": "Ihre Empfehlungen",
+    "yourDownLine": "Siehe deine ganze downline",
     "termsAndConditions": "Affiliateprogramm Geschäftsbedingungen",
     "refId": "Ihre Referral ID",
     "refLink": "Ihr Referrallink",
@@ -66,6 +67,7 @@
     "downline": "Downline",
     "overViewBtn": "Zurück zur Affiliate-Übersicht",
     "backToUserBtn": "Zurück zum vorherigen Benutzer",
+    "view": "Ansicht",
     "payoutCommission": {
       "amount": "Betrag",
       "address": "Adresse",

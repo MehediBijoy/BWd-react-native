@@ -53,7 +53,7 @@
   "affiliate": {
     "title": "Affiliate Overview",
     "referralTitle": "Your Referrals",
-    "yourDownLine": "View all your downline",
+    "yourDownLine": "View your whole downline",
     "termsAndConditions": "Affiliate Terms & Conditions",
     "refId": "Your Referral ID",
     "refLink": "Your referral Link",
@@ -70,6 +70,7 @@
     "downline": "Downline",
     "overViewBtn": "Back to Affiliate Overview",
     "backToUserBtn": "Back to previous user",
+    "view": "View",
     "payoutCommission": {
       "amount": "Amount",
       "address": "Address",
