@@ -50,6 +50,7 @@
   "affiliate": {
     "title": "Affiliate Dashboard",
     "referralTitle": "Ihre Empfehlungen",
+    "yourDownLine": "Siehe deine ganze downline",
     "termsAndConditions": "Affiliateprogramm Geschäftsbedingungen",
     "refId": "Ihre Referral ID",
     "refLink": "Ihr Referrallink",
@@ -57,11 +58,16 @@
     "qrCode": "QR-Code",
     "export": "Exportieren",
     "download": "Herunterladen",
+    "referrals": "Empfehlungen",
     "payoutCommissionBtn": "Provision auszahlen",
     "enabledBtn": "2FA aktivieren",
     "closeBtn": "Schließen",
     "showBtn": "Zeige alles",
     "shareReferralLink": "Teilen Sie Ihren Referrallink",
+    "downline": "Downline",
+    "overViewBtn": "Zurück zur Affiliate-Übersicht",
+    "backToUserBtn": "Zurück zum vorherigen Benutzer",
+    "view": "Ansicht",
     "payoutCommission": {
       "amount": "Betrag",
       "address": "Adresse",
@@ -288,7 +294,8 @@
       "becomeAnAffiliate": "Werden Sie Partner",
       "orderSummary": "Bestellübersicht",
       "paymentInformation": "Zahlungsinformationen",
-      "cryptoPayment": "Krypto-Zahlungen"
+      "cryptoPayment": "Krypto-Zahlungen",
+      "yourReferral": "Ihre Empfehlungen"
     },
     "logout": "Abmelden"
   },
