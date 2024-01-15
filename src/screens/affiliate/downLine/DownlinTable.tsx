@@ -34,7 +34,7 @@ const DownLineTable = () => {
   const [selectedItem, setSelectedItem] = React.useState<ReferralStats>()
 
   const {data: referralStats, isLoading} = useQuery({
-    queryKey: [cacheKey.affiliateStats, affiliateID],
+    queryKey: [cacheKey.downLineUser, affiliateID],
     queryFn: () => api.getReferralStats(affiliateID as number),
   })
 
