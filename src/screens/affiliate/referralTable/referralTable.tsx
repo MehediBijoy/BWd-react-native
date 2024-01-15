@@ -1,6 +1,8 @@
 import React from 'react'
 import {useTranslation} from 'react-i18next'
 import {useQuery} from '@tanstack/react-query'
+import {useNavigation} from '@react-navigation/native'
+import {DrawerNavigationProp} from '@react-navigation/drawer'
 import {Text, makeStyles, Button} from '@rneui/themed'
 import {View, Linking, Share, TouchableWithoutFeedback} from 'react-native'
 
@@ -10,6 +12,7 @@ import {useApi} from 'hooks/api'
 import {cacheKey} from 'api/CacheKey'
 import {useLocales} from 'hooks/states'
 import {ReferralStats} from 'api/Response'
+import {RouteStack} from 'navigators/routes'
 import {useProfile, usePlatform} from 'hooks/helper'
 import {LegalStuff} from 'constants/legalStuff.config'
 import ShareImg from 'images/affiliates/share.svg'
@@ -24,6 +27,7 @@ const ReferralTable = () => {
   const {profile} = useProfile()
   const {APP_URL} = usePlatform()
   const {currentLang} = useLocales()
+  const navigation = useNavigation<DrawerNavigationProp<RouteStack, 'DownLine'>>()
 
   const [selectedItem, setSelectedItem] = React.useState<ReferralStats>()
 
@@ -50,7 +54,7 @@ const ReferralTable = () => {
     {
       fields: ['referralAccount', 'referralName', 'referralEmail'],
       cellStyle: styles.cellDetails,
-      textStyle: [styles.titleText, styles.labelText, styles.labelText, styles.labelText],
+      textStyle: [styles.titleText],
     },
     {
       fields: ['referral_status'],
@@ -60,12 +64,22 @@ const ReferralTable = () => {
     {
       fields: ['totalAmount'],
       cellStyle: styles.cellDate,
-      textStyle: [styles.labelText],
     },
   ]
   return (
-    <View>
-      <Text h4>{t('affiliate.referralTitle')}</Text>
+    <>
+      <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
+        <Text h4>{t('affiliate.referralTitle')}</Text>
+        <Button
+          color='primary'
+          title={t('affiliate.yourDownLine')}
+          onPress={() => navigation.navigate('DownLine')}
+          containerStyle={{
+            marginVertical: 10,
+          }}
+        />
+      </View>
+
       <Table
         containerStyle={styles.container}
         config={config}
@@ -97,7 +111,7 @@ const ReferralTable = () => {
           data={selectedItem}
         />
       )}
-    </View>
+    </>
   )
 }
 

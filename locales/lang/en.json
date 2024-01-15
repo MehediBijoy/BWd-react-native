@@ -53,6 +53,7 @@
   "affiliate": {
     "title": "Affiliate Overview",
     "referralTitle": "Your Referrals",
+    "yourDownLine": "View your whole downline",
     "termsAndConditions": "Affiliate Terms & Conditions",
     "refId": "Your Referral ID",
     "refLink": "Your referral Link",
@@ -60,11 +61,16 @@
     "qrCode": "QR Code",
     "export": "Export",
     "download": "Download",
+    "referrals": "Referrals",
     "payoutCommissionBtn": "Payout commission",
     "enabledBtn": "Enable 2FA",
     "closeBtn": "Close",
     "showBtn": "Show all",
     "shareReferralLink": "Share your referral Link",
+    "downline": "Downline",
+    "overViewBtn": "Back to Affiliate Overview",
+    "backToUserBtn": "Back to previous user",
+    "view": "View",
     "payoutCommission": {
       "amount": "Amount",
       "address": "Address",
@@ -74,6 +80,23 @@
       "title1": "Payout Commissions",
       "title2": "Your 2FA is not Enabled",
       "2faInfo": "To ensure a safe Payout. You must enable your 2-Factor Authentication (2FA)"
+    },
+    "downlineTable": {
+      "table": {
+        "view": "View",
+        "referral_status": {
+          "active": "active",
+          "inactive": "inactive",
+          "investigate": "investigate",
+          "blocked": "blocked",
+          "deleted": "deleted"
+        },
+        "headers": {
+          "header1": "Description",
+          "header2": "Status",
+          "header3": "Downline"
+        }
+      }
     },
     "table": {
       "referral_status": {
@@ -305,7 +328,8 @@
       "becomeAnAffiliate": "Become An Affiliate",
       "orderSummary": "Order Summary",
       "paymentInformation": "Payment Information",
-      "cryptoPayment": "Crypto Payment"
+      "cryptoPayment": "Crypto Payment",
+      "yourReferral": "Your referrals"
     },
     "logout": "Logout"
   },
@@ -833,5 +857,25 @@
     "proceed": "Proceed",
     "cancel": "Cancel",
     "modalTitle": "Purchase confirmation"
+  },
+  "pdf": {
+    "title": "Invoice",
+    "orderDetails": "Order Details",
+    "orderId": "Order ID",
+    "orderDate": "Order Date",
+    "totalPurchase": "Total Purchase",
+    "pricePerBWG": "Price per BWG",
+    "totalPrice": "Total Price",
+    "paymentDetails": "Payment details",
+    "paymentBy": "Payment By",
+    "bankTransfer": "Bank Transfer",
+    "depositTo": "Deposit To",
+    "subTitle": "Account details for Bank transfer",
+    "accountName": "Account Name",
+    "bic": "BIC",
+    "iban": "Account No/IBAN",
+    "bankName": "Bank Name",
+    "bankAddress": "Bank Address",
+    "reference": "Reference"
   }
 }

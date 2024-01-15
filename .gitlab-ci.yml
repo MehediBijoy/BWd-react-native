@@ -6,7 +6,7 @@ before_script:
 stages:
   - build
 
-build project:
+build proect:
   stage: build
   image: reactnativecommunity/react-native-android
   cache:

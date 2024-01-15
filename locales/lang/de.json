@@ -50,6 +50,7 @@
   "affiliate": {
     "title": "Affiliate Dashboard",
     "referralTitle": "Ihre Empfehlungen",
+    "yourDownLine": "Siehe deine ganze downline",
     "termsAndConditions": "Affiliateprogramm Geschäftsbedingungen",
     "refId": "Ihre Referral ID",
     "refLink": "Ihr Referrallink",
@@ -57,11 +58,16 @@
     "qrCode": "QR-Code",
     "export": "Exportieren",
     "download": "Herunterladen",
+    "referrals": "Empfehlungen",
     "payoutCommissionBtn": "Provision auszahlen",
     "enabledBtn": "2FA aktivieren",
     "closeBtn": "Schließen",
     "showBtn": "Zeige alles",
     "shareReferralLink": "Teilen Sie Ihren Referrallink",
+    "downline": "Downline",
+    "overViewBtn": "Zurück zur Affiliate-Übersicht",
+    "backToUserBtn": "Zurück zum vorherigen Benutzer",
+    "view": "Ansicht",
     "payoutCommission": {
       "amount": "Betrag",
       "address": "Adresse",
@@ -71,6 +77,23 @@
       "title1": "Provision auszahlen",
       "title2": "Ihre 2FA ist nicht aktiviert",
       "2faInfo": "Um eine sichere Auszahlung zu gewährleisten, müssen Sie Ihre 2-Faktor-Authentifizierung (2FA) aktivieren."
+    },
+    "downlineTable": {
+      "table": {
+        "view": "View",
+        "referral_status": {
+          "active": "aktiv",
+          "inactive": "inaktiv",
+          "investigate": "untersuchen",
+          "blocked": "blockiert",
+          "deleted": "gelöscht"
+        },
+        "headers": {
+          "header1": "Beschreibung",
+          "header2": "Status",
+          "header3": "Betrag"
+        }
+      }
     },
     "table": {
       "referral_status": {
@@ -301,7 +324,9 @@
       "twoFactorAuthentication": "Zwei-Faktor-Authentifizierung",
       "becomeAnAffiliate": "Werden Sie Partner",
       "orderSummary": "Bestellübersicht",
-      "paymentInformation": "Zahlungsinformationen"
+      "paymentInformation": "Zahlungsinformationen",
+      "cryptoPayment": "Krypto-Zahlungen",
+      "yourReferral": "Ihre Empfehlungen"
     },
     "logout": "Abmelden"
   },
@@ -795,7 +820,7 @@
       "total": "Gesamt",
       "paymentBy": "Zahlung per",
       "method": "Überweisung",
-      "deposit": "Einzahlung auf",
+      "deposit": "Empfänger",
       "bwg": "BrettonWoods digital Gold",
       "btn": "Bestätigen"
     },
@@ -807,7 +832,7 @@
       "details": "Kontodaten für die Banküberweisung",
       "name": "Kontoinhaber",
       "ibn": "IBAN",
-      "bic": "BLZ",
+      "bic": "BIC",
       "number": "Kontonummer",
       "bankName": "Bankname",
       "address": "Bankadresse",
@@ -830,5 +855,25 @@
     "proceed": "Fortfahren",
     "cancel": "Abbrechen",
     "modalTitle": "Kaufbestätigung"
+  },
+  "pdf": {
+    "title": "Rechnung",
+    "orderDetails": "Bestelldetails",
+    "orderId": "Bestellnummer",
+    "orderDate": "Bestelldatum",
+    "totalPurchase": "Gesamteinkauf",
+    "pricePerBWG": "Preis pro BWG",
+    "totalPrice": "Gesamtpreis",
+    "paymentDetails": "Zahlungsdetails",
+    "paymentBy": "Zahlung durch",
+    "bankTransfer": "Banküberweisung",
+    "depositTo": "Empfänger",
+    "subTitle": "Kontodaten für Banküberweisung",
+    "accountName": "Kontoname",
+    "bic": "BIC",
+    "iban": "Kontonummer/IBAN",
+    "bankName": "Bankname",
+    "bankAddress": "Bankadresse",
+    "reference": "Referenz"
   }
 }

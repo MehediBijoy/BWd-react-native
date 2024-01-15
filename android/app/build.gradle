@@ -82,8 +82,8 @@ android {
         applicationId "com.platformapp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 16 
-        versionName "1.1.2"
+        versionCode 19 
+        versionName "1.2.0"
     }
     signingConfigs {
         debug {

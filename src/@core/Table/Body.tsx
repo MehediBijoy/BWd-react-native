@@ -1,6 +1,6 @@
 import React from 'react'
 import {View, TouchableOpacity} from 'react-native'
-import {Text, makeStyles} from '@rneui/themed'
+import {Button, Text, makeStyles} from '@rneui/themed'
 import {useTranslation} from 'react-i18next'
 
 import StatusBadge from '@core/StatusBadge'
@@ -33,6 +33,22 @@ export const Body = <T,>({data, config, localKeyPrefix, onPress}: DataProps<T>) 
       case 'badge': {
         const label = t(`${localKeyPrefix}.${field}.${row[field]}`)
         return <StatusBadge key={`${cIndex}-${fIndex}`} label={label} status={row[field]} />
+      }
+      case 'button': {
+        const dependency = item.dependency?.[fIndex]
+        const onPress = item.onPress
+        return (
+          dependency &&
+          row[dependency] && (
+            <Button
+              key={`${cIndex}-${fIndex}`}
+              title={t(`${localKeyPrefix}.${field}`)}
+              color='tertiary'
+              onPress={() => onPress && onPress(row)}
+              titleStyle={styles.btnTitleStyle}
+            />
+          )
+        )
       }
       case 'keypair':
         return (
@@ -83,7 +99,7 @@ export const Body = <T,>({data, config, localKeyPrefix, onPress}: DataProps<T>) 
 
 const useStyles = makeStyles(({colors}) => ({
   tableRow: {
-    padding: 10,
+    padding: 5,
     height: 40,
     flexDirection: 'row',
     alignItems: 'center',
@@ -105,10 +121,11 @@ const useStyles = makeStyles(({colors}) => ({
     borderBottomRightRadius: 8,
   },
   rowText: {
-    fontSize: 12,
+    fontSize: 11,
     color: colors.textPrimary,
   },
   labelText: {
     fontWeight: '700',
   },
+  btnTitleStyle: {fontSize: 12},
 }))

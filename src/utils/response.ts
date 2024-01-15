@@ -51,11 +51,18 @@ export const formatReferralStats = (
   referrals_stats: object?.referrals_stats.map(item => ({
     ...item,
     referralAccount: `${t(
-      'affiliate.refTable.amount'
+      'affiliate.refTable.accountType'
     )}: ${item.referral_account_type.toUpperCase()}`,
     referralName: `${t('affiliate.refTable.name')}: ${item.referral_full_name}`,
     referralEmail: `${t('affiliate.refTable.email')}: ${shorten(item.referral_email, 7)}`,
     totalAmount: formatNumber(item.total_amount, {minimumFractionDigits: 4, locales: currentLang}),
+    commissionAmount: `${t('affiliate.payoutCommission.amount')}: ${formatNumber(
+      item.total_amount,
+      {locales: currentLang, maximumFractionDigits: 4}
+    )}`,
+    view: item.referral_total_invites !== 0,
   })),
-  meta: object?.meta,
+  meta: object.meta,
+  previous_referrer_id: object.previous_referrer_id,
+  referrer_name: object.referrer_name,
 })

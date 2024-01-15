@@ -10,6 +10,9 @@ export type TableDataType = {
   types?: string[]
   cellStyle?: TextStyle
   textStyle?: TextStyle[]
+  dependency?: string[]
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onPress?: (param: any) => void
 }
 
 interface TableProps<T> {

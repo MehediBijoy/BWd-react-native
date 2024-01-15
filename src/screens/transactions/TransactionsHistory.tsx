@@ -70,18 +70,16 @@ const TransactionsHistory = () => {
       fields: ['orderId', 'paidAmount', 'receivedAmount', 'payment_type'],
       types: ['keypair', 'keypair', 'keypair', 'keypair'],
       cellStyle: styles.cellDetails,
-      textStyle: [styles.titleText, styles.titleText, styles.titleText, styles.titleText],
     },
     {
       fields: ['stage', 'orderStatus'],
       types: ['text', 'badge'],
       cellStyle: styles.cellStatus,
-      textStyle: [styles.statusTitle, styles.titleText],
+      textStyle: [styles.statusTitle],
     },
     {
       fields: ['createdTime', 'createdDate'],
       cellStyle: styles.cellDate,
-      textStyle: [styles.titleText, styles.titleText],
     },
   ]
 
