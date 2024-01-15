@@ -151,7 +151,4 @@ const useStyles = makeStyles(({colors}) => ({
     fontSize: 11,
     marginBottom: 5,
   },
-  titleText: {
-    fontSize: 11,
-  },
 }))
