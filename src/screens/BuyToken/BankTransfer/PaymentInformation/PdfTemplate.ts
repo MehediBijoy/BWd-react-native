@@ -1,7 +1,7 @@
 import {TFunction} from 'i18next'
 
 import {formatDate} from 'utils'
-import {BankTransfer, Payment} from 'api/Response'
+import {BankTransfer, Payment, Transfer} from 'api/Response'
 import {AllCurrencyType} from 'constants/currency.config'
 
 const formatNumber = (number: string | number, toFixed = 2) =>
@@ -13,7 +13,7 @@ export const html = ({
   currency,
   t,
 }: {
-  paymentData: Payment
+  paymentData: Payment | Payment<Transfer>
   bankDetails: BankTransfer
   currency: AllCurrencyType
   t: TFunction

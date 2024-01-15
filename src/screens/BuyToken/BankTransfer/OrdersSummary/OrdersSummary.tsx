@@ -13,7 +13,6 @@ import {PaymentProps} from 'api/Request'
 import {useLocales} from 'hooks/states'
 import {EstimateFee, Payment} from 'api/Response'
 import PaymentIcon from 'images/icons/Bank.svg'
-import DepositIcon from 'images/icons/Deposit.svg'
 import {AllCurrencyType} from 'constants/currency.config'
 
 type RootStackParamList = {
