@@ -788,7 +788,7 @@
       "ref": "Reference :",
       "orderID": "Order ID",
       "noteTitle": "Note:",
-      "note": "  Kindly deposit money within the next 14 days Otherwise we can reject your purchase.",
+      "note": "  Kindly deposit money within the next 14 days. Otherwise, we can reject your purchase.",
       "backToDashboard": "Back to Dashboard",
       "transferBtn": "Bank Transfer",
       "orderInfo": "Payment for the Order"
