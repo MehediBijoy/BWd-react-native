@@ -23,11 +23,6 @@ const ReferralInfoBox = ({navigation}: ReferralInfoBoxProps) => {
       <Text style={styles.title}>{t('profile.appSettings.referralInformation')}</Text>
 
       <View style={[styles.textWrapper, styles.container]}>
-        <Text>{t('profile.appSettings.referralID')}:</Text>
-        <Text style={{fontWeight: 'bold'}}>{profile?.referral_token}</Text>
-      </View>
-
-      <View style={[styles.textWrapper, styles.container]}>
         <Text>{t('profile.appSettings.referralLink')}:</Text>
         {profile?.referral_token && (
           <CopyButton toCopy={`${APP_URL}/invite?token=${profile.referral_token}`} />

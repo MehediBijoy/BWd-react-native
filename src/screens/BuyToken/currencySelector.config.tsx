@@ -56,7 +56,8 @@ export const currencyConfig: {
     label: 'EUR',
     icon: <Icon name='euro' size={SIZE / 2} color='white' style={styles.EUR} />,
   },
-  USDT: {
+  // Inactive Crypto Payment
+  /*USDT: {
     id: 'USDT',
     label: 'USDT',
     icon: <USDT height={30} width={30} style={styles.Common} />,
@@ -65,7 +66,7 @@ export const currencyConfig: {
     id: 'USDC',
     label: 'USDC',
     icon: <USDC height={30} width={30} style={styles.Common} />,
-  },
+  },*/
 }
 
 export const getCurrencyConfig = (platform: PlatformType) =>

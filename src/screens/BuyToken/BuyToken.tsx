@@ -136,6 +136,8 @@ const BuyToken = () => {
   }
 
   const buyBwg = () => {
+    // Inactive Crypto Payment
+    /*     
     if (selectedCurrency?.id === 'USDC' || selectedCurrency?.id === 'USDT') {
       if (!isConnected) {
         setIsWalletConnected(true)
@@ -150,6 +152,9 @@ const BuyToken = () => {
       setIsWalletConnected(false)
       setIsFiatModalOpened(true)
     }
+    */
+    setIsWalletConnected(false)
+    setIsFiatModalOpened(true)
   }
 
   return (
