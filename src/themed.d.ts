@@ -14,6 +14,10 @@ declare module '@rneui/themed' {
     readonly tertiaryLight: string
     readonly tertiaryDark: string
 
+    readonly infoLight: string
+    readonly info: string
+    readonly infoDarK: string
+
     readonly bgPaper: string
     readonly border: string
   }

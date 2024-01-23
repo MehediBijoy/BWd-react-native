@@ -18,6 +18,10 @@ export const lightColors: Colors = {
   tertiary: '#125B50',
   tertiaryDark: '#003128',
 
+  infoLight: '#A3C6E9',
+  info: '#7BB4EB',
+  infoDarK: '#185FBF',
+
   background: '#FFFFFF',
   bgPaper: '#F5F5F5',
 

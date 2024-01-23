@@ -15,6 +15,9 @@ export type RouteStack = {
   TabNavigation: undefined
   Home: undefined
   Purchase: undefined
+  CryptoPayment: undefined
+  OrderSummary: undefined
+  PaymentInformation: undefined
   Transactions: undefined
   Notifications: undefined
   Settings: undefined
@@ -25,4 +28,5 @@ export type RouteStack = {
   ProfileMFA: undefined
   DeleteAccount: undefined
   ProfileBecomeAffiliate: undefined
+  DownLine: undefined
 }

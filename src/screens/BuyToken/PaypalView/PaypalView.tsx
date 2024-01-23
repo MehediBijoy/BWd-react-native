@@ -36,7 +36,8 @@ const PaypalView = ({data, onClose}: PaypalViewProps) => {
   const paymentUri = React.useMemo<LinkProps | undefined>(
     () =>
       data &&
-      data.payment_data.links &&
+      data.payment_data &&
+      data.payment_data?.links &&
       data.payment_data.links.find(
         item => item['rel'] === 'payer-action' && item['method'] === 'GET'
       ),

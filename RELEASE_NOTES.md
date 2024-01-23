@@ -1,15 +1,20 @@
 # RELEASE NOTES
 
-## Released APP v0.1.2
+## Platform APP v1.3.0
 
 ### Added
 
-- Added option for asset beneficial ownership on the registration page.
+- Added Bank Transfer
+- Added Bank Transfer PDF generate
+- Added user affiliate table tree views
+- Added bank details Pdf download form modal
 
 ### Changed
 
-- Revised language throughout the text for clarity
+- Marimakko chat updated API
+- Hide Crypto payment for `USDT` and `USDC` Token
+- Checkbox hide in registrations when user come from Invite link
 
-### Fixed
+### Removed
 
-- Resolved issue with drop-down color for improved user experience
+- Referral Id from settings

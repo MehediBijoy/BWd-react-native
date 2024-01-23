@@ -134,6 +134,7 @@ type EstimateFee = {
   received_amount: string
   static_fee_amount: string
   total_amount: string
+  total_rate: string
   total_fee_amount: string
   usd_total_amount: string
   usd_total_fee: string
@@ -148,6 +149,25 @@ type PaymentService = {
   status: 'enabled' | 'disabled'
 } & Success
 
+type CryptoPaymentData = {
+  confirmations: number
+  payment_address: string
+  recipient: string
+  sender: string
+  tx_hash: string
+  updated_at: string
+}
+type PaypalPaymentData = {
+  id: number
+  external_id: string
+  status: string
+  links: {
+    href: string
+    rel: 'self' | 'payer-action'
+    method: 'GET' | 'POST'
+  }[]
+}
+
 type Payment<Tdata = null> = {
   id: number
   dynamic_fee_amount: string
@@ -157,16 +177,9 @@ type Payment<Tdata = null> = {
   paid_amount_currency: string
   payment_rate: string
   payment_type: string
-  payment_data: {
-    id: number
-    external_id: string
-    status: string
-    links: {
-      href: string
-      rel: 'self' | 'payer-action'
-      method: 'GET' | 'POST'
-    }[]
-  }
+  payment_data: CryptoPaymentData & PaypalPaymentData
+  received_amount: string
+  total_rate: string
   received_amount_number: string
   received_amount_currency: string
   static_fee_amount: string
@@ -186,6 +199,20 @@ type Payment<Tdata = null> = {
   created_at: string
   updated_at: string
   transfer: Tdata
+}
+
+type BankTransfer = {
+  beneficiary_name: string
+  beneficiary_account_number: string
+  beneficiary_address: string
+  bank_aba_routing_number: string
+  bank_name: string
+  bank_address: string
+  bank_swift_code: string
+  payment_reference: string
+  beneficiary_iban_usd: string
+  beneficiary_iban_eur: string
+  payment_reference: string
 }
 
 export type Transfer = {
@@ -264,6 +291,8 @@ type ReferralStats = {
 }
 
 type ReferralAccount = {
+  referrer_name: string
+  previous_referrer_id: number
   referrals_stats: ReferralStats[]
   meta: Meta
 }

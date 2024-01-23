@@ -35,7 +35,8 @@
     "walletChangeWithEmail": "Wir haben den Wallet Änderungscode an Ihre E-Mail-Adresse gesendet. Bitte geben Sie Ihren Code ein, um die Wallet-Adresse zu ändern",
     "unsupportedChain": "Nicht unterstützte Chain",
     "unsupportedChainDescription": "Wir unterstützen nicht die verbundene Chain, bitte wechseln Sie zu {{chainName}}",
-    "disconnectTitle": "Sind Sie sicher, dass Sie Ihre Wallet trennen möchten? Sie müssen sie erneut verbinden, um die App verwenden zu können."
+    "disconnectTitle": "Sind Sie sicher, dass Sie Ihre Wallet trennen möchten? Sie müssen sie erneut verbinden, um die App verwenden zu können.",
+    "alertMessage": "Liebe Nutzer, wenn die Verbindung zur Wallet langsam ist, versuchen Sie es bitte ein paar Mal. Wir arbeiten hart daran, Ihr Nutzererlebnis zu verbessern. Vielen Dank für Ihr Verständnis!"
   },
   "createNewPassword": {
     "title": "Neues Passwort erstellen",
@@ -49,6 +50,7 @@
   "affiliate": {
     "title": "Affiliate Dashboard",
     "referralTitle": "Ihre Empfehlungen",
+    "yourDownLine": "Siehe deine ganze downline",
     "termsAndConditions": "Affiliateprogramm Geschäftsbedingungen",
     "refId": "Ihre Referral ID",
     "refLink": "Ihr Referrallink",
@@ -56,11 +58,16 @@
     "qrCode": "QR-Code",
     "export": "Exportieren",
     "download": "Herunterladen",
+    "referrals": "Empfehlungen",
     "payoutCommissionBtn": "Provision auszahlen",
     "enabledBtn": "2FA aktivieren",
     "closeBtn": "Schließen",
     "showBtn": "Zeige alles",
     "shareReferralLink": "Teilen Sie Ihren Referrallink",
+    "downline": "Downline",
+    "overViewBtn": "Zurück zur Affiliate-Übersicht",
+    "backToUserBtn": "Zurück zum vorherigen Benutzer",
+    "view": "Ansicht",
     "payoutCommission": {
       "amount": "Betrag",
       "address": "Adresse",
@@ -284,7 +291,11 @@
       "emailChange": "E-Mail Änderung",
       "passwordChange": "Passwortänderung",
       "twoFactorAuthentication": "Zwei-Faktor-Authentifizierung",
-      "becomeAnAffiliate": "Werden Sie Partner"
+      "becomeAnAffiliate": "Werden Sie Partner",
+      "orderSummary": "Bestellübersicht",
+      "paymentInformation": "Zahlungsinformationen",
+      "cryptoPayment": "Krypto-Zahlungen",
+      "yourReferral": "Ihre Empfehlungen"
     },
     "logout": "Abmelden"
   },
@@ -429,7 +440,8 @@
         "earn": "Wie viel verdienen Sie?",
         "experience": "Wie viel Erfahrung haben Sie im Trading?",
         "select": "Auswählen",
-        "optional": "Optional"
+        "optional": "Optional",
+        "placeholder": "Auswahl treffen"
       },
       "earnConfig": {
         "option1": "10.000€ pro Jahr oder weniger",
@@ -746,5 +758,69 @@
   "schema": {
     "invalid-address": "Ungültige Adresse",
     "beneficial": "Antwort erforderlich"
+  },
+  "bankTransfer": {
+    "orders": {
+      "title": "Ihre Bestellung",
+      "totalPurchase": "Gesamter Einkauf",
+      "pricePerBWG": "Preis pro BWG",
+      "total": "Gesamt",
+      "paymentBy": "Zahlung per",
+      "method": "Überweisung",
+      "deposit": "Empfänger",
+      "bwg": "BrettonWoods digital Gold",
+      "btn": "Bestätigen"
+    },
+    "paymentInfo": {
+      "title": "Ihre Bestellübersicht",
+      "total": "Gesamtpreis",
+      "bankTransfer": "Überweisungszahlung",
+      "btn": "Banküberweisungsdetails herunterladen",
+      "details": "Kontodaten für die Banküberweisung",
+      "name": "Kontoinhaber",
+      "ibn": "IBAN",
+      "bic": "BIC",
+      "number": "Kontonummer",
+      "bankName": "Bankname",
+      "address": "Bankadresse",
+      "ref": "Referenz:",
+      "orderID": "Bestellnummer",
+      "noteTitle": "Hinweis:",
+      "note": " Bitte überweisen Sie das Geld innerhalb der nächsten 14 Tage, ansonsten können wir Ihren Kauf ablehnen.",
+      "backToDashboard": "Zurück zum Dashboard",
+      "transferBtn": "Banküberweisung",
+      "orderInfo": "Zahlung für die Bestellung"
+    }
+  },
+  "cryptoTransfer": {
+    "title": "Ihre Bestelldetails",
+    "amount": "Gesamtbetrag:",
+    "paymentMethod": "Zahlungsmethode",
+    "cryptoMethod": "Kryptozahlung",
+    "connectedWallet": "Verbundene Brieftasche",
+    "messages": "Bitte bestätigen Sie, dass Sie die folgende Bestellung stornieren möchten oder sie zuerst durch die Zahlung abschließen.",
+    "proceed": "Fortfahren",
+    "cancel": "Abbrechen",
+    "modalTitle": "Kaufbestätigung"
+  },
+  "pdf": {
+    "title": "Rechnung",
+    "orderDetails": "Bestelldetails",
+    "orderId": "Bestellnummer",
+    "orderDate": "Bestelldatum",
+    "totalPurchase": "Gesamteinkauf",
+    "pricePerBWG": "Preis pro BWG",
+    "totalPrice": "Gesamtpreis",
+    "paymentDetails": "Zahlungsdetails",
+    "paymentBy": "Zahlung durch",
+    "bankTransfer": "Banküberweisung",
+    "depositTo": "Empfänger",
+    "subTitle": "Kontodaten für Banküberweisung",
+    "accountName": "Kontoname",
+    "bic": "BIC",
+    "iban": "Kontonummer/IBAN",
+    "bankName": "Bankname",
+    "bankAddress": "Bankadresse",
+    "reference": "Referenz"
   }
 }
