@@ -1,19 +1,23 @@
 import React from 'react'
-import {useMutation} from '@tanstack/react-query'
 import {useTranslation} from 'react-i18next'
-import {View, Modal as NativeModal} from 'react-native'
-import {Button, Icon, makeStyles, Text} from '@rneui/themed'
+import {useMutation} from '@tanstack/react-query'
+import {Icon, makeStyles, Text} from '@rneui/themed'
 import {useWalletConnectModal} from '@walletconnect/modal-react-native'
+import {useNavigation, NavigationProp} from '@react-navigation/native'
+import {View, Modal as NativeModal, TouchableWithoutFeedback, ActivityIndicator} from 'react-native'
 
 import Modal from '@core/Modal'
 import SafeAreaView from '@core/SafeAreaView'
 
 import {useApi} from 'hooks/api'
+import {alpha, formatCurrency} from 'utils'
 import {useDebounce} from 'hooks/helper'
 import {PaymentProps} from 'api/Request'
 import {EstimateFee, Payment} from 'api/Response'
-import {useCurrency, useLocales} from 'hooks/states'
-import {formatCurrency} from 'utils'
+import {useLocales} from 'hooks/states'
+import {AllCurrencyType} from 'constants/currency.config'
+import PaypalImg from 'images/icons/paypal.svg'
+import BankPayment from 'images/icons/bankPayment.svg'
 
 import PaypalView from '../PaypalView'
 
@@ -22,14 +26,28 @@ type FiatPaymentModalProps = {
   isOpened: boolean
   onClose: () => void
   in_base: boolean
+  currency: AllCurrencyType
+}
+type RootStackParamList = {
+  OrderSummary: {
+    estimateFees: EstimateFee
+    inBase: boolean
+    currency: AllCurrencyType
+  }
 }
 
-const FiatPaymentModal = ({estimateFees, isOpened, onClose, in_base}: FiatPaymentModalProps) => {
+const FiatPaymentModal = ({
+  estimateFees,
+  isOpened,
+  onClose,
+  in_base,
+  currency,
+}: FiatPaymentModalProps) => {
   const api = useApi()
-  const {currentLang} = useLocales()
-  const {currency} = useCurrency()
-  const {t} = useTranslation()
   const styles = useStyles()
+  const {t} = useTranslation()
+  const {currentLang} = useLocales()
+  const navigation = useNavigation<NavigationProp<RootStackParamList, 'OrderSummary'>>()
 
   const {isConnected} = useWalletConnectModal()
 
@@ -61,7 +79,7 @@ const FiatPaymentModal = ({estimateFees, isOpened, onClose, in_base}: FiatPaymen
     <Modal title={t('trade.modal.title.orders')} isOpened={isOpened} onClose={onClose}>
       {!isConnected && (
         <View style={styles.alertContainer}>
-          <Icon name='warning' color={styles.icon.color} />
+          <Icon name='warning' type='antdesign' color={styles.icon.color} />
           <Text style={styles.alertText}>{t('dashboard.buy.wallet-connect')}</Text>
         </View>
       )}
@@ -93,12 +111,40 @@ const FiatPaymentModal = ({estimateFees, isOpened, onClose, in_base}: FiatPaymen
       </Text>
       <Text style={styles.grid}>{t('dashboard.buy.confirm.message-4')}</Text>
 
-      <View style={[styles.grid, {marginBottom: 10}]}>
+      <View style={[styles.grid, {marginBottom: 10, justifyContent: 'center'}]}>
         <Text style={styles.gridLeftItem}>{t('dashboard.purchaseConfirmModal.received')}</Text>
-        <Text style={styles.gridLeftItem}>{parseFloat(estimateFees?.received_amount)} BWG</Text>
+        <Text style={styles.receiveText}>{parseFloat(estimateFees?.received_amount)} BWG</Text>
       </View>
 
-      <Button
+      <View style={{flexDirection: 'row', columnGap: 50, justifyContent: 'center'}}>
+        <TouchableWithoutFeedback
+          onPress={() => {
+            if (isConnected) {
+              onClose()
+              navigation.navigate('OrderSummary', {
+                estimateFees: estimateFees,
+                inBase: in_base,
+                currency,
+              })
+            }
+          }}
+        >
+          <View style={[styles.paypalBtnWrapper, {padding: 5}]}>
+            <BankPayment height={30} width={30} />
+            <Text style={{fontSize: 10}}>{t('bankTransfer.paymentInfo.transferBtn')}</Text>
+          </View>
+        </TouchableWithoutFeedback>
+
+        <TouchableWithoutFeedback
+          onPress={() => isConnected && createOrder.mutate({payment_type: 'paypal'})}
+        >
+          <View style={styles.paypalBtnWrapper}>
+            {createOrder.isLoading ? <ActivityIndicator /> : <PaypalImg height={60} width={60} />}
+          </View>
+        </TouchableWithoutFeedback>
+      </View>
+
+      {/* <Button
         title={t('dashboard.buy.btnText', {tokenName: 'BWG'})}
         onPress={() => {
           createOrder.mutate({payment_type: 'paypal'})
@@ -106,6 +152,18 @@ const FiatPaymentModal = ({estimateFees, isOpened, onClose, in_base}: FiatPaymen
         loading={createOrder.isLoading}
         disabled={!isConnected}
       />
+
+      <Button
+        title='Bank transfer test'
+        containerStyle={{marginTop: 10}}
+        onPress={() => {
+          onClose()
+          navigation.navigate('OrderSummary', {
+            estimateFees: estimateFees,
+            inBase: in_base,
+          })
+        }}
+      /> */}
 
       {createOrder.data && (
         <NativeModal visible>
@@ -123,11 +181,13 @@ const useStyles = makeStyles(({colors}) => ({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    backgroundColor: colors.bgPaper,
+    backgroundColor: alpha(colors.secondaryLight, 0.09),
     columnGap: 10,
     height: 40,
     paddingStart: 15,
     borderRadius: 5,
+    borderColor: colors.warning,
+    borderWidth: 0.5,
   },
   alertText: {
     fontSize: 16,
@@ -144,7 +204,7 @@ const useStyles = makeStyles(({colors}) => ({
     gap: 10,
   },
   gridLeftItem: {
-    textAlign: 'left',
+    textAlign: 'center',
     fontSize: 20,
     fontWeight: '500',
   },
@@ -153,6 +213,23 @@ const useStyles = makeStyles(({colors}) => ({
     textAlign: 'right',
     fontSize: 20,
     fontWeight: '500',
+  },
+  receiveText: {
+    fontSize: 20,
+    fontWeight: '500',
+    color: colors.primary,
+  },
+  paypalBtnWrapper: {
+    marginTop: 15,
+    marginBottom: 15,
+    borderWidth: 1.5,
+    borderRadius: 8,
+    height: 80,
+    width: 100,
+    borderColor: colors.divider,
+    columnGap: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 }))
 

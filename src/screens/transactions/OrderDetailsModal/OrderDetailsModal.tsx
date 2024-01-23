@@ -1,16 +1,25 @@
 import React from 'react'
+import RNPrint from 'react-native-print'
+import {useQuery} from '@tanstack/react-query'
 import {useTranslation} from 'react-i18next'
-import {Text, makeStyles} from '@rneui/themed'
+import {Text, makeStyles, Button} from '@rneui/themed'
 import {View, Linking, TouchableOpacity, ScrollView} from 'react-native'
 
 import Modal from '@core/Modal'
 import CopyButton from '@core/CopyButton'
 import StatusBadge from '@core/StatusBadge'
 
+import {cacheKey} from 'api'
+import {useApi} from 'hooks/api'
 import {useLocales} from 'hooks/states'
+import {usePlatform} from 'hooks/helper'
+import {AllCurrencyType} from 'constants/currency.config'
 import {chain} from 'constants/wallet.config'
 import {Payment, Transfer} from 'api/Response'
+import DownloadIcon from 'images/icons/PDF.svg'
 import {formatDate, formatNumber, shortAddress} from 'utils'
+
+import {html} from '../../BuyToken/BankTransfer/PaymentInformation/PdfTemplate'
 
 export type OrderDetailsModalProps = {
   isOpened: boolean
@@ -19,12 +28,33 @@ export type OrderDetailsModalProps = {
 }
 
 const OrderDetailsModal = ({data, isOpened, onClose}: OrderDetailsModalProps) => {
-  const {t} = useTranslation()
+  const api = useApi()
   const styles = useStyles()
+  const {platform} = usePlatform()
+  const {t} = useTranslation()
   const {currentLang} = useLocales()
 
   const onExplorerClicked = (txHash: string) => {
     Linking.openURL(chain.blockExplorers?.default.url + '/tx/' + txHash)
+  }
+
+  const {data: bankDetails, isLoading} = useQuery({
+    queryKey: [cacheKey.bankDetails, data.id],
+    queryFn: () => api.getBankDetails(data.id, platform.toLocaleLowerCase()),
+    enabled: !!data,
+  })
+
+  const printHTML = async () => {
+    bankDetails &&
+      (await RNPrint.print({
+        html: html({
+          paymentData: data,
+          bankDetails: bankDetails,
+          currency: data.paid_amount_currency as AllCurrencyType,
+          t,
+        }),
+        jobName: `${formatDate(data.created_at, 'YYYY_MM_DD')}_brettonwoods_digital_${data.id}`,
+      }))
   }
 
   return (
@@ -157,6 +187,18 @@ const OrderDetailsModal = ({data, isOpened, onClose}: OrderDetailsModalProps) =>
                 </View>
               )}
             </>
+          )}
+
+          {data.payment_type === 'bank_transfer' && (
+            <Button
+              icon={<DownloadIcon height={20} width={20} />}
+              title={t('bankTransfer.paymentInfo.btn')}
+              titleStyle={{marginLeft: 10}}
+              color='#7C7C7B'
+              containerStyle={{marginTop: 25}}
+              loading={isLoading}
+              onPress={printHTML}
+            />
           )}
         </View>
       </ScrollView>

@@ -11,5 +11,7 @@ export const cacheKey = {
   mfaSecret: 'mfaSecret',
   affiliateCommission: 'affiliateCommission',
   affiliateStats: 'affiliateStats',
+  downLineUser: 'downLineUser',
   checkPaymentService: 'checkPaymentService',
+  bankDetails: 'bankDetails',
 }
