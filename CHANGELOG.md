@@ -1,5 +1,24 @@
 # Changelog
 
+## Platform APP v1.3.0 - 2024-01-17
+
+### Added
+
+- Added Bank Transfer
+- Added Bank Transfer PDF generate
+- Added user affiliate table tree views
+- Added bank details Pdf download form modal
+
+### Changed
+
+- Marimakko chat updated API
+- Hide Crypto payment for `USDT` and `USDC` Token
+- Checkbox hide in registrations when user come from Invite link
+
+### Removed
+
+- Referral Id from settings
+
 ## Platform APP v1.2.0 - 2023-12-21
 
 ### Added

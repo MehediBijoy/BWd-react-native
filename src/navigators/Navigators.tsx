@@ -160,6 +160,7 @@ const Navigators = () => {
           component={DownLine}
           options={{
             title: t('navigation.items.yourReferral'),
+            headerBackTitleVisible: false,
           }}
         />
       </Stack.Group>
