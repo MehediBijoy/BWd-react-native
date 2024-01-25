@@ -1,6 +1,8 @@
 import {ReactNode, useMemo} from 'react'
-import {NavigationContainer, DefaultTheme} from '@react-navigation/native'
 import {createTheme, darkColors, ThemeProvider as BaseThemeProvider} from '@rneui/themed'
+import {NavigationContainer, DefaultTheme, LinkingOptions} from '@react-navigation/native'
+
+import {RouteStack} from 'navigators/routes'
 
 import {lightColors} from './colors'
 
@@ -42,9 +44,20 @@ const ThemeProvider = ({children}: {children: ReactNode}) => {
     []
   )
 
+  const linking: LinkingOptions<RouteStack> = {
+    prefixes: ['brettonwoods://', 'https://*.brettonwoods.gold'],
+    config: {
+      screens: {
+        RegistrationForm: 'register/:token/:platform',
+      },
+    },
+  }
+
   return (
     <BaseThemeProvider theme={theme}>
-      <NavigationContainer theme={navigationTheme}>{children}</NavigationContainer>
+      <NavigationContainer theme={navigationTheme} linking={linking}>
+        {children}
+      </NavigationContainer>
     </BaseThemeProvider>
   )
 }
