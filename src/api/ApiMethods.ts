@@ -19,6 +19,7 @@ import {
   PayoutCommissionProps,
   UserDeleteProps,
   AssetsRateProps,
+  SurveySubmitProps,
 } from './Request'
 import ApiBase, {ApiBaseProps} from './Abstractions/ApiBase'
 import {
@@ -270,5 +271,9 @@ export default class ApiMethods extends ApiBase {
   async enableAffiliate(id: number): Promise<User> {
     const {user} = await this.post<{user: User}>(`/users/${id}/enable_affiliate`)
     return user
+  }
+
+  async surveySubmit({id, ...params}: SurveySubmitProps): Promise<Success> {
+    return this.post(`/users/${id}/survey`, params)
   }
 }

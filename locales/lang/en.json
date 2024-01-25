@@ -824,5 +824,16 @@
     "bankName": "Bank Name",
     "bankAddress": "Bank Address",
     "reference": "Reference"
+  },
+  "survey": {
+    "title": "Are you interested in a debit card so you can pay with your BWG tokens anywhere?",
+    "yes": "Yes",
+    "no": "No",
+    "descriptions": "Dear <0>{{name}},</0> Please estimate the amount of <1>{{currency}},</1> you would spend with the Debit card each month.",
+    "label1": "Up to $500",
+    "label2": "Up to $1000",
+    "label3": "Up to $2000",
+    "label4": "More than $2000",
+    "submit": "Submit"
   }
 }
