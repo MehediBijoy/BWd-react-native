@@ -4,6 +4,7 @@ import {ScrollView, Linking} from 'react-native'
 import {useMutation} from '@tanstack/react-query'
 import {useTranslation} from 'react-i18next'
 import {Text, Button, makeStyles} from '@rneui/themed'
+import {RouteProp, useRoute} from '@react-navigation/native'
 
 import Form from '@core/Form'
 import FormInput from '@core/FormInput'
@@ -49,13 +50,15 @@ const registerSchema = yup.object().shape({
 
 type RegisterFields = yup.InferType<typeof registerSchema>
 
-type RouteParams = {
-  token?: string
-  platform?: PlatformType
-  user?: string
+type RootStackParamList = {
+  RegisterForm: {
+    token: string
+    platform: PlatformType
+    user?: string
+  }
 }
 
-const RegisterForm = ({route}: {route: {params?: RouteParams}}) => {
+const RegisterForm = () => {
   const api = useApi()
   const styles = useStyles()
   const {t} = useTranslation()
@@ -63,13 +66,9 @@ const RegisterForm = ({route}: {route: {params?: RouteParams}}) => {
   const {setToken} = useAuthToken()
   const {switchPlatform} = usePlatform()
   const {methods, setApiError} = useYupHooks<RegisterFields>({schema: registerSchema})
+  const route = useRoute<RouteProp<RootStackParamList, 'RegisterForm'>>()
 
-  const token = route.params?.token
-  const platform = route.params?.platform
-  const user_type = route.params?.user
-  console.log(user_type)
-  console.log(platform)
-  console.log(token)
+  const {token, platform, user} = route.params
 
   useEffect(() => {
     if (platform && ['EU', 'US'].includes(platform as PlatformType)) {
@@ -187,21 +186,6 @@ const RegisterForm = ({route}: {route: {params?: RouteParams}}) => {
               color='bgPaper'
             />
 
-            {/* {!isChecked && (
-              <FormInput
-                name='token'
-                label={t('forms.labels.referralCode')}
-                placeholder={t('register.signup.referral.input-placeholder')}
-                color='bgPaper'
-              />
-            )}
-
-            <FormCheckBox
-              name='referral_checkbox'
-              label={t('register.signup.referral.checkboxText')}
-              labelColor='bgPaper'
-            /> */}
-
             <FormCheckBox
               name='agree_terms'
               label={
@@ -238,7 +222,7 @@ const RegisterForm = ({route}: {route: {params?: RouteParams}}) => {
               color='secondary'
               title={t('register.titles.signup')}
               onPress={methods.handleSubmit(data =>
-                mutate({...data, token: token, user_type: user_type})
+                mutate({...data, token: token, user_type: user})
               )}
             />
           </Form>
