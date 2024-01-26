@@ -6,6 +6,7 @@ export type RegistrationProp = {
   password: string
   password_confirmation: string
   token?: string
+  user_type?: string
   user_detail_attributes: {
     profession: string
     source_of_income: string

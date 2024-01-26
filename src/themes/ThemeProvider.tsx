@@ -48,7 +48,7 @@ const ThemeProvider = ({children}: {children: ReactNode}) => {
     prefixes: ['brettonwoods://', 'https://*.brettonwoods.gold'],
     config: {
       screens: {
-        RegistrationForm: 'register/:token/:platform',
+        RegistrationForm: 'register/:token/:platform/:user?',
       },
     },
   }

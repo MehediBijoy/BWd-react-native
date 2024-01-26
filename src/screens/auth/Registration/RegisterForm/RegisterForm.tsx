@@ -36,6 +36,7 @@ const registerSchema = yup.object().shape({
     .oneOf([yup.ref('password')], 'register.signup.restrictions.password.notMatch'),
   agree_terms: yup.bool().default(false).oneOf([true], 'register.signup.termsAndConditions'),
   token: yup.string(),
+  user_type: yup.string(),
   beneficial: yup
     .string()
     .required('schema.beneficial')
@@ -51,6 +52,7 @@ type RegisterFields = yup.InferType<typeof registerSchema>
 type RouteParams = {
   token?: string
   platform?: PlatformType
+  user?: string
 }
 
 const RegisterForm = ({route}: {route: {params?: RouteParams}}) => {
@@ -64,6 +66,11 @@ const RegisterForm = ({route}: {route: {params?: RouteParams}}) => {
 
   const token = route.params?.token
   const platform = route.params?.platform
+  const user_type = route.params?.user
+  console.log(user_type)
+  console.log(platform)
+  console.log(token)
+
   useEffect(() => {
     if (platform && ['EU', 'US'].includes(platform as PlatformType)) {
       switchPlatform(platform)
@@ -80,12 +87,14 @@ const RegisterForm = ({route}: {route: {params?: RouteParams}}) => {
       earnings,
       trading_experience,
       token,
+      user_type,
     }: RegisterFields) =>
       api.signUpInitial({
         email,
         password,
         password_confirmation,
         token,
+        user_type,
         user_detail_attributes: {
           profession,
           source_of_income,
@@ -228,7 +237,9 @@ const RegisterForm = ({route}: {route: {params?: RouteParams}}) => {
               type='solid'
               color='secondary'
               title={t('register.titles.signup')}
-              onPress={methods.handleSubmit(data => mutate({...data, token: token}))}
+              onPress={methods.handleSubmit(data =>
+                mutate({...data, token: token, user_type: user_type})
+              )}
             />
           </Form>
         </GradientBox>
