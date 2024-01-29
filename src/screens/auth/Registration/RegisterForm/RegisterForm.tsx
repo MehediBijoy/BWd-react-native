@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import * as yup from 'yup'
 import {ScrollView, Linking} from 'react-native'
 import {useMutation} from '@tanstack/react-query'
@@ -70,7 +70,7 @@ const RegisterForm = () => {
 
   const {token, platform, user} = route.params
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (platform && ['EU', 'US'].includes(platform as PlatformType)) {
       switchPlatform(platform)
     }
