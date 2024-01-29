@@ -68,7 +68,7 @@ const RegisterForm = () => {
   const {methods, setApiError} = useYupHooks<RegisterFields>({schema: registerSchema})
   const route = useRoute<RouteProp<RootStackParamList, 'RegisterForm'>>()
 
-  const {token, platform, user} = route.params
+  const {token, platform, user} = route.params || {}
 
   React.useEffect(() => {
     if (platform && ['EU', 'US'].includes(platform as PlatformType)) {
