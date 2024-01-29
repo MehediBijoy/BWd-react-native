@@ -70,11 +70,15 @@ const RegisterForm = () => {
 
   const {token, platform, user} = route.params || {}
 
+  const referralMutation = useMutation({mutationFn: api.checkReferral})
+
   React.useEffect(() => {
     if (platform && ['EU', 'US'].includes(platform as PlatformType)) {
       switchPlatform(platform)
     }
-  }, [platform, switchPlatform])
+    if (token) referralMutation.mutate({token: token})
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [platform, switchPlatform, token])
 
   const {mutate} = useMutation({
     mutationFn: ({
@@ -185,6 +189,11 @@ const RegisterForm = () => {
               data={beneficialOwnerConfig(t)}
               color='bgPaper'
             />
+            {referralMutation && referralMutation.data && (
+              <Text style={styles.link}>
+                {t('register.signup.referral.found')} ({referralMutation.data?.name})
+              </Text>
+            )}
 
             <FormCheckBox
               name='agree_terms'

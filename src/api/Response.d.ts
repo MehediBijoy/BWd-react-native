@@ -81,6 +81,11 @@ export type KycAccessKey = {
   }
 }
 
+export type ReferralResponse = {
+  sucess: boolean
+  name: string
+}
+
 export type Asset = {
   id: number
   max_payment_amount: string

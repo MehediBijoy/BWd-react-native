@@ -44,6 +44,7 @@ import {
   AssetLatestPrices,
   AssetRates,
   BankTransfer,
+  ReferralResponse,
 } from './Response'
 
 export default class ApiMethods extends ApiBase {
@@ -152,7 +153,7 @@ export default class ApiMethods extends ApiBase {
     return await this.post(`/users/${id}/request_deletion`, {password})
   }
 
-  async checkReferral(params: ReferralProps) {
+  async checkReferral(params: ReferralProps): Promise<ReferralResponse> {
     return await this.get('/users/check_referral', params)
   }
 
