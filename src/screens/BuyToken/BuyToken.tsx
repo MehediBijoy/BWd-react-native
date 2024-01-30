@@ -97,7 +97,11 @@ const BuyToken = () => {
   const feesRefetch = useDebounce(mutate)
   const onChange = (value: string, inputType: boolean) => {
     setInBase(inputType)
-    feesRefetch({amount: value, in_base: inputType})
+    const lastChar = value.slice(-1)
+    const endsWithCommaOrDot = lastChar === ',' || lastChar === '.'
+    if (!endsWithCommaOrDot) {
+      feesRefetch({amount: value.replace(/,/g, '.'), in_base: inputType})
+    }
   }
 
   const isValid = useMemo(() => {
