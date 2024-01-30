@@ -57,17 +57,16 @@ const ReferralTable = () => {
 
   return (
     <View>
-      <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
-        <Text h4>{t('affiliate.referralTitle')}</Text>
-        <Button
-          color='primary'
-          title={t('affiliate.yourDownLine')}
-          onPress={() => navigation.navigate('DownLine')}
-          containerStyle={{
-            marginVertical: 10,
-          }}
-        />
-      </View>
+      <Button
+        color='primary'
+        title={t('affiliate.yourDownLine')}
+        onPress={() => navigation.navigate('DownLine')}
+        containerStyle={{
+          marginVertical: 10,
+        }}
+      />
+
+      <Text h4>{t('affiliate.referralTitle')}</Text>
 
       <View style={[styles.container, styles.tableBorder]}>
         <View style={[styles.headerRow, styles.rowDivider]}>
