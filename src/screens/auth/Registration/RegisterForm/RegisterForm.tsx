@@ -4,6 +4,7 @@ import {ScrollView, Linking} from 'react-native'
 import {useMutation} from '@tanstack/react-query'
 import {useTranslation} from 'react-i18next'
 import {Text, Button, makeStyles} from '@rneui/themed'
+import {RouteProp, useRoute} from '@react-navigation/native'
 
 import Form from '@core/Form'
 import FormInput from '@core/FormInput'
@@ -13,8 +14,9 @@ import ContainContainer from '@core/ContentContainer'
 
 import FAQ from 'screens/auth/FAQ'
 import {useApi, useAuthToken} from 'hooks/api'
-import {useProfile, useYupHooks} from 'hooks/helper'
+import {useProfile, useYupHooks, usePlatform} from 'hooks/helper'
 import {LegalStuff} from 'constants/legalStuff.config'
+import {PlatformType} from 'hooks/helper/usePlatform'
 
 import StepNumber from '../StepNumber'
 import GradientBox from '../../GradientBox'
@@ -34,12 +36,8 @@ const registerSchema = yup.object().shape({
     .required('register.signup.restrictions.password.confirmRequired')
     .oneOf([yup.ref('password')], 'register.signup.restrictions.password.notMatch'),
   agree_terms: yup.bool().default(false).oneOf([true], 'register.signup.termsAndConditions'),
-  referral_checkbox: yup.bool().default(false),
-  token: yup.string().when('referral_checkbox', {
-    is: true,
-    then: () => yup.string().transform(() => undefined),
-    otherwise: () => yup.string().min(6).max(6).required(),
-  }),
+  token: yup.string(),
+  user_type: yup.string(),
   beneficial: yup
     .string()
     .required('schema.beneficial')
@@ -52,30 +50,54 @@ const registerSchema = yup.object().shape({
 
 type RegisterFields = yup.InferType<typeof registerSchema>
 
+type RootStackParamList = {
+  RegisterForm: {
+    token: string
+    platform: PlatformType
+    user?: string
+  }
+}
+
 const RegisterForm = () => {
   const api = useApi()
   const styles = useStyles()
   const {t} = useTranslation()
   const {setProfile} = useProfile()
   const {setToken} = useAuthToken()
+  const {switchPlatform} = usePlatform()
   const {methods, setApiError} = useYupHooks<RegisterFields>({schema: registerSchema})
+  const route = useRoute<RouteProp<RootStackParamList, 'RegisterForm'>>()
+
+  const {token, platform, user} = route.params || {}
+
+  const referralMutation = useMutation({mutationFn: api.checkReferral})
+
+  React.useEffect(() => {
+    if (platform && ['EU', 'US'].includes(platform as PlatformType)) {
+      switchPlatform(platform)
+    }
+    if (token) referralMutation.mutate({token: token})
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [platform, switchPlatform, token])
 
   const {mutate} = useMutation({
     mutationFn: ({
       email,
       password,
       password_confirmation,
-      token,
       profession,
       source_of_income,
       earnings,
       trading_experience,
+      token,
+      user_type,
     }: RegisterFields) =>
       api.signUpInitial({
         email,
         password,
         password_confirmation,
         token,
+        user_type,
         user_detail_attributes: {
           profession,
           source_of_income,
@@ -89,8 +111,6 @@ const RegisterForm = () => {
     },
     onError: setApiError,
   })
-
-  const isChecked = methods.watch('referral_checkbox')
 
   return (
     <ScrollView>
@@ -169,21 +189,11 @@ const RegisterForm = () => {
               data={beneficialOwnerConfig(t)}
               color='bgPaper'
             />
-
-            {!isChecked && (
-              <FormInput
-                name='token'
-                label={t('forms.labels.referralCode')}
-                placeholder={t('register.signup.referral.input-placeholder')}
-                color='bgPaper'
-              />
+            {referralMutation && referralMutation.data && (
+              <Text style={styles.link}>
+                {t('register.signup.referral.found')} ({referralMutation.data?.name})
+              </Text>
             )}
-
-            <FormCheckBox
-              name='referral_checkbox'
-              label={t('register.signup.referral.checkboxText')}
-              labelColor='bgPaper'
-            />
 
             <FormCheckBox
               name='agree_terms'
@@ -220,7 +230,9 @@ const RegisterForm = () => {
               type='solid'
               color='secondary'
               title={t('register.titles.signup')}
-              onPress={methods.handleSubmit(data => mutate(data))}
+              onPress={methods.handleSubmit(data =>
+                mutate({...data, token: token, user_type: user})
+              )}
             />
           </Form>
         </GradientBox>

@@ -1,11 +1,14 @@
-import {AllCurrencyType} from 'constants/currency.config'
-
-export type LoginProps = {mfa_code?: string; email: string; password: string}
+export type LoginProps = {
+  mfa_code?: string
+  email: string
+  password: string
+}
 export type RegistrationProp = {
   email: string
   password: string
   password_confirmation: string
   token?: string
+  user_type?: string
   user_detail_attributes: {
     profession: string
     source_of_income: string
@@ -107,3 +110,15 @@ type AssetsRateProps = {
   asset: string
   target_asset: string
 }
+
+type CheckSurveyStatusProps = {
+  id: number
+  event: string
+}
+
+type SurveySubmitProps = {
+  response: {
+    want_to_card: string
+    want_to_spend?: string
+  }
+} & CheckSurveyStatusProps
