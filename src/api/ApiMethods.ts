@@ -20,6 +20,7 @@ import {
   UserDeleteProps,
   AssetsRateProps,
   SurveySubmitProps,
+  CheckSurveyStatusProps,
 } from './Request'
 import ApiBase, {ApiBaseProps} from './Abstractions/ApiBase'
 import {
@@ -276,5 +277,9 @@ export default class ApiMethods extends ApiBase {
 
   async surveySubmit({id, ...params}: SurveySubmitProps): Promise<Success> {
     return this.post(`/users/${id}/survey`, params)
+  }
+
+  async checkSurveyStatus({id, ...params}: CheckSurveyStatusProps): Promise<{status: string}> {
+    return this.get(`/users/${id}/survey_status`, params)
   }
 }
