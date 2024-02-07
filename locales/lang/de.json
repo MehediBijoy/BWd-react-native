@@ -824,10 +824,10 @@
     "reference": "Referenz"
   },
   "survey": {
-    "title": "Bist du an einer Debit Karte interessiert, um überall mit deinen BWG Token zahlen zu können?",
+    "title": "Bist du an einer Karte interessiert, um überall mit deinen BWG Token zahlen zu können?",
     "yes": "Ja",
     "no": "Nein",
-    "descriptions": "Lieber <0>{{name}}</0>, bitte schätzen Sie den Betrag in <1>{{currency}}</1>, den Sie jeden Monat mit der Debitkarte ausgeben würden.",
+    "descriptions": "Lieber <0>{{name}}</0>, bitte schätzen Sie den Betrag in <1>{{currency}}</1>, den Sie jeden Monat mit der karte ausgeben würden.",
     "label1": "Bis zu 500$",
     "label2": "Bis zu 1000$",
     "label3": "Bis zu 2000$",
