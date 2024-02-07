@@ -5,27 +5,22 @@ import {View, ImageBackground} from 'react-native'
 import {Text, makeStyles, Button} from '@rneui/themed'
 
 import {useApi} from 'hooks/api'
-import useSurvey from 'hooks/states/useSurvey'
-import {usePlatform, useProfile} from 'hooks/helper'
+import {useProfile} from 'hooks/helper'
 import DebitCard from 'images/survey/debitCard.svg'
 
 import SurveyModal from './modal/SurveyModal'
 
-const Survey = () => {
+const Survey = ({refetch}: {refetch: () => void}) => {
   const api = useApi()
   const styles = useStyles()
   const {t} = useTranslation()
   const {profile} = useProfile()
-  const {platform} = usePlatform()
-  const {surveyMutate} = useSurvey()
 
   const [isSurvey, setIsSurvey] = React.useState<boolean>(false)
 
   const {mutate, isLoading} = useMutation({
     mutationFn: api.surveySubmit,
-    onSuccess: () => {
-      surveyMutate(profile?.id as number, platform)
-    },
+    onSuccess: refetch,
   })
 
   return (
@@ -69,7 +64,7 @@ const Survey = () => {
           <DebitCard height={60} width={80} />
         </View>
       </ImageBackground>
-      <SurveyModal isOpened={isSurvey} onClose={() => setIsSurvey(false)} />
+      <SurveyModal isOpened={isSurvey} onClose={() => setIsSurvey(false)} refetch={refetch} />
     </View>
   )
 }

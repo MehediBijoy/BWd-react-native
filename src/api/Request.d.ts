@@ -111,11 +111,14 @@ type AssetsRateProps = {
   target_asset: string
 }
 
-type SurveySubmitProps = {
+type CheckSurveyStatusProps = {
   id: number
   event: string
+}
+
+type SurveySubmitProps = {
   response: {
     want_to_card: string
     want_to_spend?: string
   }
-}
+} & CheckSurveyStatusProps

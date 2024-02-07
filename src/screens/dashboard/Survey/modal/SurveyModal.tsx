@@ -9,23 +9,21 @@ import SafeAreaView from '@core/SafeAreaView'
 
 import {useApi} from 'hooks/api'
 import CardImage from 'images/survey/card.svg'
-import useSurvey from 'hooks/states/useSurvey'
-import {usePlatform, useProfile, useProfileDetails} from 'hooks/helper'
+import {useProfile, useProfileDetails} from 'hooks/helper'
 
 import {getSurveyQuestions} from './Survey.config'
 
 type SurveyModalProps = {
   isOpened: boolean
   onClose: () => void
+  refetch: () => void
 }
 
-const SurveyModal = ({isOpened, onClose}: SurveyModalProps) => {
+const SurveyModal = ({isOpened, onClose, refetch}: SurveyModalProps) => {
   const api = useApi()
   const styles = useStyles()
   const {t} = useTranslation()
   const {profile} = useProfile()
-  const {platform} = usePlatform()
-  const {surveyMutate} = useSurvey()
   const {data: userDetails} = useProfileDetails()
 
   const [checked, isChecked] = React.useState('')
@@ -35,7 +33,8 @@ const SurveyModal = ({isOpened, onClose}: SurveyModalProps) => {
   const {mutate, isLoading} = useMutation({
     mutationFn: api.surveySubmit,
     onSuccess: () => {
-      surveyMutate(profile?.id as number, platform)
+      refetch()
+      onClose()
     },
   })
 
