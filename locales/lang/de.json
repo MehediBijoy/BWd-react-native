@@ -827,11 +827,25 @@
     "title": "Bist du an einer Karte interessiert, um überall mit deinen BWG Token zahlen zu können?",
     "yes": "Ja",
     "no": "Nein",
-    "descriptions": "Lieber <0>{{name}}</0>, bitte schätzen Sie den Betrag in <1>{{currency}}</1>, den Sie jeden Monat mit der karte ausgeben würden.",
+    "descriptions": "Bitte schätzen Sie, welchen Betrag Sie jeden Monat mit der Karte in <b>{{currency}}</b> ausgeben würden.",
     "label1": "Bis zu 500$",
     "label2": "Bis zu 1000$",
     "label3": "Bis zu 2000$",
     "label4": "Mehr als 2000$",
-    "submit": "Absenden"
+    "submit": "Absenden",
+    "ok": "Okay",
+    "goldCard": {
+      "nav": "Goldkarte",
+      "title": "Die BWG Goldkarte",
+      "getBtn": "Karte beantragen",
+      "seeBtn": "Länder anzeigen",
+      "showingInterest": "Vielen Dank für Ihr Interesse.",
+      "experience": "Erleben Sie die einzigartige BWG Goldkarte, die zukünftig als Mastercard herausgegeben wird.",
+      "evaluate": "Laden Sie Ihre BWG Mastercard direkt mit Ihrem Goldinvestment auf.",
+      "countries": "Einführung und exklusiver Vertrieb der Bank Frick in zunächst ausgewählten Ländern.",
+      "availableCountry": "Verfügbar in über 10 Ländern",
+      "countryModalTitle": "Länder, in denen die Karte durch Bank Frick vertrieben wird.",
+      "surveyModalTitle": "Vielen Dank für Ihr Interesse an der Goldkarte. Wir werden uns mit Ihnen in Verbindung setzen, sobald wir weitere Informationen für Sie haben."
+    }
   }
 }

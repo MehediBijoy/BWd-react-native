@@ -827,13 +827,28 @@
   },
   "survey": {
     "title": "Are you interested in a card so you can pay with your BWG tokens anywhere?",
+    "goldTitle": "Are you interested in a gold card so you can pay with your BWG tokens anywhere?",
     "yes": "Yes",
     "no": "No",
-    "descriptions": "Dear <0>{{name}},</0> Please estimate the amount of <1>{{currency}},</1> you would spend with the card each month.",
+    "descriptions": "Please estimate how much you would spend with the card each month in <0>{{currency}}</0>",
     "label1": "Up to $500",
     "label2": "Up to $1000",
     "label3": "Up to $2000",
     "label4": "More than $2000",
-    "submit": "Submit"
+    "submit": "Submit",
+    "ok": "Okay",
+    "goldCard": {
+      "nav": "Gold Card",
+      "title": "The BWG Gold Card",
+      "getBtn": "Get your card",
+      "seeBtn": "See Countries",
+      "showingInterest": "Thanks for showing interest.",
+      "experience": "Experience the prestige of the BWG Gold Card soon available as a Mastercard.",
+      "evaluate": "Elevate your experience by charging your BWG Mastercard directly with your gold investment.",
+      "countries": "Initially launching in these countries through exclusive distribution by Bank Frick.",
+      "availableCountry": "Available for 10+ countries",
+      "countryModalTitle": "Countries through exclusive distribution by Bank Frick.",
+      "surveyModalTitle": "Thank you for your interest in the gold card. We will get back to you as soon as we have more information for you."
+    }
   }
 }
