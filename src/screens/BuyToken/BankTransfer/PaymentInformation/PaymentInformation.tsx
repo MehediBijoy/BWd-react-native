@@ -6,6 +6,7 @@ import {Text, makeStyles, Divider, Button} from '@rneui/themed'
 import {useRoute, RouteProp, useNavigation, NavigationProp} from '@react-navigation/native'
 
 import Loader from '@core/Loader'
+import CopyButton from '@core/CopyButton'
 import ContentContainer from '@core/ContentContainer'
 import SafeAreaView from '@core/SafeAreaView'
 
@@ -118,6 +119,7 @@ const PaymentInformation = () => {
             <View style={styles.detailsGrid}>
               <Text style={styles.smallTittle}>{t('bankTransfer.paymentInfo.name')}</Text>
               <Text style={styles.smallText}>{data?.beneficiary_name}</Text>
+              {data?.beneficiary_name && <CopyButton toCopy={data.beneficiary_name} />}
             </View>
             <Divider width={2} />
 
@@ -130,6 +132,7 @@ const PaymentInformation = () => {
             <View style={styles.detailsGrid}>
               <Text style={styles.smallTittle}>{t('bankTransfer.paymentInfo.bic')}</Text>
               <Text style={styles.smallText}>{data?.bank_swift_code}</Text>
+              {data?.bank_swift_code && <CopyButton toCopy={data.bank_swift_code} />}
             </View>
             <Divider width={2} />
 
@@ -140,6 +143,13 @@ const PaymentInformation = () => {
                   <Text style={styles.smallText}>
                     {currency === 'USD' ? data.beneficiary_iban_usd : data.beneficiary_iban_eur}
                   </Text>
+                  {data.beneficiary_iban_eur && (
+                    <CopyButton
+                      toCopy={
+                        currency === 'USD' ? data.beneficiary_iban_usd : data.beneficiary_iban_eur
+                      }
+                    />
+                  )}
                 </View>
                 <Divider width={2} />
               </>
@@ -150,6 +160,7 @@ const PaymentInformation = () => {
                 <View style={styles.detailsGrid}>
                   <Text style={styles.smallTittle}>{t('bankTransfer.paymentInfo.number')}</Text>
                   <Text style={styles.smallText}>{data?.beneficiary_account_number}</Text>
+                  <CopyButton toCopy={data.beneficiary_account_number} />
                 </View>
                 <Divider width={2} />
               </>
@@ -158,6 +169,7 @@ const PaymentInformation = () => {
             <View style={styles.detailsGrid}>
               <Text style={styles.smallTittle}>{t('bankTransfer.paymentInfo.bankName')}</Text>
               <Text style={styles.smallText}>{data?.bank_name}</Text>
+              {data?.bank_name && <CopyButton toCopy={data.bank_name} />}
             </View>
             <Divider width={2} />
 
@@ -173,6 +185,7 @@ const PaymentInformation = () => {
             <View style={[styles.detailsGrid, {marginTop: 20}]}>
               <Text style={styles.smallTittle}>{t('bankTransfer.paymentInfo.orderID')}</Text>
               <Text style={styles.smallText}>{data?.payment_reference}</Text>
+              {data?.payment_reference && <CopyButton toCopy={data.payment_reference} />}
             </View>
           </View>
 
@@ -254,7 +267,7 @@ const useStyles = makeStyles(({colors}) => ({
   smallTittle: {
     color: colors.textGray,
     fontSize: 12,
-    width: 115,
+    width: 95,
   },
   smallText: {
     fontSize: 12,
