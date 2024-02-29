@@ -5,7 +5,6 @@ import {useTranslation, Trans} from 'react-i18next'
 import {Text, makeStyles, Button} from '@rneui/themed'
 
 import Modal from '@core/Modal'
-import SafeAreaView from '@core/SafeAreaView'
 
 import {useApi} from 'hooks/api'
 import CardImage from 'images/survey/card.svg'
@@ -40,28 +39,27 @@ const SurveyModal = ({isOpened, onClose, refetch}: SurveyModalProps) => {
   }
 
   return (
-    <SafeAreaView edges={['top', 'bottom']}>
-      <Modal title='' onClose={onClose} isOpened={isOpened}>
-        <View>
-          <View style={styles.imageContainer}>
-            <CardImage height={50} />
-          </View>
+    <Modal title='' onClose={onClose} isOpened={isOpened}>
+      <View>
+        <View style={styles.imageContainer}>
+          <CardImage height={50} />
+        </View>
 
-          <Text style={styles.textStyle}>
-            <Trans
-              i18nKey='survey.descriptions'
-              values={{
-                currency: 'USD',
-              }}
-              components={[
-                <Text key={Math.random()} style={[{fontWeight: 'bold'}, styles.textStyle]} />,
-                <Text key={Math.random()} style={[{fontWeight: 'bold'}, styles.textStyle]} />,
-              ]}
-            />
-          </Text>
+        <Text style={styles.textStyle}>
+          <Trans
+            i18nKey='survey.descriptions'
+            values={{
+              currency: 'USD',
+            }}
+            components={[
+              <Text key={Math.random()} style={[{fontWeight: 'bold'}, styles.textStyle]} />,
+              <Text key={Math.random()} style={[{fontWeight: 'bold'}, styles.textStyle]} />,
+            ]}
+          />
+        </Text>
 
-          {/* This is survey modal */}
-          {/* <View style={styles.radioButtonContainer}>
+        {/* This is survey modal */}
+        {/* <View style={styles.radioButtonContainer}>
             {surveyQuestions.map(item => (
               <View key={item.label} style={styles.radioButton}>
                 <CheckBox
@@ -78,15 +76,14 @@ const SurveyModal = ({isOpened, onClose, refetch}: SurveyModalProps) => {
               </View>
             ))}
           </View> */}
-          <Button
-            loading={isLoading}
-            title={t('survey.submit')}
-            containerStyle={{marginTop: 20, marginBottom: 20}}
-            onPress={handleSubmit}
-          />
-        </View>
-      </Modal>
-    </SafeAreaView>
+        <Button
+          loading={isLoading}
+          title={t('survey.submit')}
+          containerStyle={{marginTop: 20, marginBottom: 20}}
+          onPress={handleSubmit}
+        />
+      </View>
+    </Modal>
   )
 }
 
