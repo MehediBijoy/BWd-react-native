@@ -60,6 +60,7 @@ const SurveyModal = ({isOpened, onClose, refetch}: SurveyModalProps) => {
             />
           </Text>
 
+          {/* This is survey modal */}
           {/* <View style={styles.radioButtonContainer}>
             {surveyQuestions.map(item => (
               <View key={item.label} style={styles.radioButton}>
