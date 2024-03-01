@@ -829,11 +829,12 @@
     "title": "Are you interested in a card so you can pay with your BWG tokens anywhere?",
     "yes": "Yes",
     "no": "No",
-    "descriptions": "Please estimate how much you would spend with the card each month in <0>{{currency}}</0>",
+    "descriptions": "Thank you for your interest in the gold card. We will get back to you as soon as we have more information for you.",
     "label1": "Up to $500",
     "label2": "Up to $1000",
     "label3": "Up to $2000",
     "label4": "More than $2000",
-    "submit": "Submit"
+    "submit": "Submit",
+    "ok": "Okay"
   }
 }
