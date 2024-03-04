@@ -33,7 +33,7 @@ const ReferralTable = () => {
   const {theme} = useTheme()
   const {t} = useTranslation()
   const {profile} = useProfile()
-  const {APP_URL, platform} = usePlatform()
+  const {platform} = usePlatform()
   const {currentLang} = useLocales()
   const navigation = useNavigation<DrawerNavigationProp<RouteStack, 'DownLine'>>()
 
@@ -44,16 +44,16 @@ const ReferralTable = () => {
     queryFn: () => api.getReferralStats(profile?.id as number),
   })
 
-  const onShare = async () => {
-    try {
-      await Share.share({
-        message: `${APP_URL}/invite?token=${profile?.referral_token}`,
-        title: 'Share',
-      })
-    } catch (error) {
-      // Alert.alert(error.message)
-    }
-  }
+  // const onShare = async () => {
+  //   try {
+  //     await Share.share({
+  //       message: `${APP_URL}/invite?token=${profile?.referral_token}`,
+  //       title: 'Share',
+  //     })
+  //   } catch (error) {
+  //     // Alert.alert(error.message)
+  //   }
+  // }
 
   const onShareReferral = async () => {
     try {
@@ -150,12 +150,12 @@ const ReferralTable = () => {
         </View>
       </TouchableWithoutFeedback>
 
-      <TouchableWithoutFeedback onPress={onShare}>
+      {/* <TouchableWithoutFeedback onPress={onShare}>
         <View style={styles.shareBtnWrapper}>
           <Text>{t('affiliate.shareCustomerLink')}</Text>
           <ShareImg height={20} width={20} />
         </View>
-      </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback> */}
 
       {selectedItem && (
         <ReferralUserModal
