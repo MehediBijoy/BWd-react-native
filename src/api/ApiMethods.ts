@@ -19,6 +19,8 @@ import {
   PayoutCommissionProps,
   UserDeleteProps,
   AssetsRateProps,
+  SurveySubmitProps,
+  CheckSurveyStatusProps,
 } from './Request'
 import ApiBase, {ApiBaseProps} from './Abstractions/ApiBase'
 import {
@@ -43,6 +45,7 @@ import {
   AssetLatestPrices,
   AssetRates,
   BankTransfer,
+  ReferralResponse,
 } from './Response'
 
 export default class ApiMethods extends ApiBase {
@@ -151,7 +154,7 @@ export default class ApiMethods extends ApiBase {
     return await this.post(`/users/${id}/request_deletion`, {password})
   }
 
-  async checkReferral(params: ReferralProps) {
+  async checkReferral(params: ReferralProps): Promise<ReferralResponse> {
     return await this.get('/users/check_referral', params)
   }
 
@@ -270,5 +273,13 @@ export default class ApiMethods extends ApiBase {
   async enableAffiliate(id: number): Promise<User> {
     const {user} = await this.post<{user: User}>(`/users/${id}/enable_affiliate`)
     return user
+  }
+
+  async surveySubmit({id, ...params}: SurveySubmitProps): Promise<Success> {
+    return this.post(`/users/${id}/survey`, params)
+  }
+
+  async checkSurveyStatus({id, ...params}: CheckSurveyStatusProps): Promise<{status: string}> {
+    return this.get(`/users/${id}/survey_status`, params)
   }
 }

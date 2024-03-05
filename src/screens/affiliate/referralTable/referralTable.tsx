@@ -33,7 +33,7 @@ const ReferralTable = () => {
   const {theme} = useTheme()
   const {t} = useTranslation()
   const {profile} = useProfile()
-  const {APP_URL} = usePlatform()
+  const {platform} = usePlatform()
   const {currentLang} = useLocales()
   const navigation = useNavigation<DrawerNavigationProp<RouteStack, 'DownLine'>>()
 
@@ -44,10 +44,21 @@ const ReferralTable = () => {
     queryFn: () => api.getReferralStats(profile?.id as number),
   })
 
-  const onShare = async () => {
+  // const onShare = async () => {
+  //   try {
+  //     await Share.share({
+  //       message: `${APP_URL}/invite?token=${profile?.referral_token}`,
+  //       title: 'Share',
+  //     })
+  //   } catch (error) {
+  //     // Alert.alert(error.message)
+  //   }
+  // }
+
+  const onShareReferral = async () => {
     try {
       await Share.share({
-        message: `${APP_URL}/invite?token=${profile?.referral_token}`,
+        message: `https://brettonwoods.gold/affiliate?token=${profile?.referral_token}&server=${platform}`,
         title: 'Share',
       })
     } catch (error) {
@@ -57,17 +68,16 @@ const ReferralTable = () => {
 
   return (
     <View>
-      <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
-        <Text h4>{t('affiliate.referralTitle')}</Text>
-        <Button
-          color='primary'
-          title={t('affiliate.yourDownLine')}
-          onPress={() => navigation.navigate('DownLine')}
-          containerStyle={{
-            marginVertical: 10,
-          }}
-        />
-      </View>
+      <Button
+        color='primary'
+        title={t('affiliate.yourDownLine')}
+        onPress={() => navigation.navigate('DownLine')}
+        containerStyle={{
+          marginVertical: 10,
+        }}
+      />
+
+      <Text h4>{t('affiliate.referralTitle')}</Text>
 
       <View style={[styles.container, styles.tableBorder]}>
         <View style={[styles.headerRow, styles.rowDivider]}>
@@ -129,15 +139,23 @@ const ReferralTable = () => {
         onPress={() => Linking.openURL(LegalStuff.affiliateTerms)}
         containerStyle={{
           marginVertical: 10,
+          marginBottom: 15,
         }}
       />
 
-      <TouchableWithoutFeedback onPress={onShare}>
+      <TouchableWithoutFeedback onPress={onShareReferral}>
         <View style={styles.shareBtnWrapper}>
           <Text>{t('affiliate.shareReferralLink')}</Text>
           <ShareImg height={20} width={20} />
         </View>
       </TouchableWithoutFeedback>
+
+      {/* <TouchableWithoutFeedback onPress={onShare}>
+        <View style={styles.shareBtnWrapper}>
+          <Text>{t('affiliate.shareCustomerLink')}</Text>
+          <ShareImg height={20} width={20} />
+        </View>
+      </TouchableWithoutFeedback> */}
 
       {selectedItem && (
         <ReferralUserModal
@@ -232,7 +250,6 @@ const useStyles = makeStyles(({colors}) => ({
     justifyContent: 'space-between',
   },
   shareBtnWrapper: {
-    marginTop: 15,
     marginBottom: 15,
     borderWidth: 1.5,
     borderRadius: 8,

@@ -14,4 +14,5 @@ export const cacheKey = {
   downLineUser: 'downLineUser',
   checkPaymentService: 'checkPaymentService',
   bankDetails: 'bankDetails',
+  surveyStatus: 'SurveyStatus',
 }

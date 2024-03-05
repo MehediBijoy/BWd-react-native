@@ -1,5 +1,32 @@
 # Changelog
 
+## Platform APP v1.5.0 - 2024-01-30
+
+### Added
+
+- Added copy button for ban transfer
+- Deeplink for affiliate registration
+- Debit card survey
+
+### Removed
+
+- Removed referral token text box during registration
+
+### Fixed
+
+- German keyboard purchase issues
+
+## Platform APP v1.4.0 - 2024-01-30
+
+### Added
+
+- Deeplink for affiliate registration
+- Debit card survey
+
+### Removed
+
+- Referral token text box during registration
+
 ## Platform APP v1.3.0 - 2024-01-17
 
 ### Added

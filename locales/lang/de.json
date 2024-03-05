@@ -50,7 +50,7 @@
   "affiliate": {
     "title": "Affiliate Dashboard",
     "referralTitle": "Ihre Empfehlungen",
-    "yourDownLine": "Siehe deine ganze downline",
+    "yourDownLine": "Vollständige Downline anzeigen",
     "termsAndConditions": "Affiliateprogramm Geschäftsbedingungen",
     "refId": "Ihre Referral ID",
     "refLink": "Ihr Referrallink",
@@ -64,6 +64,7 @@
     "closeBtn": "Schließen",
     "showBtn": "Zeige alles",
     "shareReferralLink": "Teilen Sie Ihren Referrallink",
+    "shareCustomerLink": "Teilen Sie Ihren Kundenlink",
     "downline": "Downline",
     "overViewBtn": "Zurück zur Affiliate-Übersicht",
     "backToUserBtn": "Zurück zum vorherigen Benutzer",
@@ -822,5 +823,17 @@
     "bankName": "Bankname",
     "bankAddress": "Bankadresse",
     "reference": "Referenz"
+  },
+  "survey": {
+    "title": "Bist du an einer Karte interessiert, um überall mit deinen BWG Token zahlen zu können?",
+    "yes": "Ja",
+    "no": "Nein",
+    "descriptions": "Vielen Dank für Ihr Interesse an der Goldkarte. Wir werden uns mit Ihnen in Verbindung setzen, sobald wir weitere Informationen für Sie haben.",
+    "label1": "Bis zu 500$",
+    "label2": "Bis zu 1000$",
+    "label3": "Bis zu 2000$",
+    "label4": "Mehr als 2000$",
+    "submit": "Absenden",
+    "ok": "Okay"
   }
 }
