@@ -2,16 +2,13 @@ import React from 'react'
 import {View} from 'react-native'
 import {useMutation} from '@tanstack/react-query'
 import {useTranslation, Trans} from 'react-i18next'
-import {Text, makeStyles, CheckBox, Button} from '@rneui/themed'
+import {Text, makeStyles, Button} from '@rneui/themed'
 
 import Modal from '@core/Modal'
-import SafeAreaView from '@core/SafeAreaView'
 
 import {useApi} from 'hooks/api'
 import CardImage from 'images/survey/card.svg'
-import {useProfile, useProfileDetails} from 'hooks/helper'
-
-import {getSurveyQuestions} from './Survey.config'
+import {useProfile} from 'hooks/helper'
 
 type SurveyModalProps = {
   isOpened: boolean
@@ -24,11 +21,6 @@ const SurveyModal = ({isOpened, onClose, refetch}: SurveyModalProps) => {
   const styles = useStyles()
   const {t} = useTranslation()
   const {profile} = useProfile()
-  const {data: userDetails} = useProfileDetails()
-
-  const [checked, isChecked] = React.useState('')
-
-  const surveyQuestions = React.useMemo(() => getSurveyQuestions(t), [t])
 
   const {mutate, isLoading} = useMutation({
     mutationFn: api.surveySubmit,
@@ -42,35 +34,32 @@ const SurveyModal = ({isOpened, onClose, refetch}: SurveyModalProps) => {
     mutate({
       id: profile?.id as number,
       event: 'debit_card_survey',
-      response: {want_to_card: 'Yes', want_to_spend: checked},
+      response: {want_to_card: 'Yes'},
     })
   }
 
   return (
-    <SafeAreaView edges={['top', 'bottom']}>
-      <Modal title='' onClose={onClose} isOpened={isOpened}>
-        <View>
-          <View style={styles.imageContainer}>
-            <CardImage height={50} />
-          </View>
+    <Modal title='' onClose={onClose} isOpened={isOpened}>
+      <View>
+        <View style={styles.imageContainer}>
+          <CardImage height={50} />
+        </View>
 
-          <Text style={styles.textStyle}>
-            <Trans
-              i18nKey='survey.descriptions'
-              values={{
-                name: `${userDetails?.user_detail?.first_name ?? ''} ${
-                  userDetails?.user_detail?.last_name ?? ''
-                }`,
-                currency: 'USD',
-              }}
-              components={[
-                <Text key={Math.random()} style={[{fontWeight: 'bold'}, styles.textStyle]} />,
-                <Text key={Math.random()} style={[{fontWeight: 'bold'}, styles.textStyle]} />,
-              ]}
-            />
-          </Text>
+        <Text style={styles.textStyle}>
+          <Trans
+            i18nKey='survey.descriptions'
+            values={{
+              currency: 'USD',
+            }}
+            components={[
+              <Text key={Math.random()} style={[{fontWeight: 'bold'}, styles.textStyle]} />,
+              <Text key={Math.random()} style={[{fontWeight: 'bold'}, styles.textStyle]} />,
+            ]}
+          />
+        </Text>
 
-          <View style={styles.radioButtonContainer}>
+        {/* This is survey modal */}
+        {/* <View style={styles.radioButtonContainer}>
             {surveyQuestions.map(item => (
               <View key={item.label} style={styles.radioButton}>
                 <CheckBox
@@ -86,16 +75,15 @@ const SurveyModal = ({isOpened, onClose, refetch}: SurveyModalProps) => {
                 />
               </View>
             ))}
-          </View>
-          <Button
-            loading={isLoading}
-            title={t('survey.submit')}
-            containerStyle={{marginTop: 20, marginBottom: 20}}
-            onPress={handleSubmit}
-          />
-        </View>
-      </Modal>
-    </SafeAreaView>
+          </View> */}
+        <Button
+          loading={isLoading}
+          title={t('survey.submit')}
+          containerStyle={{marginTop: 20, marginBottom: 20}}
+          onPress={handleSubmit}
+        />
+      </View>
+    </Modal>
   )
 }
 
