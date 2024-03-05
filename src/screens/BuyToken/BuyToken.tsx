@@ -97,13 +97,17 @@ const BuyToken = () => {
   const feesRefetch = useDebounce(mutate)
   const onChange = (value: string, inputType: boolean) => {
     setInBase(inputType)
-    feesRefetch({amount: value, in_base: inputType})
+    const lastChar = value.slice(-1)
+    const endsWithCommaOrDot = lastChar === ',' || lastChar === '.'
+    if (!endsWithCommaOrDot) {
+      feesRefetch({amount: value.replace(/,/g, '.'), in_base: inputType})
+    }
   }
 
   const isValid = useMemo(() => {
     if (!bwgLimit && !total) return false
 
-    const value = Number(total)
+    const value = Number(total?.replace(/,/g, '.'))
     const minPaymentAmount = Number(bwgLimit?.min_payment_amount)
     const maxPaymentAmount = Number(bwgLimit?.max_payment_amount)
 

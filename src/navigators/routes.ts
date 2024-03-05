@@ -6,7 +6,11 @@ export type RouteStack = {
   ChangePassword: {code: string}
 
   RegistrationProgress: undefined
-  RegistrationForm: undefined
+  RegistrationForm: {
+    token: string
+    platform: string
+    user?: string
+  }
   RegistrationEmailConfirm: undefined
   RegistrationKycProcess: undefined
   RegistrationSuccess: undefined
