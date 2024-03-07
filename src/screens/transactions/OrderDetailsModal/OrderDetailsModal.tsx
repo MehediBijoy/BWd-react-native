@@ -1,8 +1,15 @@
 import React from 'react'
-import RNFetchBlob from 'rn-fetch-blob'
+import RNFetchBlob, {RNFetchBlobConfig} from 'rn-fetch-blob'
 import {useTranslation} from 'react-i18next'
 import {Text, makeStyles, Button} from '@rneui/themed'
-import {View, Linking, TouchableOpacity, ScrollView} from 'react-native'
+import {
+  View,
+  Linking,
+  TouchableOpacity,
+  ScrollView,
+  Platform,
+  PermissionsAndroid,
+} from 'react-native'
 import Toast from 'react-native-toast-message'
 
 import Modal from '@core/Modal'
@@ -56,12 +63,111 @@ const OrderDetailsModal = ({data, isOpened, onClose, showTost}: OrderDetailsModa
   //     }))
   // }
 
-  const downloadPdf = async () => {
+  // this is previous implementations
+  // const downloadPdf = async () => {
+  //   try {
+  //     setIspdfDownload(true)
+  //     const response =
+  //       token &&
+  //       (await RNFetchBlob.fetch(
+  //         'GET',
+  //         `${API_URL}/payments/${data.id}/bank_invoice?region=${platform.toLowerCase()}`,
+  //         {
+  //           'Content-Type': 'application/json',
+  //           Authorization: token,
+  //           lang: currentLang,
+  //           responseType: 'blob',
+  //         }
+  //       ))
+
+  //     if (!response) {
+  //       throw new Error('Something went wrong!')
+  //     }
+
+  //     const fileName = `${formatDate(data.created_at, 'YYYY_MM_DD')}_brettonwoods_digital_${
+  //       data.id
+  //     }.pdf`
+
+  //     await RNFetchBlob.fs.writeFile(
+  //       `${RNFetchBlob.fs.dirs.DownloadDir}/${fileName}`,
+  //       response.data,
+  //       'base64'
+  //     )
+  //   } catch (error) {
+  //     console.log(error)
+  //   } finally {
+  //     onClose()
+  //     setIspdfDownload(false)
+  //     showTost()
+  //   }
+  // }
+
+  // Grant permission in Android
+  const getDownloadPermissionAndroid = async () => {
     try {
-      setIspdfDownload(true)
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+        {
+          title: 'File Download Permission',
+          message: 'Your permission is required to save Files to your device',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        }
+      )
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) return true
+    } catch (err) {
+      console.log('err', err)
+    }
+  }
+
+  // const downloadFile = async (blobData: string, filename: string) => {
+  //   // Get the app's cache directory
+  //   const {config, fs} = RNFetchBlob
+  //   const cacheDir = fs.dirs.DownloadDir
+
+  //   const imagePath = `${cacheDir}/${filename}`
+
+  //   try {
+  //     // Write the blob data to a file in the cache directory
+  //     await RNFetchBlob.fs.writeFile(imagePath, blobData, 'base64')
+
+  //     // Return the path to the downloaded file
+  //     return imagePath
+  //   } catch (error) {
+  //     console.error(error)
+  //     return null
+  //   }
+  // }
+
+  const downloadFile = async (filename: string) => {
+    const {fs} = RNFetchBlob
+    const cacheDir = fs.dirs.DownloadDir
+
+    const imagePath = `${cacheDir}/${filename}`
+
+    try {
+      const configOptions: RNFetchBlobConfig = Platform.select({
+        ios: {
+          fileCache: true,
+          path: imagePath,
+          appendExt: filename.split('.').pop(),
+        },
+        android: {
+          fileCache: true,
+          path: imagePath,
+          appendExt: filename.split('.').pop(),
+          addAndroidDownloads: {
+            useDownloadManager: true,
+            notification: true,
+            path: imagePath,
+            description: 'File',
+          },
+        },
+      }) as RNFetchBlobConfig
+
       const response =
         token &&
-        (await RNFetchBlob.fetch(
+        (await RNFetchBlob.config(configOptions).fetch(
           'GET',
           `${API_URL}/payments/${data.id}/bank_invoice?region=${platform.toLowerCase()}`,
           {
@@ -72,25 +178,35 @@ const OrderDetailsModal = ({data, isOpened, onClose, showTost}: OrderDetailsModa
           }
         ))
 
-      if (!response) {
-        throw new Error('Something went wrong!')
-      }
+      return response
+    } catch (error) {
+      return null
+    } finally {
+      console.log('last finally')
+      onClose()
+      setIspdfDownload(false)
+    }
+  }
 
+  const handleDownload = async () => {
+    try {
+      setIspdfDownload(true)
       const fileName = `${formatDate(data.created_at, 'YYYY_MM_DD')}_brettonwoods_digital_${
         data.id
       }.pdf`
 
-      await RNFetchBlob.fs.writeFile(
-        `${RNFetchBlob.fs.dirs.DownloadDir}/${fileName}`,
-        response.data,
-        'base64'
-      )
+      if (Platform.OS === 'android') {
+        getDownloadPermissionAndroid().then(() => downloadFile(fileName))
+      } else {
+        downloadFile(fileName).then(filePath => {
+          console.log(filePath, 'this is file path')
+          filePath && RNFetchBlob.ios.previewDocument(filePath.data)
+        })
+      }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     } finally {
-      onClose()
-      setIspdfDownload(false)
-      showTost()
+      console.log('1st finally')
     }
   }
 
@@ -234,7 +350,7 @@ const OrderDetailsModal = ({data, isOpened, onClose, showTost}: OrderDetailsModa
               color='#7C7C7B'
               containerStyle={{marginTop: 25}}
               loading={ispdfDownload}
-              onPress={downloadPdf}
+              onPress={handleDownload}
             />
           )}
         </View>
