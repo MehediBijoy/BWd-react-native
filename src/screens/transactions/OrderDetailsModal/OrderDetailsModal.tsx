@@ -10,7 +10,6 @@ import {
   Platform,
   PermissionsAndroid,
 } from 'react-native'
-import Toast from 'react-native-toast-message'
 
 import Modal from '@core/Modal'
 import CopyButton from '@core/CopyButton'
@@ -28,10 +27,10 @@ export type OrderDetailsModalProps = {
   isOpened: boolean
   data: Payment<Transfer>
   onClose: () => void
-  showTost: () => void
+  showTost?: () => void
 }
 
-const OrderDetailsModal = ({data, isOpened, onClose, showTost}: OrderDetailsModalProps) => {
+const OrderDetailsModal = ({data, isOpened, onClose}: OrderDetailsModalProps) => {
   const styles = useStyles()
   const {t} = useTranslation()
   const {currentLang} = useLocales()
@@ -43,12 +42,6 @@ const OrderDetailsModal = ({data, isOpened, onClose, showTost}: OrderDetailsModa
   const onExplorerClicked = (txHash: string) => {
     Linking.openURL(chain.blockExplorers?.default.url + '/tx/' + txHash)
   }
-
-  // const {data: bankDetails, isLoading} = useQuery({
-  //   queryKey: [cacheKey.bankDetails, data.id],
-  //   queryFn: () => api.getBankDetails(data.id, platform.toLocaleLowerCase()),
-  //   enabled: !!data,
-  // })
 
   // const printHTML = async () => {
   //   bankDetails &&
@@ -120,25 +113,6 @@ const OrderDetailsModal = ({data, isOpened, onClose, showTost}: OrderDetailsModa
     }
   }
 
-  // const downloadFile = async (blobData: string, filename: string) => {
-  //   // Get the app's cache directory
-  //   const {config, fs} = RNFetchBlob
-  //   const cacheDir = fs.dirs.DownloadDir
-
-  //   const imagePath = `${cacheDir}/${filename}`
-
-  //   try {
-  //     // Write the blob data to a file in the cache directory
-  //     await RNFetchBlob.fs.writeFile(imagePath, blobData, 'base64')
-
-  //     // Return the path to the downloaded file
-  //     return imagePath
-  //   } catch (error) {
-  //     console.error(error)
-  //     return null
-  //   }
-  // }
-
   const downloadFile = async (filename: string) => {
     const {fs} = RNFetchBlob
     const cacheDir = fs.dirs.DownloadDir
@@ -151,6 +125,7 @@ const OrderDetailsModal = ({data, isOpened, onClose, showTost}: OrderDetailsModa
           fileCache: true,
           path: imagePath,
           appendExt: filename.split('.').pop(),
+          title: 'Pdf download',
         },
         android: {
           fileCache: true,
@@ -182,7 +157,6 @@ const OrderDetailsModal = ({data, isOpened, onClose, showTost}: OrderDetailsModa
     } catch (error) {
       return null
     } finally {
-      console.log('last finally')
       onClose()
       setIspdfDownload(false)
     }
@@ -198,9 +172,14 @@ const OrderDetailsModal = ({data, isOpened, onClose, showTost}: OrderDetailsModa
       if (Platform.OS === 'android') {
         getDownloadPermissionAndroid().then(() => downloadFile(fileName))
       } else {
-        downloadFile(fileName).then(filePath => {
-          console.log(filePath, 'this is file path')
-          filePath && RNFetchBlob.ios.previewDocument(filePath.data)
+        downloadFile(fileName).then(async filePath => {
+          // filePath && RNFetchBlob.ios.previewDocument(filePath.data)
+          filePath &&
+            (await RNFetchBlob.fs.writeFile(
+              `${RNFetchBlob.fs.dirs.DownloadDir}/${fileName}`,
+              filePath.data,
+              'utf8'
+            ))
         })
       }
     } catch (error) {

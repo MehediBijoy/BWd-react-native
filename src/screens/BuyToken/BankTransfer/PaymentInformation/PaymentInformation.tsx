@@ -1,7 +1,7 @@
 import React from 'react'
-import RNFetchBlob from 'rn-fetch-blob'
+import RNFetchBlob, {RNFetchBlobConfig} from 'rn-fetch-blob'
 import {useTranslation} from 'react-i18next'
-import {ScrollView, View} from 'react-native'
+import {PermissionsAndroid, Platform, ScrollView, View} from 'react-native'
 import {useQuery} from '@tanstack/react-query'
 import Toast from 'react-native-toast-message'
 import {Text, makeStyles, Divider, Button} from '@rneui/themed'
@@ -61,12 +61,59 @@ const PaymentInformation = () => {
   //     }))
   // }
 
-  const downloadPdf = async () => {
+  const getDownloadPermissionAndroid = async () => {
     try {
-      setIspdfDownload(true)
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+        {
+          title: 'File Download Permission',
+          message: 'Your permission is required to save Files to your device',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        }
+      )
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) return true
+    } catch (err) {
+      console.log('err', err)
+    }
+  }
+
+  const downloadFile = async (filename: string) => {
+    const {fs} = RNFetchBlob
+    const cacheDir = fs.dirs.DownloadDir
+
+    const imagePath = `${cacheDir}/${filename}`
+
+    try {
+      // Delete if exists file
+      // const exists = await fs.exists(imagePath)
+      // if (exists) {
+      //   await fs.unlink(imagePath)
+      // }
+
+      const configOptions: RNFetchBlobConfig = Platform.select({
+        ios: {
+          fileCache: true,
+          path: imagePath,
+          appendExt: filename.split('.').pop(),
+          title: 'Pdf download',
+        },
+        android: {
+          fileCache: true,
+          path: imagePath,
+          appendExt: filename.split('.').pop(),
+          addAndroidDownloads: {
+            useDownloadManager: true,
+            notification: true,
+            path: imagePath,
+            description: 'File',
+          },
+        },
+      }) as RNFetchBlobConfig
+
       const response =
         token &&
-        (await RNFetchBlob.fetch(
+        (await RNFetchBlob.config(configOptions).fetch(
           'GET',
           `${API_URL}/payments/${paymentData.id}/bank_invoice?region=${platform.toLowerCase()}`,
           {
@@ -77,32 +124,35 @@ const PaymentInformation = () => {
           }
         ))
 
-      if (!response) {
-        throw new Error('Something went wrong!')
-      }
+      return response
+    } catch (error) {
+      return null
+    } finally {
+      setIspdfDownload(false)
+    }
+  }
+
+  const handleDownload = async () => {
+    try {
+      setIspdfDownload(true)
 
       const fileName = `${formatDate(paymentData.created_at, 'YYYY_MM_DD')}_brettonwoods_digital_${
         paymentData.id
       }.pdf`
 
-      await RNFetchBlob.fs.writeFile(
-        `${RNFetchBlob.fs.dirs.DownloadDir}/${fileName}`,
-        response.data,
-        'base64'
-      )
+      if (Platform.OS === 'android') {
+        getDownloadPermissionAndroid().then(() => downloadFile(fileName))
+      } else {
+        downloadFile(fileName).then(filePath => {
+          filePath && RNFetchBlob.ios.previewDocument(filePath.data)
+        })
+      }
     } catch (error) {
-      console.log(error)
+      console.error(error)
     } finally {
-      setIspdfDownload(false)
-      Toast.show({
-        type: 'success',
-        text1: 'Download Completed.',
-        visibilityTime: 2000,
-        autoHide: true,
-      })
+      console.log('1st finally')
     }
   }
-
   if (isLoading) {
     return (
       <View
@@ -247,7 +297,7 @@ const PaymentInformation = () => {
             titleStyle={{marginLeft: 10}}
             color='#7C7C7B'
             containerStyle={{marginTop: 35, marginBottom: 20}}
-            onPress={downloadPdf}
+            onPress={handleDownload}
             loading={ispdfDownload}
           />
 
