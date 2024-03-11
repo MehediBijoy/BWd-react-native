@@ -174,6 +174,7 @@ const OrderDetailsModal = ({data, isOpened, onClose}: OrderDetailsModalProps) =>
       } else {
         downloadFile(fileName).then(async filePath => {
           // filePath && RNFetchBlob.ios.previewDocument(filePath.data)
+          
           filePath &&
             (await RNFetchBlob.fs.writeFile(
               `${RNFetchBlob.fs.dirs.DownloadDir}/${fileName}`,
