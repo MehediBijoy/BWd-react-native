@@ -67,10 +67,8 @@ const GoldCard = () => {
             <Button
               containerStyle={{marginTop: 20, marginBottom: 50}}
               title={t('survey.goldCard.seeBtn')}
-              onPress={() => setIsOpened(true)}
             />
           </View>
-          <CountryModal isOpened={isOpened} onClose={() => setIsOpened(false)} />
         </ContainContainer>
       </ScrollView>
     </SafeAreaView>
