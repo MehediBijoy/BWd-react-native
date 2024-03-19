@@ -107,7 +107,7 @@ const BuyToken = () => {
   const isValid = useMemo(() => {
     if (!bwgLimit && !total) return false
 
-    const value = Number(total)
+    const value = Number(total?.replace(/,/g, '.'))
     const minPaymentAmount = Number(bwgLimit?.min_payment_amount)
     const maxPaymentAmount = Number(bwgLimit?.max_payment_amount)
 
