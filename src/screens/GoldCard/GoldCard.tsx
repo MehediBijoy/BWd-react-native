@@ -1,60 +1,29 @@
 import React from 'react'
 import {ScrollView, View} from 'react-native'
 import {useTranslation} from 'react-i18next'
-import {useQuery} from '@tanstack/react-query'
 import {Text, Image, makeStyles, Button} from '@rneui/themed'
 import LinearGradient from 'react-native-linear-gradient'
 
-import Loader from '@core/Loader'
 import SafeAreaView from '@core/SafeAreaView'
 import ContainContainer from '@core/ContentContainer'
 
-import {cacheKey} from 'api'
-import {useApi} from 'hooks/api'
-import {useProfile} from 'hooks/helper'
-import InterestImg from 'images/survey/Interest.svg'
 import CountryImg from 'images/survey/Graphics_4.png'
 import EvaluateImg from 'images/survey/Graphics_3.png'
 import AvailableImg from 'images/survey/Available.svg'
 import TopBannerImg from 'images/survey/Graphics_1.png'
 import ExperienceImg from 'images/survey/Graphics_2.png'
 
-import Survey from './Survey'
 import CountryModal from './CountryModal'
 
 const GoldCard = () => {
-  const api = useApi()
   const styles = useStyles()
   const {t} = useTranslation()
-  const {profile} = useProfile()
   const [isOpened, setIsOpened] = React.useState(false)
-
-  const {data, isLoading, refetch} = useQuery({
-    queryKey: [cacheKey.surveyStatus, profile?.id],
-    queryFn: () => api.checkSurveyStatus({id: profile?.id as number, event: 'debit_card_survey'}),
-    enabled: !!profile?.id,
-  })
 
   return (
     <SafeAreaView>
       <ScrollView>
         <ContainContainer>
-          {isLoading ? (
-            <View style={{marginTop: 20}}>
-              <Loader />
-            </View>
-          ) : data?.status !== 'FILLED' ? (
-            <Survey refetch={refetch} />
-          ) : (
-            <LinearGradient
-              colors={['rgba(7, 105, 91, 0.70)', 'rgba(7, 39, 35, 0.70)']}
-              style={styles.interest}
-            >
-              <InterestImg height={40} width={40} />
-              <Text style={styles.interestTitle}>{t('survey.goldCard.showingInterest')}</Text>
-            </LinearGradient>
-          )}
-
           <LinearGradient
             colors={['rgba(18, 90, 79, 0.10)', 'rgba(8, 40, 36, 0.56)']}
             style={{marginTop: 15, borderRadius: 8}}
