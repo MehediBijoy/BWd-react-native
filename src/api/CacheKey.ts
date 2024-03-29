@@ -15,4 +15,6 @@ export const cacheKey = {
   checkPaymentService: 'checkPaymentService',
   bankDetails: 'bankDetails',
   surveyStatus: 'SurveyStatus',
+  goldCardPackage: 'goldCardPackage',
+  goldCardAccount: 'goldCardAccount',
 }

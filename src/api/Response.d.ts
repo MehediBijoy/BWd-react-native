@@ -204,6 +204,18 @@ type Payment<Tdata = null> = {
   created_at: string
   updated_at: string
   transfer: Tdata
+  gold_card_package: GoldCardPackage | null
+}
+
+type GoldCardPackage = {
+  id: number
+  is_active: boolean
+  title: string
+  description: string
+  bwg_amount: string
+  price_usd: string
+  price_eur: string
+  package_type: PackageType
 }
 
 type BankTransfer = {
@@ -300,4 +312,26 @@ type ReferralAccount = {
   previous_referrer_id: number
   referrals_stats: ReferralStats[]
   meta: Meta
+}
+
+type PackageType = 'signature' | 'premium' | 'standard' | 'basic'
+
+export type GoldCardPackage = {
+  id: number
+  is_active: boolean
+  title: string
+  description: string
+  bwg_amount: string
+  price_usd: string
+  price_eur: string
+  package_type: PackageType
+}
+
+export type GoldCardAccount = {
+  current_balance: string
+  total_deposit: string
+  total_withdraw: string
+  is_active: boolean
+  created_at: string
+  updated_at: string
 }

@@ -51,13 +51,7 @@ const ChartBox = () => {
     <>
       <View style={{alignItems: 'center', flexDirection: 'row', marginBottom: 10, gap: 10}}>
         <Logo width={35} height={35} />
-        <Text h4>
-          Bretton Woods{' '}
-          <Text h4 h4Style={{fontStyle: 'italic'}}>
-            digital{' '}
-          </Text>
-          Gold
-        </Text>
+        <Text h4>LBMA Gold Price</Text>
       </View>
 
       <LineChart
