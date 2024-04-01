@@ -115,11 +115,18 @@ const OrderDetailsModal = ({data, isOpened, onClose}: OrderDetailsModalProps) =>
 
   const downloadFile = async (filename: string) => {
     const {fs} = RNFetchBlob
-    const cacheDir = fs.dirs.DownloadDir
+    const cacheDir = Platform.OS === 'ios' ? fs.dirs.DocumentDir : fs.dirs.DownloadDir
 
-    const imagePath = `${cacheDir}/${filename}`
+    let imagePath = `${cacheDir}/${filename}`
 
     try {
+      // Delete if exists file
+      const exists = await fs.exists(imagePath)
+      if (exists && Platform.OS === 'android') {
+        const newImagePath = imagePath.split('.pdf')[0]
+        imagePath = `${newImagePath}_${Math.floor(Math.random() * 100) + 1}.pdf`
+      }
+
       const configOptions: RNFetchBlobConfig = Platform.select({
         ios: {
           fileCache: true,
@@ -174,13 +181,13 @@ const OrderDetailsModal = ({data, isOpened, onClose}: OrderDetailsModalProps) =>
       } else {
         downloadFile(fileName).then(async filePath => {
           // filePath && RNFetchBlob.ios.previewDocument(filePath.data)
-          
-          filePath &&
-            (await RNFetchBlob.fs.writeFile(
-              `${RNFetchBlob.fs.dirs.DownloadDir}/${fileName}`,
-              filePath.data,
-              'utf8'
-            ))
+          filePath && RNFetchBlob.ios.previewDocument(filePath.data)
+          // filePath &&
+          //   (await RNFetchBlob.fs.writeFile(
+          //     `${RNFetchBlob.fs.dirs.DownloadDir}/${fileName}`,
+          //     filePath.data,
+          //     'utf8'
+          //   ))
         })
       }
     } catch (error) {
