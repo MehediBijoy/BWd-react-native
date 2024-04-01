@@ -80,7 +80,7 @@ const PaymentInformation = () => {
 
   const downloadFile = async (filename: string) => {
     const {fs} = RNFetchBlob
-    const cacheDir = fs.dirs.DownloadDir
+    const cacheDir = Platform.OS === 'ios' ? fs.dirs.DocumentDir : fs.dirs.DownloadDir
 
     const imagePath = `${cacheDir}/${filename}`
 
@@ -143,7 +143,8 @@ const PaymentInformation = () => {
       if (Platform.OS === 'android') {
         getDownloadPermissionAndroid().then(() => downloadFile(fileName))
       } else {
-        downloadFile(fileName).then(filePath => {
+        downloadFile(fileName).then(async filePath => {
+          // filePath && RNFetchBlob.fs.writeFile(path, base64file, 'base64')
           filePath && RNFetchBlob.ios.previewDocument(filePath.data)
         })
       }
