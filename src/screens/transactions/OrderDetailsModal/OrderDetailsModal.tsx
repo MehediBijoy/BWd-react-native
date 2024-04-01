@@ -109,7 +109,7 @@ const OrderDetailsModal = ({data, isOpened, onClose}: OrderDetailsModalProps) =>
       )
       if (granted === PermissionsAndroid.RESULTS.GRANTED) return true
     } catch (err) {
-      console.log('err', err)
+      return null
     }
   }
 
@@ -164,7 +164,6 @@ const OrderDetailsModal = ({data, isOpened, onClose}: OrderDetailsModalProps) =>
     } catch (error) {
       return null
     } finally {
-      onClose()
       setIspdfDownload(false)
     }
   }
@@ -191,9 +190,9 @@ const OrderDetailsModal = ({data, isOpened, onClose}: OrderDetailsModalProps) =>
         })
       }
     } catch (error) {
-      console.error(error)
+      /* empty */
     } finally {
-      console.log('1st finally')
+      /* empty */
     }
   }
 
@@ -337,7 +336,10 @@ const OrderDetailsModal = ({data, isOpened, onClose}: OrderDetailsModalProps) =>
               color='#7C7C7B'
               containerStyle={{marginTop: 25}}
               loading={ispdfDownload}
-              onPress={handleDownload}
+              onPress={() => {
+                onClose()
+                handleDownload()
+              }}
             />
           )}
         </View>

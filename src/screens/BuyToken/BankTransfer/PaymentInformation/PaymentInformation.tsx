@@ -61,6 +61,7 @@ const PaymentInformation = () => {
   //     }))
   // }
 
+  // Grant permission in Android
   const getDownloadPermissionAndroid = async () => {
     try {
       const granted = await PermissionsAndroid.request(
@@ -74,7 +75,7 @@ const PaymentInformation = () => {
       )
       if (granted === PermissionsAndroid.RESULTS.GRANTED) return true
     } catch (err) {
-      console.log('err', err)
+      return null
     }
   }
 
@@ -150,9 +151,9 @@ const PaymentInformation = () => {
         })
       }
     } catch (error) {
-      console.error(error)
+      /* empty */
     } finally {
-      console.log('1st finally')
+      /* empty */
     }
   }
   if (isLoading) {
