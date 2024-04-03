@@ -1,7 +1,7 @@
 import {View} from 'react-native'
 import {Text, LinearProgress, makeStyles} from '@rneui/themed'
 
-import LogoIcon from 'images/bwg-logo.svg'
+import LogoIcon from 'images/Icon.svg'
 
 const Splash = () => {
   const styles = useStyles()
