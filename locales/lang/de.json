@@ -848,5 +848,21 @@
       "countryModalTitle": "Länder, in denen die Karte durch Bank Frick vertrieben wird.",
       "surveyModalTitle": "Vielen Dank für Ihr Interesse an der Goldkarte. Wir werden uns mit Ihnen in Verbindung setzen, sobald wir weitere Informationen für Sie haben."
     }
+  },
+  "goldCard": {
+    "packageType": {
+      "signature": "Signature Package",
+      "premium": "Premium Package",
+      "standard": "Standard Package"
+    },
+    "packageDescription": {
+      "signature": "Spend your gold with signature and enjoy maximum benefit",
+      "premium": "Spend your gold with signature and enjoy special benefit",
+      "standard": "Spend your gold with signature and enjoy benefit"
+    },
+    "packageTotalPrice": "Package total price:",
+    "getBenefit": "Get the benefit",
+    "preOrderPackage": "Preorder package",
+    "preOrderCard": "Preorder just the card"
   }
 }

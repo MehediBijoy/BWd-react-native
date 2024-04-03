@@ -1,4 +1,5 @@
 import {Image} from '@rneui/themed'
+import {TFunction} from 'i18next'
 
 import SignatureImg from 'images/goldcard/signature.png'
 import StandardImg from 'images/goldcard/standard.png'
@@ -13,53 +14,53 @@ interface Benefit {
   description: string
 }
 
-interface Benefits {
+export interface Benefits {
   [key: string]: Benefit[]
 }
 
-export const benefits: Benefits = {
+export const benefits: (t: TFunction) => Benefits = (t: TFunction) => ({
   signature: [
     {
       icon: <FeeSvg width={30} height={30} />,
-      title: 'Gold card maximum benefit',
-      description: 'Enjoy our gold card with maximum benefit',
+      title: t('goldCard.benefit.signature.title1'),
+      description: t('goldCard.benefit.signature.description1'),
     },
     {
       icon: <TokenSvg width={30} height={30} />,
-      title: 'Get 10 BWG tokens',
-      description: 'Get 10 BEG token with gold card',
+      title: t('goldCard.benefit.signature.title2'),
+      description: t('goldCard.benefit.signature.description2'),
     },
     {
       icon: <BenefitsSvg width={30} height={30} />,
-      title: 'Reduced fees',
-      description: 'Enjoy tier 4 fees (4.99%)',
+      title: t('goldCard.benefit.signature.title3'),
+      description: t('goldCard.benefit.signature.description3'),
     },
   ],
   premium: [
     {
       icon: <FeeSvg width={30} height={30} />,
-      title: 'Gold card standard benefit',
-      description: 'Enjoy our gold card with standard benefit',
+      title: t('goldCard.benefit.premium.title1'),
+      description: t('goldCard.benefit.premium.description1'),
     },
     {
       icon: <TokenSvg width={30} height={30} />,
-      title: 'Get 5 BWG tokens',
-      description: 'Get 5 BEG token with gold card',
+      title: t('goldCard.benefit.premium.title2'),
+      description: t('goldCard.benefit.premium.description2'),
     },
     {
       icon: <BenefitsSvg width={30} height={30} />,
-      title: 'Reduced fees',
-      description: 'Enjoy tier 3 fees (8.99%)',
+      title: t('goldCard.benefit.premium.title3'),
+      description: t('goldCard.benefit.premium.description3'),
     },
   ],
   standard: [
     {
       icon: <BenefitsSvg width={30} height={30} />,
-      title: 'Gold card service',
-      description: 'Enjoy our gold card ',
+      title: t('goldCard.benefit.standard.title1'),
+      description: t('goldCard.benefit.standard.description1'),
     },
   ],
-}
+})
 
 interface PackageImages {
   [key: string]: JSX.Element
@@ -73,4 +74,23 @@ export const packageImages: PackageImages = {
   standard: (
     <Image source={StandardImg} style={{width: '100%', height: 200}} resizeMode='contain' />
   ),
+}
+
+export const IsCountryWhiteList = (country: string) => {
+  const countryList = [
+    'LIE',
+    'GER',
+    'AUT',
+    'NLD',
+    'BEL',
+    'LUX',
+    'IRL',
+    'GBR',
+    'FRA',
+    'ESP',
+    'ITA',
+    'CHE',
+  ]
+
+  return !countryList.includes(country)
 }

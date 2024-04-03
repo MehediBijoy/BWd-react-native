@@ -1,4 +1,4 @@
-import {Button, CheckBox, Text, makeStyles} from '@rneui/themed'
+import {Button, CheckBox, Icon, Text, makeStyles} from '@rneui/themed'
 import {View} from 'react-native'
 import {useTranslation} from 'react-i18next'
 import React from 'react'
@@ -12,16 +12,19 @@ import PackageSvg from 'images/goldcard/Package.svg'
 import FeeSvg from 'images/goldcard/fees.svg'
 import PaymentIcon from 'images/icons/Bank.svg'
 import {useCurrency, useLocales} from 'hooks/states'
-import {formatCurrency} from 'utils'
+import {alpha, formatCurrency} from 'utils'
 import {useApi} from 'hooks/api'
-import {Payment} from 'api/Response'
+import {PackageType, Payment} from 'api/Response'
 import {AllCurrencyType} from 'constants/currency.config'
 import {GoldCardProps} from 'api/Request'
 
 type OrderDetailsModalProps = {
   isOpened: boolean
+  isDisabled: boolean
   id: number
   price: string
+  package_type: string
+
   onClose: () => void
 }
 
@@ -42,16 +45,31 @@ const cardOptions = [
   },
 ]
 
-const OrderDetailsModal = ({isOpened, id, price, onClose}: OrderDetailsModalProps) => {
+type ErrorData = {
+  code: string
+  message: string
+  title: string
+}
+
+const OrderDetailsModal = ({
+  isOpened,
+  isDisabled,
+  id,
+  price,
+  package_type,
+  onClose,
+}: OrderDetailsModalProps) => {
   const {t} = useTranslation()
   const api = useApi()
   const styles = useStyles()
   const [cardType, setCardType] = React.useState(0)
+  const [errorMessage, setErrorMessage] = React.useState('')
+
   const {currency} = useCurrency()
   const {currentLang} = useLocales()
   const navigation = useNavigation<NavigationProp<PaymentParamsList, 'PaymentInformation'>>()
 
-  const {mutate, isLoading} = useMutation<Payment, unknown, GoldCardProps>({
+  const {mutate, isLoading} = useMutation<Payment, ErrorData, GoldCardProps>({
     mutationFn: api.goldCardPurchase,
     onSuccess: data => {
       navigation.navigate('PaymentInformation', {
@@ -60,20 +78,33 @@ const OrderDetailsModal = ({isOpened, id, price, onClose}: OrderDetailsModalProp
       })
     },
     onError: error => {
-      // console.log(error.message)
+      setErrorMessage(error.message)
     },
   })
 
   return (
     <SafeAreaView>
-      <Modal title='Order Details' isOpened={isOpened} onClose={onClose}>
-        <Text style={styles.title}>Package Details</Text>
-        <View style={{columnGap: 10, marginTop: 10, flexDirection: 'row', alignItems: 'center'}}>
-          <PackageSvg width={20} height={20} />
-          <Text style={styles.text}>Package Name: Premium Package</Text>
-        </View>
+      <Modal title={t('goldCard.orderDetails')} isOpened={isOpened} onClose={onClose}>
+        {isDisabled && (
+          <View style={styles.alertContainer}>
+            <Icon name='warning' type='antdesign' color={styles.icon.color} />
+            <Text style={styles.alertText}>{t('goldCard.not_eligible')}</Text>
+          </View>
+        )}
 
-        <Text style={[styles.title, {marginTop: 20}]}>Card Type</Text>
+        {errorMessage != '' && (
+          <View style={[styles.alertContainer]}>
+            <Icon name='warning' type='antdesign' color={styles.icon.color} />
+            <Text style={styles.alertText}>{errorMessage}</Text>
+          </View>
+        )}
+
+        <Text style={styles.title}>{t('goldCard.packageDetails')}</Text>
+        <View style={styles.packagePrice}>
+          <PackageSvg width={20} height={20} />
+          <Text style={styles.text}>{t(`goldCard.packageTitleWithLabel.${package_type}`)}</Text>
+        </View>
+        <Text style={[styles.title, {marginTop: 20}]}>{t('goldCard.cardType')}</Text>
         <View style={styles.radioButton}>
           {cardOptions.map(item => (
             <View key={item.label}>
@@ -90,36 +121,43 @@ const OrderDetailsModal = ({isOpened, id, price, onClose}: OrderDetailsModalProp
             </View>
           ))}
         </View>
-
-        <View
-          style={{columnGap: 10, marginTop: 20, flexDirection: 'row', alignItems: 'flex-start'}}
-        >
+        <View style={styles.packagePrice}>
           <FeeSvg width={30} height={30} />
           <Text style={styles.text}>
-            Package total price: {formatCurrency(price, {currency, locales: currentLang})}
+            {t('goldCard.packageTotalPrice')}{' '}
+            {formatCurrency(price, {currency, locales: currentLang})}
           </Text>
         </View>
         {cardType === 1 && (
           <View style={styles.feeDetails}>
             <View style={styles.feeDetailsBar}></View>
             <View style={{gap: 10}}>
-              <Text>Package fees: $2500 </Text>
-              <Text>Shipping fees: $100</Text>
-              <Text>Card fees: $150</Text>
+              <Text>
+                {t('goldCard.packageFee')}{' '}
+                {formatCurrency(Number(price) - 100 - 150, {currency, locales: currentLang})}{' '}
+              </Text>
+              <Text>
+                {t('goldCard.shippingFee')} {formatCurrency(100, {currency, locales: currentLang})}
+              </Text>
+              <Text>
+                {t('goldCard.cardFee')} {formatCurrency(150, {currency, locales: currentLang})}
+              </Text>
             </View>
           </View>
         )}
 
         <View style={[styles.bottomGrid, {marginTop: 20}]}>
           <PaymentIcon height={20} width={20} />
-          <Text style={styles.text}>Payment Method: {t('bankTransfer.orders.method')}</Text>
+          <Text style={styles.text}>
+            {t('goldCard.paymentMethod')} {t('bankTransfer.orders.method')}
+          </Text>
         </View>
-
         <Button
           loading={isLoading}
           title={t('bankTransfer.orders.btn')}
           containerStyle={{marginTop: 20, marginBottom: 20}}
           onPress={() => mutate({id: id, asset: currency})}
+          disabled={isDisabled}
         />
       </Modal>
     </SafeAreaView>
@@ -127,6 +165,25 @@ const OrderDetailsModal = ({isOpened, id, price, onClose}: OrderDetailsModalProp
 }
 
 const useStyles = makeStyles(({colors}) => ({
+  alertContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    backgroundColor: alpha(colors.warning, 0.09),
+    columnGap: 10,
+    height: 40,
+    paddingStart: 5,
+    borderRadius: 5,
+    borderColor: colors.warning,
+    borderWidth: 0.5,
+    marginVertical: 10,
+  },
+  alertText: {
+    fontSize: 13,
+  },
+  icon: {
+    color: colors.warning,
+  },
   title: {
     color: colors.black,
     fontSize: 16,
@@ -166,6 +223,12 @@ const useStyles = makeStyles(({colors}) => ({
   bottomGrid: {
     flexDirection: 'row',
     columnGap: 10,
+  },
+  packagePrice: {
+    columnGap: 10,
+    marginTop: 20,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
   },
 }))
 

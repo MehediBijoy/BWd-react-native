@@ -6,19 +6,20 @@ import {Text, makeStyles, Button} from '@rneui/themed'
 import PackageSvg from 'images/goldcard/Package.svg'
 import PriceImg from 'images/goldcard/Price.svg'
 import {GoldCardPackage} from 'api/Response'
-
-import {benefits, packageImages} from './package.config'
-import OrderDetailsModal from './OrderDetailsModal/OrderDetailsModal'
 import useCurrency from 'hooks/states/useCurrency'
 import useLocales from 'hooks/states/useLocales'
 import {formatCurrency} from 'utils'
 
+import OrderDetailsModal from './OrderDetailsModal/OrderDetailsModal'
+import {benefits, packageImages} from './package.config'
+
 const BenefitComponent = ({packageType}: {packageType: string}) => {
-  const benefit = benefits[packageType] || []
+  const {t} = useTranslation()
+  const benefit = benefits(t)
 
   return (
     <View>
-      {benefit.map(({icon, title, description}) => (
+      {benefit[packageType].map(({icon, title, description}) => (
         <View key={title} style={{marginBottom: 10}}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             {icon}
@@ -40,7 +41,11 @@ const BenefitComponent = ({packageType}: {packageType: string}) => {
   )
 }
 
-const Package = ({id, description, title, price_eur, price_usd, package_type}: GoldCardPackage) => {
+type PackageProps = {
+  isDisabled: boolean
+} & GoldCardPackage
+
+const Package = ({id, price_eur, price_usd, package_type, isDisabled}: PackageProps) => {
   const styles = useStyles()
   const {t} = useTranslation()
   const {currency} = useCurrency()
@@ -52,22 +57,25 @@ const Package = ({id, description, title, price_eur, price_usd, package_type}: G
 
   return (
     <View style={styles.container}>
-      <View style={{columnGap: 10, marginTop: 10, flexDirection: 'row', alignItems: 'center'}}>
+      <View style={styles.titleView}>
         <PackageSvg width={20} height={20} />
-        <Text style={{fontSize: 18}}>{title}</Text>
+        <Text style={{fontSize: 18}}>{t(`goldCard.packageTitle.${package_type}`)}</Text>
       </View>
 
       <View style={{marginVertical: 20}}>
-        <Text style={{fontSize: 20, fontWeight: '700'}}>{description}</Text>
+        <Text style={{fontSize: 20, fontWeight: '700'}}>
+          {t(`goldCard.packageDescription.${package_type}`)}
+        </Text>
       </View>
 
       <View style={{flexDirection: 'row', alignItems: 'flex-start'}}>
         <PriceImg width={30} height={30} />
         <Text style={styles.title}>
-          Package total price: {formatCurrency(price, {currency, locales: currentLang})}
+          {t('goldCard.packageTotalPrice')}{' '}
+          {formatCurrency(price, {currency, locales: currentLang})}
         </Text>
       </View>
-      <View
+      {/* <View
         style={{
           flex: 1,
           flexDirection: 'column',
@@ -75,35 +83,29 @@ const Package = ({id, description, title, price_eur, price_usd, package_type}: G
           marginLeft: 40,
         }}
       >
-        {/* <Text style={{marginTop: 10}}>Package fees: $2500 </Text>
+        <Text style={{marginTop: 10}}>Package fees: $2500 </Text>
         <Text style={{marginTop: 10}}>Shipping fees: $100</Text>
-        <Text style={{marginTop: 10}}>Card fees: $150</Text> */}
-      </View>
+        <Text style={{marginTop: 10}}>Card fees: $150</Text>
+      </View> */}
       <View style={{marginVertical: 10}}>{packageImage}</View>
 
       <View style={{marginBottom: 10}}>
-        <Text style={styles.title}>Get the benefit </Text>
+        <Text style={styles.title}>{t('goldCard.getBenefit')} </Text>
       </View>
       <BenefitComponent packageType={package_type} />
 
       <Button
-        title={'Preorder package'}
-        containerStyle={{marginVertical: 15}}
+        title={t('goldCard.preOrderPackage')}
+        containerStyle={{marginTop: 15}}
         onPress={() => setIsOpened(true)}
-      />
-      <Button
-        title={'Preorder just the card'}
-        // onPress={() => {
-        //   setCardPackage('basic')
-        //   setIsOpened(true)
-        // }}
-        color={'#879A9A'}
       />
 
       <OrderDetailsModal
         isOpened={isOpened}
+        isDisabled={isDisabled}
         id={id}
         price={price}
+        package_type={package_type}
         onClose={() => setIsOpened(false)}
       />
     </View>
@@ -114,6 +116,12 @@ const useStyles = makeStyles(({colors}) => ({
   container: {
     marginVertical: 20,
     rowGap: 0,
+  },
+  titleView: {
+    columnGap: 10,
+    marginTop: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   cell: {
     flexDirection: 'row',

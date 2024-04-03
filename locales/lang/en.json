@@ -851,5 +851,67 @@
       "countryModalTitle": "Countries through exclusive distribution by Bank Frick.",
       "surveyModalTitle": "Thank you for your interest in the gold card. We will get back to you as soon as we have more information for you."
     }
+  },
+  "goldCard": {
+    "packageDetails": "Package Details",
+    "orderDetails": "Order Details",
+    "bannerTitle": "Enjoy our BWG gold card",
+    "bannerSubTitle": "Spend your gold in real-time anywhere Mastercard is accepted.",
+    "packageTitleWithLabel": {
+      "signature": "Package Name: Signature Package",
+      "premium": "Package Name: Premium Package",
+      "standard": "Package Name: Standard Package",
+      "basic": "Package Name: Basic Package"
+    },
+    "packageTitle": {
+      "signature": "Signature Package",
+      "premium": "Premium Package",
+      "standard": "Standard Package",
+      "basic": "Basic Package"
+    },
+    "packageType": {
+      "signature": "Signature",
+      "premium": "Premium",
+      "standard": "Standard",
+      "basic": "Basic"
+    },
+    "packageDescription": {
+      "signature": "Spend your gold with signature and enjoy maximum benefit",
+      "premium": "Spend your gold with signature and enjoy special benefit",
+      "standard": "Spend your gold with signature and enjoy benefit"
+    },
+    "benefit": {
+      "signature": {
+        "title1": "Gold card maximum benefit",
+        "description1": "Enjoy our gold card with maximum benefit",
+        "title2": "Get 10 BWG tokens",
+        "description2": "Get 10 BWG token with gold card",
+        "title3": "Reduced fees",
+        "description3": "Enjoy tier 4 fees (4.99%) for every purchase"
+      },
+      "premium": {
+        "title1": "Gold card maximum benefit",
+        "description1": "Enjoy our gold card with maximum benefit",
+        "title2": "Get 5 BWG tokens",
+        "description2": "Get 5 BWG token with gold card",
+        "title3": "Reduced fees",
+        "description3": "Enjoy tier 3 fees (8.99%) for every purchase"
+      },
+      "standard": {
+        "title1": "Gold card service",
+        "description1": "Enjoy our gold card "
+      }
+    },
+    "packageTotalPrice": "Package total price:",
+    "getBenefit": "Get the benefit",
+    "preOrderPackage": "Preorder package",
+    "preOrderCard": "Preorder just the card",
+    "cardType": "Card Type",
+    "paymentMethod": "Payment Method:",
+    "shippingFee": "Shipping fees: ",
+    "cardFee": "Shipping fees: ",
+    "packageFee": "Package fees: ",
+    "country": "Dear {{name}}, thank you for your interest in our debit card. Unfortunately the card is not available in your country at this time. We are working on expanding the countries where we can offer the card and will let you know once it becomes available.",
+    "not_eligible": "Your country is not eligible for the gold card yet."
   }
 }
