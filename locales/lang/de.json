@@ -908,7 +908,7 @@
     "packagePrice": "Paketpreis:",
     "packageTotalPrice": "Gesamtpreis:",
     "getBenefit": "Paketvorteile",
-    "preOrderPackage": "Preorder package",
+    "preOrderPackage": "Vorbestellpaket",
     "preOrderCard": "Nur die Karte vorbestellen",
     "cardType": "Bitte wählen Sie den Kartentyp:",
     "paymentMethod": "Zahlungsmethode: Banküberweisung",
@@ -919,6 +919,8 @@
     "not_eligible": "Derzeit!! ist ihr Land ist nicht berechtigt, eine Goldkarte vorzubestellen",
     "physical": "Physisch",
     "virtual": "Virtuell",
-    "paymentNote": "Vielen Dank, dass Sie unsere BWG-Goldkarte erworben haben. Um fortzufahren, überweisen Sie bitte die Summe auf unser Bankkonto, und Ihre Karte wird innerhalb von sechs Monaten ausgestellt."
+    "paymentNote": " Vielen Dank, dass Sie unsere BWG-Goldkarte erworben haben. Um fortzufahren, überweisen Sie bitte die Summe auf unser Bankkonto, und Ihre Karte wird innerhalb von sechs Monaten ausgestellt.",
+    "presaleBannerTitle": "Kartenpaket Vorverkauf",
+    "presaleBannerSubTitle": "Sei einer der ersten der sich die BWG Karte sichert. Wir bieten einen Vorverkauf mit aufregenden Vorteilen an, für unsere BWG Karte, die im vierten Quartal 2024 erscheinen wird."
   }
 }

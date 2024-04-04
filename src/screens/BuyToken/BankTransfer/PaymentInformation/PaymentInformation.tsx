@@ -202,7 +202,6 @@ const PaymentInformation = () => {
               <Text style={[styles.noteDescriptions, {marginTop: -3}]}>
                 <Text style={styles.subTittle}>{t('bankTransfer.paymentInfo.noteTitle')}</Text>
                 {t('goldCard.paymentNote')}
-                
               </Text>
             </View>
           ) : (

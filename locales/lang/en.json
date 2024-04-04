@@ -922,6 +922,8 @@
     "not_eligible": "Your country is not eligible for the gold card yet.",
     "physical": "Physical",
     "virtual": "Virtual",
-    "paymentNote": "Thank you for acquiring our BWG gold card. To proceed, please deposit funds into our bank account, and your card will be issued within six months."
+    "paymentNote": " Thank you for acquiring our BWG gold card. To proceed, please deposit funds into our bank account, and your card will be issued within six months.",
+    "presaleBannerTitle": "Card Package Presale!",
+    "presaleBannerSubTitle": "Be one of the first to secure your BWG card package. We are offering a presale for our card, with exciting benefits, which will become available in Q4 2024."
   }
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import {ScrollView, View} from 'react-native'
+import {ImageBackground, ScrollView, View} from 'react-native'
 import {Text, Image, makeStyles, Button} from '@rneui/themed'
 import LinearGradient from 'react-native-linear-gradient'
 import {useQuery} from '@tanstack/react-query'
@@ -7,13 +7,16 @@ import {useTranslation} from 'react-i18next'
 
 import SafeAreaView from '@core/SafeAreaView'
 import ContainContainer from '@core/ContentContainer'
+import Loader from '@core/Loader'
 
 import {useApi} from 'hooks/api'
 import {cacheKey} from 'api/CacheKey'
 import {useProfile} from 'hooks/helper'
 import {GoldCardPackage} from 'api/Response'
+import useLocales from 'hooks/states/useLocales'
 import useCurrency from 'hooks/states/useCurrency'
 import CardBannerImg from 'images/goldcard/card-banner.png'
+import BannerBackground from 'images/goldcard/BannerBackground.png'
 
 import Package from './Package'
 import {IsCountryWhiteList} from './package.config'
@@ -30,7 +33,7 @@ const GoldCard = () => {
   const [isPurchaseDisabled, setPurchaseDisabled] = React.useState(false)
   const [isShowDetailModal, setShowDetailModal] = React.useState(false)
 
-  const {data: goldCardPackages} = useQuery<GoldCardPackage[]>({
+  const {data: goldCardPackages, isLoading} = useQuery<GoldCardPackage[]>({
     queryKey: [cacheKey.goldCardPackage],
     queryFn: api.getGoldCardPackages,
   })
@@ -38,7 +41,7 @@ const GoldCard = () => {
   const profileData = useProfile()
   const id = profileData?.profile?.id as number
 
-  const {data: profile, isLoading} = useQuery({
+  const {data: profile} = useQuery({
     queryKey: [cacheKey.userDetails, id],
     queryFn: () => api.getUserInfo(id),
     enabled: !!id,
@@ -68,13 +71,39 @@ const GoldCard = () => {
     [goldCardPackages]
   )
 
+  if (isLoading) {
+    return (
+      <View
+        style={{
+          minHeight: '100%',
+          minWidth: '100%',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Loader />
+      </View>
+    )
+  }
   return (
     <SafeAreaView>
       <ScrollView>
         <ContainContainer>
+          <ImageBackground
+            style={styles.container}
+            imageStyle={{width: '100%', height: 120, borderRadius: 6}}
+            source={BannerBackground}
+            resizeMode='cover'
+          >
+            <View style={{alignItems: 'center', marginHorizontal: 20}}>
+              <Text style={styles.bannerTitle}>{t('goldCard.presaleBannerTitle')}</Text>
+              <Text style={styles.bannerSubTitle}>{t('goldCard.presaleBannerSubTitle')}</Text>
+            </View>
+          </ImageBackground>
+
           <LinearGradient
             colors={['rgba(18, 90, 79, 0.10)', 'rgba(8, 40, 36, 0.56)']}
-            style={{marginTop: 15, borderRadius: 8}}
+            style={{marginTop: 15, borderRadius: 10}}
           >
             <View style={{alignItems: 'center'}}>
               <Image source={CardBannerImg} style={styles.bannerImage} resizeMode='center' />
@@ -132,7 +161,7 @@ const GoldCard = () => {
               onClose={() => setShowDetailModal(false)}
             />
           )}
-          {!isLoading && data?.status !== 'FILLED' && (
+          {data?.status !== 'FILLED' && (
             <CountryBlockModal
               id={profile?.id as number}
               name={profile?.user_detail?.first_name as string}
@@ -154,6 +183,20 @@ const useStyles = makeStyles(({colors}) => ({
     width: 300,
     height: 200,
     marginTop: 25,
+  },
+  bannerTitle: {
+    fontSize: 24,
+    marginTop: 10,
+    color: '#EEFD41',
+    fontWeight: '800',
+  },
+  bannerSubTitle: {
+    marginTop: 5,
+    fontSize: 11,
+    color: colors.white,
+    textAlign: 'center',
+    lineHeight: 18,
+    fontWeight: '700',
   },
   title: {
     fontSize: 24,

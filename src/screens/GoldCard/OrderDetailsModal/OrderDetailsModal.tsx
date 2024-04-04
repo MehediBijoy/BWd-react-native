@@ -74,6 +74,7 @@ const OrderDetailsModal = ({
   const {mutate, isLoading} = useMutation<Payment, ErrorData, GoldCardProps>({
     mutationFn: api.goldCardPurchase,
     onSuccess: data => {
+      onClose()
       navigation.navigate('PaymentInformation', {
         paymentData: data,
         currency: currency,
