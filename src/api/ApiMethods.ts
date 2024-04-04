@@ -300,9 +300,10 @@ export default class ApiMethods extends ApiBase {
     return gold_card_accounts[0]
   }
 
-  async goldCardPurchase({id, asset}: GoldCardProps): Promise<Payment> {
+  async goldCardPurchase({id, asset, virtual}: GoldCardProps): Promise<Payment> {
     const {payment} = await this.post<{payment: Payment}>(`/gold_card_packages/${id}/purchase`, {
       asset,
+      virtual,
     })
     return payment
   }

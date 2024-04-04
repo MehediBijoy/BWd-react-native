@@ -112,6 +112,10 @@ const TransactionsHistory = () => {
                   <Text style={styles.labelText}>{t('dashboard.buy.confirm.method')}: </Text>
                   {item.payment_type}
                 </Text>
+                <Text style={styles.rowText}>
+                  <Text style={styles.labelText}>{t('trade.table.headers.paymentFor')}: </Text>
+                  {item.payment_for}
+                </Text>
               </View>
               <View style={styles.cellStatus}>
                 <Text style={[styles.rowText, {marginBottom: 5}]}>
@@ -204,6 +208,7 @@ const useStyles = makeStyles(({colors}) => ({
     fontWeight: '700',
   },
   labelText: {
+    fontSize: 11,
     fontWeight: '700',
   },
 }))

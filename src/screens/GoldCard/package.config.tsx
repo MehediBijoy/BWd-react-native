@@ -55,9 +55,19 @@ export const benefits: (t: TFunction) => Benefits = (t: TFunction) => ({
   ],
   standard: [
     {
-      icon: <BenefitsSvg width={30} height={30} />,
+      icon: <FeeSvg width={30} height={30} />,
       title: t('goldCard.benefit.standard.title1'),
       description: t('goldCard.benefit.standard.description1'),
+    },
+    {
+      icon: <TokenSvg width={30} height={30} />,
+      title: t('goldCard.benefit.standard.title2'),
+      description: t('goldCard.benefit.standard.description2'),
+    },
+    {
+      icon: <BenefitsSvg width={30} height={30} />,
+      title: t('goldCard.benefit.standard.title3'),
+      description: t('goldCard.benefit.standard.description3'),
     },
   ],
 })

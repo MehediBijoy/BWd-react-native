@@ -576,7 +576,8 @@
         "viewInExplorer": "Im Block Explorer anzeigen",
         "txHash": "Tx Hash",
         "paymentRate": "Zahlungsrate",
-        "tradePair": "Handelspaar"
+        "tradePair": "Handelspaar",
+        "paymentFor": "Payment For"
       }
     },
     "modal": {
@@ -850,19 +851,74 @@
     }
   },
   "goldCard": {
+    "packageDetails": "Paketdetails",
+    "orderDetails": "Bestelldetails",
+    "bannerTitle": "Genießen Sie unsere BWG-Goldkarte",
+    "bannerSubTitle": "Geben Sie Ihr Gold in Echtzeit überall dort aus, wo Mastercard akzeptiert wird.",
+    "packageTitleWithLabel": {
+      "signature": "Paketname: Signature Paket",
+      "premium": "Paketname: Premium Paket",
+      "standard": "Paketname: Standard Paket",
+      "basic": "Paketname: Standard Paket"
+    },
+    "packageTitle": {
+      "signature": "Signature Paket",
+      "premium": "Premium Paket",
+      "standard": "Standard Paket",
+      "basic": "Basic Paket"
+    },
     "packageType": {
-      "signature": "Signature Package",
-      "premium": "Premium Package",
-      "standard": "Standard Package"
+      "signature": "Signature",
+      "premium": "Premium",
+      "standard": "Standard",
+      "basic": "Basic"
     },
     "packageDescription": {
-      "signature": "Spend your gold with signature and enjoy maximum benefit",
-      "premium": "Spend your gold with signature and enjoy special benefit",
-      "standard": "Spend your gold with signature and enjoy benefit"
+      "signature": "Genießen Sie die höchsten Ersparnisse mit unserem Signature-Paket",
+      "premium": "Genießen Sie die Vorteile unseres Premium-Pakets",
+      "standard": "Genießen Sie die Vorteile unseres Standard-Pakets"
     },
-    "packageTotalPrice": "Package total price:",
-    "getBenefit": "Get the benefit",
+    "benefit": {
+      "signature": {
+        "title1": "Überall dort bezahlen, wo Mastercard akzeptiert wird",
+        "description1": "24/7 online bezahlen oder Geld am Geldautomaten abheben",
+        "title2": "Erhalten Sie 10 BWG-Token",
+        "description2": "Laden Sie Ihre Karte mit 10 BWG-Token auf, sofort einsatzbereit",
+        "title3": "Reduzierte Gebühren",
+        "description3": "Genießen Sie Tier 4 bei jedem Kauf. Sparen Sie 15,32% im Vergleich zu Tier 1"
+      },
+      "premium": {
+        "title1": "Überall dort bezahlen, wo Mastercard akzeptiert wird",
+        "description1": "24/7 online bezahlen oder Geld am Geldautomaten abheben",
+        "title2": "Erhalten Sie 2 BWG-Token",
+        "description2": "Laden Sie Ihre Karte mit 2 BWG-Token auf, sofort einsatzbereit",
+        "title3": "Reduzierte Gebühren",
+        "description3": "Genießen Sie Tier 3 bei jedem Kauf. Sparen Sie 12,04% im Vergleich zu Tier 1"
+      },
+      "standard": {
+        "title1": "Überall dort bezahlen, wo Mastercard akzeptiert wird",
+        "description1": "24/7 online bezahlen oder Geld am Geldautomaten abheben",
+        "title2": "Erhalten Sie 1 BWG-Token",
+        "description2": "Laden Sie Ihre Karte mit 1 BWG-Token auf, sofort einsatzbereit",
+        "title3": "Reduzierte Gebühren",
+        "description3": "Genießen Sie Tier 2 bei jedem Kauf. Sparen Sie 8,02% im Vergleich zu Tier 1"
+      }
+    },
+    "confirmPreorder": "Kartenvorbestellung bestätigen",
+    "packagePrice": "Paketpreis:",
+    "packageTotalPrice": "Gesamtpreis:",
+    "getBenefit": "Paketvorteile",
     "preOrderPackage": "Preorder package",
-    "preOrderCard": "Preorder just the card"
+    "preOrderCard": "Nur die Karte vorbestellen",
+    "cardType": "Bitte wählen Sie den Kartentyp:",
+    "paymentMethod": "Zahlungsmethode: Banküberweisung",
+    "shippingFee": "Versand: ",
+    "cardFee": "Karte: ",
+    "packageFee": "Paket: ",
+    "country": "Sehr geehrte(r) {{name}}, danke für Ihr Interesse an unserer Debitkarte. Leider ist die Karte derzeit nicht in Ihrem Land verfügbar. Wir arbeiten daran, die Länder zu erweitern, in denen wir die Karte anbieten können, und werden Sie informieren, sobald sie verfügbar wird.",
+    "not_eligible": "Derzeit!! ist ihr Land ist nicht berechtigt, eine Goldkarte vorzubestellen",
+    "physical": "Physisch",
+    "virtual": "Virtuell",
+    "paymentNote": "Vielen Dank, dass Sie unsere BWG-Goldkarte erworben haben. Um fortzufahren, überweisen Sie bitte die Summe auf unser Bankkonto, und Ihre Karte wird innerhalb von sechs Monaten ausgestellt."
   }
 }

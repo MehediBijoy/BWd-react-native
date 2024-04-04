@@ -201,8 +201,8 @@ const PaymentInformation = () => {
               <InfoIcon height={20} width={20} />
               <Text style={[styles.noteDescriptions, {marginTop: -3}]}>
                 <Text style={styles.subTittle}>{t('bankTransfer.paymentInfo.noteTitle')}</Text>
-                Thank you for acquiring our BWG gold card. To proceed, please deposit funds into our
-                bank account, and your card will be issued within six months.
+                {t('goldCard.paymentNote')}
+                
               </Text>
             </View>
           ) : (

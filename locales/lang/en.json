@@ -579,7 +579,8 @@
         "viewInExplorer": "View in Block Explorer",
         "txHash": "Tx Hash",
         "paymentRate": "Payment Rate'",
-        "tradePair": "Trade Pair"
+        "tradePair": "Trade Pair",
+        "paymentFor": "Payment For"
       }
     },
     "modal": {
@@ -876,42 +877,51 @@
       "basic": "Basic"
     },
     "packageDescription": {
-      "signature": "Spend your gold with signature and enjoy maximum benefit",
-      "premium": "Spend your gold with signature and enjoy special benefit",
-      "standard": "Spend your gold with signature and enjoy benefit"
+      "signature": "Enjoy the highest savings with our signature package",
+      "premium": "Enjoy the savings with our premium package",
+      "standard": "Enjoy the savings with our standard package"
     },
     "benefit": {
       "signature": {
-        "title1": "Gold card maximum benefit",
-        "description1": "Enjoy our gold card with maximum benefit",
-        "title2": "Get 10 BWG tokens",
-        "description2": "Get 10 BWG token with gold card",
+        "title1": "Pay anywhere Mastercard is accepted",
+        "description1": "Pay 24/7 online or get money at your ATM",
+        "title2": "Get 10.0 BWG tokens",
+        "description2": "Charge with card with 10.0 BWG token, ready to spend right away",
         "title3": "Reduced fees",
-        "description3": "Enjoy tier 4 fees (4.99%) for every purchase"
+        "description3": "Enjoy Tier 4 on every purchase. Save 15.32% compared Tier 1"
       },
       "premium": {
-        "title1": "Gold card maximum benefit",
-        "description1": "Enjoy our gold card with maximum benefit",
-        "title2": "Get 5 BWG tokens",
-        "description2": "Get 5 BWG token with gold card",
+        "title1": "Pay anywhere Mastercard is accepted",
+        "description1": "Pay 24/7 online or get money at your ATM",
+        "title2": "Get 2.0 BWG tokens",
+        "description2": "Charge with card with 2.0 BWG token, ready to spend right away",
         "title3": "Reduced fees",
-        "description3": "Enjoy tier 3 fees (8.99%) for every purchase"
+        "description3": "Enjoy Tier 3 on every purchase. Save 12.04% compared Tier 1"
       },
       "standard": {
-        "title1": "Gold card service",
-        "description1": "Enjoy our gold card "
+        "title1": "Pay anywhere Mastercard is accepted",
+        "description1": "Pay 24/7 online or get money at your ATM",
+        "title2": "Get 1.0 BWG tokens",
+        "description2": "Charge with card with 1.0 BWG token, ready to spend right away",
+        "title3": "Reduced fees",
+        "description3": "Enjoy Tier 2 on every purchase. Save 8.02% compared Tier 1"
       }
     },
-    "packageTotalPrice": "Package total price:",
-    "getBenefit": "Get the benefit",
+    "confirmPreorder": "Confirm preorder card",
+    "packagePrice": "Package price:",
+    "packageTotalPrice": "Total price:",
+    "getBenefit": "Package benefits",
     "preOrderPackage": "Preorder package",
     "preOrderCard": "Preorder just the card",
     "cardType": "Card Type",
-    "paymentMethod": "Payment Method:",
-    "shippingFee": "Shipping fees: ",
-    "cardFee": "Shipping fees: ",
-    "packageFee": "Package fees: ",
+    "paymentMethod": "Payment method: Bank transfer",
+    "shippingFee": "Shipping: ",
+    "cardFee": "Shipping: ",
+    "packageFee": "Package: ",
     "country": "Dear {{name}}, thank you for your interest in our debit card. Unfortunately the card is not available in your country at this time. We are working on expanding the countries where we can offer the card and will let you know once it becomes available.",
-    "not_eligible": "Your country is not eligible for the gold card yet."
+    "not_eligible": "Your country is not eligible for the gold card yet.",
+    "physical": "Physical",
+    "virtual": "Virtual",
+    "paymentNote": "Thank you for acquiring our BWG gold card. To proceed, please deposit funds into our bank account, and your card will be issued within six months."
   }
 }

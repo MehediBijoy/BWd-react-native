@@ -14,7 +14,7 @@ import PaymentIcon from 'images/icons/Bank.svg'
 import {useCurrency, useLocales} from 'hooks/states'
 import {alpha, formatCurrency} from 'utils'
 import {useApi} from 'hooks/api'
-import {PackageType, Payment} from 'api/Response'
+import {Payment} from 'api/Response'
 import {AllCurrencyType} from 'constants/currency.config'
 import {GoldCardProps} from 'api/Request'
 
@@ -22,7 +22,8 @@ type OrderDetailsModalProps = {
   isOpened: boolean
   isDisabled: boolean
   id: number
-  price: string
+  virtualPrice: string
+  physicalPrice: string
   package_type: string
 
   onClose: () => void
@@ -37,11 +38,11 @@ type PaymentParamsList = {
 const cardOptions = [
   {
     label: 'Physical',
-    value: 1,
+    value: 0,
   },
   {
     label: 'Virtual',
-    value: 0,
+    value: 1,
   },
 ]
 
@@ -55,14 +56,15 @@ const OrderDetailsModal = ({
   isOpened,
   isDisabled,
   id,
-  price,
+  virtualPrice,
+  physicalPrice,
   package_type,
   onClose,
 }: OrderDetailsModalProps) => {
   const {t} = useTranslation()
   const api = useApi()
   const styles = useStyles()
-  const [cardType, setCardType] = React.useState(0)
+  const [cardType, setCardType] = React.useState(1)
   const [errorMessage, setErrorMessage] = React.useState('')
 
   const {currency} = useCurrency()
@@ -112,7 +114,7 @@ const OrderDetailsModal = ({
                 size={20}
                 checkedColor={styles.checkbox.color}
                 containerStyle={styles.checkBoxContainer}
-                title={item.label}
+                title={item.value == 1 ? t('goldCard.virtual') : t('goldCard.physical')}
                 checkedIcon='dot-circle-o'
                 uncheckedIcon='circle-o'
                 checked={item.value === cardType}
@@ -125,22 +127,25 @@ const OrderDetailsModal = ({
           <FeeSvg width={30} height={30} />
           <Text style={styles.text}>
             {t('goldCard.packageTotalPrice')}{' '}
-            {formatCurrency(price, {currency, locales: currentLang})}
+            {cardType == 0 &&
+              formatCurrency(Number(physicalPrice), {currency, locales: currentLang})}
+            {cardType == 1 &&
+              formatCurrency(Number(virtualPrice), {currency, locales: currentLang})}
           </Text>
         </View>
-        {cardType === 1 && (
+        {cardType === 0 && (
           <View style={styles.feeDetails}>
             <View style={styles.feeDetailsBar}></View>
             <View style={{gap: 10}}>
               <Text>
                 {t('goldCard.packageFee')}{' '}
-                {formatCurrency(Number(price) - 100 - 150, {currency, locales: currentLang})}{' '}
+                {formatCurrency(Number(physicalPrice) - 9 - 46, {currency, locales: currentLang})}{' '}
               </Text>
               <Text>
-                {t('goldCard.shippingFee')} {formatCurrency(100, {currency, locales: currentLang})}
+                {t('goldCard.shippingFee')} {formatCurrency(9, {currency, locales: currentLang})}
               </Text>
               <Text>
-                {t('goldCard.cardFee')} {formatCurrency(150, {currency, locales: currentLang})}
+                {t('goldCard.cardFee')} {formatCurrency(46, {currency, locales: currentLang})}
               </Text>
             </View>
           </View>
@@ -148,15 +153,13 @@ const OrderDetailsModal = ({
 
         <View style={[styles.bottomGrid, {marginTop: 20}]}>
           <PaymentIcon height={20} width={20} />
-          <Text style={styles.text}>
-            {t('goldCard.paymentMethod')} {t('bankTransfer.orders.method')}
-          </Text>
+          <Text style={styles.text}>{t('goldCard.paymentMethod')}</Text>
         </View>
         <Button
           loading={isLoading}
-          title={t('bankTransfer.orders.btn')}
+          title={t('goldCard.confirmPreorder')}
           containerStyle={{marginTop: 20, marginBottom: 20}}
-          onPress={() => mutate({id: id, asset: currency})}
+          onPress={() => mutate({id: id, asset: currency, virtual: Boolean(cardType)})}
           disabled={isDisabled}
         />
       </Modal>

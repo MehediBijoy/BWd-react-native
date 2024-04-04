@@ -124,7 +124,10 @@ const GoldCard = () => {
               isOpened={isShowDetailModal}
               isDisabled={isPurchaseDisabled}
               id={basicPackage.id}
-              price={currency == 'USD' ? basicPackage.price_usd : basicPackage.price_eur}
+              physicalPrice={currency == 'USD' ? basicPackage.price_usd : basicPackage.price_eur}
+              virtualPrice={
+                currency == 'USD' ? basicPackage.virtual_price_usd : basicPackage.virtual_price_eur
+              }
               package_type={basicPackage.package_type}
               onClose={() => setShowDetailModal(false)}
             />

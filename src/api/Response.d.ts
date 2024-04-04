@@ -201,6 +201,7 @@ type Payment<Tdata = null> = {
   usd_total_fee: string
   user_id: number
   user_input_amount: string
+  payment_for: string
   created_at: string
   updated_at: string
   transfer: Tdata
@@ -215,6 +216,8 @@ type GoldCardPackage = {
   bwg_amount: string
   price_usd: string
   price_eur: string
+  virtual_price_eur: string
+  virtual_price_usd: string
   package_type: PackageType
 }
 

@@ -45,7 +45,15 @@ type PackageProps = {
   isDisabled: boolean
 } & GoldCardPackage
 
-const Package = ({id, price_eur, price_usd, package_type, isDisabled}: PackageProps) => {
+const Package = ({
+  id,
+  price_eur,
+  price_usd,
+  package_type,
+  virtual_price_eur,
+  virtual_price_usd,
+  isDisabled,
+}: PackageProps) => {
   const styles = useStyles()
   const {t} = useTranslation()
   const {currency} = useCurrency()
@@ -53,7 +61,8 @@ const Package = ({id, price_eur, price_usd, package_type, isDisabled}: PackagePr
   const [isOpened, setIsOpened] = React.useState(false)
 
   const packageImage = packageImages[package_type]
-  const price = currency == 'USD' ? price_usd : price_eur
+  const physicalPrice = currency == 'USD' ? price_usd : price_eur
+  const virtualPrice = currency == 'USD' ? virtual_price_usd : virtual_price_eur
 
   return (
     <View style={styles.container}>
@@ -71,22 +80,11 @@ const Package = ({id, price_eur, price_usd, package_type, isDisabled}: PackagePr
       <View style={{flexDirection: 'row', alignItems: 'flex-start'}}>
         <PriceImg width={30} height={30} />
         <Text style={styles.title}>
-          {t('goldCard.packageTotalPrice')}{' '}
-          {formatCurrency(price, {currency, locales: currentLang})}
+          {t('goldCard.packagePrice')}{' '}
+          {formatCurrency(virtualPrice, {currency, locales: currentLang})}
         </Text>
       </View>
-      {/* <View
-        style={{
-          flex: 1,
-          flexDirection: 'column',
-          alignItems: 'flex-start',
-          marginLeft: 40,
-        }}
-      >
-        <Text style={{marginTop: 10}}>Package fees: $2500 </Text>
-        <Text style={{marginTop: 10}}>Shipping fees: $100</Text>
-        <Text style={{marginTop: 10}}>Card fees: $150</Text>
-      </View> */}
+
       <View style={{marginVertical: 10}}>{packageImage}</View>
 
       <View style={{marginBottom: 10}}>
@@ -104,7 +102,8 @@ const Package = ({id, price_eur, price_usd, package_type, isDisabled}: PackagePr
         isOpened={isOpened}
         isDisabled={isDisabled}
         id={id}
-        price={price}
+        virtualPrice={virtualPrice}
+        physicalPrice={physicalPrice}
         package_type={package_type}
         onClose={() => setIsOpened(false)}
       />
