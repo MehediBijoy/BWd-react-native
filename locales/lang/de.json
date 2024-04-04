@@ -916,7 +916,7 @@
     "cardFee": "Karte: ",
     "packageFee": "Paket: ",
     "country": "Sehr geehrte(r) {{name}}, danke für Ihr Interesse an unserer Debitkarte. Leider ist die Karte derzeit nicht in Ihrem Land verfügbar. Wir arbeiten daran, die Länder zu erweitern, in denen wir die Karte anbieten können, und werden Sie informieren, sobald sie verfügbar wird.",
-    "not_eligible": "Derzeit!! ist ihr Land ist nicht berechtigt, eine Goldkarte vorzubestellen",
+    "not_eligible": "ist ihr Land ist nicht berechtigt, eine Goldkarte vorzubestellen",
     "physical": "Physisch",
     "virtual": "Virtuell",
     "paymentNote": " Vielen Dank, dass Sie unsere BWG-Goldkarte erworben haben. Um fortzufahren, überweisen Sie bitte die Summe auf unser Bankkonto, und Ihre Karte wird innerhalb von sechs Monaten ausgestellt.",
