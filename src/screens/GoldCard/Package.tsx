@@ -45,24 +45,16 @@ type PackageProps = {
   isDisabled: boolean
 } & GoldCardPackage
 
-const Package = ({
-  id,
-  price_eur,
-  price_usd,
-  package_type,
-  virtual_price_eur,
-  virtual_price_usd,
-  isDisabled,
-}: PackageProps) => {
+const Package = (props: PackageProps) => {
   const styles = useStyles()
   const {t} = useTranslation()
   const {currency} = useCurrency()
   const {currentLang} = useLocales()
   const [isOpened, setIsOpened] = React.useState(false)
 
+  const package_type = props.package_type
   const packageImage = packageImages[package_type]
-  const physicalPrice = currency == 'USD' ? price_usd : price_eur
-  const virtualPrice = currency == 'USD' ? virtual_price_usd : virtual_price_eur
+  const virtualPrice = currency == 'USD' ? props.virtual_price_usd : props.virtual_price_eur
 
   return (
     <View style={styles.container}>
@@ -98,15 +90,7 @@ const Package = ({
         onPress={() => setIsOpened(true)}
       />
 
-      <OrderDetailsModal
-        isOpened={isOpened}
-        isDisabled={isDisabled}
-        id={id}
-        virtualPrice={virtualPrice}
-        physicalPrice={physicalPrice}
-        package_type={package_type}
-        onClose={() => setIsOpened(false)}
-      />
+      <OrderDetailsModal isOpened={isOpened} {...props} onClose={() => setIsOpened(false)} />
     </View>
   )
 }

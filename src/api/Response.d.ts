@@ -218,6 +218,12 @@ type GoldCardPackage = {
   price_eur: string
   virtual_price_eur: string
   virtual_price_usd: string
+  card_fee_eur: string
+  card_fee_usd: string
+  shipping_cost_eur: string
+  shipping_cost_usd: string
+  package_only_price_eur: string
+  package_only_price_usd: string
   package_type: PackageType
 }
 

@@ -126,5 +126,5 @@ type SurveySubmitProps = {
 type GoldCardProps = {
   id: number
   asset: string
-  virtual: boolean
+  type: string
 }

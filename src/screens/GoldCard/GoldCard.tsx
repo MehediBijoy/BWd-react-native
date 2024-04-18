@@ -13,8 +13,6 @@ import {useApi} from 'hooks/api'
 import {cacheKey} from 'api/CacheKey'
 import {useProfile} from 'hooks/helper'
 import {GoldCardPackage} from 'api/Response'
-import useLocales from 'hooks/states/useLocales'
-import useCurrency from 'hooks/states/useCurrency'
 import CardBannerImg from 'images/goldcard/card-banner.png'
 import BannerBackground from 'images/goldcard/BannerBackground.png'
 
@@ -27,7 +25,6 @@ const GoldCard = () => {
   const api = useApi()
   const styles = useStyles()
   const {t} = useTranslation()
-  const {currency} = useCurrency()
   const [cardPackage, setCardPackage] = React.useState('signature')
   const [isShowCountryModal, setShowCountryModal] = React.useState(false)
   const [isPurchaseDisabled, setPurchaseDisabled] = React.useState(false)
@@ -48,7 +45,7 @@ const GoldCard = () => {
   })
 
   const {data} = useQuery({
-    queryKey: [cacheKey.surveyStatus, profile?.id],
+    queryKey: [cacheKey.countrySurvey, profile?.id],
     queryFn: () =>
       api.checkSurveyStatus({id: profile?.id as number, event: 'exclude_country_user'}),
     enabled: !!profile?.id,
@@ -152,16 +149,11 @@ const GoldCard = () => {
             <OrderDetailsModal
               isOpened={isShowDetailModal}
               isDisabled={isPurchaseDisabled}
-              id={basicPackage.id}
-              physicalPrice={currency == 'USD' ? basicPackage.price_usd : basicPackage.price_eur}
-              virtualPrice={
-                currency == 'USD' ? basicPackage.virtual_price_usd : basicPackage.virtual_price_eur
-              }
-              package_type={basicPackage.package_type}
+              {...basicPackage}
               onClose={() => setShowDetailModal(false)}
             />
           )}
-          {data?.status !== 'FILLED' && (
+          {data && data.status !== 'FILLED' && (
             <CountryBlockModal
               id={profile?.id as number}
               name={profile?.user_detail?.first_name as string}

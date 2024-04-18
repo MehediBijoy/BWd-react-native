@@ -14,20 +14,15 @@ import PaymentIcon from 'images/icons/Bank.svg'
 import {useCurrency, useLocales} from 'hooks/states'
 import {alpha, formatCurrency} from 'utils'
 import {useApi} from 'hooks/api'
-import {Payment} from 'api/Response'
+import {GoldCardPackage, Payment} from 'api/Response'
 import {AllCurrencyType} from 'constants/currency.config'
 import {GoldCardProps} from 'api/Request'
 
 type OrderDetailsModalProps = {
   isOpened: boolean
   isDisabled: boolean
-  id: number
-  virtualPrice: string
-  physicalPrice: string
-  package_type: string
-
   onClose: () => void
-}
+} & GoldCardPackage
 
 type PaymentParamsList = {
   PaymentInformation: {
@@ -37,12 +32,16 @@ type PaymentParamsList = {
 }
 const cardOptions = [
   {
-    label: 'Physical',
-    value: 0,
+    label: 'goldCard.virtual',
+    value: 'virtual',
   },
   {
-    label: 'Virtual',
-    value: 1,
+    label: 'goldCard.physical',
+    value: 'physical',
+  },
+  {
+    label: 'goldCard.packageOnly',
+    value: 'package_only',
   },
 ]
 
@@ -52,24 +51,44 @@ type ErrorData = {
   title: string
 }
 
-const OrderDetailsModal = ({
-  isOpened,
-  isDisabled,
-  id,
-  virtualPrice,
-  physicalPrice,
-  package_type,
-  onClose,
-}: OrderDetailsModalProps) => {
+const OrderDetailsModal = ({isOpened, isDisabled, onClose, ...props}: OrderDetailsModalProps) => {
   const {t} = useTranslation()
   const api = useApi()
   const styles = useStyles()
-  const [cardType, setCardType] = React.useState(1)
+  const [cardType, setCardType] = React.useState('virtual')
   const [errorMessage, setErrorMessage] = React.useState('')
 
   const {currency} = useCurrency()
   const {currentLang} = useLocales()
   const navigation = useNavigation<NavigationProp<PaymentParamsList, 'PaymentInformation'>>()
+
+  const {
+    id,
+    package_type,
+    price_usd,
+    price_eur,
+    virtual_price_usd,
+    virtual_price_eur,
+    card_fee_usd,
+    card_fee_eur,
+    shipping_cost_usd,
+    shipping_cost_eur,
+    package_only_price_usd,
+    package_only_price_eur,
+  } = props
+
+  const physicalPrice = currency === 'USD' ? price_usd : price_eur
+  const virtualPrice = currency === 'USD' ? virtual_price_usd : virtual_price_eur
+  const cardFee = currency === 'USD' ? card_fee_usd : card_fee_eur
+  const shippingFee = currency === 'USD' ? shipping_cost_usd : shipping_cost_eur
+  const packageOnlyPrice = currency === 'USD' ? package_only_price_usd : package_only_price_eur
+
+  const totalPrice =
+    cardType === 'physical'
+      ? physicalPrice
+      : cardType === 'virtual'
+      ? virtualPrice
+      : packageOnlyPrice
 
   const {mutate, isLoading} = useMutation<Payment, ErrorData, GoldCardProps>({
     mutationFn: api.goldCardPurchase,
@@ -85,10 +104,21 @@ const OrderDetailsModal = ({
     },
   })
 
+  React.useMemo(() => {
+    if (package_type !== 'basic' && isDisabled) {
+      setCardType('package_only')
+    }
+  }, [isDisabled, package_type])
+
+  const updatedCardOptions =
+    package_type === 'basic'
+      ? cardOptions.filter(option => option.value !== 'package_only')
+      : cardOptions
+
   return (
     <SafeAreaView>
       <Modal title={t('goldCard.orderDetails')} isOpened={isOpened} onClose={onClose}>
-        {isDisabled && (
+        {isDisabled && cardType != 'package_only' && (
           <View style={styles.alertContainer}>
             <Icon name='warning' type='antdesign' color={styles.icon.color} />
             <Text style={styles.alertText}>{t('goldCard.not_eligible')}</Text>
@@ -109,44 +139,46 @@ const OrderDetailsModal = ({
         </View>
         <Text style={[styles.title, {marginTop: 20}]}>{t('goldCard.cardType')}</Text>
         <View style={styles.radioButton}>
-          {cardOptions.map(item => (
-            <View key={item.label}>
-              <CheckBox
-                size={20}
-                checkedColor={styles.checkbox.color}
-                containerStyle={styles.checkBoxContainer}
-                title={item.value == 1 ? t('goldCard.virtual') : t('goldCard.physical')}
-                checkedIcon='dot-circle-o'
-                uncheckedIcon='circle-o'
-                checked={item.value === cardType}
-                onPress={() => setCardType(item.value)}
-              />
-            </View>
+          {updatedCardOptions.map(item => (
+            <CheckBox
+              key={item.label}
+              size={20}
+              checkedColor={styles.checkbox.color}
+              containerStyle={styles.checkBoxContainer}
+              title={t(item.label)}
+              checkedIcon='dot-circle-o'
+              uncheckedIcon='circle-o'
+              checked={item.value === cardType}
+              onPress={() => setCardType(item.value)}
+            />
           ))}
         </View>
         <View style={styles.packagePrice}>
           <FeeSvg width={30} height={30} />
           <Text style={styles.text}>
             {t('goldCard.packageTotalPrice')}{' '}
-            {cardType == 0 &&
-              formatCurrency(Number(physicalPrice), {currency, locales: currentLang})}
-            {cardType == 1 &&
-              formatCurrency(Number(virtualPrice), {currency, locales: currentLang})}
+            {formatCurrency(Number(totalPrice), {currency, locales: currentLang})}
           </Text>
         </View>
-        {cardType === 0 && (
+
+        {cardType === 'physical' && (
           <View style={styles.feeDetails}>
             <View style={styles.feeDetailsBar}></View>
             <View style={{gap: 10}}>
               <Text>
                 {t('goldCard.packageFee')}{' '}
-                {formatCurrency(Number(physicalPrice) - 9 - 46, {currency, locales: currentLang})}{' '}
+                {formatCurrency(Number(physicalPrice) - Number(cardFee) - Number(shippingFee), {
+                  currency,
+                  locales: currentLang,
+                })}{' '}
               </Text>
               <Text>
-                {t('goldCard.shippingFee')} {formatCurrency(9, {currency, locales: currentLang})}
+                {t('goldCard.cardFee')}{' '}
+                {formatCurrency(shippingFee, {currency, locales: currentLang})}
               </Text>
               <Text>
-                {t('goldCard.cardFee')} {formatCurrency(46, {currency, locales: currentLang})}
+                {t('goldCard.shippingFee')}{' '}
+                {formatCurrency(cardFee, {currency, locales: currentLang})}
               </Text>
             </View>
           </View>
@@ -160,8 +192,8 @@ const OrderDetailsModal = ({
           loading={isLoading}
           title={t('goldCard.confirmPreorder')}
           containerStyle={{marginTop: 20, marginBottom: 20}}
-          onPress={() => mutate({id: id, asset: currency, virtual: Boolean(cardType)})}
-          disabled={isDisabled}
+          onPress={() => mutate({id: id, asset: currency, type: cardType})}
+          disabled={isDisabled && cardType != 'package_only'}
         />
       </Modal>
     </SafeAreaView>
@@ -196,12 +228,9 @@ const useStyles = makeStyles(({colors}) => ({
   text: {
     fontSize: 16,
   },
-  radioButtonContainer: {
-    marginTop: 20,
-  },
   radioButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
     paddingLeft: 0,
   },
   checkbox: {
@@ -210,7 +239,7 @@ const useStyles = makeStyles(({colors}) => ({
   checkBoxContainer: {
     justifyContent: 'center',
     padding: 0,
-    paddingLeft: 10,
+    paddingLeft: 20,
     height: 27,
   },
   feeDetails: {

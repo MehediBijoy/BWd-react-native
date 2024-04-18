@@ -915,10 +915,11 @@
     "shippingFee": "Versand: ",
     "cardFee": "Karte: ",
     "packageFee": "Paket: ",
-    "country": "Sehr geehrte(r) {{name}}, danke für Ihr Interesse an unserer Debitkarte. Leider ist die Karte derzeit nicht in Ihrem Land verfügbar. Wir arbeiten daran, die Länder zu erweitern, in denen wir die Karte anbieten können, und werden Sie informieren, sobald sie verfügbar wird.",
+    "country": "Lieber {{name}}, vielen Dank für Ihr Interesse an unserer Debitkarte. Leider ist die Karte in Ihrem Land derzeit nicht verfügbar. Wir arbeiten daran, die Länder zu erweitern, in denen wir die Karte anbieten können und werden Sie informieren, sobald sie verfügbar ist. In der Zwischenzeit können Sie unsere Pakete auch ohne Karte kaufen.",
     "not_eligible": "ist ihr Land ist nicht berechtigt, eine Goldkarte vorzubestellen",
     "physical": "Physisch",
     "virtual": "Virtuell",
+    "packageOnly": "Nur Paket",
     "paymentNote": " Vielen Dank, dass Sie unsere BWG-Goldkarte erworben haben. Um fortzufahren, überweisen Sie bitte die Summe auf unser Bankkonto, und Ihre Karte wird innerhalb von sechs Monaten ausgestellt.",
     "presaleBannerTitle": "Kartenpaket Vorverkauf",
     "presaleBannerSubTitle": "Sei einer der ersten der sich die BWG Karte sichert. Wir bieten einen Vorverkauf mit aufregenden Vorteilen an, für unsere BWG Karte, die im vierten Quartal 2024 erscheinen wird."
