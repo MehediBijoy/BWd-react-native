@@ -1,7 +1,9 @@
-import RNPrint from 'react-native-print'
+import React from 'react'
+import RNFetchBlob, {RNFetchBlobConfig} from 'rn-fetch-blob'
 import {useTranslation} from 'react-i18next'
-import {ScrollView, View} from 'react-native'
+import {PermissionsAndroid, Platform, ScrollView, View} from 'react-native'
 import {useQuery} from '@tanstack/react-query'
+import Toast from 'react-native-toast-message'
 import {Text, makeStyles, Divider, Button} from '@rneui/themed'
 import {useRoute, RouteProp, useNavigation, NavigationProp} from '@react-navigation/native'
 
@@ -11,18 +13,16 @@ import ContentContainer from '@core/ContentContainer'
 import SafeAreaView from '@core/SafeAreaView'
 
 import {cacheKey} from 'api'
-import {formatDate, formatNumber} from 'utils'
+import {useApi, useAuthToken} from 'hooks/api'
 import {Payment} from 'api/Response'
 import {useLocales} from 'hooks/states'
-import {RouteStack} from 'navigators/routes'
-import {useApi} from 'hooks/api'
 import {usePlatform} from 'hooks/helper'
+import {RouteStack} from 'navigators/routes'
+import {formatDate, formatNumber} from 'utils'
 import PaymentIcon from 'images/icons/Bank.svg'
 import InfoIcon from 'images/icons/Info.svg'
 import DownloadIcon from 'images/icons/PDF.svg'
 import {AllCurrencyType} from 'constants/currency.config'
-
-import {html} from '../PaymentInformation/PdfTemplate'
 
 type PaymentParamsList = {
   PaymentInformation: {
@@ -37,7 +37,9 @@ const PaymentInformation = () => {
   const api = useApi()
   const {t} = useTranslation()
   const {currentLang} = useLocales()
-  const {platform} = usePlatform()
+  const token = useAuthToken(state => state.token)
+  const {platform, API_URL} = usePlatform()
+  const [ispdfDownload, setIspdfDownload] = React.useState(false)
   const navigation = useNavigation<NavigationProp<RouteStack>>()
   const route = useRoute<RouteProp<PaymentParamsList, 'PaymentInformation'>>()
 
@@ -49,16 +51,111 @@ const PaymentInformation = () => {
     enabled: !!paymentData,
   })
 
-  const printHTML = async () => {
-    data &&
-      (await RNPrint.print({
-        html: html({paymentData, bankDetails: data, currency, t}),
-        jobName: `${formatDate(paymentData.created_at, 'YYYY_MM_DD')}_brettonwoods_digital_${
-          paymentData.id
-        }`,
-      }))
+  // const printHTML = async () => {
+  //   data &&
+  //     (await RNPrint.print({
+  //       html: html({paymentData, bankDetails: data, currency, t}),
+  //       jobName: `${formatDate(paymentData.created_at, 'YYYY_MM_DD')}_brettonwoods_digital_${
+  //         paymentData.id
+  //       }`,
+  //     }))
+  // }
+
+  // Grant permission in Android
+  const getDownloadPermissionAndroid = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+        {
+          title: 'File Download Permission',
+          message: 'Your permission is required to save Files to your device',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        }
+      )
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) return true
+    } catch (err) {
+      return null
+    }
   }
 
+  const downloadFile = async (filename: string) => {
+    const {fs} = RNFetchBlob
+    const cacheDir = Platform.OS === 'ios' ? fs.dirs.DocumentDir : fs.dirs.DownloadDir
+
+    let imagePath = `${cacheDir}/${filename}`
+
+    try {
+      const exists = await fs.exists(imagePath)
+
+      if (exists && Platform.OS === 'android') {
+        const newImagePath = imagePath.split('.pdf')[0]
+        imagePath = `${newImagePath}_${Math.floor(Math.random() * 100) + 1}.pdf`
+      }
+
+      const configOptions: RNFetchBlobConfig = Platform.select({
+        ios: {
+          fileCache: true,
+          path: imagePath,
+          appendExt: filename.split('.').pop(),
+          title: 'Pdf download',
+        },
+        android: {
+          fileCache: true,
+          path: imagePath,
+          appendExt: filename.split('.').pop(),
+          addAndroidDownloads: {
+            useDownloadManager: true,
+            notification: true,
+            path: imagePath,
+            description: 'File',
+          },
+        },
+      }) as RNFetchBlobConfig
+
+      const response =
+        token &&
+        (await RNFetchBlob.config(configOptions).fetch(
+          'GET',
+          `${API_URL}/payments/${paymentData.id}/bank_invoice?region=${platform.toLowerCase()}`,
+          {
+            'Content-Type': 'application/json',
+            Authorization: token,
+            lang: currentLang,
+            responseType: 'blob',
+          }
+        ))
+
+      return response
+    } catch (error) {
+      return null
+    } finally {
+      setIspdfDownload(false)
+    }
+  }
+
+  const handleDownload = async () => {
+    try {
+      setIspdfDownload(true)
+
+      const fileName = `${formatDate(paymentData.created_at, 'YYYY_MM_DD')}_brettonwoods_digital_${
+        paymentData.id
+      }.pdf`
+
+      if (Platform.OS === 'android') {
+        getDownloadPermissionAndroid().then(() => downloadFile(fileName))
+      } else {
+        downloadFile(fileName).then(async filePath => {
+          // filePath && RNFetchBlob.fs.writeFile(path, base64file, 'base64')
+          filePath && RNFetchBlob.ios.previewDocument(filePath.data)
+        })
+      }
+    } catch (error) {
+      /* empty */
+    } finally {
+      /* empty */
+    }
+  }
   if (isLoading) {
     return (
       <View
@@ -203,7 +300,8 @@ const PaymentInformation = () => {
             titleStyle={{marginLeft: 10}}
             color='#7C7C7B'
             containerStyle={{marginTop: 35, marginBottom: 20}}
-            onPress={printHTML}
+            onPress={handleDownload}
+            loading={ispdfDownload}
           />
 
           <Button
@@ -213,6 +311,7 @@ const PaymentInformation = () => {
               navigation.navigate('Home')
             }}
           />
+          <Toast config={{}} position='top' />
         </ContentContainer>
       </ScrollView>
     </SafeAreaView>
