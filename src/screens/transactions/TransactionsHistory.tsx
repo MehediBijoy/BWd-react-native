@@ -1,5 +1,6 @@
 import React from 'react'
 import {useTranslation} from 'react-i18next'
+import Toast from 'react-native-toast-message'
 import {Text, makeStyles, useTheme} from '@rneui/themed'
 import {useQuery, useQueryClient} from '@tanstack/react-query'
 import {ActivityIndicator, TouchableOpacity, View} from 'react-native'
@@ -64,6 +65,15 @@ const TransactionsHistory = () => {
       },
     })
   }, [queryClient, subscribe])
+
+  const showTost = () => {
+    Toast.show({
+      type: 'success',
+      text1: 'Download Completed.',
+      visibilityTime: 2000,
+      autoHide: true,
+    })
+  }
 
   return (
     <>
@@ -141,8 +151,14 @@ const TransactionsHistory = () => {
         )}
       </View>
 
+      <Toast config={{}} position='top' />
       {selectedRow && (
-        <OrderDetailsModal isOpened data={selectedRow} onClose={() => setSelectedId(undefined)} />
+        <OrderDetailsModal
+          isOpened
+          data={selectedRow}
+          onClose={() => setSelectedId(undefined)}
+          showTost={showTost}
+        />
       )}
     </>
   )
