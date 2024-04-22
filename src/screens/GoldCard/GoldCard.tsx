@@ -101,7 +101,7 @@ const GoldCard = () => {
           style={{marginTop: 15, borderRadius: 10}}
         >
           <View style={{alignItems: 'center'}}>
-            <Image source={CardBannerImg} style={styles.bannerImage} resizeMode='center' />
+            <Image source={CardBannerImg} style={styles.bannerImage} resizeMode='contain' />
             <View style={{alignItems: 'center', marginHorizontal: 20}}>
               <Text style={styles.title}>{t('goldCard.bannerTitle')}</Text>
               <Text style={styles.subTitle}>{t('goldCard.bannerSubTitle')}</Text>
