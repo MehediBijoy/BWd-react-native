@@ -1,5 +1,21 @@
 # Changelog
 
+## Platform APP v1.6.0  - 2024-04-22
+
+### Added
+
+- Gold Card purchasing now available
+- Gold Card account functionality added
+
+### Update
+
+- Updated splash screen and app icon
+
+### Fixed
+
+- Fixed issue with PDF downloads on iOS
+
+
 ## Platform APP v1.5.0 - 2024-01-30
 
 ### Added

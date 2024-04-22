@@ -1,18 +1,16 @@
 # RELEASE NOTES
 
-## Platform APP v1.5.0
+## Platform APP v1.6.0
 
 ### Added
 
-- Added copy button for ban transfer
-- Deeplink for affiliate registration
-- Debit card survey
+- Gold Card purchasing now available
+- Gold Card account functionality added
 
-### Removed
+### Update
 
-- Removed referral token text box during registration
+- Updated splash screen and app icon
 
+### Fixed
 
-### Fixed 
-
-- German keyboard purchase issues
+- Fixed issue with PDF downloads on iOS

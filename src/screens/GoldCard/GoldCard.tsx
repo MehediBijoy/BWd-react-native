@@ -142,7 +142,7 @@ const GoldCard = () => {
             title={t('goldCard.preOrderCard')}
             color={'#879A9A'}
             onPress={() => setShowDetailModal(true)}
-            containerStyle={{marginBottom: 20}}
+            containerStyle={{marginVertical: 15}}
           />
 
           {basicPackage && (

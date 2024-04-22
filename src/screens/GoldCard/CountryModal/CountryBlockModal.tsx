@@ -4,7 +4,6 @@ import {useTranslation} from 'react-i18next'
 import {useMutation} from '@tanstack/react-query'
 
 import Modal from '@core/Modal'
-import SafeAreaView from '@core/SafeAreaView'
 
 import BlockSvg from 'images/goldcard/Block.svg'
 import {useApi} from 'hooks/api'
@@ -28,35 +27,33 @@ const CountryBlockModal = ({isOpened, id, name, onClose}: CountryModalProps) => 
     },
   })
   return (
-    <SafeAreaView>
-      <Modal title='' isOpened={isOpened} onClose={onClose}>
-        <View style={{alignItems: 'center'}}>
-          <BlockSvg width={200} height={100} />
-        </View>
-        <View style={{marginVertical: 20}}>
-          <Text style={styles.title}>
-            {t('goldCard.country', {
-              name: `${name}`,
-            })}
-          </Text>
+    <Modal title='' isOpened={isOpened} onClose={onClose}>
+      <View style={{alignItems: 'center'}}>
+        <BlockSvg width={200} height={100} />
+      </View>
+      <View style={{marginVertical: 20}}>
+        <Text style={styles.title}>
+          {t('goldCard.country', {
+            name: `${name}`,
+          })}
+        </Text>
 
-          <Button
-            title={t('survey.ok')}
-            loading={isLoading}
-            containerStyle={{marginTop: 20}}
-            onPress={() => {
-              mutate({
-                id,
-                event: 'exclude_country_user',
-                response: {
-                  want_to_card: 'Yes',
-                },
-              })
-            }}
-          />
-        </View>
-      </Modal>
-    </SafeAreaView>
+        <Button
+          title={t('survey.ok')}
+          loading={isLoading}
+          containerStyle={{marginTop: 20}}
+          onPress={() => {
+            mutate({
+              id,
+              event: 'exclude_country_user',
+              response: {
+                want_to_card: 'Yes',
+              },
+            })
+          }}
+        />
+      </View>
+    </Modal>
   )
 }
 

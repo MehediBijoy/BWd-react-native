@@ -63,7 +63,7 @@ const Package = (props: PackageProps) => {
         <Text style={{fontSize: 18}}>{t(`goldCard.packageTitle.${package_type}`)}</Text>
       </View>
 
-      <View style={{marginVertical: 20}}>
+      <View style={{marginVertical: 10}}>
         <Text style={{fontSize: 20, fontWeight: '700'}}>
           {t(`goldCard.packageDescription.${package_type}`)}
         </Text>
@@ -77,9 +77,9 @@ const Package = (props: PackageProps) => {
         </Text>
       </View>
 
-      <View style={{marginVertical: 10}}>{packageImage}</View>
+      <View>{packageImage}</View>
 
-      <View style={{marginBottom: 10}}>
+      <View>
         <Text style={styles.title}>{t('goldCard.getBenefit')} </Text>
       </View>
       <BenefitComponent packageType={package_type} />
@@ -97,8 +97,8 @@ const Package = (props: PackageProps) => {
 
 const useStyles = makeStyles(({colors}) => ({
   container: {
-    marginVertical: 20,
-    rowGap: 0,
+    marginTop: 20,
+    rowGap: 10,
   },
   titleView: {
     columnGap: 10,
