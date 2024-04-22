@@ -5,7 +5,6 @@ import LinearGradient from 'react-native-linear-gradient'
 import {useQuery} from '@tanstack/react-query'
 import {useTranslation} from 'react-i18next'
 
-import SafeAreaView from '@core/SafeAreaView'
 import ContainContainer from '@core/ContentContainer'
 import Loader from '@core/Loader'
 
