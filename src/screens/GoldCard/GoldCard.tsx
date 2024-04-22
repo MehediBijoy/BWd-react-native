@@ -112,11 +112,11 @@ const GoldCard = () => {
           </LinearGradient>
 
           <View style={styles.buttonView}>
-            {goldCardPackages?.map(({title, package_type}: GoldCardPackage) => {
+            {goldCardPackages?.map(({package_type}: GoldCardPackage) => {
               if (package_type !== 'basic') {
                 return (
                   <Button
-                    title={title}
+                    title={t(`goldCard.packageType.${package_type}`)}
                     key={t(`goldCard.packageType.${package_type}`)}
                     onPress={() => setCardPackage(package_type)}
                     containerStyle={{flex: 1}}

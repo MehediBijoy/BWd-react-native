@@ -31,14 +31,6 @@ const SurveyModal = ({isOpened, onClose, refetch}: SurveyModalProps) => {
     },
   })
 
-  const handleSubmit = () => {
-    mutate({
-      id: profile?.id as number,
-      event: 'debit_card_survey',
-      response: {want_to_card: 'Yes'},
-    })
-  }
-
   return (
     <SafeAreaView edges={['top', 'bottom']}>
       <Modal title='' onClose={onClose} isOpened={isOpened}>
@@ -53,7 +45,13 @@ const SurveyModal = ({isOpened, onClose, refetch}: SurveyModalProps) => {
             loading={isLoading}
             title={t('survey.ok')}
             containerStyle={{marginTop: 20, marginBottom: 20}}
-            onPress={handleSubmit}
+            onPress={() =>
+              mutate({
+                id: profile?.id as number,
+                event: 'debit_card_survey',
+                response: {want_to_card: 'Yes'},
+              })
+            }
           />
         </View>
       </Modal>

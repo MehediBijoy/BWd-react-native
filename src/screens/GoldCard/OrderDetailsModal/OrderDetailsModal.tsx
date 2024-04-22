@@ -77,18 +77,36 @@ const OrderDetailsModal = ({isOpened, isDisabled, onClose, ...props}: OrderDetai
     package_only_price_eur,
   } = props
 
-  const physicalPrice = currency === 'USD' ? price_usd : price_eur
-  const virtualPrice = currency === 'USD' ? virtual_price_usd : virtual_price_eur
-  const cardFee = currency === 'USD' ? card_fee_usd : card_fee_eur
-  const shippingFee = currency === 'USD' ? shipping_cost_usd : shipping_cost_eur
-  const packageOnlyPrice = currency === 'USD' ? package_only_price_usd : package_only_price_eur
+  const physicalPrice = React.useMemo(
+    () => (currency === 'USD' ? price_usd : price_eur),
+    [currency, price_eur, price_usd]
+  )
+  const virtualPrice = React.useMemo(
+    () => (currency === 'USD' ? virtual_price_usd : virtual_price_eur),
+    [currency, virtual_price_usd, virtual_price_eur]
+  )
+  const cardFee = React.useMemo(
+    () => (currency === 'USD' ? card_fee_usd : card_fee_eur),
+    [currency, card_fee_usd, card_fee_eur]
+  )
+  const shippingFee = React.useMemo(
+    () => (currency === 'USD' ? shipping_cost_usd : shipping_cost_eur),
+    [currency, shipping_cost_usd, shipping_cost_eur]
+  )
+  const packageOnlyPrice = React.useMemo(
+    () => (currency === 'USD' ? package_only_price_usd : package_only_price_eur),
+    [currency, package_only_price_usd, package_only_price_eur]
+  )
 
-  const totalPrice =
-    cardType === 'physical'
-      ? physicalPrice
-      : cardType === 'virtual'
-      ? virtualPrice
-      : packageOnlyPrice
+  const totalPrice = React.useMemo(
+    () =>
+      cardType === 'physical'
+        ? physicalPrice
+        : cardType === 'virtual'
+        ? virtualPrice
+        : packageOnlyPrice,
+    [cardType, physicalPrice, virtualPrice, packageOnlyPrice]
+  )
 
   const {mutate, isLoading} = useMutation<Payment, ErrorData, GoldCardProps>({
     mutationFn: api.goldCardPurchase,
@@ -110,10 +128,13 @@ const OrderDetailsModal = ({isOpened, isDisabled, onClose, ...props}: OrderDetai
     }
   }, [isDisabled, package_type])
 
-  const updatedCardOptions =
-    package_type === 'basic'
-      ? cardOptions.filter(option => option.value !== 'package_only')
-      : cardOptions
+  const updatedCardOptions = React.useMemo(
+    () =>
+      package_type === 'basic'
+        ? cardOptions.filter(option => option.value !== 'package_only')
+        : cardOptions,
+    [package_type]
+  )
 
   return (
     <SafeAreaView>

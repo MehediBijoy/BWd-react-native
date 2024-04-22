@@ -41,7 +41,7 @@ const CountryBlockModal = ({isOpened, id, name, onClose}: CountryModalProps) => 
           </Text>
 
           <Button
-            title={'Ok'}
+            title={t('survey.ok')}
             loading={isLoading}
             containerStyle={{marginTop: 20}}
             onPress={() => {

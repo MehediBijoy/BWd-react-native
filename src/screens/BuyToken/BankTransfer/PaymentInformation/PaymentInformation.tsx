@@ -293,23 +293,15 @@ const PaymentInformation = () => {
               {data?.payment_reference && <CopyButton toCopy={data.payment_reference} />}
             </View>
           </View>
-          {paymentData?.gold_card_package ? (
-            <View style={styles.notificationBox}>
-              <InfoIcon height={20} width={20} />
-              <Text style={[styles.noteDescriptions, {marginTop: -3}]}>
-                <Text style={styles.subTittle}>{t('bankTransfer.paymentInfo.noteTitle')}</Text>
-                {t('goldCard.paymentNote')}
-              </Text>
-            </View>
-          ) : (
-            <View style={styles.notificationBox}>
-              <InfoIcon height={20} width={20} />
-              <Text style={[styles.noteDescriptions, {marginTop: -3}]}>
-                <Text style={styles.subTittle}>{t('bankTransfer.paymentInfo.noteTitle')}</Text>
-                {t('bankTransfer.paymentInfo.note')}
-              </Text>
-            </View>
-          )}
+          <View style={styles.notificationBox}>
+            <InfoIcon height={20} width={20} />
+            <Text style={[styles.noteDescriptions, {marginTop: -3}]}>
+              <Text style={styles.subTittle}>{t('bankTransfer.paymentInfo.noteTitle')}</Text>
+              {paymentData?.gold_card_package
+                ? t('goldCard.paymentNote')
+                : t('bankTransfer.paymentInfo.note')}
+            </Text>
+          </View>
 
           <Button
             icon={<DownloadIcon height={20} width={20} />}
