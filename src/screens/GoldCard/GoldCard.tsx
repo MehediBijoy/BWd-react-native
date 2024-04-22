@@ -83,87 +83,85 @@ const GoldCard = () => {
     )
   }
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <ContainContainer>
-          <ImageBackground
-            style={styles.container}
-            imageStyle={{width: '100%', height: 120, borderRadius: 6}}
-            source={BannerBackground}
-            resizeMode='cover'
-          >
-            <View style={{alignItems: 'center', marginHorizontal: 20}}>
-              <Text style={styles.bannerTitle}>{t('goldCard.presaleBannerTitle')}</Text>
-              <Text style={styles.bannerSubTitle}>{t('goldCard.presaleBannerSubTitle')}</Text>
-            </View>
-          </ImageBackground>
-
-          <LinearGradient
-            colors={['rgba(18, 90, 79, 0.10)', 'rgba(8, 40, 36, 0.56)']}
-            style={{marginTop: 15, borderRadius: 10}}
-          >
-            <View style={{alignItems: 'center'}}>
-              <Image source={CardBannerImg} style={styles.bannerImage} resizeMode='center' />
-              <View style={{alignItems: 'center', marginHorizontal: 20}}>
-                <Text style={styles.title}>{t('goldCard.bannerTitle')}</Text>
-                <Text style={styles.subTitle}>{t('goldCard.bannerSubTitle')}</Text>
-              </View>
-            </View>
-          </LinearGradient>
-
-          <View style={styles.buttonView}>
-            {goldCardPackages?.map(({package_type}: GoldCardPackage) => {
-              if (package_type !== 'basic') {
-                return (
-                  <Button
-                    title={t(`goldCard.packageType.${package_type}`)}
-                    key={t(`goldCard.packageType.${package_type}`)}
-                    onPress={() => setCardPackage(package_type)}
-                    containerStyle={{flex: 1}}
-                    titleStyle={
-                      package_type === cardPackage
-                        ? styles.buttonActiveTitleStyle
-                        : styles.buttonTitleStyle
-                    }
-                    buttonStyle={
-                      package_type === cardPackage ? styles.buttonActiveStyle : styles.buttonStyle
-                    }
-                    type={package_type === cardPackage ? 'solid' : 'outline'}
-                  />
-                )
-              } else {
-                return null
-              }
-            })}
+    <ScrollView>
+      <ContainContainer>
+        <ImageBackground
+          style={styles.container}
+          imageStyle={{width: '100%', height: 120, borderRadius: 6}}
+          source={BannerBackground}
+          resizeMode='cover'
+        >
+          <View style={{alignItems: 'center', marginHorizontal: 20}}>
+            <Text style={styles.bannerTitle}>{t('goldCard.presaleBannerTitle')}</Text>
+            <Text style={styles.bannerSubTitle}>{t('goldCard.presaleBannerSubTitle')}</Text>
           </View>
-          {selectedPackage && <Package {...selectedPackage} isDisabled={isPurchaseDisabled} />}
+        </ImageBackground>
 
-          <Button
-            title={t('goldCard.preOrderCard')}
-            color={'#879A9A'}
-            onPress={() => setShowDetailModal(true)}
-            containerStyle={{marginVertical: 15}}
+        <LinearGradient
+          colors={['rgba(18, 90, 79, 0.10)', 'rgba(8, 40, 36, 0.56)']}
+          style={{marginTop: 15, borderRadius: 10}}
+        >
+          <View style={{alignItems: 'center'}}>
+            <Image source={CardBannerImg} style={styles.bannerImage} resizeMode='center' />
+            <View style={{alignItems: 'center', marginHorizontal: 20}}>
+              <Text style={styles.title}>{t('goldCard.bannerTitle')}</Text>
+              <Text style={styles.subTitle}>{t('goldCard.bannerSubTitle')}</Text>
+            </View>
+          </View>
+        </LinearGradient>
+
+        <View style={styles.buttonView}>
+          {goldCardPackages?.map(({package_type}: GoldCardPackage) => {
+            if (package_type !== 'basic') {
+              return (
+                <Button
+                  title={t(`goldCard.packageType.${package_type}`)}
+                  key={t(`goldCard.packageType.${package_type}`)}
+                  onPress={() => setCardPackage(package_type)}
+                  containerStyle={{flex: 1}}
+                  titleStyle={
+                    package_type === cardPackage
+                      ? styles.buttonActiveTitleStyle
+                      : styles.buttonTitleStyle
+                  }
+                  buttonStyle={
+                    package_type === cardPackage ? styles.buttonActiveStyle : styles.buttonStyle
+                  }
+                  type={package_type === cardPackage ? 'solid' : 'outline'}
+                />
+              )
+            } else {
+              return null
+            }
+          })}
+        </View>
+        {selectedPackage && <Package {...selectedPackage} isDisabled={isPurchaseDisabled} />}
+
+        <Button
+          title={t('goldCard.preOrderCard')}
+          color={'#879A9A'}
+          onPress={() => setShowDetailModal(true)}
+          containerStyle={{marginVertical: 15}}
+        />
+
+        {basicPackage && (
+          <OrderDetailsModal
+            isOpened={isShowDetailModal}
+            isDisabled={isPurchaseDisabled}
+            {...basicPackage}
+            onClose={() => setShowDetailModal(false)}
           />
-
-          {basicPackage && (
-            <OrderDetailsModal
-              isOpened={isShowDetailModal}
-              isDisabled={isPurchaseDisabled}
-              {...basicPackage}
-              onClose={() => setShowDetailModal(false)}
-            />
-          )}
-          {data && data.status !== 'FILLED' && (
-            <CountryBlockModal
-              id={profile?.id as number}
-              name={profile?.user_detail?.first_name as string}
-              isOpened={isShowCountryModal}
-              onClose={() => setShowCountryModal(false)}
-            />
-          )}
-        </ContainContainer>
-      </ScrollView>
-    </SafeAreaView>
+        )}
+        {data && data.status !== 'FILLED' && (
+          <CountryBlockModal
+            id={profile?.id as number}
+            name={profile?.user_detail?.first_name as string}
+            isOpened={isShowCountryModal}
+            onClose={() => setShowCountryModal(false)}
+          />
+        )}
+      </ContainContainer>
+    </ScrollView>
   )
 }
 
