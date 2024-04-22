@@ -179,16 +179,24 @@ const PaymentInformation = () => {
             {t('bankTransfer.paymentInfo.title')}
           </Text>
           <View style={[styles.summary, styles.borderLeft]}>
-            <View style={styles.grid}>
-              <Text style={styles.subTittle}>{t('bankTransfer.orders.totalPurchase')}</Text>
-              <Text style={styles.valueText}>
-                {formatNumber(paymentData.received_amount_number, {
-                  locales: currentLang,
-                  maximumFractionDigits: 4,
-                })}{' '}
-                BWG
-              </Text>
-            </View>
+            {paymentData?.gold_card_package ? (
+              <View style={styles.grid}>
+                <Text style={styles.subTittle}>Package Name: </Text>
+                <Text style={styles.valueText}>{paymentData?.gold_card_package.title}</Text>
+              </View>
+            ) : (
+              <View style={styles.grid}>
+                <Text style={styles.subTittle}>{t('bankTransfer.orders.totalPurchase')}</Text>
+                <Text style={styles.valueText}>
+                  {formatNumber(paymentData?.received_amount_number, {
+                    locales: currentLang,
+                    maximumFractionDigits: 4,
+                  })}{' '}
+                  BWG
+                </Text>
+              </View>
+            )}
+
             <View style={[styles.grid, styles.lineHeight]}>
               <Text style={styles.subTittle}>{t('bankTransfer.paymentInfo.total')}</Text>
               <Text style={styles.valueText}>
@@ -285,12 +293,13 @@ const PaymentInformation = () => {
               {data?.payment_reference && <CopyButton toCopy={data.payment_reference} />}
             </View>
           </View>
-
           <View style={styles.notificationBox}>
             <InfoIcon height={20} width={20} />
             <Text style={[styles.noteDescriptions, {marginTop: -3}]}>
               <Text style={styles.subTittle}>{t('bankTransfer.paymentInfo.noteTitle')}</Text>
-              {t('bankTransfer.paymentInfo.note')}
+              {paymentData?.gold_card_package
+                ? t('goldCard.paymentNote')
+                : t('bankTransfer.paymentInfo.note')}
             </Text>
           </View>
 
@@ -308,7 +317,8 @@ const PaymentInformation = () => {
             title={t('bankTransfer.paymentInfo.backToDashboard')}
             containerStyle={{marginBottom: 20}}
             onPress={() => {
-              navigation.navigate('Home')
+              if (paymentData && paymentData.gold_card_package) navigation.navigate('GoldCard')
+              else navigation.navigate('Home')
             }}
           />
           <Toast config={{}} position='top' />

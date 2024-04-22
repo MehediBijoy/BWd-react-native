@@ -21,6 +21,7 @@ import {
   AssetsRateProps,
   SurveySubmitProps,
   CheckSurveyStatusProps,
+  GoldCardProps,
 } from './Request'
 import ApiBase, {ApiBaseProps} from './Abstractions/ApiBase'
 import {
@@ -46,6 +47,8 @@ import {
   AssetRates,
   BankTransfer,
   ReferralResponse,
+  GoldCardPackage,
+  GoldCardAccount,
 } from './Response'
 
 export default class ApiMethods extends ApiBase {
@@ -281,5 +284,27 @@ export default class ApiMethods extends ApiBase {
 
   async checkSurveyStatus({id, ...params}: CheckSurveyStatusProps): Promise<{status: string}> {
     return this.get(`/users/${id}/survey_status`, params)
+  }
+
+  async getGoldCardPackages(): Promise<GoldCardPackage[]> {
+    const {gold_card_packages} = await this.get<{gold_card_packages: GoldCardPackage[]}>(
+      '/gold_card_packages'
+    )
+    return gold_card_packages
+  }
+
+  async getGoldCardAccount(): Promise<GoldCardAccount> {
+    const {gold_card_accounts} = await this.get<{gold_card_accounts: GoldCardAccount[]}>(
+      `/gold_card_accounts`
+    )
+    return gold_card_accounts[0]
+  }
+
+  async goldCardPurchase({id, asset, type}: GoldCardProps): Promise<Payment> {
+    const {payment} = await this.post<{payment: Payment}>(`/gold_card_packages/${id}/purchase`, {
+      asset,
+      type,
+    })
+    return payment
   }
 }

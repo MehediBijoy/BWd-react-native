@@ -6,7 +6,7 @@ import {Text, useTheme} from '@rneui/themed'
 import {AssetChartItem} from 'api/Response'
 import {cacheKey} from 'api/CacheKey'
 import {useAuthToken, useApi} from 'hooks/api'
-import Logo from 'components/Logo'
+import LBMASvg from 'images/LBMA.svg'
 import {formatCurrency, formatDate} from 'utils'
 import {useCurrency, useLocales} from 'hooks/states'
 
@@ -50,14 +50,8 @@ const ChartBox = () => {
   return (
     <>
       <View style={{alignItems: 'center', flexDirection: 'row', marginBottom: 10, gap: 10}}>
-        <Logo width={35} height={35} />
-        <Text h4>
-          Bretton Woods{' '}
-          <Text h4 h4Style={{fontStyle: 'italic'}}>
-            digital{' '}
-          </Text>
-          Gold
-        </Text>
+        <LBMASvg width={35} height={35} />
+        <Text h4>LBMA Gold Price</Text>
       </View>
 
       <LineChart

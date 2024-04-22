@@ -12,6 +12,7 @@ import {DataProps} from 'hooks/crypto/useBalance'
 
 export type AvailableBalanceRowProps = {
   asset: 'BWG' | 'BUSD' | 'BNB'
+  title: string
   logo?: JSX.Element
   data?: DataProps
   isLoading?: boolean
@@ -29,11 +30,10 @@ const LoaderBox = ({isLoading, price}: LoaderBoxProps) => {
   return <Text>{price ?? '-'}</Text>
 }
 
-const AvailableBalanceRow = ({asset, logo, data, isLoading}: AvailableBalanceRowProps) => {
+const AvailableBalanceRow = ({asset, title, logo, data, isLoading}: AvailableBalanceRowProps) => {
   const styles = useStyles()
   const {currency} = useCurrency()
   const {currentLang} = useLocales()
-  const {isConnected} = useWalletConnectModal()
 
   const {data: price} = useAssetsPrice(asset)
 
@@ -51,14 +51,14 @@ const AvailableBalanceRow = ({asset, logo, data, isLoading}: AvailableBalanceRow
       <View style={styles.iconBox}>
         {logo}
         <Text h4 h4Style={{fontSize: 14, fontWeight: '700'}}>
-          {asset}
+          {title}
         </Text>
       </View>
       <View style={styles.gridItem}>
         <LoaderBox
           isLoading={isLoading}
           price={
-            isConnected && price
+            price
               ? formatCurrency(price, {
                   currency,
                   locales: currentLang,
@@ -94,7 +94,7 @@ const useStyles = makeStyles(({colors}) => ({
     display: 'flex',
     flexWrap: 'wrap',
     flexDirection: 'row',
-    gap: 10,
+    gap: 5,
   },
   gridItem: {
     flex: 1,
@@ -105,10 +105,9 @@ const useStyles = makeStyles(({colors}) => ({
   },
   iconBox: {
     display: 'flex',
-    flexWrap: 'wrap',
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     gap: 5,
+    width: 120,
   },
 }))
