@@ -295,9 +295,9 @@ export default class ApiMethods extends ApiBase {
 
   async getGoldCardAccount(): Promise<GoldCardAccount> {
     const {gold_card_accounts} = await this.get<{gold_card_accounts: GoldCardAccount[]}>(
-      `/gold_card_accounts`
+      '/gold_card_accounts'
     )
-    return gold_card_accounts[0]
+    return gold_card_accounts[0] ?? null
   }
 
   async goldCardPurchase({id, asset, type}: GoldCardProps): Promise<Payment> {
