@@ -89,7 +89,7 @@ export const packageImages: PackageImages = {
 export const IsCountryWhiteList = (country: string) => {
   const countryList = [
     'LIE',
-    'GER',
+    'DEU',
     'AUT',
     'NLD',
     'BEL',
