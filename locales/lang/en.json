@@ -579,7 +579,8 @@
         "viewInExplorer": "View in Block Explorer",
         "txHash": "Tx Hash",
         "paymentRate": "Payment Rate'",
-        "tradePair": "Trade Pair"
+        "tradePair": "Trade Pair",
+        "paymentFor": "Payment For"
       }
     },
     "modal": {
@@ -828,14 +829,102 @@
   },
   "survey": {
     "title": "Are you interested in a card so you can pay with your BWG tokens anywhere?",
+    "goldTitle": "Are you interested in a gold card so you can pay with your BWG tokens anywhere?",
     "yes": "Yes",
     "no": "No",
-    "descriptions": "Thank you for your interest in the gold card. We will get back to you as soon as we have more information for you.",
+    "descriptions": "Please estimate how much you would spend with the card each month in <0>{{currency}}</0>",
     "label1": "Up to $500",
     "label2": "Up to $1000",
     "label3": "Up to $2000",
     "label4": "More than $2000",
     "submit": "Submit",
-    "ok": "Okay"
+    "ok": "Okay",
+    "goldCard": {
+      "nav": "Gold Card",
+      "title": "The BWG Gold Card",
+      "getBtn": "Get your card",
+      "seeBtn": "See Countries",
+      "showingInterest": "Thanks for showing interest.",
+      "experience": "Experience the prestige of the BWG Gold Card soon available as a Mastercard.",
+      "evaluate": "Elevate your experience by charging your BWG Mastercard directly with your gold investment.",
+      "countries": "Initially launching in these countries through exclusive distribution by Bank Frick.",
+      "availableCountry": "Available for 10+ countries",
+      "countryModalTitle": "Countries through exclusive distribution by Bank Frick.",
+      "surveyModalTitle": "Thank you for your interest in the gold card. We will get back to you as soon as we have more information for you."
+    }
+  },
+  "goldCard": {
+    "packageDetails": "Package Details",
+    "orderDetails": "Order Details",
+    "bannerTitle": "Enjoy our BWG gold card",
+    "bannerSubTitle": "Spend your gold in real-time anywhere Mastercard is accepted.",
+    "packageTitleWithLabel": {
+      "signature": "Package Name: Signature Package",
+      "premium": "Package Name: Premium Package",
+      "standard": "Package Name: Standard Package",
+      "basic": "Package Name: Basic Package"
+    },
+    "packageTitle": {
+      "signature": "Signature Package",
+      "premium": "Premium Package",
+      "standard": "Standard Package",
+      "basic": "Basic Package"
+    },
+    "packageType": {
+      "signature": "Signature",
+      "premium": "Premium",
+      "standard": "Standard",
+      "basic": "Basic"
+    },
+    "packageDescription": {
+      "signature": "Enjoy the highest savings with our signature package",
+      "premium": "Enjoy the savings with our premium package",
+      "standard": "Enjoy the savings with our standard package"
+    },
+    "benefit": {
+      "signature": {
+        "title1": "Pay anywhere Mastercard is accepted",
+        "description1": "Pay 24/7 online or get money at your ATM",
+        "title2": "Get 10.0 BWG tokens",
+        "description2": "Charge with card with 10.0 BWG token, ready to spend right away",
+        "title3": "Reduced fees",
+        "description3": "Enjoy Tier 4 on every purchase. Save 15.32% compared Tier 1"
+      },
+      "premium": {
+        "title1": "Pay anywhere Mastercard is accepted",
+        "description1": "Pay 24/7 online or get money at your ATM",
+        "title2": "Get 2.0 BWG tokens",
+        "description2": "Charge with card with 2.0 BWG token, ready to spend right away",
+        "title3": "Reduced fees",
+        "description3": "Enjoy Tier 3 on every purchase. Save 12.04% compared Tier 1"
+      },
+      "standard": {
+        "title1": "Pay anywhere Mastercard is accepted",
+        "description1": "Pay 24/7 online or get money at your ATM",
+        "title2": "Get 1.0 BWG tokens",
+        "description2": "Charge with card with 1.0 BWG token, ready to spend right away",
+        "title3": "Reduced fees",
+        "description3": "Enjoy Tier 2 on every purchase. Save 8.02% compared Tier 1"
+      }
+    },
+    "confirmPreorder": "Confirm preorder card",
+    "packagePrice": "Package price:",
+    "packageTotalPrice": "Total price:",
+    "getBenefit": "Package benefits",
+    "preOrderPackage": "Preorder package",
+    "preOrderCard": "Preorder just the card",
+    "cardType": "Card Type",
+    "paymentMethod": "Payment method: Bank transfer",
+    "shippingFee": "Shipping: ",
+    "cardFee": "Card: ",
+    "packageFee": "Package: ",
+    "country": "Dear {{name}}, thank you for your interest in our debit card. Unfortunately the card is not available in your country at this time. We are working on expanding the countries where we can offer the card and will let you know once it becomes available. In the meantime you can purchase our packages without a card included.",
+    "not_eligible": "Your country is not eligible for the gold card yet.",
+    "physical": "Physical",
+    "virtual": "Virtual",
+    "packageOnly": "Package Only",
+    "paymentNote": " Thank you for acquiring our BWG gold card. To proceed, please deposit funds into our bank account, and your card will be issued within six months.",
+    "presaleBannerTitle": "Card Package Presale!",
+    "presaleBannerSubTitle": "Be one of the first to secure your BWG card package. We are offering a presale for our card, with exciting benefits, which will become available in Q4 2024."
   }
 }

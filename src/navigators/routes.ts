@@ -26,6 +26,7 @@ export type RouteStack = {
   Notifications: undefined
   Settings: undefined
   Affiliates: undefined
+  GoldCard: undefined
 
   ProfileEmailChange: undefined
   ProfilePasswordChange: undefined

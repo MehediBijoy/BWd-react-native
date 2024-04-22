@@ -233,6 +233,11 @@ const OrderDetailsModal = ({data, isOpened, onClose}: OrderDetailsModalProps) =>
             <Text style={[styles.labelRight]}>{data.payment_type}</Text>
           </View>
 
+          <View style={styles.row}>
+            <Text style={styles.label}>{t('trade.table.headers.paymentFor')} </Text>
+            <Text style={[styles.labelRight]}>{data.payment_for}</Text>
+          </View>
+
           {data.transfer && data.transfer.tx_hash && (
             <View style={styles.row}>
               <Text style={styles.label}>{t('trade.table.headers.blockExplorer')} </Text>

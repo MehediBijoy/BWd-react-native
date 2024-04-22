@@ -122,3 +122,9 @@ type SurveySubmitProps = {
     want_to_spend?: string
   }
 } & CheckSurveyStatusProps
+
+type GoldCardProps = {
+  id: number
+  asset: string
+  type: string
+}

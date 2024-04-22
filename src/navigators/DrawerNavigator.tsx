@@ -9,9 +9,11 @@ import Hamburger from '@core/Hamburger'
 
 import Logo from 'components/Logo'
 import Profile from 'screens/profile'
-import {useProfile} from 'hooks/helper'
 import Affiliate from 'screens/affiliate'
+import GoldCard from 'screens/GoldCard'
+import {useProfile} from 'hooks/helper'
 import HomeIcon from 'images/home.svg'
+import CardIcon from 'images/CardIcon.svg'
 import SettingIcon from 'images/icons/Setting.svg'
 import AffiliateIcon from 'images/icons/affiliate.svg'
 import {sessionParams, providerMetadata, projectId} from 'constants/wallet.config'
@@ -73,6 +75,17 @@ const DrawerNavigator = () => {
             // drawerIcon: props => <Icon name='dashboard' {...props} />,
             drawerIcon: ({size, color, ...props}) => (
               <HomeIcon height={size} width={size} fill={color} {...props} />
+            ),
+          }}
+        />
+
+        <Drawer.Screen
+          name='GoldCard'
+          component={GoldCard}
+          options={{
+            title: t('survey.goldCard.nav'),
+            drawerIcon: ({size, color, ...props}) => (
+              <CardIcon height={size} width={size} fill={color} {...props} />
             ),
           }}
         />

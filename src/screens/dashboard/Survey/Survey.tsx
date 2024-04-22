@@ -8,15 +8,13 @@ import {useApi} from 'hooks/api'
 import {useProfile} from 'hooks/helper'
 import DebitCard from 'images/survey/debitCard.svg'
 
-import SurveyModal from './modal/SurveyModal'
-
 const Survey = ({refetch}: {refetch: () => void}) => {
   const api = useApi()
   const styles = useStyles()
   const {t} = useTranslation()
   const {profile} = useProfile()
 
-  const [isSurvey, setIsSurvey] = React.useState<boolean>(false)
+  const [survey, setSurvey] = React.useState<boolean>(false)
 
   const {mutate, isLoading} = useMutation({
     mutationFn: api.surveySubmit,
@@ -37,7 +35,15 @@ const Survey = ({refetch}: {refetch: () => void}) => {
             <View style={styles.buttonContainer}>
               <Button
                 size='sm'
-                onPress={() => setIsSurvey(true)}
+                onPress={() => {
+                  setSurvey(true)
+                  mutate({
+                    id: profile?.id as number,
+                    event: 'debit_card_survey',
+                    response: {want_to_card: 'Yes'},
+                  })
+                }}
+                loading={survey && isLoading}
                 color={styles.buttonColors.color}
                 title={t('survey.yes')}
                 containerStyle={styles.buttonStyle}
@@ -45,18 +51,19 @@ const Survey = ({refetch}: {refetch: () => void}) => {
               />
               <Button
                 size='sm'
-                loading={isLoading}
+                loading={!survey && isLoading}
                 title={t('survey.no')}
                 color={styles.buttonColors.color}
                 containerStyle={styles.buttonStyle}
                 titleStyle={{fontSize: 10}}
-                onPress={() =>
+                onPress={() => {
+                  setSurvey(false)
                   mutate({
                     id: profile?.id as number,
                     event: 'debit_card_survey',
                     response: {want_to_card: 'NO'},
                   })
-                }
+                }}
               />
             </View>
           </View>
@@ -64,7 +71,6 @@ const Survey = ({refetch}: {refetch: () => void}) => {
           <DebitCard height={60} width={80} />
         </View>
       </ImageBackground>
-      <SurveyModal isOpened={isSurvey} onClose={() => setIsSurvey(false)} refetch={refetch} />
     </View>
   )
 }
